@@ -103,7 +103,7 @@ Don't worry too much about either of these concepts for now. We'll cover them in
       }
   }
   ``` 
-
+  
 ## The `?` operator
 
 The `?` operator is a shorthand for propagating errors.  

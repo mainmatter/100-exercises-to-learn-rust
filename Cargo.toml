@@ -1,3 +1,6 @@
 [workspace]
 members = ["exercises/*/*", "helpers/common", "helpers/ticket_fields"]
 resolver = "2"
+
+[profile.dev]
+overflow-checks = false
