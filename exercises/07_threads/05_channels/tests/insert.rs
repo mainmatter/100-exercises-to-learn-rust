@@ -26,7 +26,7 @@ fn ready() {
     // are happening correctly.
     // Set `move_forward` to `true` when you think you're done with this exercise.
     // Feel free to call an instructor to verify your solution!
-    let move_forward = false;
+    let move_forward = true;
 
     assert!(move_forward);
 }
