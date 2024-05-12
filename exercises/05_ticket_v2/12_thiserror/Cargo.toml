@@ -1,0 +1,9 @@
+[package]
+name = "thiserror_"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[dev-dependencies]
+common = { path = "../../../helpers/common" }
