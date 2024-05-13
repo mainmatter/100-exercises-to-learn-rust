@@ -124,7 +124,7 @@ mod tests {
             assert_eq!(ticket.status, Status::InProgress);
         }
 
-        let ids: Vec<TicketId> = (&store).into_iter().map(|t| *t.id).collect();
+        let ids: Vec<TicketId> = (&store).into_iter().map(|t| t.id).collect();
         let sorted_ids = {
             let mut v = ids.clone();
             v.sort();
