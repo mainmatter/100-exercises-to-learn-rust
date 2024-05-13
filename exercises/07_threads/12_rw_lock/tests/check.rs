@@ -25,7 +25,7 @@ fn works() {
 
     let ticket = client.get(ticket_id).unwrap().unwrap();
     {
-        let ticket = ticket.write().unwrap();
-        *ticket.status = Status::InProgress;
+        let mut ticket = ticket.write().unwrap();
+        ticket.status = Status::InProgress;
     }
 }
