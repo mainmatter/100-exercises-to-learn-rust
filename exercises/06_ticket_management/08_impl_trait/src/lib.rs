@@ -54,7 +54,7 @@ mod tests {
             description: ticket_description(),
             status: Status::InProgress,
         };
-        store.add_ticket(in_progress);
+        store.add_ticket(in_progress.clone());
 
         let in_progress_tickets: Vec<&Ticket> = store.in_progress().collect();
         assert_eq!(in_progress_tickets.len(), 1);
