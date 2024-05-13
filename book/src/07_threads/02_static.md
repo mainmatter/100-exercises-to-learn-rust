@@ -104,9 +104,11 @@ The most common case is a reference to **static data**, such as string literals:
 let s: &'static str = "Hello world!";
 ```
 
-Since string literals are known at compile-time, Rust's stores them in a memory
-region known as ***. *** is part of the executable itself: there is no risk of it
-being freed during program execution.  
+Since string literals are known at compile-time, Rust stores them *inside* your executable,
+in a region known as **read-only data segment**. 
 All references pointing to that region will therefore be valid for as long as 
 the program runs; they satisfy the `'static` contract.
 
+## Further reading
+
+- [The data segment](https://en.wikipedia.org/wiki/Data_segment)
