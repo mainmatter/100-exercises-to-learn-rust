@@ -1,4 +1,4 @@
-use std::sync::mpsc::{sync_channel, Receiver, SyncSender, TrySendError};
+use std::sync::mpsc::{sync_channel, Receiver, SyncSender};
 
 // TODO: Implement the patching functionality.
 use crate::data::{Ticket, TicketDraft, TicketPatch};
@@ -13,26 +13,34 @@ pub struct TicketStoreClient {
 }
 
 impl TicketStoreClient {
-    pub fn insert(&self, draft: TicketDraft) -> Result<TicketId, TrySendError<Command>> {
+    pub fn insert(&self, draft: TicketDraft) -> Result<TicketId, OverloadedError> {
         let (response_sender, response_receiver) = sync_channel(1);
-        self.sender.try_send(Command::Insert {
-            draft,
-            response_channel: response_sender,
-        })?;
+        self.sender
+            .try_send(Command::Insert {
+                draft,
+                response_channel: response_sender,
+            })
+            .map_err(|_| OverloadedError)?;
         Ok(response_receiver.recv().unwrap())
     }
 
-    pub fn get(&self, id: TicketId) -> Result<Option<Ticket>, TrySendError<Command>> {
+    pub fn get(&self, id: TicketId) -> Result<Option<Ticket>, OverloadedError> {
         let (response_sender, response_receiver) = sync_channel(1);
-        self.sender.try_send(Command::Get {
-            id,
-            response_channel: response_sender,
-        })?;
+        self.sender
+            .try_send(Command::Get {
+                id,
+                response_channel: response_sender,
+            })
+            .map_err(|_| OverloadedError)?;
         Ok(response_receiver.recv().unwrap())
     }
 
-    pub fn update(&self, ticket_patch: TicketPatch) -> Result<(), TrySendError<Command>> {}
+    pub fn update(&self, ticket_patch: TicketPatch) -> Result<(), OverloadedError> {}
 }
+
+#[derive(Debug, thiserror::Error)]
+#[error("The store is overloaded")]
+pub struct OverloadedError;
 
 pub fn launch(capacity: usize) -> TicketStoreClient {
     let (sender, receiver) = sync_channel(capacity);
