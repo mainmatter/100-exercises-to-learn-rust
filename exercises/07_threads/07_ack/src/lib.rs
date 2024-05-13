@@ -6,8 +6,8 @@ pub mod store;
 
 // Refer to the tests to understand the expected schema.
 pub enum Command {
-    Insert(todo!()),
-    Get(todo!()),
+    Insert { todo!() },
+    Get { todo!() }
 }
 
 pub fn launch() -> Sender<Command> {
