@@ -71,14 +71,38 @@ It uses both mechanisms:
 - it has a generic parameter, `RHS` (right-hand side), which defaults to `Self`
 - it has an associated type, `Output`, the type of the result of the addition
 
-`RHS` is a generic parameter to allow for different types to be added together.
-For example:
+### `RHS`
+
+`RHS` is a generic parameter to allow for different types to be added together.  
+For example, you'll find these two implementation in the standard library:
+
+```rust
+impl Add<u32> for u32 {
+    type Output = u32;
+    
+    fn add(self, rhs: u32) -> u32 {
+      // [...]
+    }
+}
+
+impl Add<&u32> for u32 {
+    type Output = u32;
+    
+    fn add(self, rhs: &u32) -> u32 {
+        // [...]
+    }
+}
+```
+
+This allows the following code to compile:
 
 ```rust
 let x = 5u32 + &5u32 + 6u32;
 ```
 
-works because `u32` implements `Add<&u32>` _as well as_ `Add<u32>`.
+because `u32` implements `Add<&u32>` _as well as_ `Add<u32>`.
+
+### `Output`
 
 `Output`, on the other hand, **must** be uniquely determined once the types of the operands
 are known. That's why it's an associated type instead of a second generic parameter.
