@@ -20,8 +20,9 @@ mod tests {
     fn ticket_size() {
         // This is a tricky question!
         // The "intuitive" answer happens to be the correct answer this time,
-        // but we'll circle back to struct memory layouts later in the course.
-        // There's a lot more to it than meets the eye—padding, alignment, etc.
+        // but, in general, the memory layout of structs is a more complex topic.
+        // If you're curious, check out the "Data layout" section of the Rustonomicon
+        // https://doc.rust-lang.org/nomicon/data.html for more information.
         assert_eq!(size_of::<Ticket>(), todo!());
     }
 }
