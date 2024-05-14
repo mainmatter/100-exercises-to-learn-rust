@@ -9,8 +9,8 @@ impl Ticket {
     //  The following requirements should be met:
     //   - Only `To-Do`, `In Progress`, and `Done` statuses are allowed.
     //   - The `title` and `description` fields should not be empty.
-    //   - the `title` should be at most 50 characters long.
-    //   - the `description` should be at most 500 characters long.
+    //   - the `title` should be at most 50 bytes long.
+    //   - the `description` should be at most 500 bytes long.
     //  The method should panic if any of the requirements are not met.
     //
     // You'll have to use what you learned in the previous exercises,
