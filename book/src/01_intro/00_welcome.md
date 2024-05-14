@@ -28,7 +28,9 @@ If you're interested in attending one of our training sessions, or if you'd like
 bring this course to your company, please [get in touch](https://mainmatter.com/contact/).
 
 You can also follow the course on your own, but we recommend you find a friend or 
-a mentor to help you along the way should you get stuck.
+a mentor to help you along the way should you get stuck. You can 
+also find solutions to all exercises in the 
+[`solutions` branch of the GitHub repository](https://github.com/mainmatter/100-exercises-to-learn-rust/tree/solutions).
 
 ## Structure
 
@@ -83,8 +85,6 @@ Don't move on to the next section until you've solved the exercise for the curre
 
 > We recommend committing your solutions to Git as you progress through the course, 
 > so you can easily track your progress and "restart" from a known point if needed.
-> 
-> You can find solutions to all exercises in the `solutions` branch of the GitHub repository.
 
 Enjoy the course!
 
