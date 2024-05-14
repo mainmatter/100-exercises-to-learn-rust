@@ -37,7 +37,7 @@ impl Ticket {
             status,
         }
     }
-    pub fn assigned_to(&self) -> &String {
+    pub fn assigned_to(&self) -> &str {
         todo!()
     }
 }
