@@ -100,6 +100,18 @@ the same value and modify it in multiple places at the same time.
 That'd be a violation of Rust's borrowing rules! 
 It follows that `&mut T` never implements `Copy`, no matter what `T` is.
 
+## Implementing `Copy`
+
+In most cases, you don't need to manually implement `Copy`.
+You can just derive it, like this:
+
+```rust
+#[derive(Copy, Clone)]
+struct MyStruct {
+    field: u32,
+}
+```
+
 ## References
 
 - The exercise for this section is located in `exercises/04_traits/11_copy`
