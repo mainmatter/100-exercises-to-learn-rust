@@ -62,7 +62,7 @@ Don't worry too much about either of these concepts for now. We'll cover them in
 
 ## Implementing `source` using `thiserror`
 
-`thiserror` provides two ways to automatically implement `source` for your error types:
+`thiserror` provides three ways to automatically implement `source` for your error types:
 
 - A field named `source` will automatically be used as the source of the error.
   ```rust
