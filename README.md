@@ -23,7 +23,7 @@ to get started with the course.
 - **Rust** (follow instructions [here](https://www.rust-lang.org/tools/install)).  
   If `rustup` is already installed on your system, run `rustup update` (or another appropriate command depending on how
   you installed Rust on your system)
-  to make your running on the latest version.
+  to make sure you're running on the latest stable version.
 - _(Optional but recommended)_ An IDE with Rust autocompletion support.
   We recommend one of the following:
   - [RustRover](https://www.jetbrains.com/rust/);

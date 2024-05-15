@@ -94,3 +94,15 @@
   - [`RwLock`](07_threads/12_rw_lock.md)
   - [Without channels](07_threads/13_without_channels.md)
   - [`Sync` trait](07_threads/14_sync.md)
+    
+- [Futures](08_futures/00_intro.md)
+  - [Asynchronous functions](08_futures/01_async_fn.md)
+  - [Spawning tasks](08_futures/02_spawn.md)
+  - [Runtime](08_futures/03_runtime.md)
+  - [Future trait](08_futures/04_future.md)
+  - [Blocking the runtime](08_futures/05_blocking.md)
+  - [Async-aware primitives](08_futures/06_async_aware_primitives.md)
+  - [Cancellation](08_futures/07_cancellation.md)
+  - [Outro](08_futures/08_outro.md)
+
+* [Going further](going_further.md)
