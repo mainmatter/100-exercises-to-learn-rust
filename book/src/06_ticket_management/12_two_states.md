@@ -44,7 +44,7 @@ pub struct Ticket {
 That's also not ideal—we'd have to handle the `None` case every single time we retrieve a ticket from the store,
 even though we know that the id should always be there once the ticket has been created.
 
-The best solution is two have two different ticket **states**, represented by two separate types:
+The best solution is to have two different ticket **states**, represented by two separate types:
 a `TicketDraft` and a `Ticket`:
 
 ```rust
