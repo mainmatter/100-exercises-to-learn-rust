@@ -41,7 +41,7 @@ mod tests {
             writer.write_all(end.as_bytes()).await.unwrap();
 
             // Close the write side of the socket
-            writer.shutdown().await.unwrap();
+            let _ = writer.shutdown().await;
         }
 
         let buffered = handle.await.unwrap();
