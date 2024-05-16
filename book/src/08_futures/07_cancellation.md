@@ -84,6 +84,20 @@ clean-up work. This can be by:
 
 The optimal choice is contextual.
 
+## Cancelling spawned tasks
+
+When you spawn a task using `tokio::spawn`, you can no longer drop it; 
+it belongs to the runtime.  
+Nonetheless, you can use its `JoinHandle` to cancel it if needed:
+
+```rust
+async fn run() {
+    let handle = tokio::spawn(/* some async task */);
+    // Cancel the spawned task
+    handle.abort();
+}
+```
+
 ## Further reading
 
 - Be extremely careful when using `tokio`'s `select!` macro to "race" two different futures.
