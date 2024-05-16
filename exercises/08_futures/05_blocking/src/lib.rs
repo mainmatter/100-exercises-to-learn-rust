@@ -9,8 +9,9 @@ pub async fn echo(listener: TcpListener) -> Result<(), anyhow::Error> {
     loop {
         let (socket, _) = listener.accept().await?;
         let mut socket = socket.into_std()?;
+        socket.set_nonblocking(false)?;
         let mut buffer = Vec::new();
-        while let Ok(_) = socket.read(&mut buffer) {}
+        socket.read_to_end(&mut buffer)?;
         socket.write_all(&buffer)?;
     }
 }
