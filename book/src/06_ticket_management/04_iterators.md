@@ -26,7 +26,7 @@ Every time you write a `for` loop in Rust, the compiler _desugars_ it into the f
 ```rust
 let mut iter = IntoIterator::into_iter(v);
 loop {
-    match v.next() {
+    match iter.next() {
         Some(n) => {
             println!("{}", n);
         }
