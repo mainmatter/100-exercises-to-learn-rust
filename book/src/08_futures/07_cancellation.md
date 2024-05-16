@@ -102,6 +102,8 @@ async fn run() {
 
 - Be extremely careful when using `tokio`'s `select!` macro to "race" two different futures.
   Retrying the same task in a loop is dangerous unless you can ensure **cancellation safety**.
-  Check out [`select!`'s documentation](https://docs.rs/tokio/macro.select.html) for more details.
+  Check out [`select!`'s documentation](https://docs.rs/tokio/macro.select.html) for more details.  
+  If you need to interleave two asynchronous streams of data (e.g. a socket and a channel), prefer using 
+  [`StreamExt::merge`](https://docs.rs/tokio-stream/latest/tokio_stream/trait.StreamExt.html#method.merge) instead. 
 - Rather than "abrupt" cancellation, it can be preferable to rely 
   on [`CancellationToken`](https://docs.rs/tokio-util/latest/tokio_util/sync/struct.CancellationToken.html).
