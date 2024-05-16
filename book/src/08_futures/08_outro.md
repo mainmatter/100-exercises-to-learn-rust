@@ -20,11 +20,11 @@ A few recommendations for a mostly-pain-free async experience:
   asynchronously. There is ongoing design work, but no consensus (yet).
   If you're using `tokio`, refer to [`tokio_stream`](https://docs.rs/tokio-stream/latest/tokio_stream/) 
   as your go-to interface.
-- **Be careful with buffering.**
+- **Be careful with buffering.**  
   It is often the cause of subtle bugs. Check out 
   ["Barbara battles buffered streams"](https://rust-lang.github.io/wg-async/vision/submitted_stories/status_quo/barbara_battles_buffered_streams.html)
   for more details. 
-- **There is no equivalent of scoped threads for asynchronous tasks**.
+- **There is no equivalent of scoped threads for asynchronous tasks**.  
   Check out ["The scoped task trilemma"](https://without.boats/blog/the-scoped-task-trilemma/)
   for more details.
 
