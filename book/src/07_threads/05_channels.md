@@ -30,7 +30,7 @@ We can solve the issue using **channels**.
 
 ## Channels
 
-Rust's standard library provides **multi-consumer, single-consumer** (mpsc) channels
+Rust's standard library provides **multi-producer, single-consumer** (mpsc) channels
 in its `std::sync::mpsc` module.  
 There are two channel flavours: bounded and unbounded. We'll stick to the unbounded
 version for now, but we'll discuss the pros and cons later on.
