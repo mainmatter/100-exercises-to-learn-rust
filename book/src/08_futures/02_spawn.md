@@ -79,7 +79,35 @@ pub async fn emit_telemetry() {
 pub async fn do_work() {
     // [...]
 }
+```
 
+### Panic boundary
+
+If a task spawned with `tokio::spawn` panics, the panic will be caught by the executor.  
+If you don't `.await` the corresponding `JoinHandle`, the panic won't be propagated to the spawner.
+Even if you do `.await` the `JoinHandle`, the panic won't be propagated automatically. 
+Awaiting a `JoinHandle` returns a `Result`, with [`JoinError`](https://docs.rs/tokio/latest/tokio/task/struct.JoinError.html) 
+as its error type. You can then check if the task panicked by calling `JoinError::is_panic` and
+choose what to do with the panic—either log it, ignore it, or propagate it.
+
+```rust
+use tokio::task::JoinError;
+
+pub async fn run() {
+    let handle = tokio::spawn(work());
+    if let Err(e) = handle.await {
+        if let Ok(reason) = e.try_into_panic() {
+            // The task has panicked
+            // We resume unwinding the panic,
+            // thus propagating it to the current thread
+            panic::resume_unwind(reason);
+        }
+    }
+}
+
+pub async fn work() {
+    // [...]
+}
 ```
 
 ### `std::thread::spawn` vs `tokio::spawn`
