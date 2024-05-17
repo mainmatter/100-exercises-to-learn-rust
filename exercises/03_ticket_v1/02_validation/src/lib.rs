@@ -34,7 +34,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "Title cannot be empty")]
     fn title_cannot_be_empty() {
-        Ticket::new("".into(), valid_title(), "To-Do".into());
+        Ticket::new("".into(), valid_description(), "To-Do".into());
     }
 
     #[test]
