@@ -1,11 +1,18 @@
 # Syntax
 
-The previous task doesn't even qualify as an exercise, but it already exposed you to quite a bit of Rust **syntax**.
-Let's review the key bits!
+<div class="warning">
 
-> We won't cover every single detail of Rust's syntax used in the previous exercise.
-> Instead, we'll cover _just enough_ to keep going without getting stuck in the details.
-> One step at a time!
+Don't jump ahead!  
+Complete the exercise for the previous section before you start this one.  
+It's located in `exercises/01_intro/00_welcome`, in the [course GitHub's repository](https://github.com/mainmatter/100-exercises-to-learn-rust).  
+Use [`wr`](00_welcome.md#wr-the-workshop-runner) to start the course and verify your solutions.
+
+</div>
+
+The previous task doesn't even qualify as an exercise, but it already exposed you to quite a bit of Rust **syntax**.
+We won't cover every single detail of Rust's syntax used in the previous exercise.
+Instead, we'll cover _just enough_ to keep going without getting stuck in the details.  
+One step at a time!
 
 ## Comments
 
