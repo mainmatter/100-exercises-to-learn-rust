@@ -14,7 +14,7 @@ For example: `MutexGuard` is not `Send`, but it is `Sync`.
 
 It isn't `Send` because the lock must be released on the same thread that acquired it, therefore we don't 
 want `MutexGuard` to be dropped on a different thread.  
-But it is `Sync`, because that has no impact on where the lock is released.
+But it is `Sync`, because giving a `&MutexGuard` to another thread has no impact on where the lock is released.
 
 ## `Send` doesn't imply `Sync`
 
