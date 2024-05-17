@@ -46,7 +46,7 @@ To understand what happens, let's start by looking at how `256u16` is
 represented in memory, as a sequence of bits:
 
 ```text
- 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
 |               |               |
 +---------------+---------------+
   First 8 bits    Last 8 bits
