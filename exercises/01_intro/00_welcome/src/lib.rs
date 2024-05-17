@@ -5,7 +5,7 @@
 // explanations.
 // There are various ways to write comments in Rust, each with its own purpose.
 // For now we'll stick to the most common one: the line comment.
-// Everything from `//` to the end of the line is a considered comment.
+// Everything from `//` to the end of the line is considered a comment.
 
 // Exercises will include `TODO`, `todo!()` or `__` markers to draw your attention to the lines
 // where you need to write code.
