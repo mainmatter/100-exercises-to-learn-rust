@@ -75,7 +75,7 @@ Heap:  | H | e | l | l | o |
 When `let t = s.clone()` is executed, a whole new region is allocated on the heap to store a copy of the data:
 
 ```text
-                    s                                    s
+                    s                                    t
       +---------+--------+----------+      +---------+--------+----------+
 Stack | pointer | length | capacity |      | pointer | length | capacity |
       |  |      |   5    |    5     |      |  |      |   5    |    5     |
