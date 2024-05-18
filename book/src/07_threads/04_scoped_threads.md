@@ -65,9 +65,9 @@ that `&v` can't be used from our spawned threads since its lifetime isn't
 
 That's not an issue with `std::thread::scope`—you can **safely borrow from the environment**.
 
-In our example, `v` is created before the spawning points.  
+In our example, `v` is created before the spawning points.
 It will only be dropped _after_ `scope` returns. At the same time,
-all threads spawned inside `scope` are guaranteed `v` is dropped,
+all threads spawned inside `scope` are guaranteed to finish _before_ `scope` returns,
 therefore there is no risk of having dangling references.  
 
 The compiler won't complain!
