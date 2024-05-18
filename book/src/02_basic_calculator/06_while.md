@@ -30,7 +30,7 @@ while i <= 5 {
 }
 ```
 
-This will keep adding 1 to `sum` until `i` is no longer less than or equal to 5.
+This will keep adding 1 to `i` and `i` to `sum` until `i` is no longer less than or equal to 5.
 
 ## The `mut` keyword
 
