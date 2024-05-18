@@ -118,7 +118,7 @@ mod tests {
     #[test]
     fn display_is_correctly_implemented() {
         let ticket = Ticket::new("".into(), valid_description(), Status::ToDo);
-        assert_eq!(format!("{}", ticket.unwrap_err()), "Title cannot be empty");
+        assert_eq!(format!("{}", ticket.unwrap_err()), "Title error: Title cannot be empty");
     }
 
     assert_impl_one!(TicketNewError: std::error::Error);
