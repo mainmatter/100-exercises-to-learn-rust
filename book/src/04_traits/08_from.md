@@ -105,7 +105,7 @@ though the former bound is implicit.
 
 In [`std`'s documentation](https://doc.rust-lang.org/std/convert/trait.From.html#implementors) 
 you can see which `std` types implement the `From` trait.  
-You'll find that `&str` implements `From<&str> for String`. Thus, we can write:
+You'll find that `String` implements `From<&str> for String`. Thus, we can write:
 
 ```rust
 let title = String::from("A title");
@@ -129,7 +129,7 @@ where
 }
 ```
 
-If a type `T` implements `From<U>`, then `Into<U> for T` is automatically implemented. That's why
+If a type `U` implements `From<T>`, then `Into<U> for T` is automatically implemented. That's why
 we can write `let title = "A title".into();`.
 
 ## `.into()`
