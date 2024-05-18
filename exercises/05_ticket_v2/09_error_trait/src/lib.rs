@@ -11,7 +11,7 @@ enum TicketNewError {
 // TODO: `easy_ticket` should panic when the title is invalid, using the error message
 //   stored inside the relevant variant of the `TicketNewError` enum.
 //   When the description is invalid, instead, it should use a default description:
-//   "No description provided".
+//   "Description not provided".
 fn easy_ticket(title: String, description: String, status: Status) -> Ticket {
     todo!()
 }
