@@ -45,7 +45,7 @@ using the [`std::mem::size_of`](https://doc.rust-lang.org/std/mem/fn.size_of.htm
 For a `u8`, for example:
 
 ```rust
-// We'll explain this funny-looking syntax (`::<String>`) later on.
+// We'll explain this funny-looking syntax (`::<u8>`) later on.
 // Ignore it for now.
 assert_eq!(std::mem::size_of::<u8>(), 1);
 ```
