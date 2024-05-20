@@ -67,7 +67,7 @@ That's not an issue with `std::thread::scope`—you can **safely borrow from the
 
 In our example, `v` is created before the spawning points.  
 It will only be dropped _after_ `scope` returns. At the same time,
-all threads spawned inside `scope` are guaranteed `v` is dropped,
+all threads spawned inside `scope` are guaranteed `v` is not dropped,
 therefore there is no risk of having dangling references.  
 
 The compiler won't complain!
