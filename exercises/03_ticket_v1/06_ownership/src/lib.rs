@@ -1,7 +1,5 @@
 // TODO: based on what we just learned about ownership, it sounds like immutable references
 //   are a good fit for our accessor methods.
-//   Change the existing implementation of `Ticket`'s accessor methods take a reference
-//   to `self` as an argument, rather than taking ownership of it.
 
 pub struct Ticket {
     title: String,
@@ -34,16 +32,18 @@ impl Ticket {
         }
     }
 
-    pub fn title(self) -> String {
-        self.title
+    //   Change the existing implementation of `Ticket`'s accessor methods take a reference
+    //   to `self` as an argument, rather than taking ownership of it.
+    pub fn title(&self) -> &str {
+        &self.title
     }
 
-    pub fn description(self) -> String {
-        self.description
+    pub fn description(&self) -> &str {
+        &self.description
     }
 
-    pub fn status(self) -> String {
-        self.status
+    pub fn status(&self) -> &str {
+        &self.status
     }
 }
 
