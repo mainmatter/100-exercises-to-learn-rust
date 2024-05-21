@@ -9,26 +9,8 @@ pub struct Ticket {
 }
 
 impl Ticket {
-
-    pub fn validate_ticket(title, description, status) {
-        if title.is_empty() {
-            panic!("Title cannot be empty");
-        }
-        if title.len() > 50 {
-            panic!("Title cannot be longer than 50 characters");
-        }
-        if description.is_empty() {
-            panic!("Description cannot be empty");
-        }
-        if description.len() > 500 {
-            panic!("Description cannot be longer than 500 characters");
-        }
-        if status != "To-Do" && status != "In Progress" && status != "Done" {
-            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
-        }
-    }
     pub fn new(title: String, description: String, status: String) -> Ticket {
-        Self::validate_ticket(title, description, status);
+        validate_ticket(title, description, status);
 
         Ticket {
             title,
@@ -38,17 +20,17 @@ impl Ticket {
     }
 
     pub fn set_title(&mut self, title: String) {
-        Self::validate_ticket(title, self.description, self.status);
+        validate_ticket(title, self.description, self.status);
         self.title = title;
     }
 
     pub fn set_description(&mut self, description: String) {
-        Self::validate_ticket(self.title, description, self.status);
+        validate_ticket(self.title, description, self.status);
         self.description = description;
     }
 
     pub fn set_status(&mut self, status: String) {
-        Self::validate_ticket(self.title, self.description, status);
+        validate_ticket(self.title, self.description, status);
         self.status = status;
     }
 
@@ -62,6 +44,36 @@ impl Ticket {
 
     pub fn status(&self) -> &String {
         &self.status
+    }
+}
+
+fn validate_ticket(title: String, description: String, status: String) {
+    valid_title(title);
+    validate_description(description);
+    valid_status(status);
+}
+
+fn valid_title(title: String) {
+    if title.is_empty() {
+        panic!("Title cannot be empty");
+    }
+    if title.len() > 50 {
+        panic!("Title cannot be longer than 50 characters");
+    }
+}
+
+fn validate_description(description: String) {
+    if description.is_empty() {
+        panic!("Description cannot be empty");
+    }
+    if description.len() > 500 {
+        panic!("Description cannot be longer than 500 characters");
+    }
+}
+
+fn valid_status(status: String) {
+    if status != "To-Do" && status != "In Progress" && status != "Done" {
+        panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
     }
 }
 
