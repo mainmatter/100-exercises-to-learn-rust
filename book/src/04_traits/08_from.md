@@ -76,7 +76,7 @@ where
 //  This is known as a **trait bound**
 //  It specifies that this implementation applies exclusively
 //  to types `T` that implement `Sized`
-//  You can require multiple trait to be implemented using 
+//  You can require multiple traits to be implemented using 
 //  the `+` sign. E.g. `Sized + PartialEq<T>`
 {
     inner: T,

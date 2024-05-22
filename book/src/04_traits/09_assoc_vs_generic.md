@@ -74,7 +74,7 @@ It uses both mechanisms:
 ### `RHS`
 
 `RHS` is a generic parameter to allow for different types to be added together.  
-For example, you'll find these two implementation in the standard library:
+For example, you'll find these two implementations in the standard library:
 
 ```rust
 impl Add<u32> for u32 {
