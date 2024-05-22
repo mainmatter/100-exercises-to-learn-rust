@@ -1,6 +1,6 @@
 # `Sized`
 
-There's more to `&str` that meets the eye, even after having 
+There's more to `&str` than meets the eye, even after having 
 investigated deref coercion.  
 From our previous [discussion on memory layouts](../03_ticket_v1/10_references_in_memory.md),
 it would have been reasonable to expect `&str` to be represented as a single `usize` on
