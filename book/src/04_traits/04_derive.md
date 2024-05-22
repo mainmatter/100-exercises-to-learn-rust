@@ -100,3 +100,8 @@ The compiler will nudge you to derive traits when possible.
 ## References
 
 - The exercise for this section is located in `exercises/04_traits/04_derive`
+
+## Further reading
+
+- [The little book of Rust macros](https://veykril.github.io/tlborm/)
+- [Proc macro workshop](https://github.com/dtolnay/proc-macro-workshop)
