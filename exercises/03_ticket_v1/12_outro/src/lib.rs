@@ -1,6 +1,6 @@
 // TODO: Define a new `Order` type.
 //   It should keep track of three pieces of information: `product_name`, `quantity`, and `unit_price`.
-//   The product name can't be empty and it can't be longer than 300 characters.
+//   The product name can't be empty and it can't be longer than 300 bytes.
 //   The quantity must be strictly greater than zero.
 //   The unit price is in cents and must be strictly greater than zero.
 //   Order must include a method named `total` that returns the total price of the order.

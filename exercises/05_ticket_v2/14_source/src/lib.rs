@@ -17,11 +17,11 @@ mod status;
 pub enum TicketNewError {
     #[error("Title cannot be empty")]
     TitleCannotBeEmpty,
-    #[error("Title cannot be longer than 50 characters")]
+    #[error("Title cannot be longer than 50 bytes")]
     TitleTooLong,
     #[error("Description cannot be empty")]
     DescriptionCannotBeEmpty,
-    #[error("Description cannot be longer than 500 characters")]
+    #[error("Description cannot be longer than 500 bytes")]
     DescriptionTooLong,
 }
 

@@ -5,7 +5,7 @@ pub struct TicketDescription(String);
 pub enum TicketDescriptionError {
     #[error("The description cannot be empty")]
     Empty,
-    #[error("The description cannot be longer than 500 characters")]
+    #[error("The description cannot be longer than 500 bytes")]
     TooLong,
 }
 
@@ -61,7 +61,7 @@ mod tests {
         let err = TicketDescription::try_from(overly_long_description()).unwrap_err();
         assert_eq!(
             err.to_string(),
-            "The description cannot be longer than 500 characters"
+            "The description cannot be longer than 500 bytes"
         );
     }
 

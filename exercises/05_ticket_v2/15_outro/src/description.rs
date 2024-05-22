@@ -1,5 +1,5 @@
 // TODO: Implement `TryFrom<String>` and `TryFrom<&str>` for the `TicketDescription` type,
-//   enforcing that the description is not empty and is not longer than 500 characters.
+//   enforcing that the description is not empty and is not longer than 500 bytes.
 //   Implement the traits required to make the tests pass too.
 
 pub struct TicketDescription(String);
@@ -27,7 +27,7 @@ mod tests {
         let err = TicketDescription::try_from(description).unwrap_err();
         assert_eq!(
             err.to_string(),
-            "The description cannot be longer than 500 characters"
+            "The description cannot be longer than 500 bytes"
         );
     }
 

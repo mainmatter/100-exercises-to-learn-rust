@@ -27,10 +27,7 @@ mod tests {
             "A title that's definitely longer than what should be allowed in a development ticket"
                 .to_string();
         let err = TicketTitle::try_from(title).unwrap_err();
-        assert_eq!(
-            err.to_string(),
-            "The title cannot be longer than 50 characters"
-        );
+        assert_eq!(err.to_string(), "The title cannot be longer than 50 bytes");
     }
 
     #[test]

@@ -35,13 +35,13 @@ impl Ticket {
             return Err("Title cannot be empty".to_string());
         }
         if title.len() > 50 {
-            return Err("Title cannot be longer than 50 characters".to_string());
+            return Err("Title cannot be longer than 50 bytes".to_string());
         }
         if description.is_empty() {
             return Err("Description cannot be empty".to_string());
         }
         if description.len() > 500 {
-            return Err("Description cannot be longer than 500 characters".to_string());
+            return Err("Description cannot be longer than 500 bytes".to_string());
         }
 
         Ok(Ticket {
@@ -70,7 +70,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(expected = "Title cannot be longer than 50 characters")]
+    #[should_panic(expected = "Title cannot be longer than 50 bytes")]
     fn title_cannot_be_longer_than_fifty_chars() {
         easy_ticket(overly_long_title(), valid_description(), Status::ToDo);
     }

@@ -15,13 +15,13 @@ impl Ticket {
             panic!("Title cannot be empty");
         }
         if title.len() > 50 {
-            panic!("Title cannot be longer than 50 characters");
+            panic!("Title cannot be longer than 50 bytes");
         }
         if description.is_empty() {
             panic!("Description cannot be empty");
         }
         if description.len() > 500 {
-            panic!("Description cannot be longer than 500 characters");
+            panic!("Description cannot be longer than 500 bytes");
         }
         if status != "To-Do" && status != "In Progress" && status != "Done" {
             panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");

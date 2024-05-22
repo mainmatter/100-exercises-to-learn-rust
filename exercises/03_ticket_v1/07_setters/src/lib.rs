@@ -14,13 +14,13 @@ impl Ticket {
             panic!("Title cannot be empty");
         }
         if title.len() > 50 {
-            panic!("Title cannot be longer than 50 characters");
+            panic!("Title cannot be longer than 50 bytes");
         }
         if description.is_empty() {
             panic!("Description cannot be empty");
         }
         if description.len() > 500 {
-            panic!("Description cannot be longer than 500 characters");
+            panic!("Description cannot be longer than 500 bytes");
         }
         if status != "To-Do" && status != "In Progress" && status != "Done" {
             panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
@@ -76,14 +76,14 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(expected = "Title cannot be longer than 50 characters")]
+    #[should_panic(expected = "Title cannot be longer than 50 bytes")]
     fn title_cannot_be_longer_than_fifty_chars() {
         Ticket::new(valid_title(), valid_description(), "To-Do".into())
             .set_title(overly_long_title())
     }
 
     #[test]
-    #[should_panic(expected = "Description cannot be longer than 500 characters")]
+    #[should_panic(expected = "Description cannot be longer than 500 bytes")]
     fn description_cannot_be_longer_than_500_chars() {
         Ticket::new(valid_title(), valid_description(), "To-Do".into())
             .set_description(overly_long_description())
