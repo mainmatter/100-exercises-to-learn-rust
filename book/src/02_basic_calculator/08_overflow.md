@@ -108,5 +108,3 @@ application, you can run benchmarks to decide if it's something you can afford.
 
 - Check out ["Myths and legends about integer overflow in Rust"](https://huonw.github.io/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/)
 for an in-depth discussion about integer overflow in Rust.
-
-[^catching]: You can try to catch a panic, but it should be a last resort reserved for very specific circumstances.
