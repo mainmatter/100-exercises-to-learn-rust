@@ -28,7 +28,7 @@ pub trait PartialEq {
 ```
 
 When you write `x == y` the compiler will look for an implementation of the `PartialEq` trait for the types of `x` and `y`
-and replace `x == y` with `x.eq(y)`. It's syntax sugar!
+and replace `x == y` with `x.eq(y)`. It's syntactic sugar!
 
 This is the correspondence for the main operators:
 
