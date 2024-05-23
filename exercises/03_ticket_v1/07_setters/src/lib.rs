@@ -1,6 +1,7 @@
 // TODO: Add &mut-setters to the `Ticket` struct for each of its fields.
 //   Make sure to enforce the same validation rules you have in `Ticket::new`!
-//   Even better, extract that logic into private methods and reuse it in both places.
+//   Even better, extract that logic and reuse it in both places. You can use
+//   private functions or private static methods for that.
 
 pub struct Ticket {
     title: String,
