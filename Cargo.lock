@@ -769,6 +769,10 @@ name = "trait_"
 version = "0.1.0"
 
 [[package]]
+name = "trait_bounds"
+version = "0.1.0"
+
+[[package]]
 name = "tryfrom"
 version = "0.1.0"
 

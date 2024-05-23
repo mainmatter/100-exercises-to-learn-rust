@@ -39,20 +39,14 @@ pub trait Into<T>: Sized {
 }
 ```
 
-These trait definitions showcase a few concepts that we haven't seen before: **supertraits**, **generics**, 
-and **implicit trait bounds**. Let's unpack those first.
+These trait definitions showcase a few concepts that we haven't seen before: **supertraits** and **implicit trait bounds**. 
+Let's unpack those first.
 
 ### Supertrait / Subtrait
 
 The `From: Sized` syntax implies that `From` is a **subtrait** of `Sized`: any type that
 implements `From` must also implement `Sized`.
 Alternatively, you could say that `Sized` is a **supertrait** of `From`.
-
-### Generics
-
-Both `From` and `Into` are **generic traits**.  
-They take a type parameter, `T`, to refer to the type being converted from or into.
-`T` is a placeholder for the actual type, which will be specified when the trait is implemented or used.
 
 ### Implicit trait bounds
 
@@ -69,15 +63,7 @@ pub struct Foo<T> {
 is actually equivalent to:
 
 ```rust
-pub struct Foo<T> 
-where
-    T: Sized,
-//  ^^^^^^^^^
-//  This is known as a **trait bound**
-//  It specifies that this implementation applies exclusively
-//  to types `T` that implement `Sized`
-//  You can require multiple traits to be implemented using 
-//  the `+` sign. E.g. `Sized + PartialEq<T>`
+pub struct Foo<T: Sized> 
 {
     inner: T,
 }
@@ -86,9 +72,6 @@ where
 You can opt out of this behavior by using a **negative trait bound**:
 
 ```rust
-// You can also choose to inline trait bounds,
-// rather than using `where` clauses
-
 pub struct Foo<T: ?Sized> {
     //            ^^^^^^^
     //            This is a negative trait bound
@@ -97,7 +80,8 @@ pub struct Foo<T: ?Sized> {
 ```
 
 This syntax reads as "`T` may or may not be `Sized`", and it allows you to
-bind `T` to a DST (e.g. `Foo<str>`).  
+bind `T` to a DST (e.g. `Foo<str>`). It is a special case, though: negative trait bounds are exclusive to `Sized`,
+you can't use them with other traits.  
 In the case of `From<T>`, we want _both_ `T` and the type implementing `From<T>` to be `Sized`, even
 though the former bound is implicit.
 
