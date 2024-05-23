@@ -26,7 +26,7 @@ error[E0390]: cannot define inherent `impl` for primitive types
 
 An **extension trait** is a trait whose primary purpose is to attach new methods
 to foreign types, such as `u32`.
-That's exactly the pattern you deployed in the previous exercise, by defining
+That's exactly the pattern you developed in the previous exercise, by defining
 the `IsEven` trait and then implementing it for `i32` and `u32`. You are then
 free to call `is_even` on those types as long as `IsEven` is in scope.
 
