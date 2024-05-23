@@ -55,7 +55,7 @@ The duplication remains.
 ## Generic programming
 
 We can do better using **generics**.  
-Generics allow us to write that works with a **type parameter** instead of a concrete type:
+Generics allow us to write code that works with a **type parameter** instead of a concrete type:
 
 ```rust
 fn print_if_even<T>(n: T) 
