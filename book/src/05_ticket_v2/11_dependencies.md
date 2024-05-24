@@ -53,6 +53,3 @@ static_assertions = "1.1.0"
 
 We've been using a few of these throughout the book to shorten our tests.
 
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/11_dependencies`

@@ -73,6 +73,3 @@ assert_eq!(second.2, 8);
 
 Tuples are a convenient way of grouping values together when you can't be bothered to define a dedicated struct type.
 
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/05_nullability`

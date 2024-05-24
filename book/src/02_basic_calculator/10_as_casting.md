@@ -94,10 +94,6 @@ When working with composite types, you'll have to rely on
 different conversion mechanisms ([fallible](../05_ticket_v2/13_try_from.md)
 and [infallible](../04_traits/09_from.md)), which we'll explore later on.
 
-## References
-
-- The exercise for this section is located in `exercises/02_basic_calculator/10_as_casting`
-
 ## Further reading
 
 - Check out [Rust's official reference](https://doc.rust-lang.org/reference/expressions/operator-expr.html#numeric-cast)

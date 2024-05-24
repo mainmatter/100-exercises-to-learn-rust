@@ -15,10 +15,6 @@ This means that users can create a ticket with an empty title, a suuuuuuuper lon
 a nonsensical status (e.g. "Funny").\
 We can do better than that!
 
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/02_validation`
-
 ## Further reading
 
 - Check out [`String`'s documentation](https://doc.rust-lang.org/std/string/struct.String.html)

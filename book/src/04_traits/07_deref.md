@@ -90,6 +90,3 @@ is defined on both `T` and `U`, which one will be called?
 
 We'll examine later in the course the "safest" use cases for deref coercion: smart pointers.
 
-## References
-
-- The exercise for this section is located in `exercises/04_traits/07_deref`

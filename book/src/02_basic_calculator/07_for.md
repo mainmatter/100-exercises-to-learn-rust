@@ -54,10 +54,6 @@ for i in 1..(end + 1) {
 }
 ```
 
-## References
-
-- The exercise for this section is located in `exercises/02_basic_calculator/07_for`
-
 ## Further reading
 
 - [`for` loop documentation](https://doc.rust-lang.org/std/keyword.for.html)

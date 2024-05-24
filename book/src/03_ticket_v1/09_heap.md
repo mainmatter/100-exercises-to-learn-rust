@@ -133,10 +133,6 @@ but there is no general-purpose "API" to retrieve runtime heap usage in Rust.\
 You can, however, use a memory profiler tool (e.g. [DHAT](https://valgrind.org/docs/manual/dh-manual.html)
 or [a custom allocator](https://docs.rs/dhat/latest/dhat/)) to inspect the heap usage of your program.
 
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/09_heap`
-
 [^empty]: `std` doesn't allocate if you create an **empty** `String` (i.e. `String::new()`).
 Heap memory will be reserved when you push data into it for the first time.
 

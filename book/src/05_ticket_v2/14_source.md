@@ -149,6 +149,3 @@ You can use the `?` operator to shorten your error handling code significantly.\
 In particular, the `?` operator will automatically convert the error type of the fallible operation into the error type
 of the function, if a conversion is possible (i.e. if there is a suitable `From` implementation)
 
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/14_source`

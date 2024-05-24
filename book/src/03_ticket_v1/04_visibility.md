@@ -44,6 +44,3 @@ pub struct Configuration {
 `Configuration` is public, but you can only access the `version` field from within the same crate.
 The `active` field, instead, is private and can only be accessed from within the same module or one of its submodules.
 
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/04_visibility`

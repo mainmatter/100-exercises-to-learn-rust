@@ -40,6 +40,3 @@ In the case of `thiserror`, we have:
 - `#[error("{0}")]`: this is the syntax to define a `Display` implementation for each variant of the custom error type.
   `{0}` is replaced by the zero-th field of the variant (`String`, in this case) when the error is displayed.
 
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/12_thiserror`

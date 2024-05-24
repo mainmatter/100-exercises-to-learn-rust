@@ -139,6 +139,3 @@ In most cases, the target type is either:
 
 `.into()` will work out of the box as long as the compiler can infer the target type from the context without ambiguity.
 
-## References
-
-- The exercise for this section is located in `exercises/04_traits/09_from`

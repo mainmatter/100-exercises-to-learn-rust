@@ -105,10 +105,6 @@ Which implementation should be used? The one defined in `B`? Or the one defined 
 There's no good answer, therefore the orphan rule was defined to prevent this scenario.
 Thanks to the orphan rule, neither crate `B` nor crate `C` would compile.
 
-## References
-
-- The exercise for this section is located in `exercises/04_traits/02_orphan_rule`
-
 ## Further reading
 
 - There are some caveats and exceptions to the orphan rule as stated above.

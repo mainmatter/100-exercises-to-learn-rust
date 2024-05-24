@@ -119,10 +119,6 @@ error[E0308]: mismatched types
 
 We'll see how to convert between types [later in this course](../04_traits/09_from.md).
 
-## References
-
-- The exercise for this section is located in `exercises/02_basic_calculator/01_integers`
-
 ## Further reading
 
 - [The integer types section](https://doc.rust-lang.org/book/ch03-02-data-types.html#integer-types) in the official Rust book

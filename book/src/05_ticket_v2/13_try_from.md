@@ -39,6 +39,3 @@ being attempted.
 Just like `From` and `Into`, `TryFrom` and `TryInto` are dual traits.\
 If you implement `TryFrom` for a type, you get `TryInto` for free.
 
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/13_try_from`

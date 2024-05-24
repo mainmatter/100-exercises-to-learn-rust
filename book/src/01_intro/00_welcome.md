@@ -88,10 +88,6 @@ Don't move on to the next section until you've solved the exercise for the curre
 
 Enjoy the course!
 
-## References
-
-- The exercise for this section is located in `exercises/01_intro/00_welcome`
-
 ## Author
 
 This course was written by [Luca Palmieri](https://www.lpalmieri.com/), Principal Engineering

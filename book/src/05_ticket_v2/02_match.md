@@ -69,6 +69,3 @@ match status {
 
 The `_` pattern matches anything that wasn't matched by the previous patterns.
 
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/02_match`

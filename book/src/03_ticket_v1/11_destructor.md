@@ -165,9 +165,5 @@ They would refer to a memory location that's no longer valid: a so-called [**dan
 a close relative of [**use-after-free bugs**](https://owasp.org/www-community/vulnerabilities/Using_freed_memory).
 Rust's ownership system rules out these kinds of bugs by design.
 
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/11_destructor`
-
 [^leak]: Rust doesn't guarantee that destructors will run. They won't, for example, if
 you explicitly choose to [leak memory](../07_threads/03_leak.md).

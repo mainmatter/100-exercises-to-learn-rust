@@ -80,10 +80,6 @@ while i <= 5 {
 
 This will compile and run without errors.
 
-## References
-
-- The exercise for this section is located in `exercises/02_basic_calculator/06_while`
-
 ## Further reading
 
 - [`while` loop documentation](https://doc.rust-lang.org/std/keyword.while.html)

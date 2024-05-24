@@ -141,10 +141,6 @@ To recap:
 - Use a **generic parameter** when you want to allow multiple implementations of the trait for the same type,
   with different input types.
 
-## References
-
-- The exercise for this section is located in `exercises/04_traits/10_assoc_vs_generic`
-
 [^flexible]: Flexibility is rarely free: the trait definition is more complex due to `Output`, and implementors have to reason about
 what they want to return. The trade-off is only justified if that flexibility is actually needed. Keep that in mind
 when designing your own traits.

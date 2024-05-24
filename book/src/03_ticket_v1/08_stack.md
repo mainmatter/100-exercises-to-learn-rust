@@ -52,10 +52,6 @@ assert_eq!(std::mem::size_of::<u8>(), 1);
 
 1 makes sense, because a `u8` is 8 bits long, or 1 byte.
 
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/08_stack`
-
 [^stack-overflow]: If you have nested function calls, each function pushes its data onto the stack when it's called but
 it doesn't pop it off until the innermost function returns.
 If you have too many nested function calls, you can run out of stack space—the stack is not infinite!
