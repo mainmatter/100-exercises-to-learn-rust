@@ -5,7 +5,7 @@ A sequence of instructions is executed from top to bottom, and that's it.
 
 It's time to introduce some **branching**.
 
-## `if` expressions
+## `if` clauses
 
 The `if` keyword is used to execute a block of code only if a condition is true.
 
@@ -19,6 +19,8 @@ if number < 5 {
 ```
 
 This program will print `number is smaller than 5` because the condition `number < 5` is true.
+
+### `else` clauses
 
 Like most programming languages, Rust supports an optional `else` branch to execute a block of code when the condition in an
 `if` expression is false.  
@@ -79,6 +81,25 @@ Here are the comparison operators available in Rust when working with integers:
 - `>`: greater than
 - `<=`: less than or equal to
 - `>=`: greater than or equal to
+
+## `if/else` is an expression
+
+In Rust, `if` expressions are **expressions**, not statements: they return a value.  
+That value can be assigned to a variable or used in other expressions. For example:
+
+```rust
+let number = 3;
+let message = if number < 5 {
+    "smaller than 5"
+} else {
+    "greater than or equal to 5"
+};
+```
+
+In the example above, each branch of the `if` evaluates to a string literal, 
+which is then assigned to the `message` variable.  
+The only requirement is that both `if` branches return the same type.
+
 
 ## References
 
