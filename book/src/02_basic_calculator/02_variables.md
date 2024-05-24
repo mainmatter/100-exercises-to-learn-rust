@@ -97,8 +97,4 @@ help: consider assigning a value
   |            +++
 ```
 
-## References
-
-- The exercise for this section is located in `exercises/02_basic_calculator/02_variables`
-
 [^speed]: The Rust compiler needs all the help it can get when it comes to compilation speed.

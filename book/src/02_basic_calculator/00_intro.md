@@ -15,6 +15,3 @@ Nailing the basics with a few exercises will get the language flowing under your
 When we move on to more complex topics, such as traits and ownership, you'll be able to focus on the new concepts
 without getting bogged down by the syntax or other trivial details.
 
-## References
-
-- The exercise for this section is located in `exercises/02_basic_calculator/00_intro`

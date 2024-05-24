@@ -42,6 +42,3 @@ enum Status {
 
 `enum`, just like `struct`, defines **a new Rust type**.
 
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/01_enum`

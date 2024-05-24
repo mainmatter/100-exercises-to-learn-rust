@@ -82,6 +82,3 @@ That's the big advantage of `Result`: it makes fallibility explicit.
 Keep in mind, though, that panics exist. They aren't tracked by the type system, just like exceptions in other languages.
 But they're meant for **unrecoverable errors** and should be used sparingly.
 
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/06_fallibility`

@@ -97,6 +97,3 @@ impl PartialEq for MyType {
 }
 ```
 
-## References
-
-- The exercise for this section is located in `exercises/04_traits/03_operator_overloading`

@@ -1,3 +1,3 @@
 [workspace]
-members = ["exercises/*/*", "helpers/common", "helpers/ticket_fields"]
+members = ["exercises/*/*", "helpers/common", "helpers/mdbook-exercise-linker", "helpers/ticket_fields"]
 resolver = "2"

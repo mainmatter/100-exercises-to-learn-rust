@@ -113,6 +113,3 @@ Nonetheless, it can be useful in some cases, like when writing unit tests. You m
 that most of our test modules start with a `use super::*;` statement to bring all the items from the parent module
 (the one being tested) into scope.
 
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/03_modules`

@@ -41,10 +41,6 @@ fn main() {
 There are other mechanisms to work with recoverable errors in Rust, which [we'll cover later](../05_ticket_v2/06_fallibility.md).
 For the time being we'll stick with panics as a brutal but simple stopgap solution.
 
-## References
-
-- The exercise for this section is located in `exercises/02_basic_calculator/04_panics`
-
 ## Further reading
 
 - [The panic! macro documentation](https://doc.rust-lang.org/std/macro.panic.html)

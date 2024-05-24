@@ -100,10 +100,6 @@ Our recommendation is to enable `overflow-checks` for both profiles: it's better
 incorrect results. The runtime performance hit is negligible in most cases; if you're working on a performance-critical
 application, you can run benchmarks to decide if it's something you can afford.
 
-## References
-
-- The exercise for this section is located in `exercises/02_basic_calculator/08_overflow`
-
 ## Further reading
 
 - Check out ["Myths and legends about integer overflow in Rust"](https://huonw.github.io/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/)

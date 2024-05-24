@@ -78,6 +78,3 @@ All the types we've seen so far are `Sized`: `u32`, `String`, `bool`, etc.
 `&str` is `Sized` though! We know its size at compile time: two `usize`s, one for the pointer
 and one for the length.
 
-## References
-
-- The exercise for this section is located in `exercises/04_traits/08_sized`

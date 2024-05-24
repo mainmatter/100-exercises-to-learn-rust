@@ -17,6 +17,3 @@ To move forward you'll have to pick up several new Rust concepts, such as:
 - Modules and visibility
 - Strings
 
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/00_intro`

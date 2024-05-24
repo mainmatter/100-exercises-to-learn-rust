@@ -107,6 +107,3 @@ ticket.set_description("New description".into());
 ticket.set_status("In Progress".into());
 ```
 
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/07_setters`

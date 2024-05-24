@@ -12,10 +12,6 @@ as long as they have a `TicketTitle`, they know it's valid **by construction**.
 
 This is just an example of how you can use Rust's type system to make your code safer and more expressive.
 
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/15_outro`
-
 ## Further reading
 
 - [Parse, don't validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/)

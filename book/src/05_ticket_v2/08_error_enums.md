@@ -37,6 +37,3 @@ match s.parse_u32() {
 }
 ```
 
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/08_error_enums`

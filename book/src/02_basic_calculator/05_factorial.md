@@ -10,6 +10,3 @@ So far you've learned:
 
 It looks like you're ready to tackle factorials!
 
-## References
-
-- The exercise for this section is located in `exercises/02_basic_calculator/05_factorial`

@@ -124,8 +124,4 @@ This is not necessary if:
 You can find the list of traits and types in the prelude in the
 [Rust documentation](https://doc.rust-lang.org/std/prelude/index.html).
 
-## References
-
-- The exercise for this section is located in `exercises/04_traits/01_trait`
-
 [^inherent]: A method defined directly on a type, without using a trait, is also known as an **inherent method**.

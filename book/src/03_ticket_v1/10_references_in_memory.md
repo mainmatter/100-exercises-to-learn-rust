@@ -45,10 +45,6 @@ The same goes for `&mut String`.
 The example above should clarify one thing: not all pointers point to the heap.\
 They just point to a memory location, which _may_ be on the heap, but doesn't have to be.
 
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/10_references_in_memory`
-
 [^fat]: [Later in the course](../04_traits/06_str_slice.md) we'll talk about **fat pointers**,
 i.e. pointers with additional metadata. As the name implies, they are larger than
 the pointers we discussed in this chapter, also known as **thin pointers**.

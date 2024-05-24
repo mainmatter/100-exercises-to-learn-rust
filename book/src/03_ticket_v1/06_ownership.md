@@ -229,9 +229,5 @@ and truly understand how they work.
 Towards the end of this chapter we'll explain _why_ Rust's ownership system is designed the way it is.
 For the time being, focus on understanding the _how_. Take each compiler error as a learning opportunity!
 
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/06_ownership`
-
 [^refine]: This is a great mental model to start out, but it doesn't capture the _full_ picture.
 We'll refine our understanding of references [later in the course](../07_threads/06_interior_mutability.md).

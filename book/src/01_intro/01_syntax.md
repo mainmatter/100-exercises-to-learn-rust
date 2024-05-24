@@ -114,6 +114,3 @@ tag, the compiler can enforce different rules—e.g. you can't add a string to a
 together.
 If leveraged correctly, types can prevent whole classes of runtime bugs.
 
-## References
-
-- The exercise for this section is located in `exercises/01_intro/01_syntax`
