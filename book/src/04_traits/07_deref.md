@@ -92,4 +92,4 @@ We'll examine later in the course the "safest" use cases for deref coercion: sma
 
 ## References
 
-- The exercise for this section is located in `exercises/04_traits/06_deref`
+- The exercise for this section is located in `exercises/04_traits/07_deref`

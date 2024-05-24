@@ -117,4 +117,4 @@ bunch of text data and that a subset of it matches what you need, therefore you'
 
 ## References
 
-- The exercise for this section is located in `exercises/04_traits/05_str_slice`
+- The exercise for this section is located in `exercises/04_traits/06_str_slice`

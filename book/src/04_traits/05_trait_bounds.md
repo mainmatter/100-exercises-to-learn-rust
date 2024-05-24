@@ -152,3 +152,7 @@ The rationale is the same as for [explicit type annotations on function paramete
 each function signature is a contract between the caller and the callee, and the terms must be explicitly stated. 
 This allows for better error messages, better documentation, less unintentional breakages across versions, 
 and faster compilation times.
+
+## References
+
+- The exercise for this section is located in `exercises/04_traits/05_trait_bounds`

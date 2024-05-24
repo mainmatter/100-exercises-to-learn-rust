@@ -115,4 +115,4 @@ To recap:
 
 ## References
 
-- The exercise for this section is located in `exercises/04_traits/09_assoc_vs_generic`
+- The exercise for this section is located in `exercises/04_traits/10_assoc_vs_generic`

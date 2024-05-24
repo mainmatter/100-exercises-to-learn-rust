@@ -80,4 +80,4 @@ and one for the length.
 
 ## References
 
-- The exercise for this section is located in `exercises/04_traits/07_sized`
+- The exercise for this section is located in `exercises/04_traits/08_sized`

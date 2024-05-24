@@ -114,4 +114,4 @@ struct MyStruct {
 
 ## References
 
-- The exercise for this section is located in `exercises/04_traits/11_copy`
+- The exercise for this section is located in `exercises/04_traits/12_copy`
