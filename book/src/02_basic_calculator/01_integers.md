@@ -117,7 +117,7 @@ error[E0308]: mismatched types
   |
 ```
 
-We'll see how to convert between types [later in this course](../04_traits/08_from).
+We'll see how to convert between types [later in this course](../04_traits/09_from).
 
 ## References
 
@@ -134,5 +134,5 @@ behave.
 We'll talk about operator overloading [later in the course](../04_traits/03_operator_overloading), after we've covered traits.
 
 [^coercion]: There are some exceptions to this rule, mostly related to references, smart pointers and ergonomics. We'll
-cover those [later on](../04_traits/06_deref).
+cover those [later on](../04_traits/07_deref).
 A mental model of "all conversions are explicit" will serve you well in the meantime.
