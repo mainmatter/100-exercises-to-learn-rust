@@ -6,7 +6,7 @@ Let's go back to where our string journey started:
 let ticket = Ticket::new("A title".into(), "A description".into(), "To-Do".into());
 ```
 
-We can now know enough to start unpacking what `.into()` is doing here.
+We now know enough to start unpacking what `.into()` is doing here.
 
 ## The problem
 
