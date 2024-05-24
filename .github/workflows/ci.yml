@@ -9,22 +9,20 @@ on:
       - main
 
 jobs:
-  formatter:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: dprint/check@v2.2
-
-  check-links:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+      - name: Install plugin
+        run: cargo install --path helpers/mdbook-exercises-linker --release
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: mdbook
       - name: Build book
         run: |
           cd book
-          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.40/mdbook-v0.4.40-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=.
-          ./mdbook build
+          mdbook build
       - name: Link Checker
         uses: lycheeverse/lychee-action@v1
         with:
@@ -34,3 +32,14 @@ jobs:
             --require-https 
             --no-progress 
             book/book
+      # Upload the book as an artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: book
+          path: book/book
+
+  formatter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dprint/check@v2.2
