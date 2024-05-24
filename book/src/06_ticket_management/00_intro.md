@@ -2,7 +2,7 @@
 
 In the previous chapter we modelled `Ticket` in a vacuum: we defined its fields and their constraints, we learned
 how to best represent them in Rust, but we didn't consider how `Ticket` fits into a larger system.
-We'll use this chapter to build a simple workflow around `Ticket`, introducing a (rudimentary) management to
+We'll use this chapter to build a simple workflow around `Ticket`, introducing a (rudimentary) management system to
 store and retrieve tickets.
 
 The task will give us an opportunity to explore new Rust concepts, such as:
