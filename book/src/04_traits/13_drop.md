@@ -53,4 +53,4 @@ error[E0184]: the trait `Copy` cannot be implemented for this type; the type has
 
 ## References
 
-- The exercise for this section is located in `exercises/04_traits/12_drop`
+- The exercise for this section is located in `exercises/04_traits/13_drop`

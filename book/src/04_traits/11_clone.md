@@ -108,4 +108,4 @@ Remember that you can use `cargo expand` (or your IDE) to explore the code gener
 
 ## References
 
-- The exercise for this section is located in `exercises/04_traits/10_clone`
+- The exercise for this section is located in `exercises/04_traits/11_clone`

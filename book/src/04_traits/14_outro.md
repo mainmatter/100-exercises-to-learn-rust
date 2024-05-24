@@ -9,4 +9,4 @@ You'll have minimal guidance this time—just the exercise description and the t
 
 ## References
 
-- The exercise for this section is located in `exercises/04_traits/13_outro` 
+- The exercise for this section is located in `exercises/04_traits/14_outro` 

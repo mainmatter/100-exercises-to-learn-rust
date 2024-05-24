@@ -130,4 +130,4 @@ In most cases, the target type is either:
 
 ## References
 
-- The exercise for this section is located in `exercises/04_traits/08_from`
+- The exercise for this section is located in `exercises/04_traits/09_from`
