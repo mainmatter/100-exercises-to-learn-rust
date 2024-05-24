@@ -81,6 +81,11 @@ impl Add<u32> for u32 {
     type Output = u32;
     
     fn add(self, rhs: u32) -> u32 {
+      //                      ^^^
+      // This could be written as `Self::Output` instead.
+      // The compiler doesn't care, as long as the type you
+      // specify here matches the type you assigned to `Output` 
+      // right above.
       // [...]
     }
 }
@@ -104,8 +109,31 @@ because `u32` implements `Add<&u32>` _as well as_ `Add<u32>`.
 
 ### `Output`
 
-`Output`, on the other hand, **must** be uniquely determined once the types of the operands
-are known. That's why it's an associated type instead of a second generic parameter.
+`Output` represents the type of the result of the addition.  
+
+Why do we need `Output` in the first place? Can't we just use `Self` as output, the type implementing `Add`? 
+We could, but it would limit the flexibility of the trait. In the standard library, for example, you'll find 
+this implementation:
+
+```rust
+impl Add<&u32> for &u32 {
+    type Output = u32;
+
+    fn add(self, rhs: &u32) -> u32 {
+        // [...]
+    }
+}
+```
+
+The type they're implementing the trait for is `&u32`, but the result of the addition is `u32`.  
+It would be impossible[^flexible] to provide this implementation if `add` had to return `Self`, i.e. `&u32` in this case. 
+`Output` lets `std` decouple the implementor from the return type, thus supporting this case.  
+
+On the other hand, `Output` can't be a generic parameter. The output type of the operation **must** be uniquely determined
+once the types of the operands are known. That's why it's an associated type: for a given combination of implementor
+and generic parameters, there is only one `Output` type.
+
+## Conclusion
 
 To recap:
 
@@ -116,3 +144,8 @@ To recap:
 ## References
 
 - The exercise for this section is located in `exercises/04_traits/10_assoc_vs_generic`
+
+[^flexible]: Flexibility is rarely free: the trait definition is more complex due to `Output`, and implementors have to reason about
+  what they want to return. The trade-off is only justified if that flexibility is actually needed. Keep that in mind
+  when designing your own traits.
+
