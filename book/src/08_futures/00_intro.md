@@ -1,7 +1,7 @@
 # Async Rust
 
-Threads are not the only way to write concurrent programs in Rust.  
-In this chapter we'll explore another approach: **asynchronous programming**.  
+Threads are not the only way to write concurrent programs in Rust.\
+In this chapter we'll explore another approach: **asynchronous programming**.
 
 In particular, you'll get an introduction to:
 

@@ -1,7 +1,7 @@
 # Derive macros
 
 Implementing `PartialEq` for `Ticket` was a bit tedious, wasn't it?
-You had to manually compare each field of the struct. 
+You had to manually compare each field of the struct.
 
 ## Destructuring syntax
 
@@ -24,7 +24,7 @@ impl PartialEq for Ticket {
 ```
 
 If the definition of `Ticket` changes, the compiler will error out, complaining that your
-destructuring is no longer exhaustive.  
+destructuring is no longer exhaustive.\
 You can also rename struct fields, to avoid variable shadowing:
 
 ```rust
@@ -55,13 +55,13 @@ You've already encountered a few macros in past exercises:
 - `assert_eq!` and `assert!`, in the test cases
 - `println!`, to print to the console
 
-Rust macros are **code generators**.  
+Rust macros are **code generators**.\
 They generate new Rust code based on the input you provide, and that generated code is then compiled alongside
 the rest of your program. Some macros are built into Rust's standard library, but you can also
 write your own. We won't be creating our macro in this course, but you can find some useful
 pointers in the ["Further reading" section](#further-reading).
 
-### Inspection 
+### Inspection
 
 Some IDEs let you expand a macro to inspect the generated code. If that's not possible, you can use
 [`cargo-expand`](https://github.com/dtolnay/cargo-expand).
@@ -81,7 +81,7 @@ struct Ticket {
 
 Derive macros are used to automate the implementation of common (and "obvious") traits for custom types.
 In the example above, the `PartialEq` trait is automatically implemented for `Ticket`.
-If you expand the macro, you'll see that the generated code is functionally equivalent to the one you wrote manually, 
+If you expand the macro, you'll see that the generated code is functionally equivalent to the one you wrote manually,
 although a bit more cumbersome to read:
 
 ```rust

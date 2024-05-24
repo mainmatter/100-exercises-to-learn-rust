@@ -1,12 +1,12 @@
 # Conversions, pt. 1
 
 We've repeated over and over again that Rust won't perform
-implicit type conversions for integers.  
+implicit type conversions for integers.\
 How do you perform _explicit_ conversions then?
 
 ## `as`
 
-You can use the `as` operator to convert between integer types.  
+You can use the `as` operator to convert between integer types.\
 `as` conversions are **infallible**.
 
 For example:
@@ -24,7 +24,7 @@ let c: u64 = a as _;
 ```
 
 The semantics of this conversion are what you expect: all `u32` values are valid `u64`
-values.  
+values.
 
 ### Truncation
 
@@ -38,11 +38,11 @@ let b = a as u8;
 ```
 
 This program will run without issues, because `as` conversions are infallible.
-But what is the value of `b`? 
+But what is the value of `b`?
 When going from a larger integer type to a smaller, the Rust compiler will perform
-a **truncation**. 
+a **truncation**.
 
-To understand what happens, let's start by looking at how `256u16` is 
+To understand what happens, let's start by looking at how `256u16` is
 represented in memory, as a sequence of bits:
 
 ```text
@@ -59,10 +59,10 @@ memory representation:
  0 0 0 0 0 0 0 0 
 |               |
 +---------------+
-  Last 8 bits   
+  Last 8 bits
 ```
 
-Hence `256 as u8` is equal to `0`. That's... not ideal, in most scenarios.  
+Hence `256 as u8` is equal to `0`. That's... not ideal, in most scenarios.\
 In fact, the Rust compiler will actively try to stop you if it sees you trying
 to cast a literal value which will result in a truncation:
 
@@ -79,19 +79,19 @@ error: literal out of range for `i8`
 
 ### Recommendation
 
-As a rule of thumb, be quite careful with `as` casting.  
-Use it _exclusively_ for going from a smaller type to a larger type. 
-To convert from a larger to smaller integer type, rely on the 
-[*fallible* conversion machinery](../05_ticket_v2/13_try_from.md) that we'll
+As a rule of thumb, be quite careful with `as` casting.\
+Use it _exclusively_ for going from a smaller type to a larger type.
+To convert from a larger to smaller integer type, rely on the
+[_fallible_ conversion machinery](../05_ticket_v2/13_try_from.md) that we'll
 explore later in the course.
 
 ### Limitations
 
-Surprising behaviour is not the only downside of `as` casting. 
+Surprising behaviour is not the only downside of `as` casting.
 It is also fairly limited: you can only rely on `as` casting
-for primitive types and a few other special cases.  
-When working with composite types, you'll have to rely on 
-different conversion mechanisms ([fallible](../05_ticket_v2/13_try_from.md) 
+for primitive types and a few other special cases.\
+When working with composite types, you'll have to rely on
+different conversion mechanisms ([fallible](../05_ticket_v2/13_try_from.md)
 and [infallible](../04_traits/09_from.md)), which we'll explore later on.
 
 ## References
@@ -100,6 +100,6 @@ and [infallible](../04_traits/09_from.md)), which we'll explore later on.
 
 ## Further reading
 
-- Check out [Rust's official reference](https://doc.rust-lang.org/reference/expressions/operator-expr.html#numeric-cast) 
-  to learn the precise behaviour of `as` casting for each source/target combination, 
-  as well as the exhaustive list of allowed conversions. 
+- Check out [Rust's official reference](https://doc.rust-lang.org/reference/expressions/operator-expr.html#numeric-cast)
+  to learn the precise behaviour of `as` casting for each source/target combination,
+  as well as the exhaustive list of allowed conversions.

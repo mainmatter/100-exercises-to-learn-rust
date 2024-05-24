@@ -1,10 +1,10 @@
 # `TryFrom` and `TryInto`
 
-In the previous chapter we looked at the [`From` and `Into` traits](../04_traits/09_from.md), 
-Rust's idiomatic interfaces for **infallible** type conversions.  
+In the previous chapter we looked at the [`From` and `Into` traits](../04_traits/09_from.md),
+Rust's idiomatic interfaces for **infallible** type conversions.\
 But what if the conversion is not guaranteed to succeed?
 
-We now know enough about errors to discuss the **fallible** counterparts of `From` and `Into`: 
+We now know enough about errors to discuss the **fallible** counterparts of `From` and `Into`:
 `TryFrom` and `TryInto`.
 
 ## `TryFrom` and `TryInto`
@@ -23,7 +23,7 @@ pub trait TryInto<T>: Sized {
 }
 ```
 
-The main difference between `From`/`Into` and `TryFrom`/`TryInto` is that the latter return a `Result` type.  
+The main difference between `From`/`Into` and `TryFrom`/`TryInto` is that the latter return a `Result` type.\
 This allows the conversion to fail, returning an error instead of panicking.
 
 ## `Self::Error`
@@ -36,7 +36,7 @@ being attempted.
 
 ## Duality
 
-Just like `From` and `Into`, `TryFrom` and `TryInto` are dual traits.  
+Just like `From` and `Into`, `TryFrom` and `TryInto` are dual traits.\
 If you implement `TryFrom` for a type, you get `TryInto` for free.
 
 ## References

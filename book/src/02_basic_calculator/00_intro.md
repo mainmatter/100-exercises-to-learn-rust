@@ -1,6 +1,6 @@
 # A Basic Calculator
 
-In this chapter we'll learn how to use Rust as a **calculator**.  
+In this chapter we'll learn how to use Rust as a **calculator**.\
 It might not sound like much, but it'll give us a chance to cover a lot of Rust's basics, such as:
 
 - How to define and call functions

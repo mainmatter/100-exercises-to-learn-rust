@@ -15,4 +15,4 @@ The task will give us an opportunity to explore new Rust concepts, such as:
 - `HashMap` and `BTreeMap`, two key-value data structures
 - `Eq` and `Hash`, to compare keys in a `HashMap`
 - `Ord` and `PartialOrd`, to work with a `BTreeMap`
-- `Index` and `IndexMut`, to access elements in a collection 
+- `Index` and `IndexMut`, to access elements in a collection

@@ -1,6 +1,6 @@
 # `match`
 
-You may be wondering—what can you actually **do** with an enum?  
+You may be wondering—what can you actually **do** with an enum?\
 The most common operation is to **match** on it.
 
 ```rust
@@ -22,13 +22,13 @@ impl Status {
 }
 ```
 
-A `match` statement that lets you compare a Rust value against a series of **patterns**.  
+A `match` statement that lets you compare a Rust value against a series of **patterns**.\
 You can think of it as a type-level `if`. If `status` is a `Done` variant, execute the first block;
 if it's a `InProgress` or `ToDo` variant, execute the second block.
 
 ## Exhaustiveness
 
-There's one key detail here: `match` is **exhaustive**. You must handle all enum variants.  
+There's one key detail here: `match` is **exhaustive**. You must handle all enum variants.\
 If you forget to handle a variant, Rust will stop you **at compile-time** with an error.
 
 E.g. if we forget to handle the `ToDo` variant:
@@ -50,7 +50,7 @@ error[E0004]: non-exhaustive patterns: `ToDo` not covered
   |     ^^^^^^^^^^^^ pattern `ToDo` not covered
 ```
 
-This is a big deal!  
+This is a big deal!\
 Codebases evolve over time—you might add a new status down the line, e.g. `Blocked`. The Rust compiler
 will emit an error for every single `match` statement that's missing logic for the new variant.
 That's why Rust developers often sing the praises of "compiler-driven refactoring"—the compiler tells you

@@ -1,6 +1,6 @@
 # Loops, part 1: `while`
 
-Your implementation of `factorial` has been forced to use recursion.  
+Your implementation of `factorial` has been forced to use recursion.\
 This may feel natural to you, especially if you're coming from a functional programming background.
 Or it may feel strange, if you're used to more imperative languages like C or Python.
 
@@ -8,7 +8,7 @@ Let's see how you can implement the same functionality using a **loop** instead.
 
 ## The `while` loop
 
-A `while` loop is a way to execute a block of code as long as a **condition** is true.  
+A `while` loop is a way to execute a block of code as long as a **condition** is true.\
 Here's the general syntax:
 
 ```rust
@@ -62,7 +62,7 @@ error[E0384]: cannot assign twice to immutable variable `i`
   |         ^^^^^^ cannot assign twice to immutable variable
 ```
 
-This is because variables in Rust are **immutable** by default.  
+This is because variables in Rust are **immutable** by default.\
 You can't change their value once it has been assigned.
 
 If you want to allow modifications, you have to declare the variable as **mutable** using the `mut` keyword:

@@ -1,6 +1,6 @@
 # Mutable indexing
 
-`Index` allows read-only access. It doesn't let you mutate the value you 
+`Index` allows read-only access. It doesn't let you mutate the value you
 retrieved.
 
 ## `IndexMut`

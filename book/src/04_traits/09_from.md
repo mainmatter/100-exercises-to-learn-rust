@@ -20,13 +20,13 @@ impl Ticket {
 }
 ```
 
-We've also seen that string literals (such as `"A title"`) are of type `&str`.  
-We have a type mismatch here: a `String` is expected, but we have a `&str`. 
+We've also seen that string literals (such as `"A title"`) are of type `&str`.\
+We have a type mismatch here: a `String` is expected, but we have a `&str`.
 No magical coercion will come to save us this time; we need **to perform a conversion**.
 
 ## `From` and `Into`
 
-The Rust standard library defines two traits for **infallible conversions**: `From` and `Into`, 
+The Rust standard library defines two traits for **infallible conversions**: `From` and `Into`,
 in the `std::convert` module.
 
 ```rust
@@ -39,7 +39,7 @@ pub trait Into<T>: Sized {
 }
 ```
 
-These trait definitions showcase a few concepts that we haven't seen before: **supertraits** and **implicit trait bounds**. 
+These trait definitions showcase a few concepts that we haven't seen before: **supertraits** and **implicit trait bounds**.
 Let's unpack those first.
 
 ### Supertrait / Subtrait
@@ -78,7 +78,7 @@ pub trait From<T: Sized>: Sized {
 ```
 
 In other words, _both_ `T` and the type implementing `From<T>` must be `Sized`, even
-though the former bound is implicit. 
+though the former bound is implicit.
 
 ### Negative trait bounds
 
@@ -94,23 +94,23 @@ pub struct Foo<T: ?Sized> {
 
 This syntax reads as "`T` may or may not be `Sized`", and it allows you to
 bind `T` to a DST (e.g. `Foo<str>`). It is a special case, though: negative trait bounds are exclusive to `Sized`,
-you can't use them with other traits.  
+you can't use them with other traits.
 
 ## `&str` to `String`
 
-In [`std`'s documentation](https://doc.rust-lang.org/std/convert/trait.From.html#implementors) 
-you can see which `std` types implement the `From` trait.  
+In [`std`'s documentation](https://doc.rust-lang.org/std/convert/trait.From.html#implementors)
+you can see which `std` types implement the `From` trait.\
 You'll find that `String` implements `From<&str> for String`. Thus, we can write:
 
 ```rust
 let title = String::from("A title");
 ```
 
-We've been primarily using `.into()`, though.  
+We've been primarily using `.into()`, though.\
 If you check out the [implementors of `Into`](https://doc.rust-lang.org/std/convert/trait.Into.html#implementors)
 you won't find `Into<&str> for String`. What's going on?
 
-`From` and `Into` are **dual traits**.  
+`From` and `Into` are **dual traits**.\
 In particular, `Into` is implemented for any type that implements `From` using a **blanket implementation**:
 
 ```rust
@@ -129,7 +129,7 @@ we can write `let title = "A title".into();`.
 
 ## `.into()`
 
-Every time you see `.into()`, you're witnessing a conversion between types.  
+Every time you see `.into()`, you're witnessing a conversion between types.\
 What's the target type, though?
 
 In most cases, the target type is either:

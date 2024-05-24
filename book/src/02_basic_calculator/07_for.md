@@ -1,6 +1,6 @@
 # Loops, part 2: `for`
 
-Having to manually increment a counter variable is somewhat tedious. The pattern is also extremely common!   
+Having to manually increment a counter variable is somewhat tedious. The pattern is also extremely common!\
 To make this easier, Rust provides a more concise way to iterate over a range of values: the `for` loop.
 
 ## The `for` loop
@@ -62,7 +62,7 @@ for i in 1..(end + 1) {
 
 - [`for` loop documentation](https://doc.rust-lang.org/std/keyword.for.html)
 
-[^iterator]: Later in the course we'll give a precise definition of what counts as an "iterator". 
-    For now, think of it as a sequence of values that you can loop over.
-[^weird-ranges]: You can use ranges with other types too (e.g. characters and IP addresses), 
-    but integers are definitely the most common case in day-to-day Rust programming.
+[^iterator]: Later in the course we'll give a precise definition of what counts as an "iterator".
+For now, think of it as a sequence of values that you can loop over.
+[^weird-ranges]: You can use ranges with other types too (e.g. characters and IP addresses),
+but integers are definitely the most common case in day-to-day Rust programming.

@@ -1,6 +1,6 @@
 # `.iter()`
 
-`IntoIterator` **consumes** `self` to create an iterator.  
+`IntoIterator` **consumes** `self` to create an iterator.
 
 This has its benefits: you get **owned** values from the iterator.
 For example: if you call `.into_iter()` on a `Vec<Ticket>` you'll get an iterator that returns `Ticket` values.
@@ -21,7 +21,7 @@ for n in numbers.iter() {
 ```
 
 This pattern can be simplified by implementing `IntoIterator` for a **reference to the collection**.
-In our example above, that would be `&Vec<Ticket>`.  
+In our example above, that would be `&Vec<Ticket>`.\
 The standard library does this, that's why the following code works:
 
 ```rust

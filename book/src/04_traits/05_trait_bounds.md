@@ -1,19 +1,19 @@
-# Trait bounds 
+# Trait bounds
 
 We've seen two use cases for traits so far:
 
 - Unlocking "built-in" behaviour (e.g. operator overloading)
 - Adding new behaviour to existing types (i.e. extension traits)
 
-There's a third use case: **generic programming**.  
+There's a third use case: **generic programming**.
 
 ## The problem
 
-All our functions and methods, so far, have been working with **concrete types**.  
+All our functions and methods, so far, have been working with **concrete types**.\
 Code that operates on concrete types is usually straightforward to write and understand. But it's also
-limited in its reusability.  
+limited in its reusability.\
 Let's imagine, for example, that we want to write a function that returns `true` if an integer is even.
-Working with concrete types, we'd have to write a separate function for each integer type we want to 
+Working with concrete types, we'd have to write a separate function for each integer type we want to
 support:
 
 ```rust
@@ -54,7 +54,7 @@ The duplication remains.
 
 ## Generic programming
 
-We can do better using **generics**.  
+We can do better using **generics**.\
 Generics allow us to write code that works with a **type parameter** instead of a concrete type:
 
 ```rust
@@ -68,19 +68,19 @@ where
 }
 ```
 
-`print_if_even` is a **generic function**.  
+`print_if_even` is a **generic function**.\
 It isn't tied to a specific input type. Instead, it works with any type `T` that:
 
 - Implements the `IsEven` trait.
 - Implements the `Debug` trait.
 
-This contract is expressed with a **trait bound**: `T: IsEven + Debug`.  
+This contract is expressed with a **trait bound**: `T: IsEven + Debug`.\
 The `+` symbol is used to require that `T` implements multiple traits. `T: IsEven + Debug` is equivalent to
 "where `T` implements `IsEven` **and** `Debug`".
 
 ## Trait bounds
 
-What purpose do trait bounds serve in `print_if_even`?  
+What purpose do trait bounds serve in `print_if_even`?\
 To find out, let's try to remove them:
 
 ```rust
@@ -114,9 +114,9 @@ help: consider restricting type parameter `T`
   |                   +++++++++++++++++
 ```
 
-Without trait bounds, the compiler doesn't know what `T` **can do**.  
-It doesn't know that `T` has an `is_even` method, and it doesn't know how to format `T` for printing. 
-From the compiler point of view, a bare `T` has no behaviour at all.  
+Without trait bounds, the compiler doesn't know what `T` **can do**.\
+It doesn't know that `T` has an `is_even` method, and it doesn't know how to format `T` for printing.
+From the compiler point of view, a bare `T` has no behaviour at all.\
 Trait bounds restrict the set of types that can be used by ensuring that the behaviour required by the function
 body is present.
 
@@ -147,8 +147,8 @@ fn print_if_even<T: IsEven + Debug>(n: T) {
 
 ## Syntax: meaningful names
 
-In the examples above, we used `T` as the type parameter name. This is a common convention when a function has 
-only one type parameter.  
+In the examples above, we used `T` as the type parameter name. This is a common convention when a function has
+only one type parameter.\
 Nothing stops you from using a more meaningful name, though:
 
 ```rust
@@ -158,17 +158,17 @@ fn print_if_even<Number: IsEven + Debug>(n: Number) {
 ```
 
 It is actually **desirable** to use meaningful names when there are multiple type parameters at play or when the name
-`T` doesn't convey enough information about the type's role in the function. 
+`T` doesn't convey enough information about the type's role in the function.
 Maximize clarity and readability when naming type parameters, just as you would with variables or function parameters.
 Follow Rust's conventions though: use camel case for type parameter names.
 
 ## The function signature is king
 
-You may wonder why we need trait bounds at all. Can't the compiler infer the required traits from the function's body?  
-It could, but it won't.  
-The rationale is the same as for [explicit type annotations on function parameters](../02_basic_calculator/02_variables.md#function-arguments-are-variables): 
-each function signature is a contract between the caller and the callee, and the terms must be explicitly stated. 
-This allows for better error messages, better documentation, less unintentional breakages across versions, 
+You may wonder why we need trait bounds at all. Can't the compiler infer the required traits from the function's body?\
+It could, but it won't.\
+The rationale is the same as for [explicit type annotations on function parameters](../02_basic_calculator/02_variables.md#function-arguments-are-variables):
+each function signature is a contract between the caller and the callee, and the terms must be explicitly stated.
+This allows for better error messages, better documentation, less unintentional breakages across versions,
 and faster compilation times.
 
 ## References

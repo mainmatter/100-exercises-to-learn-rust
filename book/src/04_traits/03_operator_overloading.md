@@ -5,11 +5,11 @@ Operator overloading is the ability to define custom behavior for operators like
 
 ## Operators are traits
 
-In Rust, operators are traits.  
+In Rust, operators are traits.\
 For each operator, there is a corresponding trait that defines the behavior of that operator.
-By implementing that trait for your type, you **unlock** the usage of the corresponding operators.  
+By implementing that trait for your type, you **unlock** the usage of the corresponding operators.
 
-For example, the [`PartialEq` trait](https://doc.rust-lang.org/std/cmp/trait.PartialEq.html) defines the behavior of 
+For example, the [`PartialEq` trait](https://doc.rust-lang.org/std/cmp/trait.PartialEq.html) defines the behavior of
 the `==` and `!=` operators:
 
 ```rust
@@ -33,9 +33,9 @@ and replace `x == y` with `x.eq(y)`. It's syntactic sugar!
 This is the correspondence for the main operators:
 
 | Operator                 | Trait                                                                   |
-|--------------------------|-------------------------------------------------------------------------|
+| ------------------------ | ----------------------------------------------------------------------- |
 | `+`                      | [`Add`](https://doc.rust-lang.org/std/ops/trait.Add.html)               |
-| `-`                      | [`Sub`](https://doc.rust-lang.org/std/ops/trait.Sub.html)               |                                                 
+| `-`                      | [`Sub`](https://doc.rust-lang.org/std/ops/trait.Sub.html)               |
 | `*`                      | [`Mul`](https://doc.rust-lang.org/std/ops/trait.Mul.html)               |
 | `/`                      | [`Div`](https://doc.rust-lang.org/std/ops/trait.Div.html)               |
 | `%`                      | [`Rem`](https://doc.rust-lang.org/std/ops/trait.Rem.html)               |
@@ -47,9 +47,9 @@ while comparison ones live in the [`std::cmp`](https://doc.rust-lang.org/std/cmp
 
 ## Default implementations
 
-The comment on `PartialEq::ne` states that "`ne` is a provided method".  
-It means that `PartialEq` provides a **default implementation** for `ne` in the trait definition—the `{ ... }` elided 
-block in the definition snippet.  
+The comment on `PartialEq::ne` states that "`ne` is a provided method".\
+It means that `PartialEq` provides a **default implementation** for `ne` in the trait definition—the `{ ... }` elided
+block in the definition snippet.\
 If we expand the elided block, it looks like this:
 
 ```rust
@@ -62,7 +62,7 @@ pub trait PartialEq {
 }
 ```
 
-It's what you expect: `ne` is the negation of `eq`.  
+It's what you expect: `ne` is the negation of `eq`.\
 Since a default implementation is provided, you can skip implementing `ne` when you implement `PartialEq` for your type.
 It's enough to implement `eq`:
 
@@ -80,7 +80,7 @@ impl PartialEq for WrappingU8 {
 }
 ```
 
-You are not forced to use the default implementation though. 
+You are not forced to use the default implementation though.
 You can choose to override it when you implement the trait:
 
 ```rust
