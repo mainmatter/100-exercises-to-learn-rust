@@ -16,3 +16,7 @@ The task will give us an opportunity to explore new Rust concepts, such as:
 - `Eq` and `Hash`, to compare keys in a `HashMap`
 - `Ord` and `PartialOrd`, to work with a `BTreeMap`
 - `Index` and `IndexMut`, to access elements in a collection 
+
+## References
+
+- The exercise for this section is located in `exercises/06_ticket_management/00_intro/`
