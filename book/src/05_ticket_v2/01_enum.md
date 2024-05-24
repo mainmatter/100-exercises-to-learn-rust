@@ -41,4 +41,3 @@ enum Status {
 ```
 
 `enum`, just like `struct`, defines **a new Rust type**.
-

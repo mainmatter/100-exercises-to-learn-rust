@@ -136,4 +136,3 @@ let is_open = Ticket::is_open(ticket);
 
 The function call syntax makes it quite clear that `ticket` is being used as `self`, the first parameter of the method,
 but it's definitely more verbose. Prefer the method call syntax when possible.
-

@@ -13,4 +13,3 @@ We'll need to introduce a few more concepts along the way:
 - The `Error` trait, to mark error types
 - The `TryFrom` and `TryInto` traits, for fallible conversions
 - Rust's package system, explaining what's a library, what's a binary, how to use third-party crates
-

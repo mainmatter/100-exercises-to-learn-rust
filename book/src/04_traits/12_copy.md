@@ -111,4 +111,3 @@ struct MyStruct {
     field: u32,
 }
 ```
-

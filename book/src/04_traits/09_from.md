@@ -138,4 +138,3 @@ In most cases, the target type is either:
 - Specified in the variable declaration with a type annotation (e.g. `let title: String = "A title".into();`)
 
 `.into()` will work out of the box as long as the compiler can infer the target type from the context without ambiguity.
-

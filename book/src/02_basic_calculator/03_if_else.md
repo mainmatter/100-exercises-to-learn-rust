@@ -99,4 +99,3 @@ let message = if number < 5 {
 In the example above, each branch of the `if` evaluates to a string literal,
 which is then assigned to the `message` variable.\
 The only requirement is that both `if` branches return the same type.
-

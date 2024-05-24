@@ -16,4 +16,3 @@ To move forward you'll have to pick up several new Rust concepts, such as:
 - Memory management: stack, heap, pointers, data layout, destructors
 - Modules and visibility
 - Strings
-

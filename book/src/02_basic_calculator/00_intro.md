@@ -14,4 +14,3 @@ It might not sound like much, but it'll give us a chance to cover a lot of Rust'
 Nailing the basics with a few exercises will get the language flowing under your fingers.
 When we move on to more complex topics, such as traits and ownership, you'll be able to focus on the new concepts
 without getting bogged down by the syntax or other trivial details.
-

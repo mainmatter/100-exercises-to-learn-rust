@@ -38,4 +38,3 @@ being attempted.
 
 Just like `From` and `Into`, `TryFrom` and `TryInto` are dual traits.\
 If you implement `TryFrom` for a type, you get `TryInto` for free.
-

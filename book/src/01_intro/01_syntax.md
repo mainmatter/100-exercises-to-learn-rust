@@ -113,4 +113,3 @@ You can think of a type as a **tag** that the compiler attaches to every value i
 tag, the compiler can enforce different rules—e.g. you can't add a string to a number, but you can add two numbers
 together.
 If leveraged correctly, types can prevent whole classes of runtime bugs.
-

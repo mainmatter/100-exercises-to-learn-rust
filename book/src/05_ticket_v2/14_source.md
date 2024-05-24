@@ -148,4 +148,3 @@ fn read_file() -> Result<String, std::io::Error> {
 You can use the `?` operator to shorten your error handling code significantly.\
 In particular, the `?` operator will automatically convert the error type of the fallible operation into the error type
 of the function, if a conversion is possible (i.e. if there is a suitable `From` implementation)
-

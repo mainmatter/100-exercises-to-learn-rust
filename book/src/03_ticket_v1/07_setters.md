@@ -106,4 +106,3 @@ ticket.set_title("New title".into());
 ticket.set_description("New description".into());
 ticket.set_status("In Progress".into());
 ```
-

@@ -68,4 +68,3 @@ match status {
 ```
 
 The `_` pattern matches anything that wasn't matched by the previous patterns.
-

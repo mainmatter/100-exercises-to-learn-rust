@@ -114,4 +114,3 @@ If a method returns a `&String`, you're promising that there is heap-allocated U
 **matches exactly** the one you're returning a reference to.\
 If a method returns a `&str`, instead, you have a lot more freedom: you're just saying that _somewhere_ there's a
 bunch of text data and that a subset of it matches what you need, therefore you're returning a reference to it.
-

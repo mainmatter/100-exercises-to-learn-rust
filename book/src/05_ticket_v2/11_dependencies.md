@@ -52,4 +52,3 @@ static_assertions = "1.1.0"
 ```
 
 We've been using a few of these throughout the book to shorten our tests.
-

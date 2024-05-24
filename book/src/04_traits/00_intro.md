@@ -18,4 +18,3 @@ On top of traits as a concept, we'll also cover some of the key traits that are 
 
 Since we'll be talking about conversions, we'll seize the opportunity to plug some of the "knowledge gaps"
 from the previous chapter—e.g. what is `"A title"`, exactly? Time to learn more about slices too!
-

@@ -61,4 +61,3 @@ binary crate inside. If you want to create a library crate instead, you can use 
 ```bash
 cargo new my-library --lib
 ```
-

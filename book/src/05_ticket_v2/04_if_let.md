@@ -64,4 +64,3 @@ as the code that precedes it.
 Both `if let` and `let/else` are idiomatic Rust constructs.\
 Use them as you see fit to improve the readability of your code,
 but don't overdo it: `match` is always there when you need it.
-

@@ -96,4 +96,3 @@ impl PartialEq for MyType {
     }
 }
 ```
-
