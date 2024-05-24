@@ -11,11 +11,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Build API reference
+      - name: Build book
         run: |
           cd book
           curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.40/mdbook-v0.4.40-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=.
-          mdbook build
+          ./mdbook build
       - name: Link Checker
         uses: lycheeverse/lychee-action@v1
         with:
