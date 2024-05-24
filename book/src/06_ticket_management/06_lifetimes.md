@@ -77,5 +77,8 @@ You can think of `'_` as a **placeholder** for the lifetime of the `&self` refer
 See the [References](#references) section for a link to the official documentation on lifetime elision.\
 In most cases, you can rely on the compiler telling you when you need to add explicit lifetime annotations.
 
+## References
+
+- [std::vec::Vec::iter](https://doc.rust-lang.org/std/vec/struct.Vec.html#method.iter)
 - [std::slice::Iter](https://doc.rust-lang.org/std/slice/struct.Iter.html)
 - [Lifetime elision rules](https://doc.rust-lang.org/reference/lifetime-elision.html)
