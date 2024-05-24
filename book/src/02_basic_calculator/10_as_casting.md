@@ -92,7 +92,7 @@ It is also fairly limited: you can only rely on `as` casting
 for primitive types and a few other special cases.  
 When working with composite types, you'll have to rely on 
 different conversion mechanisms ([fallible](../05_ticket_v2/13_try_from) 
-and [infallible](../04_traits/08_from)), which we'll explore later on.
+and [infallible](../04_traits/09_from)), which we'll explore later on.
 
 ## References
 

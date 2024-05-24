@@ -38,7 +38,7 @@ let ticket = Ticket {
 You've seen this in action in the previous exercise on visibility.  
 We now need to provide one or more public **constructors**—i.e. static methods or functions that can be used
 from outside the module to create a new instance of the struct.  
-Luckily enough we already have one: `Ticket::new`, as implemented in [a previous exercise](../02_validation/README.md).
+Luckily enough we already have one: `Ticket::new`, as implemented in [a previous exercise](02_validation).
 
 ## Accessor methods
 

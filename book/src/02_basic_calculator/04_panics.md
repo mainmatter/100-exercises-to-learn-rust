@@ -1,6 +1,6 @@
 # Panics
 
-Let's go back to the `speed` function you wrote for the ["Variables" section](../02_variables/README.md).
+Let's go back to the `speed` function you wrote for the ["Variables" section](02_variables).
 It probably looked something like this:
 
 ```rust
