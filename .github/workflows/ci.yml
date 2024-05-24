@@ -9,6 +9,12 @@ on:
       - main
 
 jobs:
+  formatter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dprint/check@v2.2
+
   check-links:
     runs-on: ubuntu-latest
     steps:

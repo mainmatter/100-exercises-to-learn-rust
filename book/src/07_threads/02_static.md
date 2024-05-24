@@ -20,12 +20,12 @@ error[E0597]: `v` does not live long enough
 
 `argument requires that v is borrowed for 'static`, what does that mean?
 
-The `'static` lifetime is a special lifetime in Rust.  
+The `'static` lifetime is a special lifetime in Rust.\
 It means that the value will be valid for the entire duration of the program.
 
 ## Detached threads
 
-A thread launched via `thread::spawn` can **outlive** the thread that spawned it.  
+A thread launched via `thread::spawn` can **outlive** the thread that spawned it.\
 For example:
 
 ```rust
@@ -43,11 +43,11 @@ fn f() {
 }
 ```
 
-In this example, the first spawned thread will in turn spawn 
-a child thread that prints a message every second.  
+In this example, the first spawned thread will in turn spawn
+a child thread that prints a message every second.\
 The first thread will then finish and exit. When that happens,
-its child thread will **continue running** for as long as the 
-overall process is running.  
+its child thread will **continue running** for as long as the
+overall process is running.\
 In Rust's lingo, we say that the child thread has **outlived**
 its parent.
 
@@ -59,7 +59,7 @@ Since a spawned thread can:
 - run until the program exits
 
 it must not borrow any values that might be dropped before the program exits;
-violating this constraint would expose us to a use-after-free bug.  
+violating this constraint would expose us to a use-after-free bug.\
 That's why `std::thread::spawn`'s signature requires that the closure passed to it
 has the `'static` lifetime:
 
@@ -77,9 +77,9 @@ where
 
 All values in Rust have a lifetime, not just references.
 
-In particular, a type that owns its data (like a `Vec` or a `String`) 
+In particular, a type that owns its data (like a `Vec` or a `String`)
 satisfies the `'static` constraint: if you own it, you can keep working with it
-for as long as you want, even after the function that originally created it 
+for as long as you want, even after the function that originally created it
 has returned.
 
 You can thus interpret `'static` as a way to say:
@@ -104,9 +104,9 @@ The most common case is a reference to **static data**, such as string literals:
 let s: &'static str = "Hello world!";
 ```
 
-Since string literals are known at compile-time, Rust stores them *inside* your executable,
-in a region known as **read-only data segment**. 
-All references pointing to that region will therefore be valid for as long as 
+Since string literals are known at compile-time, Rust stores them _inside_ your executable,
+in a region known as **read-only data segment**.
+All references pointing to that region will therefore be valid for as long as
 the program runs; they satisfy the `'static` contract.
 
 ## Further reading

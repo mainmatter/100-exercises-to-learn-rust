@@ -1,6 +1,6 @@
 # `Deref` trait
 
-In the previous exercise you didn't have to do much, did you?  
+In the previous exercise you didn't have to do much, did you?
 
 Changing
 
@@ -22,8 +22,8 @@ impl Ticket {
 }
 ```
 
-was all you needed to do to get the code to compile and the tests to pass. 
-Some alarm bells should be ringing in your head though. 
+was all you needed to do to get the code to compile and the tests to pass.
+Some alarm bells should be ringing in your head though.
 
 ## It shouldn't work, but it does
 
@@ -38,7 +38,7 @@ Instead, it just works. **Why**?
 
 ## `Deref` to the rescue
 
-The `Deref` trait is the mechanism behind the language feature known as [**deref coercion**](https://doc.rust-lang.org/std/ops/trait.Deref.html#deref-coercion).  
+The `Deref` trait is the mechanism behind the language feature known as [**deref coercion**](https://doc.rust-lang.org/std/ops/trait.Deref.html#deref-coercion).\
 The trait is defined in the standard library, in the `std::ops` module:
 
 ```rust
@@ -51,13 +51,13 @@ pub trait Deref {
 }
 ```
 
-`type Target` is an **associated type**.  
+`type Target` is an **associated type**.\
 It's a placeholder for a concrete type that must be specified when the trait is implemented.
 
 ## Deref coercion
 
-By implementing `Deref<Target = U>` for a type `T` you're telling the compiler that `&T` and `&U` are 
-somewhat interchangeable.  
+By implementing `Deref<Target = U>` for a type `T` you're telling the compiler that `&T` and `&U` are
+somewhat interchangeable.\
 In particular, you get the following behavior:
 
 - References to `T` are implicitly converted into references to `U` (i.e. `&T` becomes `&U`)
@@ -84,11 +84,11 @@ Thanks to this implementation and deref coercion, a `&String` is automatically c
 
 ## Don't abuse deref coercion
 
-Deref coercion is a powerful feature, but it can lead to confusion.  
+Deref coercion is a powerful feature, but it can lead to confusion.\
 Automatically converting types can make the code harder to read and understand. If a method with the same name
-is defined on both `T` and `U`, which one will be called?  
+is defined on both `T` and `U`, which one will be called?
 
-We'll examine later in the course the "safest" use cases for deref coercion: smart pointers.  
+We'll examine later in the course the "safest" use cases for deref coercion: smart pointers.
 
 ## References
 

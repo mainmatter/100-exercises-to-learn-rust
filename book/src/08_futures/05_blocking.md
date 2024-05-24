@@ -1,6 +1,6 @@
 # Don't block the runtime
 
-Let's circle back to yield points.  
+Let's circle back to yield points.\
 Unlike threads, **Rust tasks cannot be preempted**.
 
 `tokio` cannot, on its own, decide to pause a task and run another one in its place.
@@ -11,13 +11,13 @@ you `.await` a future.
 This exposes the runtime to a risk: if a task never yields, the runtime will never
 be able to run another task. This is called **blocking the runtime**.
 
-## What is blocking?  
+## What is blocking?
 
 How long is too long? How much time can a task spend without yielding before it
 becomes a problem?
 
 It depends on the runtime, the application, the number of in-flight tasks, and
-many other factors. But, as a general rule of thumb, try to spend less than 100 
+many other factors. But, as a general rule of thumb, try to spend less than 100
 microseconds between yield points.
 
 ## Consequences
@@ -27,7 +27,7 @@ Blocking the runtime can lead to:
 - **Deadlocks**: if the task that's not yielding is waiting for another task to
   complete, and that task is waiting for the first one to yield, you have a deadlock.
   No progress can be made, unless the runtime is able to schedule the other task on
-  a different thread. 
+  a different thread.
 - **Starvation**: other tasks might not be able to run, or might run after a long
   delay, which can lead to poor performances (e.g. high tail latencies).
 
@@ -46,12 +46,12 @@ of entries.
 ## How to avoid blocking
 
 OK, so how do you avoid blocking the runtime assuming you _must_ perform an operation
-that qualifies or risks qualifying as blocking?  
+that qualifies or risks qualifying as blocking?\
 You need to move the work to a different thread. You don't want to use the so-called
 runtime threads, the ones used by `tokio` to run tasks.
 
 `tokio` provides a dedicated threadpool for this purpose, called the **blocking pool**.
-You can spawn a synchronous operation on the blocking pool using the 
+You can spawn a synchronous operation on the blocking pool using the
 `tokio::task::spawn_blocking` function. `spawn_blocking` returns a future that resolves
 to the result of the operation when it completes.
 

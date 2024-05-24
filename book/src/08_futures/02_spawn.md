@@ -12,12 +12,12 @@ pub async fn echo(listener: TcpListener) -> Result<(), anyhow::Error> {
 }
 ```
 
-This is not bad!  
+This is not bad!\
 If a long time passes between two incoming connections, the `echo` function will be idle
 (since `TcpListener::accept` is an asynchronous function), thus allowing the executor
 to run other tasks in the meantime.
 
-But how can we actually have multiple tasks running concurrently?  
+But how can we actually have multiple tasks running concurrently?\
 If we always run our asynchronous functions until completion (by using `.await`), we'll never
 have more than one task running at a time.
 
@@ -25,7 +25,7 @@ This is where the `tokio::spawn` function comes in.
 
 ## `tokio::spawn`
 
-`tokio::spawn` allows you to hand off a task to the executor, **without waiting for it to complete**.  
+`tokio::spawn` allows you to hand off a task to the executor, **without waiting for it to complete**.\
 Whenever you invoke `tokio::spawn`, you're telling `tokio` to continue running
 the spawned task, in the background, **concurrently** with the task that spawned it.
 
@@ -51,12 +51,12 @@ pub async fn echo(listener: TcpListener) -> Result<(), anyhow::Error> {
 ### Asynchronous blocks
 
 In this example, we've passed an **asynchronous block** to `tokio::spawn`: `async move { /* */ }`
-Asynchronous blocks are a quick way to mark a region of code as asynchronous without having 
+Asynchronous blocks are a quick way to mark a region of code as asynchronous without having
 to define a separate async function.
 
 ### `JoinHandle`
 
-`tokio::spawn` returns a `JoinHandle`.  
+`tokio::spawn` returns a `JoinHandle`.\
 You can use `JoinHandle` to `.await` the background task, in the same way
 we used `join` for spawned threads.
 
@@ -83,10 +83,10 @@ pub async fn do_work() {
 
 ### Panic boundary
 
-If a task spawned with `tokio::spawn` panics, the panic will be caught by the executor.  
+If a task spawned with `tokio::spawn` panics, the panic will be caught by the executor.\
 If you don't `.await` the corresponding `JoinHandle`, the panic won't be propagated to the spawner.
-Even if you do `.await` the `JoinHandle`, the panic won't be propagated automatically. 
-Awaiting a `JoinHandle` returns a `Result`, with [`JoinError`](https://docs.rs/tokio/latest/tokio/task/struct.JoinError.html) 
+Even if you do `.await` the `JoinHandle`, the panic won't be propagated automatically.
+Awaiting a `JoinHandle` returns a `Result`, with [`JoinError`](https://docs.rs/tokio/latest/tokio/task/struct.JoinError.html)
 as its error type. You can then check if the task panicked by calling `JoinError::is_panic` and
 choose what to do with the panic—either log it, ignore it, or propagate it.
 
@@ -112,11 +112,11 @@ pub async fn work() {
 
 ### `std::thread::spawn` vs `tokio::spawn`
 
-You can think of `tokio::spawn` as the asynchronous sibling of `std::spawn::thread`.  
+You can think of `tokio::spawn` as the asynchronous sibling of `std::spawn::thread`.
 
 Notice a key difference: with `std::thread::spawn`, you're delegating control to the OS scheduler.
 You're not in control of how threads are scheduled.
 
 With `tokio::spawn`, you're delegating to an async executor that runs entirely in
-user space. The underlying OS scheduler is not involved in the decision of which task 
+user space. The underlying OS scheduler is not involved in the decision of which task
 to run next. We're in charge of that decision now, via the executor we chose to use.

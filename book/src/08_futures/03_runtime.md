@@ -6,9 +6,9 @@ it has an impact on our code.
 
 ## Flavors
 
-`tokio` ships two different runtime _flavors_.  
+`tokio` ships two different runtime _flavors_.
 
-You can configure your runtime via `tokio::runtime::Builder`: 
+You can configure your runtime via `tokio::runtime::Builder`:
 
 - `Builder::new_multi_thread` gives you a **multithreaded `tokio` runtime**
 - `Builder::new_current_thread` will instead rely on the **current thread** for execution.
@@ -19,29 +19,29 @@ You can configure your runtime via `tokio::runtime::Builder`:
 ### Current thread runtime
 
 The current-thread runtime, as the name implies, relies exclusively on the OS thread
-it was launched on to schedule and execute tasks.  
+it was launched on to schedule and execute tasks.\
 When using the current-thread runtime, you have **concurrency** but no **parallelism**:
 asynchronous tasks will be interleaved, but there will always be at most one task running
 at any given time.
 
 ### Multithreaded runtime
 
-When using the multithreaded runtime, instead, there can up to `N` tasks running 
-_in parallel_ at any given time, where `N` is the number of threads used by the 
-runtime. By default, `N` matches the number of available CPU cores.  
+When using the multithreaded runtime, instead, there can up to `N` tasks running
+_in parallel_ at any given time, where `N` is the number of threads used by the
+runtime. By default, `N` matches the number of available CPU cores.
 
-There's more: `tokio` performs **work-stealing**.  
+There's more: `tokio` performs **work-stealing**.\
 If a thread is idle, it won't wait around: it'll try to find a new task that's ready for
 execution, either from a global queue or by stealing it from the local queue of another
-thread.  
-Work-stealing can have significant performance benefits, especially on tail latencies, 
+thread.\
+Work-stealing can have significant performance benefits, especially on tail latencies,
 whenever your application is dealing with workloads that are not perfectly balanced
 across threads.
 
 ## Implications
 
-`tokio::spawn` is flavor-agnostic: it'll work no matter if you're running on the multithreaded 
-or current-thread runtime. The downside is that the signature assume the worst case 
+`tokio::spawn` is flavor-agnostic: it'll work no matter if you're running on the multithreaded
+or current-thread runtime. The downside is that the signature assume the worst case
 (i.e. multithreaded) and is constrained accordingly:
 
 ```rust
@@ -52,7 +52,7 @@ where
 { /* */ }
 ```
 
-Let's ignore the `Future` trait for now to focus on the rest.  
+Let's ignore the `Future` trait for now to focus on the rest.\
 `spawn` is asking all its inputs to be `Send` and have a `'static` lifetime.
 
 The `'static` constraint follows the same rationale of the `'static` constraint

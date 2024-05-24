@@ -21,12 +21,12 @@ Heap:  | 1 | 2 | ? |
        +---+---+---+
 ```
 
-We already remarked how `String` is just a `Vec<u8>` in disguise.  
+We already remarked how `String` is just a `Vec<u8>` in disguise.\
 The similarity should prompt you to ask: "What's the equivalent of `&str` for `Vec`?"
 
 ## `&[T]`
 
-`[T]` is a **slice** of a contiguous sequence of elements of type `T`.  
+`[T]` is a **slice** of a contiguous sequence of elements of type `T`.\
 It's most commonly used in its borrowed form, `&[T]`.
 
 There are various ways to create a slice reference from a `Vec`:
@@ -54,7 +54,7 @@ let sum: i32 = numbers.iter().sum();
 
 ### Memory layout
 
-A `&[T]` is a **fat pointer**, just like `&str`.  
+A `&[T]` is a **fat pointer**, just like `&str`.\
 It consists of a pointer to the first element of the slice and the length of the slice.
 
 If you have a `Vec` with three elements:
@@ -90,10 +90,10 @@ Heap:    | 1 | 2 | 3 | ? |                      |
 
 ### `&Vec<T>` vs `&[T]`
 
-When you need to pass an immutable reference to a `Vec` to a function, prefer `&[T]` over `&Vec<T>`.  
+When you need to pass an immutable reference to a `Vec` to a function, prefer `&[T]` over `&Vec<T>`.\
 This allows the function to accept any kind of slice, not necessarily one backed by a `Vec`.
 
-For example, you can then pass a subset of the elements in a `Vec`. 
+For example, you can then pass a subset of the elements in a `Vec`.
 But it goes further than that—you could also pass a **slice of an array**:
 
 ```rust
@@ -102,5 +102,5 @@ let slice: &[i32] = &array;
 ```
 
 Array slices and `Vec` slices are the same type: they're fat pointers to a contiguous sequence of elements.
-In the case of arrays, the pointer points to the stack rather than the heap, but that doesn't matter 
+In the case of arrays, the pointer points to the stack rather than the heap, but that doesn't matter
 when it comes to using the slice.

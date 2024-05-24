@@ -1,6 +1,6 @@
 # Ticket ids
 
-Let's think again about our ticket management system.  
+Let's think again about our ticket management system.\
 Our ticket model right now looks like this:
 
 ```rust
@@ -11,13 +11,13 @@ pub struct Ticket {
 }
 ```
 
-One thing is missing here: an **identifier** to uniquely identify a ticket.  
-That identifier should be unique for each ticket. That can be guaranteed by generating it automatically when 
+One thing is missing here: an **identifier** to uniquely identify a ticket.\
+That identifier should be unique for each ticket. That can be guaranteed by generating it automatically when
 a new ticket is created.
 
 ## Refining the model
 
-Where should the id be stored?  
+Where should the id be stored?\
 We could add a new field to the `Ticket` struct:
 
 ```rust
@@ -29,7 +29,7 @@ pub struct Ticket {
 }
 ```
 
-But we don't know the id before creating the ticket. So it can't be there from the get-go.  
+But we don't know the id before creating the ticket. So it can't be there from the get-go.\
 It'd have to be optional:
 
 ```rust
@@ -61,7 +61,7 @@ pub struct Ticket {
 }
 ```
 
-A `TicketDraft` is a ticket that hasn't been created yet. It doesn't have an id, and it doesn't have a status.  
-A `Ticket` is a ticket that has been created. It has an id and a status.  
+A `TicketDraft` is a ticket that hasn't been created yet. It doesn't have an id, and it doesn't have a status.\
+A `Ticket` is a ticket that has been created. It has an id and a status.\
 Since each field in `TicketDraft` and `Ticket` embeds its own constraints, we don't have to duplicate logic
 across the two types.

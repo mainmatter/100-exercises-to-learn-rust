@@ -1,11 +1,11 @@
 # Nullability
 
-Our implementation of the `assigned` method is fairly blunt: panicking for to-do and done tickets is far from ideal.  
+Our implementation of the `assigned` method is fairly blunt: panicking for to-do and done tickets is far from ideal.\
 We can do better using **Rust's `Option` type**.
 
 ## `Option`
 
-`Option` is a Rust type that represents **nullable values**.  
+`Option` is a Rust type that represents **nullable values**.\
 It is an enum, defined in Rust's standard library:
 
 ```rust
@@ -15,10 +15,10 @@ enum Option<T> {
 }
 ```
 
-`Option` encodes the idea that a value might be present (`Some(T)`) or absent (`None`).  
+`Option` encodes the idea that a value might be present (`Some(T)`) or absent (`None`).\
 It also forces you to **explicitly handle both cases**. You'll get a compiler error if you are working with
-a nullable value and you forget to handle the `None` case.  
-This is a significant improvement over "implicit" nullability in other languages, where you can forget to check 
+a nullable value and you forget to handle the `None` case.\
+This is a significant improvement over "implicit" nullability in other languages, where you can forget to check
 for `null` and thus trigger a runtime error.
 
 ## `Option`'s definition
@@ -27,11 +27,11 @@ for `null` and thus trigger a runtime error.
 
 ### Tuple-like variants
 
-`Option` has two variants: `Some(T)` and `None`.  
-`Some` is a **tuple-like variant**: it's a variant that holds **unnamed fields**.  
+`Option` has two variants: `Some(T)` and `None`.\
+`Some` is a **tuple-like variant**: it's a variant that holds **unnamed fields**.
 
-Tuple-like variants are often used when there is a single field to store, especially when we're looking at a 
-"wrapper" type like `Option`.  
+Tuple-like variants are often used when there is a single field to store, especially when we're looking at a
+"wrapper" type like `Option`.
 
 ### Tuple-like structs
 
@@ -51,7 +51,7 @@ let y = point.1;
 
 ### Tuples
 
-It's weird say that something is tuple-like when we haven't seen tuples yet!  
+It's weird say that something is tuple-like when we haven't seen tuples yet!\
 Tuples are another example of a primitive Rust type.
 They group together a fixed number of values with (potentially different) types:
 

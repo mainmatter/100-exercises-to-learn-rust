@@ -95,7 +95,7 @@
   - [`RwLock`](07_threads/12_rw_lock.md)
   - [Without channels](07_threads/13_without_channels.md)
   - [`Sync` trait](07_threads/14_sync.md)
-    
+
 - [Futures](08_futures/00_intro.md)
   - [Asynchronous functions](08_futures/01_async_fn.md)
   - [Spawning tasks](08_futures/02_spawn.md)
