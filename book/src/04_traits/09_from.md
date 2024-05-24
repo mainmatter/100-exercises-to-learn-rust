@@ -69,7 +69,20 @@ pub struct Foo<T: Sized>
 }
 ```
 
-You can opt out of this behavior by using a **negative trait bound**:
+In the case of `From<T>`, the trait definition is equivalent to:
+
+```rust
+pub trait From<T: Sized>: Sized {
+    fn from(value: T) -> Self;
+}
+```
+
+In other words, _both_ `T` and the type implementing `From<T>` must be `Sized`, even
+though the former bound is implicit. 
+
+### Negative trait bounds
+
+You can opt out of the implicit `Sized` bound with a **negative trait bound**:
 
 ```rust
 pub struct Foo<T: ?Sized> {
@@ -82,8 +95,6 @@ pub struct Foo<T: ?Sized> {
 This syntax reads as "`T` may or may not be `Sized`", and it allows you to
 bind `T` to a DST (e.g. `Foo<str>`). It is a special case, though: negative trait bounds are exclusive to `Sized`,
 you can't use them with other traits.  
-In the case of `From<T>`, we want _both_ `T` and the type implementing `From<T>` to be `Sized`, even
-though the former bound is implicit.
 
 ## `&str` to `String`
 
