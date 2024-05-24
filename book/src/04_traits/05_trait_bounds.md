@@ -166,7 +166,7 @@ Follow Rust's conventions though: use camel case for type parameter names.
 
 You may wonder why we need trait bounds at all. Can't the compiler infer the required traits from the function's body?  
 It could, but it won't.  
-The rationale is the same as for [explicit type annotations on function parameters](../02_basic_calculator/02_variables#function-arguments-are-variables): 
+The rationale is the same as for [explicit type annotations on function parameters](../02_basic_calculator/02_variables.md#function-arguments-are-variables): 
 each function signature is a contract between the caller and the callee, and the terms must be explicitly stated. 
 This allows for better error messages, better documentation, less unintentional breakages across versions, 
 and faster compilation times.

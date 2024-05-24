@@ -1,6 +1,6 @@
 # Enumerations
 
-Based on the validation logic you wrote [in a previous chapter](../03_ticket_v1/02_validation), 
+Based on the validation logic you wrote [in a previous chapter](../03_ticket_v1/02_validation.md), 
 there are only a few valid statuses for a ticket: `To-Do`, `InProgress` and `Done`.  
 This is not obvious if we look at the `status` field in the `Ticket` struct or at the type of the `status` 
 parameter in the `new` method:
