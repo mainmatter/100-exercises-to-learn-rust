@@ -116,10 +116,11 @@ help: consider restricting type parameter `T`
 
 Without trait bounds, the compiler doesn't know what `T` **can do**.  
 It doesn't know that `T` has an `is_even` method, and it doesn't know how to format `T` for printing. 
+From the compiler point of view, a bare `T` has no behaviour at all.  
 Trait bounds restrict the set of types that can be used by ensuring that the behaviour required by the function
 body is present.
 
-## Inlining trait bounds
+## Syntax: inlining trait bounds
 
 All the examples above used a **`where` clause** to specify trait bounds:
 
@@ -143,6 +144,23 @@ fn print_if_even<T: IsEven + Debug>(n: T) {
     // [...]
 }
 ```
+
+## Syntax: meaningful names
+
+In the examples above, we used `T` as the type parameter name. This is a common convention when a function has 
+only one type parameter.  
+Nothing stops you from using a more meaningful name, though:
+
+```rust
+fn print_if_even<Number: IsEven + Debug>(n: Number) {
+    // [...]
+}
+```
+
+It is actually **desirable** to use meaningful names when there are multiple type parameters at play or when the name
+`T` doesn't convey enough information about the type's role in the function. 
+Maximize clarity and readability when naming type parameters, just as you would with variables or function parameters.
+Follow Rust's conventions though: use camel case for type parameter names.
 
 ## The function signature is king
 
