@@ -2,7 +2,7 @@
 
 ## Error reporting
 
-In the previous exercise you had to destructure the `InvalidTitle` variant to extract the error message and
+In the previous exercise you had to destructure the `TitleError` variant to extract the error message and
 pass it to the `panic!` macro.\
 This is a (rudimentary) example of **error reporting**: transforming an error type into a representation that can be
 shown to a user, a service operator, or a developer.
