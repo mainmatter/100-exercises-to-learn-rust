@@ -1,0 +1,59 @@
+name: "CI"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+      - name: Install plugin
+        run: cargo install --path helpers/mdbook-exercise-linker
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: mdbook
+      - name: Build book
+        run: |
+          cd book
+          mdbook build
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1
+        with:
+          fail: true
+          args: |
+            --exclude-loopback 
+            --require-https 
+            --no-progress 
+            book/book
+      # Upload the book as an artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: book
+          path: book/book
+            # Commit and push all changed files.
+            # Must only affect files that are listed in "paths-ignore".
+      - name: Git commit build artifacts
+        # Only run on main branch push (e.g. pull request merge).
+        if: github.event_name == 'push'
+        run: |
+          git checkout -b deploy
+          git config --global user.name "Deployer"
+          git config --global user.email "username@users.noreply.github.com"
+          git add --force book/book
+          git commit -m "Render book"
+          git push --set-upstream --force-with-lease origin deploy
+
+  formatter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dprint/check@v2.2

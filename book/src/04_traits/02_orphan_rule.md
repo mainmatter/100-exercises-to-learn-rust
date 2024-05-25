@@ -44,7 +44,7 @@ fn main() {
 
 ## One implementation
 
-There are limitations to the trait implementations you can write.  
+There are limitations to the trait implementations you can write.\
 The simplest and most straight-forward one: you can't implement the same trait twice,
 in a crate, for the same type.
 
@@ -101,16 +101,12 @@ Imagine the following situation:
 - Crate `C` provides a (different) implementation of the `IsEven` trait for `u32`
 - Crate `D` depends on both `B` and `C` and calls `1.is_even()`
 
-Which implementation should be used? The one defined in `B`? Or the one defined in `C`?  
+Which implementation should be used? The one defined in `B`? Or the one defined in `C`?\
 There's no good answer, therefore the orphan rule was defined to prevent this scenario.
 Thanks to the orphan rule, neither crate `B` nor crate `C` would compile.
 
-## References
-
-- The exercise for this section is located in `exercises/04_traits/02_orphan_rule`
-
 ## Further reading
 
-- There are some caveats and exceptions to the orphan rule as stated above. 
-  Check out [the reference](https://doc.rust-lang.org/reference/items/implementations.html#trait-implementation-coherence) 
-  if you want to get familiar with its nuances. 
+- There are some caveats and exceptions to the orphan rule as stated above.
+  Check out [the reference](https://doc.rust-lang.org/reference/items/implementations.html#trait-implementation-coherence)
+  if you want to get familiar with its nuances.

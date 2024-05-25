@@ -1,8 +1,8 @@
 # Enumerations
 
-Based on the validation logic you wrote [in a previous chapter](../03_ticket_v1/02_validation), 
-there are only a few valid statuses for a ticket: `To-Do`, `InProgress` and `Done`.  
-This is not obvious if we look at the `status` field in the `Ticket` struct or at the type of the `status` 
+Based on the validation logic you wrote [in a previous chapter](../03_ticket_v1/02_validation.md),
+there are only a few valid statuses for a ticket: `To-Do`, `InProgress` and `Done`.\
+This is not obvious if we look at the `status` field in the `Ticket` struct or at the type of the `status`
 parameter in the `new` method:
 
 ```rust
@@ -29,7 +29,7 @@ We can do better than that with **enumerations**.
 
 ## `enum`
 
-An enumeration is a type that can have a fixed set of values, called **variants**.  
+An enumeration is a type that can have a fixed set of values, called **variants**.\
 In Rust, you define an enumeration using the `enum` keyword:
 
 ```rust
@@ -41,7 +41,3 @@ enum Status {
 ```
 
 `enum`, just like `struct`, defines **a new Rust type**.
-
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/01_enum`

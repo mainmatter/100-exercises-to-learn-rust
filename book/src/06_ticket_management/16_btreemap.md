@@ -1,20 +1,20 @@
 # Ordering
 
 By moving from a `Vec` to a `HashMap` we have improved the performance of our ticket management system,
-and simplified our code in the process.  
-It's not all roses, though. When iterating over a `Vec`-backed store, we could be sure that the tickets 
-would be returned in the order they were added.  
+and simplified our code in the process.\
+It's not all roses, though. When iterating over a `Vec`-backed store, we could be sure that the tickets
+would be returned in the order they were added.\
 That's not the case with a `HashMap`: you can iterate over the tickets, but the order is random.
 
 We can recover a consistent ordering by switching from a `HashMap` to a `BTreeMap`.
 
 ## `BTreeMap`
 
-A `BTreeMap` guarantees that entries are sorted by their keys.  
+A `BTreeMap` guarantees that entries are sorted by their keys.\
 This is useful when you need to iterate over the entries in a specific order, or if you need to
 perform range queries (e.g. "give me all tickets with an id between 10 and 20").
 
-Just like `HashMap`, you won't find trait bounds on the definition of `BTreeMap`. 
+Just like `HashMap`, you won't find trait bounds on the definition of `BTreeMap`.
 But you'll find trait bounds on its methods. Let's look at `insert`:
 
 ```rust
@@ -34,7 +34,7 @@ impl<K, V> BTreeMap<K, V> {
 
 ## `Ord`
 
-The `Ord` trait is used to compare values.  
+The `Ord` trait is used to compare values.\
 While `PartialEq` is used to compare for equality, `Ord` is used to compare for ordering.
 
 It's defined in `std::cmp`:
@@ -45,8 +45,8 @@ pub trait Ord: Eq + PartialOrd {
 }
 ```
 
-The `cmp` method returns an `Ordering` enum, which can be one 
-of `Less`, `Equal`, or `Greater`.  
+The `cmp` method returns an `Ordering` enum, which can be one
+of `Less`, `Equal`, or `Greater`.\
 `Ord` requires that two other traits are implemented: `Eq` and `PartialOrd`.
 
 ## `PartialOrd`
@@ -60,9 +60,9 @@ pub trait PartialOrd: PartialEq {
 }
 ```
 
-`PartialOrd::partial_cmp` returns an `Option`—it is not guaranteed that two values can 
-be compared.  
-For example, `f32` doesn't implement `Ord` because `NaN` values are not comparable, 
+`PartialOrd::partial_cmp` returns an `Option`—it is not guaranteed that two values can
+be compared.\
+For example, `f32` doesn't implement `Ord` because `NaN` values are not comparable,
 the same reason why `f32` doesn't implement `Eq`.
 
 ## Implementing `Ord` and `PartialOrd`
@@ -79,4 +79,4 @@ struct TicketId(u64);
 If you choose (or need) to implement them manually, be careful:
 
 - `Ord` and `PartialOrd` must be consistent with `Eq` and `PartialEq`.
-- `Ord` and `PartialOrd` must be consistent with each other. 
+- `Ord` and `PartialOrd` must be consistent with each other.

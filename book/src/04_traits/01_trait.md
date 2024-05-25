@@ -10,7 +10,7 @@ pub struct Ticket {
 }
 ```
 
-All our tests, so far, have been making assertions using `Ticket`'s fields. 
+All our tests, so far, have been making assertions using `Ticket`'s fields.
 
 ```rust
 assert_eq!(ticket.title(), "A new title");
@@ -38,15 +38,15 @@ error[E0369]: binary operation `==` cannot be applied to type `Ticket`
 note: an implementation of `PartialEq` might be missing for `Ticket`
 ```
 
-`Ticket` is a new type. Out of the box, there is **no behavior attached to it**.  
+`Ticket` is a new type. Out of the box, there is **no behavior attached to it**.\
 Rust doesn't magically infer how to compare two `Ticket` instances just because they contain `String`s.
 
-The Rust compiler is nudging us in the right direction though: it's suggesting that we might be missing an implementation 
+The Rust compiler is nudging us in the right direction though: it's suggesting that we might be missing an implementation
 of `PartialEq`. `PartialEq` is a **trait**!
 
 ## What are traits?
 
-Traits are Rust's way of defining **interfaces**.  
+Traits are Rust's way of defining **interfaces**.\
 A trait defines a set of methods that a type must implement to satisfy the trait's contract.
 
 ### Defining a trait
@@ -69,7 +69,7 @@ trait MaybeZero {
 
 ### Implementing a trait
 
-To implement a trait for a type we use the `impl` keyword, just like we do for regular[^inherent] methods, 
+To implement a trait for a type we use the `impl` keyword, just like we do for regular[^inherent] methods,
 but the syntax is a bit different:
 
 ```rust
@@ -117,15 +117,11 @@ use crate::MaybeZero;
 This is not necessary if:
 
 - The trait is defined in the same module where the invocation occurs.
-- The trait is defined in the standard library's **prelude**. 
-  The prelude is a set of traits and types that are automatically imported into every Rust program. 
+- The trait is defined in the standard library's **prelude**.
+  The prelude is a set of traits and types that are automatically imported into every Rust program.
   It's as if `use std::prelude::*;` was added at the beginning of every Rust module.
 
-You can find the list of traits and types in the prelude in the 
+You can find the list of traits and types in the prelude in the
 [Rust documentation](https://doc.rust-lang.org/std/prelude/index.html).
-
-## References
-
-- The exercise for this section is located in `exercises/04_traits/01_trait`
 
 [^inherent]: A method defined directly on a type, without using a trait, is also known as an **inherent method**.

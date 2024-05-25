@@ -1,6 +1,6 @@
 # Cancellation
 
-What happens when a pending future is dropped?  
+What happens when a pending future is dropped?\
 The runtime will no longer poll it, therefore it won't make any further progress.
 In other words, its execution has been **cancelled**.
 
@@ -38,9 +38,9 @@ async fn http_call() {
 }
 ```
 
-Each yield point becomes a **cancellation point**.  
+Each yield point becomes a **cancellation point**.\
 `http_call` can't be preempted by the runtime, so it can only be discarded after
-it has yielded control back to the executor via `.await`. 
+it has yielded control back to the executor via `.await`.
 This applies recursively—e.g. `stream.write_all(&request)` is likely to have multiple
 yield points in its implementation. It is perfectly possible to see `http_call` pushing
 a _partial_ request before being cancelled, thus dropping the connection and never
@@ -49,7 +49,7 @@ finishing transmitting the body.
 ## Clean up
 
 Rust's cancellation mechanism is quite powerful—it allows the caller to cancel an ongoing task
-without needing any form of cooperation from the task itself.  
+without needing any form of cooperation from the task itself.\
 At the same time, this can be quite dangerous. It may be desirable to perform a
 **graceful cancellation**, to ensure that some clean-up tasks are performed
 before aborting the operation.
@@ -71,7 +71,7 @@ async fn transfer_money(
 ```
 
 On cancellation, it'd be ideal to explicitly abort the pending transaction rather
-than leaving it hanging. 
+than leaving it hanging.
 Rust, unfortunately, doesn't provide a bullet-proof mechanism for this kind of
 **asynchronous** clean up operations.
 
@@ -86,8 +86,8 @@ The optimal choice is contextual.
 
 ## Cancelling spawned tasks
 
-When you spawn a task using `tokio::spawn`, you can no longer drop it; 
-it belongs to the runtime.  
+When you spawn a task using `tokio::spawn`, you can no longer drop it;
+it belongs to the runtime.\
 Nonetheless, you can use its `JoinHandle` to cancel it if needed:
 
 ```rust
@@ -102,8 +102,8 @@ async fn run() {
 
 - Be extremely careful when using `tokio`'s `select!` macro to "race" two different futures.
   Retrying the same task in a loop is dangerous unless you can ensure **cancellation safety**.
-  Check out [`select!`'s documentation](https://docs.rs/tokio/macro.select.html) for more details.  
-  If you need to interleave two asynchronous streams of data (e.g. a socket and a channel), prefer using 
-  [`StreamExt::merge`](https://docs.rs/tokio-stream/latest/tokio_stream/trait.StreamExt.html#method.merge) instead. 
-- Rather than "abrupt" cancellation, it can be preferable to rely 
+  Check out [`select!`'s documentation](https://tokio.rs/tokio/tutorial/select) for more details.\
+  If you need to interleave two asynchronous streams of data (e.g. a socket and a channel), prefer using
+  [`StreamExt::merge`](https://docs.rs/tokio-stream/latest/tokio_stream/trait.StreamExt.html#method.merge) instead.
+- Rather than "abrupt" cancellation, it can be preferable to rely
   on [`CancellationToken`](https://docs.rs/tokio-util/latest/tokio_util/sync/struct.CancellationToken.html).

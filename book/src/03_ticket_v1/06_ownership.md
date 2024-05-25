@@ -1,6 +1,6 @@
 # Ownership
 
-If you solved the previous exercise using what this course has taught you so far, 
+If you solved the previous exercise using what this course has taught you so far,
 your accessor methods probably look like this:
 
 ```rust
@@ -74,11 +74,11 @@ All these things are true at the same time for Rust:
 2. As a developer, you rarely have to manage memory directly
 3. You can't cause dangling pointers, double frees, and other memory-related bugs
 
-Languages like Python, JavaScript, and Java give you 2. and 3., but not 1.  
-Language like C or C++ give you 1., but neither 2. nor 3.  
+Languages like Python, JavaScript, and Java give you 2. and 3., but not 1.\
+Language like C or C++ give you 1., but neither 2. nor 3.
 
-Depending on your background, 3. might sound a bit arcane: what is a "dangling pointer"? 
-What is a "double free"? Why are they dangerous?  
+Depending on your background, 3. might sound a bit arcane: what is a "dangling pointer"?
+What is a "double free"? Why are they dangerous?\
 Don't worry: we'll cover these concepts in more details during the rest of the course.
 
 For now, though, let's focus on learning how to work within Rust's ownership system.
@@ -89,8 +89,8 @@ In Rust, each value has an **owner**, statically determined at compile-time.
 There is only one owner for each value at any given time.
 
 ## Move semantics
- 
-Ownership can be transferred.  
+
+Ownership can be transferred.
 
 If you own a value, for example, you can transfer ownership to another variable:
 
@@ -113,9 +113,9 @@ impl Ticket {
 }
 ```
 
-`Ticket::description` takes ownership of the `Ticket` instance it's called on.  
+`Ticket::description` takes ownership of the `Ticket` instance it's called on.\
 This is known as **move semantics**: ownership of the value (`self`) is **moved** from the caller to
-the callee, and the caller can't use it anymore.  
+the callee, and the caller can't use it anymore.
 
 That's exactly the language used by the compiler in the error message we saw earlier:
 
@@ -152,10 +152,10 @@ To build _useful_ accessor methods we need to start working with **references**.
 
 ## Borrowing
 
-It is desirable to have methods that can read the value of a variable without taking ownership of it.  
+It is desirable to have methods that can read the value of a variable without taking ownership of it.\
 Programming would be quite limited otherwise. In Rust, that's done via **borrowing**.
 
-Whenever you borrow a value, you get a **reference** to it.  
+Whenever you borrow a value, you get a **reference** to it.\
 References are tagged with their privileges[^refine]:
 
 - Immutable references (`&`) allow you to read the value, but not to mutate it
@@ -173,20 +173,20 @@ To ensure these two properties, Rust has to introduce some restrictions on refer
 - The owner can't mutate the value while it's being borrowed
 - You can have as many immutable references as you want, as long as there are no mutable references
 
-In a way, you can think of an immutable reference as a "read-only" lock on the value, 
-while a mutable reference is like a "read-write" lock.  
+In a way, you can think of an immutable reference as a "read-only" lock on the value,
+while a mutable reference is like a "read-write" lock.
 
 All these restrictions are enforced at compile-time by the borrow checker.
 
 ### Syntax
 
-How do you borrow a value, in practice?  
+How do you borrow a value, in practice?\
 By adding `&` or `&mut` **in front a variable**, you're borrowing its value.
-Careful though! The same symbols (`&` and `&mut`) in **front of a type** have a different meaning: 
+Careful though! The same symbols (`&` and `&mut`) in **front of a type** have a different meaning:
 they denote a different type, a reference to the original type.
 
 For example:
-    
+
 ```rust
 struct Configuration {
     version: u32,
@@ -220,18 +220,14 @@ fn f(number: &mut u32) -> &u32 {
 
 ## Breathe in, breathe out
 
-Rust's ownership system can be a bit overwhelming at first.  
-But don't worry: it'll become second nature with practice.  
+Rust's ownership system can be a bit overwhelming at first.\
+But don't worry: it'll become second nature with practice.\
 And you're going to get a lot of practice over the rest of this chapter, as well as the rest of the course!
 We'll revisit each concept multiple times to make sure you get familiar with them
 and truly understand how they work.
 
-Towards the end of this chapter we'll explain *why* Rust's ownership system is designed the way it is.
-For the time being, focus on understanding the *how*. Take each compiler error as a learning opportunity!
-
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/06_ownership`
+Towards the end of this chapter we'll explain _why_ Rust's ownership system is designed the way it is.
+For the time being, focus on understanding the _how_. Take each compiler error as a learning opportunity!
 
 [^refine]: This is a great mental model to start out, but it doesn't capture the _full_ picture.
-  We'll refine our understanding of references [later in the course](../07_threads/06_interior_mutability.md).
+We'll refine our understanding of references [later in the course](../07_threads/06_interior_mutability.md).

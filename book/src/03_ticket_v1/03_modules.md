@@ -1,4 +1,4 @@
-# Modules 
+# Modules
 
 The `new` method you've just defined is trying to enforce some **constraints** on the field values for `Ticket`.
 But are those invariants really enforced? What prevents a developer from creating a `Ticket`
@@ -9,8 +9,8 @@ Let's start with modules.
 
 ## What is a module?
 
-In Rust a **module** is a way to group related code together, under a common namespace (i.e. the module's name).  
-You've already seen modules in action: the unit tests that verify the correctness of your code are defined in a 
+In Rust a **module** is a way to group related code together, under a common namespace (i.e. the module's name).\
+You've already seen modules in action: the unit tests that verify the correctness of your code are defined in a
 different module, named `tests`.
 
 ```rust
@@ -23,11 +23,11 @@ mod tests {
 ## Inline modules
 
 The `tests` module above is an example of an **inline module**: the module declaration (`mod tests`) and the module
-contents (the stuff inside `{ ... }`) are next to each other.  
+contents (the stuff inside `{ ... }`) are next to each other.
 
 ## Module tree
 
-Modules can be nested, forming a **tree** structure.  
+Modules can be nested, forming a **tree** structure.\
 The root of the tree is the **crate** itself, which is the top-level module that contains all the other modules.
 For a library crate, the root module is usually `src/lib.rs` (unless its location has been customized).
 The root module is also known as the **crate root**.
@@ -43,9 +43,9 @@ multiple files. In the parent module, you declare the existence of a submodule u
 mod dog;
 ```
 
-`cargo`, Rust's build tool, is then in charge of finding the file that contains 
-the module implementation.  
-If your module is declared in the root of your crate (e.g. `src/lib.rs` or `src/main.rs`), 
+`cargo`, Rust's build tool, is then in charge of finding the file that contains
+the module implementation.\
+If your module is declared in the root of your crate (e.g. `src/lib.rs` or `src/main.rs`),
 `cargo` expects the file to be named either:
 
 - `src/<module_name>.rs`
@@ -76,7 +76,7 @@ fn mark_ticket_as_done(ticket: Ticket) {
 }
 ```
 
-That's not the case if you want to access an entity from a different module.  
+That's not the case if you want to access an entity from a different module.\
 You have to use a **path** pointing to the entity you want to access.
 
 You can compose the path in various ways:
@@ -106,13 +106,9 @@ You can also import all the items from a module with a single `use` statement.
 use crate::module_1::module_2::*;
 ```
 
-This is known as a **star import**.  
+This is known as a **star import**.\
 It is generally discouraged because it can pollute the current namespace, making it hard to understand
-where each name comes from and potentially introducing name conflicts.  
+where each name comes from and potentially introducing name conflicts.\
 Nonetheless, it can be useful in some cases, like when writing unit tests. You might have noticed
 that most of our test modules start with a `use super::*;` statement to bring all the items from the parent module
 (the one being tested) into scope.
-
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/03_modules`

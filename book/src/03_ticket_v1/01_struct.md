@@ -6,9 +6,9 @@ We need to keep track of three pieces of information for each ticket:
 - A description
 - A status
 
-We can start by using a [`String`](https://doc.rust-lang.org/std/string/struct.String.html) 
-to represent them. `String` is the type defined in Rust's standard library to represent 
-[UTF-8 encoded](https://en.wikipedia.org/wiki/UTF-8) text. 
+We can start by using a [`String`](https://doc.rust-lang.org/std/string/struct.String.html)
+to represent them. `String` is the type defined in Rust's standard library to represent
+[UTF-8 encoded](https://en.wikipedia.org/wiki/UTF-8) text.
 
 But how do we **combine** these three pieces of information into a single entity?
 
@@ -28,7 +28,7 @@ A struct is quite similar to what you would call a class or an object in other p
 
 ## Defining fields
 
-The new type is built by combining other types as **fields**.  
+The new type is built by combining other types as **fields**.\
 Each field must have a name and a type, separated by a colon, `:`. If there are multiple fields, they are separated by a comma, `,`.
 
 Fields don't have to be of the same type, as you can see in the `Configuration` struct below:
@@ -64,7 +64,7 @@ let x = ticket.description;
 
 ## Methods
 
-We can attach behaviour to our structs by defining **methods**.  
+We can attach behaviour to our structs by defining **methods**.\
 Using the `Ticket` struct as an example:
 
 ```rust
@@ -136,8 +136,3 @@ let is_open = Ticket::is_open(ticket);
 
 The function call syntax makes it quite clear that `ticket` is being used as `self`, the first parameter of the method,
 but it's definitely more verbose. Prefer the method call syntax when possible.
-
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/01_struct`
-  

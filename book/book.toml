@@ -7,3 +7,6 @@ title = "100 Exercises To Learn Rust"
 
 [output.html]
 git-repository-url = "https://github.com/mainmatter/100-exercises-to-learn-rust"
+
+[preprocessor.exercise-linker]
+exercise_root_url = "https://github.com/mainmatter/100-exercises-to-learn-rust/tree/main/exercises"

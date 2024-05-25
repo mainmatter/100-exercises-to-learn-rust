@@ -2,16 +2,16 @@
 
 <div class="warning">
 
-Don't jump ahead!  
-Complete the exercise for the previous section before you start this one.  
-It's located in `exercises/01_intro/00_welcome`, in the [course GitHub's repository](https://github.com/mainmatter/100-exercises-to-learn-rust).  
+Don't jump ahead!\
+Complete the exercise for the previous section before you start this one.\
+It's located in `exercises/01_intro/00_welcome`, in the [course GitHub's repository](https://github.com/mainmatter/100-exercises-to-learn-rust).\
 Use [`wr`](00_welcome.md#wr-the-workshop-runner) to start the course and verify your solutions.
 
 </div>
 
 The previous task doesn't even qualify as an exercise, but it already exposed you to quite a bit of Rust **syntax**.
 We won't cover every single detail of Rust's syntax used in the previous exercise.
-Instead, we'll cover _just enough_ to keep going without getting stuck in the details.  
+Instead, we'll cover _just enough_ to keep going without getting stuck in the details.\
 One step at a time!
 
 ## Comments
@@ -88,7 +88,7 @@ It is considered idiomatic to omit the `return` keyword when possible.
 
 ### Input parameters
 
-Input parameters are declared inside the parentheses `()` that follow the function's name.  
+Input parameters are declared inside the parentheses `()` that follow the function's name.\
 Each parameter is declared with its name, followed by a colon `:`, followed by its type.
 
 For example, the `greet` function below takes a `name` parameter of type `&str` (a "string slice"):
@@ -105,15 +105,11 @@ If there are multiple input parameters, they must be separated with commas.
 
 ### Type annotations
 
-Since we've been mentioned "types" a few times, let's state it clearly: Rust is a **statically typed language**.  
+Since we've been mentioned "types" a few times, let's state it clearly: Rust is a **statically typed language**.\
 Every single value in Rust has a type and that type must be known to the compiler at compile-time.
 
-Types are a form of **static analysis**.  
+Types are a form of **static analysis**.\
 You can think of a type as a **tag** that the compiler attaches to every value in your program. Depending on the
 tag, the compiler can enforce different rules—e.g. you can't add a string to a number, but you can add two numbers
 together.
 If leveraged correctly, types can prevent whole classes of runtime bugs.
-
-## References
-
-- The exercise for this section is located in `exercises/01_intro/01_syntax`

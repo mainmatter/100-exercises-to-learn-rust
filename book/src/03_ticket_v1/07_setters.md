@@ -18,7 +18,7 @@ impl Ticket {
 }
 ```
 
-A sprinkle of `&` here and there did the trick!  
+A sprinkle of `&` here and there did the trick!\
 We now have a way to access the fields of a `Ticket` instance without consuming it in the process.
 Let's see how we can enhance our `Ticket` struct with **setter methods** next.
 
@@ -46,7 +46,7 @@ impl Ticket {
 }
 ```
 
-It takes ownership of `self`, changes the title, and returns the modified `Ticket` instance.  
+It takes ownership of `self`, changes the title, and returns the modified `Ticket` instance.\
 This is how you'd use it:
 
 ```rust
@@ -55,8 +55,8 @@ let ticket = ticket.set_title("New title".into());
 ```
 
 Since `set_title` takes ownership of `self` (i.e. it **consumes it**), we need to reassign the result to a variable.
-In the example above we take advantage of **variable shadowing** to reuse the same variable name: when 
-you declare a new variable with the same name as an existing one, the new variable **shadows** the old one. This 
+In the example above we take advantage of **variable shadowing** to reuse the same variable name: when
+you declare a new variable with the same name as an existing one, the new variable **shadows** the old one. This
 is a common pattern in Rust code.
 
 `self`-setters work quite nicely when you need to change multiple fields at once: you can chain multiple calls together!
@@ -82,8 +82,8 @@ impl Ticket {
 }
 ```
 
-This time the method takes a mutable reference to `self` as input, changes the title, and that's it. 
-Nothing is returned.  
+This time the method takes a mutable reference to `self` as input, changes the title, and that's it.
+Nothing is returned.
 
 You'd use it like this:
 
@@ -106,7 +106,3 @@ ticket.set_title("New title".into());
 ticket.set_description("New description".into());
 ticket.set_status("In Progress".into());
 ```
-
-## References
-
-- The exercise for this section is located in `exercises/03_ticket_v1/07_setters`

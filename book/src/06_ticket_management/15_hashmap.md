@@ -2,7 +2,7 @@
 
 Our implementation of `Index`/`IndexMut` is not ideal: we need to iterate over the entire
 `Vec` to retrieve a ticket by id; the algorithmic complexity is `O(n)`, where
-`n` is the number of tickets in the store.  
+`n` is the number of tickets in the store.
 
 We can do better by using a different data structure for storing tickets: a `HashMap<K, V>`.
 
@@ -20,7 +20,7 @@ book_reviews.insert(
 ```
 
 `HashMap` works with key-value pairs. It's generic over both: `K` is the generic
-parameter for the key type, while `V` is the one for the value type.  
+parameter for the key type, while `V` is the one for the value type.
 
 The expected cost of insertions, retrievals and removals is **constant**, `O(1)`.
 That sounds perfect for our usecase, doesn't it?
@@ -42,17 +42,17 @@ where
 }
 ```
 
-The key type must implement the `Eq` and `Hash` traits.  
+The key type must implement the `Eq` and `Hash` traits.\
 Let's dig into those two.
 
 ## `Hash`
 
 A hashing function (or hasher) maps a potentially infinite set of a values (e.g.
-all possible strings) to a bounded range (e.g. a `u64` value).  
-There are many different hashing functions around, each with different properties 
+all possible strings) to a bounded range (e.g. a `u64` value).\
+There are many different hashing functions around, each with different properties
 (speed, collision risk, reversibility, etc.).
 
-A `HashMap`, as the name suggests, uses a hashing function behind the scene. 
+A `HashMap`, as the name suggests, uses a hashing function behind the scene.
 It hashes your key and then uses that hash to store/retrieve the associated value.
 This strategy requires the key type must be hashable, hence the `Hash` trait bound on `K`.
 
@@ -81,10 +81,10 @@ struct Person {
 `HashMap` must be able to compare keys for equality. This is particularly important
 when dealing with hash collisions—i.e. when two different keys hash to the same value.
 
-You may wonder: isn't that what the `PartialEq` trait is for? Almost!  
-`PartialEq` is not enough for `HashMap` because it doesn't guarantee reflexivity, i.e. `a == a` is always `true`.  
-For example, floating point numbers (`f32` and `f64`) implement `PartialEq`, 
-but they don't satisfy the reflexivity property: `f32::NAN == f32::NAN` is `false`.  
+You may wonder: isn't that what the `PartialEq` trait is for? Almost!\
+`PartialEq` is not enough for `HashMap` because it doesn't guarantee reflexivity, i.e. `a == a` is always `true`.\
+For example, floating point numbers (`f32` and `f64`) implement `PartialEq`,
+but they don't satisfy the reflexivity property: `f32::NAN == f32::NAN` is `false`.\
 Reflexivity is crucial for `HashMap` to work correctly: without it, you wouldn't be able to retrieve a value
 from the map using the same key you used to insert it.
 
@@ -97,7 +97,7 @@ pub trait Eq: PartialEq {
 ```
 
 It's a marker trait: it doesn't add any new methods, it's just a way for you to say to the compiler
-that the equality logic implemented in `PartialEq` is reflexive.  
+that the equality logic implemented in `PartialEq` is reflexive.
 
 You can derive `Eq` automatically when you derive `PartialEq`:
 

@@ -1,6 +1,6 @@
 # Error enums
 
-Your solution to the previous exercise may have felt awkward: matching on strings is not ideal!  
+Your solution to the previous exercise may have felt awkward: matching on strings is not ideal!\
 A colleague might rework the error messages returned by `Ticket::new` (e.g. to improve readability) and,
 all of a sudden, your calling code would break.
 
@@ -22,7 +22,7 @@ enum U32ParseError {
 ```
 
 Using an error enum, you're encoding the different error cases in the type system—they become part of the
-signature of the fallible function.  
+signature of the fallible function.\
 This simplifies error handling for the caller, as they can use a `match` expression to react to the different
 error cases:
 
@@ -36,7 +36,3 @@ match s.parse_u32() {
     }
 }
 ```
-
-## References
-
-- The exercise for this section is located in `exercises/05_ticket_v2/08_error_enums`

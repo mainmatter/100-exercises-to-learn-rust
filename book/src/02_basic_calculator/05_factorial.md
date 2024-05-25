@@ -9,7 +9,3 @@ So far you've learned:
 - How to execute conditional logic via comparisons and `if`/`else` expressions
 
 It looks like you're ready to tackle factorials!
-
-## References
-
-- The exercise for this section is located in `exercises/02_basic_calculator/05_factorial`

@@ -1,7 +1,7 @@
 # Indexing
 
-`TicketStore::get` returns an `Option<&Ticket>` for a given `TicketId`.  
-We've seen before how to access elements of arrays and vectors using Rust's 
+`TicketStore::get` returns an `Option<&Ticket>` for a given `TicketId`.\
+We've seen before how to access elements of arrays and vectors using Rust's
 indexing syntax:
 
 ```rust
@@ -9,7 +9,7 @@ let v = vec![0, 1, 2];
 assert_eq!(v[0], 0);
 ```
 
-How can we provide the same experience for `TicketStore`?  
+How can we provide the same experience for `TicketStore`?\
 You guessed right: we need to implement a trait, `Index`!
 
 ## `Index`

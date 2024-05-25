@@ -1,6 +1,6 @@
 # Variables
 
-In Rust, you can use the `let` keyword to declare **variables**.  
+In Rust, you can use the `let` keyword to declare **variables**.\
 For example:
 
 ```rust
@@ -35,20 +35,20 @@ let x = 42;
 let y: u32 = x;
 ```
 
-In the example above, we didn't specify the type of `x`.  
+In the example above, we didn't specify the type of `x`.\
 `x` is later assigned to `y`, which is explicitly typed as `u32`. Since Rust doesn't perform automatic type coercion,
 the compiler infers the type of `x` to be `u32`—the same as `y` and the only type that will allow the program to compile
 without errors.
 
 ### Inference limitations
 
-The compiler sometimes needs a little help to infer the correct variable type based on its usage.  
+The compiler sometimes needs a little help to infer the correct variable type based on its usage.\
 In those cases you'll get a compilation error and the compiler will ask you to provide an explicit type hint to
 disambiguate the situation.
 
 ## Function arguments are variables
 
-Not all heroes wear capes, not all variables are declared with `let`.  
+Not all heroes wear capes, not all variables are declared with `let`.\
 Function arguments are variables too!
 
 ```rust
@@ -57,22 +57,22 @@ fn add_one(x: u32) -> u32 {
 }
 ```
 
-In the example above, `x` is a variable of type `u32`.  
+In the example above, `x` is a variable of type `u32`.\
 The only difference between `x` and a variable declared with `let` is that functions arguments **must** have their type
-explicitly declared. The compiler won't infer it for you.  
+explicitly declared. The compiler won't infer it for you.\
 This constraint allows the Rust compiler (and us humans!) to understand the function's signature without having to look
 at its implementation. That's a big boost for compilation speed[^speed]!
 
 ## Initialization
 
-You don't have to initialize a variable when you declare it.  
+You don't have to initialize a variable when you declare it.\
 For example
 
 ```rust
 let x: u32;
 ```
 
-is a valid variable declaration.  
+is a valid variable declaration.\
 However, you must initialize the variable before using it. The compiler will throw an error if you don't:
 
 ```rust
@@ -97,8 +97,4 @@ help: consider assigning a value
   |            +++
 ```
 
-## References
-
-- The exercise for this section is located in `exercises/02_basic_calculator/02_variables`
-
-[^speed]: The Rust compiler needs all the help it can get when it comes to compilation speed. 
+[^speed]: The Rust compiler needs all the help it can get when it comes to compilation speed.

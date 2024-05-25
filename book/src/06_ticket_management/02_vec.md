@@ -18,11 +18,11 @@ error[E0435]: attempt to use a non-constant value in a constant
 ```
 
 Arrays wouldn't work for our ticket management system—we don't know how many tickets we'll need to store at compile-time.
-This is where `Vec` comes in. 
+This is where `Vec` comes in.
 
 ## `Vec`
 
-`Vec` is a growable array type, provided by the standard library.  
+`Vec` is a growable array type, provided by the standard library.\
 You can create an empty array using the `Vec::new` function:
 
 ```rust
@@ -37,7 +37,7 @@ numbers.push(2);
 numbers.push(3);
 ```
 
-New values are added to the end of the vector.  
+New values are added to the end of the vector.\
 You can also create an initialized vector using the `vec!` macro, if you know the values at creation time:
 
 ```rust
@@ -55,7 +55,7 @@ let second = numbers[1];
 let third = numbers[2];
 ```
 
-The index must be of type `usize`.  
+The index must be of type `usize`.\
 You can also use the `get` method, which returns an `Option<&T>`:
 
 ```rust
@@ -70,7 +70,7 @@ Access is bounds-checked, just element access with arrays. It has O(1) complexit
 
 ## Memory layout
 
-`Vec` is a heap-allocated data structure.  
+`Vec` is a heap-allocated data structure.\
 When you create a `Vec`, it allocates memory on the heap to store the elements.
 
 If you run the following code:
@@ -102,7 +102,7 @@ Heap:  | 1 | 2 | ? |
 - The **length** of the vector, i.e. how many elements are in the vector.
 - The **capacity** of the vector, i.e. the number of elements that can fit in the space reserved on the heap.
 
-This layout should look familiar: it's exactly the same as `String`!  
+This layout should look familiar: it's exactly the same as `String`!\
 That's not a coincidence: `String` is defined as a vector of bytes, `Vec<u8>`, under the hood:
 
 ```rust

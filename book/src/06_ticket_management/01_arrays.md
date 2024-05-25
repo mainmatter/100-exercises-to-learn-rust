@@ -1,14 +1,14 @@
 # Arrays
 
 As soon as we start talking about "ticket management" we need to think about a way to store _multiple_ tickets.
-In turn, this means we need to think about collections. In particular, homogeneous collections: 
+In turn, this means we need to think about collections. In particular, homogeneous collections:
 we want to store multiple instances of the same type.
 
 What does Rust have to offer in this regard?
 
 ## Arrays
 
-A first attempt could be to use an **array**.  
+A first attempt could be to use an **array**.\
 Arrays in Rust are fixed-size collections of elements of the same type.
 
 Here's how you can define an array:
@@ -18,7 +18,7 @@ Here's how you can define an array:
 let numbers: [u32; 3] = [1, 2, 3];
 ```
 
-This creates an array of 3 integers, initialized with the values `1`, `2`, and `3`.  
+This creates an array of 3 integers, initialized with the values `1`, `2`, and `3`.\
 The type of the array is `[u32; 3]`, which reads as "an array of `u32`s with a length of 3".
 
 ### Accessing elements
@@ -31,8 +31,8 @@ let second = numbers[1];
 let third = numbers[2];
 ```
 
-The index must be of type `usize`.  
-Arrays are **zero-indexed**, like everything in Rust. You've seen this before with string slices and field indexing in 
+The index must be of type `usize`.\
+Arrays are **zero-indexed**, like everything in Rust. You've seen this before with string slices and field indexing in
 tuples/tuple-like variants.
 
 ### Out-of-bounds access
@@ -44,8 +44,8 @@ let numbers: [u32; 3] = [1, 2, 3];
 let fourth = numbers[3]; // This will panic
 ```
 
-This is enforced at runtime using **bounds checking**. It comes with a small performance overhead, but it's how 
-Rust prevents buffer overflows.  
+This is enforced at runtime using **bounds checking**. It comes with a small performance overhead, but it's how
+Rust prevents buffer overflows.\
 In some scenarios the Rust compiler can optimize away bounds checks, especially if iterators are involved—we'll speak
 more about this later on.
 
@@ -77,5 +77,5 @@ Stack:  | 1 | 2 | 3 |
 ```
 
 In other words, the size of an array is `std::mem::size_of::<T>() * N`, where `T` is the type of the elements and `N` is
-the number of elements.  
+the number of elements.\
 You can access and replace each element in `O(1)` time.

@@ -1,0 +1,11 @@
+[package]
+name = "mdbook-exercise-linker"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.86"
+clap = "4.5.4"
+mdbook = "0.4.40"
+semver = "1.0.23"
+serde_json = "1.0.117"
