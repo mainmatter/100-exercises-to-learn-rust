@@ -1,3 +1,5 @@
+use core::panic;
+
 // Define a function named `factorial` that, given a non-negative integer `n`,
 // returns `n!`, the factorial of `n`.
 //
@@ -9,6 +11,17 @@
 // `factorial(2)` to return `2`, and so on.
 //
 // Use only what you learned! No loops yet, so you'll have to use recursion!
+fn factorial(n: u32) -> u32 {
+    if n < 0 {
+        panic!("n must be greater than or equal 0");
+    }
+
+    if n == 0 || n == 1 {
+        return 1;
+    }
+
+    n * factorial(n - 1)
+}
 
 #[cfg(test)]
 mod tests {
