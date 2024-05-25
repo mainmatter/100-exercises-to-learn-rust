@@ -48,7 +48,7 @@ If we remove the channels, we need to introduce (another) lock to synchronize ac
 
 If we use a `Mutex`, then it makes no sense to use an additional `RwLock` for each ticket: the `Mutex` will
 already serialize access to the entire store, so we wouldn't be able to read tickets in parallel anyway.\
-If we use a `RwLock`, instead, we can read tickets in parallel. We just to pause all reads while inserting
+If we use a `RwLock`, instead, we can read tickets in parallel. We just need to pause all reads while inserting
 or removing a ticket.
 
 Let's go down this path and see where it leads us.
