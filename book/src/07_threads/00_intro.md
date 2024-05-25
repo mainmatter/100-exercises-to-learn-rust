@@ -12,4 +12,4 @@ We'll have the opportunity to touch most of Rust's core concurrency features, in
 - Shared state, using `Arc`, `Mutex` and `RwLock`
 - `Send` and `Sync`, the traits that encode Rust's concurrency guarantees
 
-We'll also discuss various design patterns for multithreaded systems and some their trade-offs.
+We'll also discuss various design patterns for multithreaded systems and some of their trade-offs.
