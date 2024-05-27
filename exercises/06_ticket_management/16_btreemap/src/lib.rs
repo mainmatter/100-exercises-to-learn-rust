@@ -58,11 +58,11 @@ impl TicketStore {
         id
     }
 
-    pub fn get(&self, id: TicketId) -> Option<&Ticket> {
+    pub fn get(&self, id: &TicketId) -> Option<&Ticket> {
         todo!()
     }
 
-    pub fn get_mut(&mut self, id: TicketId) -> Option<&mut Ticket> {
+    pub fn get_mut(&mut self, id: &TicketId) -> Option<&mut Ticket> {
         todo!()
     }
 }
@@ -71,7 +71,7 @@ impl Index<TicketId> for TicketStore {
     type Output = Ticket;
 
     fn index(&self, index: TicketId) -> &Self::Output {
-        self.get(index).unwrap()
+        &self[&index]
     }
 }
 
@@ -79,19 +79,19 @@ impl Index<&TicketId> for TicketStore {
     type Output = Ticket;
 
     fn index(&self, index: &TicketId) -> &Self::Output {
-        &self[*index]
+        self.get(index).unwrap()
     }
 }
 
 impl IndexMut<TicketId> for TicketStore {
     fn index_mut(&mut self, index: TicketId) -> &mut Self::Output {
-        self.get_mut(index).unwrap()
+        &mut self[&index]
     }
 }
 
 impl IndexMut<&TicketId> for TicketStore {
     fn index_mut(&mut self, index: &TicketId) -> &mut Self::Output {
-        &mut self[*index]
+        self.get_mut(index).unwrap()
     }
 }
 
