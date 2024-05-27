@@ -58,7 +58,7 @@ You've already encountered a few macros in past exercises:
 Rust macros are **code generators**.\
 They generate new Rust code based on the input you provide, and that generated code is then compiled alongside
 the rest of your program. Some macros are built into Rust's standard library, but you can also
-write your own. We won't be creating our macro in this course, but you can find some useful
+write your own. We won't be creating our own macro in this course, but you can find some useful
 pointers in the ["Further reading" section](#further-reading).
 
 ### Inspection
