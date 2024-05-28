@@ -51,7 +51,7 @@ let y = point.1;
 
 ### Tuples
 
-It's weird say that something is tuple-like when we haven't seen tuples yet!\
+It's weird to say that something is tuple-like when we haven't seen tuples yet!\
 Tuples are another example of a primitive Rust type.
 They group together a fixed number of values with (potentially different) types:
 
