@@ -1,5 +1,5 @@
 /// Return `true` if `n` is even, `false` otherwise.
-fn is_even(n: u32) -> bool {
+pub fn is_even(n: u32) -> bool {
     todo!()
 }
 
