@@ -99,7 +99,7 @@ pub async fn run() {
         if let Ok(reason) = e.try_into_panic() {
             // The task has panicked
             // We resume unwinding the panic,
-            // thus propagating it to the current thread
+            // thus propagating it to the current task
             panic::resume_unwind(reason);
         }
     }
