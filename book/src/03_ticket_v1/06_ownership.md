@@ -95,8 +95,8 @@ Ownership can be transferred.
 If you own a value, for example, you can transfer ownership to another variable:
 
 ```rust
-let a = 42; // <--- `a` is the owner of the value `42`
-let b = a;  // <--- `b` is now the owner of the value `42`
+let a = "hello, world".to_string(); // <--- `a` is the owner of the String
+let b = a;  // <--- `b` is now the owner of the String
 ```
 
 Rust's ownership system is baked into the type system: each function has to declare in its signature
