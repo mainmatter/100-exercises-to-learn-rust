@@ -95,7 +95,7 @@ Ownership can be transferred.
 If you own a value, for example, you can transfer ownership to another variable:
 
 ```rust
-let a = "hello, world".into(); // <--- `a` is the owner of the String
+let a = "hello, world".to_string(); // <--- `a` is the owner of the String
 let b = a;  // <--- `b` is now the owner of the String
 ```
 
