@@ -8,7 +8,7 @@
 // You _could_ pass this test by just returning `v.iter().sum()`,
 // but that would defeat the purpose of the exercise.
 //
-// Hint: you won't be able to get the spawn threads to _borrow_
+// Hint: you won't be able to get the spawned threads to _borrow_
 // slices of the vector directly. You'll need to allocate new
 // vectors for each half of the original vector. We'll see why
 // this is necessary in the next exercise.

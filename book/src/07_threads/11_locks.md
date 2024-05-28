@@ -74,7 +74,7 @@ struct TicketStore {
 ```
 
 This approach is more efficient, but it has a downside: `TicketStore` has to become **aware** of the multithreaded
-nature of the system; up until now, `TicketStore` has been blissfully ignored the existence of threads.\
+nature of the system; up until now, `TicketStore` has been blissfully ignoring the existence of threads.\
 Let's go for it anyway.
 
 ## Who holds the lock?
