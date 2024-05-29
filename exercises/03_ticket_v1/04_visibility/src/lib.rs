@@ -1,12 +1,12 @@
 mod ticket {
-    struct Ticket {
+    pub struct Ticket {
         title: String,
         description: String,
         status: String,
     }
 
     impl Ticket {
-        fn new(title: String, description: String, status: String) -> Ticket {
+        pub fn new(title: String, description: String, status: String) -> Ticket {
             if title.is_empty() {
                 panic!("Title cannot be empty");
             }
@@ -32,12 +32,8 @@ mod ticket {
     }
 }
 
-// TODO: **Exceptionally**, you'll be modifying both the `ticket` module and the `tests` module
-//  in this exercise.
 #[cfg(test)]
 mod tests {
-    // TODO: Add the necessary `pub` modifiers in the parent module to remove the compiler
-    //  errors about the use statement below.
     use super::ticket::Ticket;
 
     // Be careful though! We don't want this function to compile after you have changed
@@ -53,9 +49,7 @@ mod tests {
         //    |              assert_eq!(ticket.description, "A description");
         //    |                         ^^^^^^^^^^^^^^^^^^
         //
-        // TODO: Once you have verified that the below does not compile,
-        //   comment the line out to move on to the next exercise!
-        assert_eq!(ticket.description, "A description");
+        // assert_eq!(ticket.description, "A description");
     }
 
     fn encapsulation_cannot_be_violated() {
@@ -66,12 +60,10 @@ mod tests {
         // This proves that `Ticket::new` is now the only way to get a `Ticket` instance.
         // It's impossible to create a ticket with an illegal title or description!
         //
-        // TODO: Once you have verified that the below does not compile,
-        //   comment the lines out to move on to the next exercise!
-        let ticket = Ticket {
-            title: "A title".into(),
-            description: "A description".into(),
-            status: "To-Do".into(),
-        };
+        // let ticket = Ticket {
+        //     title: "A title".into(),
+        //     description: "A description".into(),
+        //     status: "To-Do".into(),
+        // };
     }
 }
