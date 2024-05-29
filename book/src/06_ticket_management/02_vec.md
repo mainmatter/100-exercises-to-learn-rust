@@ -66,7 +66,7 @@ assert_eq!(numbers.get(0), Some(&1));
 assert_eq!(numbers.get(3), None);
 ```
 
-Access is bounds-checked, just element access with arrays. It has O(1) complexity.
+Access is bounds-checked, just like element access with arrays. It has O(1) complexity.
 
 ## Memory layout
 
