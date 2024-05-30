@@ -86,6 +86,19 @@ Don't move on to the next section until you've solved the exercise for the curre
 > We recommend committing your solutions to Git as you progress through the course,
 > so you can easily track your progress and "restart" from a known point if needed.
 
+(Optional)
+If you want `wr` to be re-run each time you make a change, you can install cargo watch:
+
+```bash
+cargo install cargo-watch
+```
+
+You can use cargo watch like this:
+
+```bash
+cargo watch -- wr
+```
+
 Enjoy the course!
 
 ## Author
