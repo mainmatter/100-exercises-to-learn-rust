@@ -1,6 +1,3 @@
-// TODO: A (derivable) trait implementation is missing for this exercise to compile successfully.
-//   Fix it!
-//
 // # `Debug` primer
 //
 // `Debug` returns a representation of a Rust type that's suitable for debugging (hence the name).
@@ -8,7 +5,7 @@
 // print both sides of the comparison to the terminal.
 // If the compared type doesn't implement `Debug`, it doesn't know how to represent them!
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Debug)]
 struct Ticket {
     title: String,
     description: String,

@@ -1,5 +1,3 @@
-// TODO: Re-implement `Ticket`'s accessor methods. This time return a `&str` rather than a `&String`.
-
 pub struct Ticket {
     title: String,
     description: String,
@@ -31,15 +29,15 @@ impl Ticket {
         }
     }
 
-    pub fn title(&self) -> &String {
+    pub fn title(&self) -> &str {
         &self.title
     }
 
-    pub fn description(&self) -> &String {
+    pub fn description(&self) -> &str {
         &self.description
     }
 
-    pub fn status(&self) -> &String {
+    pub fn status(&self) -> &str {
         &self.status
     }
 }
