@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+thiserror = "1.0.61"
 
 [dev-dependencies]
 common = { path = "../../../helpers/common" }
