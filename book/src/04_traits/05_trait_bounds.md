@@ -58,7 +58,7 @@ We can do better using **generics**.\
 Generics allow us to write code that works with a **type parameter** instead of a concrete type:
 
 ```rust
-fn print_if_even<T>(n: T) 
+fn print_if_even<T>(n: T)
 where
     T: IsEven + Debug
 {
@@ -125,7 +125,7 @@ body is present.
 All the examples above used a **`where` clause** to specify trait bounds:
 
 ```rust
-fn print_if_even<T>(n: T) 
+fn print_if_even<T>(n: T)
 where
     T: IsEven + Debug
 //  ^^^^^^^^^^^^^^^^^
@@ -160,7 +160,7 @@ fn print_if_even<Number: IsEven + Debug>(n: Number) {
 It is actually **desirable** to use meaningful names when there are multiple type parameters at play or when the name
 `T` doesn't convey enough information about the type's role in the function.
 Maximize clarity and readability when naming type parameters, just as you would with variables or function parameters.
-Follow Rust's conventions though: use camel case for type parameter names.
+Follow Rust's conventions, though: use [upper camel case for type parameter names](https://rust-lang.github.io/api-guidelines/naming.html#casing-conforms-to-rfc-430-c-case).
 
 ## The function signature is king
 
