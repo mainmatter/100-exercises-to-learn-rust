@@ -7,7 +7,7 @@ pass it to the `panic!` macro.\
 This is a (rudimentary) example of **error reporting**: transforming an error type into a representation that can be
 shown to a user, a service operator, or a developer.
 
-It's not practical for each Rust developer to come up with their own error reporting strategy: it'd a waste of time
+It's not practical for each Rust developer to come up with their own error reporting strategy: it'd be a waste of time
 and it wouldn't compose well across projects.
 That's why Rust provides the `std::error::Error` trait.
 
