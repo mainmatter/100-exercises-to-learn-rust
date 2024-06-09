@@ -8,7 +8,7 @@ impl Ticket {
         match &self.status {
             Status::InProgress { assigned_to } => assigned_to,
             Status::Done | Status::ToDo => {
-                panic!("Only `In-Progress` tickets can be assigned to someone"),
+                panic!("Only `In-Progress` tickets can be assigned to someone")
             }
         }
     }
