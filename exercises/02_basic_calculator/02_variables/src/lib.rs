@@ -6,8 +6,10 @@
 /// Given the start and end points of a journey, and the time it took to complete it,
 /// calculate the average speed.
 pub fn speed(start: u32, end: u32, time_elapsed: u32) -> u32 {
-    // TODO: define a variable named `distance` with the right value to get tests to pass
-    //  Do you need to annotate the type of `distance`? Why or why not?
+    // TODO: define a variable named `distance` with the right value to get tests to pas
+
+    //  Do you need to annotate the type of `distance`? I can to make it explicit. But otherwise it will be inferred.
+    let distance: u32 = end - start;
 
     // Don't change the line below
     distance / time_elapsed
@@ -19,7 +21,7 @@ mod tests {
 
     #[test]
     fn case1() {
-        assert_eq!(speed(0, 10, 10), 1);
+        assert_eq!(speed(start = 0, end = 10, time_elapsed = 10), 1);
     }
 
     #[test]
