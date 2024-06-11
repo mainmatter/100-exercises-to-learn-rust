@@ -8,4 +8,4 @@ members = [
 resolver = "2"
 
 [profile.dev]
-overflow-checks = true
+overflow-checks = false
