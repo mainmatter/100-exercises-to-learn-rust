@@ -29,10 +29,10 @@ are respected (i.e. you can't set a `Ticket`'s title to an empty string).
 
 There are two common ways to implement setters in Rust:
 
-- Taking `self` as input.
+- Taking `mut self` as input.
 - Taking `&mut self` as input.
 
-### Taking `self` as input
+### Taking `mut self` as input
 
 The first approach looks like this:
 
@@ -50,7 +50,7 @@ It takes ownership of `self`, changes the title, and returns the modified `Ticke
 This is how you'd use it:
 
 ```rust
-let ticket = Ticket::new("Title".into(), "Description".into(), "To-Do".into());
+let mut ticket = Ticket::new("Title".into(), "Description".into(), "To-Do".into());
 let ticket = ticket.set_title("New title".into());
 ```
 
