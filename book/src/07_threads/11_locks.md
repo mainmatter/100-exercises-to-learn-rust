@@ -99,7 +99,7 @@ fn main() {
     let guard = lock.lock().unwrap();
 
     spawn(move || {
-        receiver.recv().unwrap();;
+        receiver.recv().unwrap();
     });
 
     // Try to send the guard over the channel
@@ -118,7 +118,7 @@ error[E0277]: `MutexGuard<'_, i32>` cannot be sent between threads safely
     |  _-----_^
     | | |
     | | required by a bound introduced by this call
-11  | |     receiver.recv().unwrap();;
+11  | |     receiver.recv().unwrap();
 12  | | });
     | |_^ `MutexGuard<'_, i32>` cannot be sent between threads safely
     |
