@@ -42,6 +42,12 @@ the [`solutions` branch](https://github.com/mainmatter/100-exercises-to-learn-ru
 - [X] 00_welcome
 - [X] 01_syntax
 
+### 02_basic_calculator
+
+- [X] 00_intro
+- [X] 01_integers
+- [X] 02_variable
+
 # License
 
 Copyright © 2024- Mainmatter GmbH (https://mainmatter.com), released under the
