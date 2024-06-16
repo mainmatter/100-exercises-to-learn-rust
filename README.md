@@ -35,6 +35,13 @@ to get started with the course.
 You can find the solutions to the exercises in
 the [`solutions` branch](https://github.com/mainmatter/100-exercises-to-learn-rust/tree/solutions) of this repository.
 
+## Completion progress
+
+### 01_intro
+
+- [X] 00_welcome
+- [X] 01_syntax
+
 # License
 
 Copyright © 2024- Mainmatter GmbH (https://mainmatter.com), released under the
