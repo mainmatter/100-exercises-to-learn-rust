@@ -112,7 +112,7 @@ pub async fn work() {
 
 ### `std::thread::spawn` vs `tokio::spawn`
 
-You can think of `tokio::spawn` as the asynchronous sibling of `std::spawn::thread`.
+You can think of `tokio::spawn` as the asynchronous sibling of `std::thread::spawn`.
 
 Notice a key difference: with `std::thread::spawn`, you're delegating control to the OS scheduler.
 You're not in control of how threads are scheduled.
