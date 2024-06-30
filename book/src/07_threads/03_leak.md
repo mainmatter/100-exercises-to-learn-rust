@@ -27,12 +27,12 @@ run out and crash with an out-of-memory error.
 fn oom_trigger() {
     loop {
         let v: Vec<usize> = Vec::with_capacity(1024);
-        Box::leak(v);
+        v.leak();
     }
 }
 ```
 
-At the same time, memory leaked via `Box::leak` is not truly forgotten.\
+At the same time, memory leaked via `leak` method is not truly forgotten.\
 The operating system can map each memory region to the process responsible for it.
 When the process exits, the operating system will reclaim that memory.
 
