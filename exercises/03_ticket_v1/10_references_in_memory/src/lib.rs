@@ -13,16 +13,16 @@ mod tests {
 
     #[test]
     fn u16_ref_size() {
-        assert_eq!(size_of::<&u16>(), todo!());
+        assert_eq!(size_of::<&u16>(), size_of::<usize>());
     }
 
     #[test]
     fn u64_mut_ref_size() {
-        assert_eq!(size_of::<&mut u64>(), todo!());
+        assert_eq!(size_of::<&mut u64>(), size_of::<usize>());
     }
 
     #[test]
     fn ticket_ref_size() {
-        assert_eq!(size_of::<&Ticket>(), todo!());
+        assert_eq!(size_of::<&Ticket>(), size_of::<usize>());
     }
 }
