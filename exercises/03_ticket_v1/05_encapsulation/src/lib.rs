@@ -34,6 +34,26 @@ pub mod ticket {
         //  - `title` that returns the `title` field.
         //  - `description` that returns the `description` field.
         //  - `status` that returns the `status` field.
+        pub fn title(&self) -> String {
+            if self.title.is_empty(){
+                panic!("Title shouldn't be empty.")
+            }
+            self.title.clone()
+        }
+
+        pub fn description(&self) -> String {
+            if self.description.is_empty(){
+                panic!("Description should not be empty.")
+            }
+            self.description.clone()
+        }
+
+        pub fn status(&self) -> String {
+            if self.status.is_empty(){
+                panic!("Status should not be empty.")
+            }
+            self.status.clone()
+        }
     }
 }
 
