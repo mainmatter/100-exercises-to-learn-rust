@@ -108,7 +108,7 @@ let title = String::from("A title");
 
 We've been primarily using `.into()`, though.\
 If you check out the [implementors of `Into`](https://doc.rust-lang.org/std/convert/trait.Into.html#implementors)
-you won't find `Into<&str> for String`. What's going on?
+you won't find `Into<String> for &str`. What's going on?
 
 `From` and `Into` are **dual traits**.\
 In particular, `Into` is implemented for any type that implements `From` using a **blanket implementation**:
