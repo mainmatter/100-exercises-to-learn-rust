@@ -5,8 +5,10 @@
 // different _semantics_. We'll cover those differences later in the course when we talk about ordered
 // collections (e.g. BTreeMap).
 
+use std::fmt::Debug;
+
 /// Return the minimum of two values.
-pub fn min<T>(left: T, right: T) -> T {
+pub fn min<T: PartialOrd>(left: T, right: T) -> T {
     if left <= right {
         left
     } else {
