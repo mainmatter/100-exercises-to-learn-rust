@@ -1,85 +1,68 @@
-// TODO: Implement the `Error` trait for `TicketNewError` using `thiserror`.
-//   We've changed the enum variants to be more specific, thus removing the need for storing
-//   a `String` field into each variant.
-//   You'll also have to add `thiserror` as a dependency in the `Cargo.toml` file.
-
-enum TicketNewError {
-    TitleCannotBeEmpty,
-    TitleTooLong,
-    DescriptionCannotBeEmpty,
-    DescriptionTooLong,
-}
-
-#[derive(Debug, PartialEq, Clone)]
-struct Ticket {
-    title: String,
-    description: String,
-    status: Status,
-}
+// TODO: Implement `TryFrom<String>` and `TryFrom<&str>` for `Status`.
+//  The parsing should be case-insensitive.
 
 #[derive(Debug, PartialEq, Clone)]
 enum Status {
     ToDo,
-    InProgress { assigned_to: String },
+    InProgress,
     Done,
 }
 
-impl Ticket {
-    pub fn new(
-        title: String,
-        description: String,
-        status: Status,
-    ) -> Result<Ticket, TicketNewError> {
-        if title.is_empty() {
-            return Err(TicketNewError::TitleCannotBeEmpty);
-        }
-        if title.len() > 50 {
-            return Err(TicketNewError::TitleTooLong);
-        }
-        if description.is_empty() {
-            return Err(TicketNewError::DescriptionCannotBeEmpty);
-        }
-        if description.len() > 500 {
-            return Err(TicketNewError::DescriptionTooLong);
-        }
+#[derive(Debug, thiserror::Error)]
+#[error("{invalid_status} is not a valid status")]
+struct ParseStatusError {
+    invalid_status: String,
+}
 
-        Ok(Ticket {
-            title,
-            description,
-            status,
-        })
+impl TryFrom<String> for Status {
+    type Error = ParseStatusError;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        value.as_str().try_into()
+    }
+}
+
+impl TryFrom<&str> for Status {
+    type Error = ParseStatusError;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value.to_lowercase().as_str() {
+            "todo" => Ok(Status::ToDo),
+            "inprogress" => Ok(Status::InProgress),
+            "done" => Ok(Status::Done),
+            _ => Err(ParseStatusError {
+                invalid_status: value.to_string(),
+            }),
+        }
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use common::{overly_long_description, overly_long_title, valid_description, valid_title};
+    use std::convert::TryFrom;
 
     #[test]
-    fn title_cannot_be_empty() {
-        let err = Ticket::new("".into(), valid_description(), Status::ToDo).unwrap_err();
-        assert_eq!(err.to_string(), "Title cannot be empty");
+    fn test_try_from_string() {
+        let status = Status::try_from("ToDO".to_string()).unwrap();
+        assert_eq!(status, Status::ToDo);
+
+        let status = Status::try_from("inproGress".to_string()).unwrap();
+        assert_eq!(status, Status::InProgress);
+
+        let status = Status::try_from("Done".to_string()).unwrap();
+        assert_eq!(status, Status::Done);
     }
 
     #[test]
-    fn description_cannot_be_empty() {
-        let err = Ticket::new(valid_title(), "".into(), Status::ToDo).unwrap_err();
-        assert_eq!(err.to_string(), "Description cannot be empty");
-    }
+    fn test_try_from_str() {
+        let status = Status::try_from("todo").unwrap();
+        assert_eq!(status, Status::ToDo);
 
-    #[test]
-    fn title_cannot_be_longer_than_fifty_chars() {
-        let err = Ticket::new(overly_long_title(), valid_description(), Status::ToDo).unwrap_err();
-        assert_eq!(err.to_string(), "Title cannot be longer than 50 bytes");
-    }
+        let status = Status::try_from("inprogress").unwrap();
+        assert_eq!(status, Status::InProgress);
 
-    #[test]
-    fn description_cannot_be_too_long() {
-        let err = Ticket::new(valid_title(), overly_long_description(), Status::ToDo).unwrap_err();
-        assert_eq!(
-            err.to_string(),
-            "Description cannot be longer than 500 bytes"
-        );
+        let status = Status::try_from("done").unwrap();
+        assert_eq!(status, Status::Done);
     }
 }

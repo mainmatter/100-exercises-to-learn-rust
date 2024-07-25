@@ -9,7 +9,7 @@ struct Ticket {
     status: Status,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 enum Status {
     ToDo,
     InProgress { assigned_to: String },
@@ -38,7 +38,10 @@ impl Ticket {
         }
     }
     pub fn assigned_to(&self) -> &str {
-        todo!()
+        match &self.status {
+            Status::InProgress { assigned_to: person } => person,
+            _ => panic!("Only `In-Progress` tickets can be assigned to someone")
+        }
     }
 }
 
