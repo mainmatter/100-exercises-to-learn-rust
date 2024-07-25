@@ -1381,6 +1381,9 @@ dependencies = [
 [[package]]
 name = "overflow"
 version = "0.1.0"
+dependencies = [
+ "num-traits",
+]
 
 [[package]]
 name = "overloading"
