@@ -52,7 +52,7 @@ Yields to runtime
              Tries to acquire lock
 ```
 
-We have a deadlock. Task B we'll never manage to acquire the lock, because the lock
+We have a deadlock. Task B will never manage to acquire the lock, because the lock
 is currently held by task A, which has yielded to the runtime before releasing the
 lock and won't be scheduled again because the runtime cannot preempt task B.
 
