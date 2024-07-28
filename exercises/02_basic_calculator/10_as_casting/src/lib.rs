@@ -16,6 +16,7 @@ mod tests {
 
     #[test]
     fn bool_to_u8() {
+        // true는 1로 캐스팅
         assert_eq!(false as u8, 0u8);
     }
 }
