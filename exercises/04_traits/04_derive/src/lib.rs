@@ -1,14 +1,13 @@
-// TODO: A (derivable) trait implementation is missing for this exercise to compile successfully.
-//   Fix it!
+// TODO: 이 연습문제가 성공적으로 컴파일되기 위해서는 (파생 가능한) 트레이트 구현이 필요합니다.
+//   수정하세요!
 //
-// # `Debug` primer
+// # `Debug` 기초
 //
-// `Debug` returns a representation of a Rust type that's suitable for debugging (hence the name).
-// `assert_eq!` requires `Ticket` to implement `Debug` because, when the assertion fails, it tries to
-// print both sides of the comparison to the terminal.
-// If the compared type doesn't implement `Debug`, it doesn't know how to represent them!
+// `Debug`는 Rust 타입의 디버깅에 적합한 표현을 반환합니다 (이름에서 알 수 있듯이).
+// `assert_eq!`는 `Ticket`이 `Debug`를 구현해야 합니다. 왜냐하면, 단언이 실패할 때, 비교의 양쪽을 터미널에 출력하려고 하기 때문입니다.
+// 비교된 타입이 `Debug`를 구현하지 않으면, 어떻게 표현해야 할지 알 수 없습니다!
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Debug)]
 struct Ticket {
     title: String,
     description: String,
