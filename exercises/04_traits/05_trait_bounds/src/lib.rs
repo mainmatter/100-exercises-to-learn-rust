@@ -1,3 +1,5 @@
+use std::cmp::PartialOrd;
+
 // TODO: Add the necessary trait bounds to `min` so that it compiles successfully.
 //   Refer to the documentation of the `std::cmp` module for more information on the traits you might need.
 //
@@ -6,7 +8,7 @@
 // collections (e.g. BTreeMap).
 
 /// Return the minimum of two values.
-pub fn min<T>(left: T, right: T) -> T {
+pub fn min<T: PartialOrd>(left: T, right: T) -> T {
     if left <= right {
         left
     } else {
