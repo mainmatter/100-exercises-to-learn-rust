@@ -12,6 +12,7 @@ pub struct Ticket {
 
 impl Ticket {
     pub fn title(&self) -> &str {
+        // &self.title.trim()
         &self.title.trim()
     }
 
