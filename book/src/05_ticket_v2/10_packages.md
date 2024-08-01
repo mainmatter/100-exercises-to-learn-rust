@@ -46,18 +46,3 @@ You can override these defaults by explicitly declaring your targets in the `Car
 [`cargo`'s documentation](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#cargo-targets) for more details.
 
 Keep in mind that while a package can contain multiple crates, it can only contain one library crate.
-
-## Scaffolding a new package
-
-You can use `cargo` to scaffold a new package:
-
-```bash
-cargo new my-binary
-```
-
-This will create a new folder, `my-binary`, containing a new Rust package with the same name and a single
-binary crate inside. If you want to create a library crate instead, you can use the `--lib` flag:
-
-```bash
-cargo new my-library --lib
-```
