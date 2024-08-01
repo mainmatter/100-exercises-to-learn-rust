@@ -115,7 +115,7 @@ that most of our test modules start with a `use super::*;` statement to bring al
 
 ## Visualizing the module tree
 
-If you're struggling to picture the module tree of your project, you can try using 
+If you're struggling to picture the module tree of your project, you can try using
 [`cargo-modules`](https://crates.io/crates/cargo-modules) to visualize it!
 
 Refer to their documentation for installation instructions and usage examples.
