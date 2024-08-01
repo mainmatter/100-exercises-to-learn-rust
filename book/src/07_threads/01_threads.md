@@ -6,7 +6,7 @@ and why we might want to use them.
 ## What is a thread?
 
 A **thread** is an execution context managed by the underlying operating system.\
-Each thread has its own stack, instruction pointer, and program counter.
+Each thread has its own stack and instruction pointer.
 
 A single **process** can manage multiple threads.
 These threads share the same memory space, which means they can access the same data.
