@@ -1,3 +1,8 @@
 [workspace]
 members = ["exercises/*/*", "helpers/common", "helpers/mdbook-exercise-linker", "helpers/ticket_fields"]
 resolver = "2"
+
+# This is needed to guarantee the expected behaviour on that specific exercise,
+# regardless of the "global" setting for `overflow-checks` on the `dev` profile.
+[profile.dev.package.copy]
+overflow-checks = true
