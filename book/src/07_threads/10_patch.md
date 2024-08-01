@@ -10,9 +10,9 @@ In the non-threaded version of the system, updates were fairly straightforward: 
 
 ## Multithreaded updates
 
-The same strategy won't work in the current multi-threaded version,
-because the mutable reference would have to be sent over a channel. The borrow checker would
-stop us, because `&mut Ticket` doesn't satisfy the `'static` lifetime requirement of `SyncSender::send`.
+The same strategy won't work in the current multithreaded version. The borrow checker would
+stop us: `SyncSender<&mut Ticket>` isn't `'static` because `&mut Ticket` doesn't satisfy the `'static` lifetime, therefore
+they can't be captured by the closure that gets passed to `std::thread::spawn`.
 
 There are a few ways to work around this limitation. We'll explore a few of them in the following exercises.
 
