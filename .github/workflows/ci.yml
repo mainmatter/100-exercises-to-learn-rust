@@ -47,6 +47,7 @@ jobs:
             etoolbox
             fancyvrb
             footnote
+            luatexbase
       - name: Check `tlmgr` version
         run: tlmgr --version
       - uses: taiki-e/install-action@v2
