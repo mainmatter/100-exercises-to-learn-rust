@@ -54,13 +54,9 @@ jobs:
             csquotes
             bookmark
             xurl
-            pgfpages
             amsmath
-            amssymb
             setspace
             iftex
-            textcomp
-            lmodern
       - name: Check `tlmgr` version
         run: tlmgr --version
       - uses: taiki-e/install-action@v2
