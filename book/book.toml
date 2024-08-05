@@ -18,6 +18,7 @@ highlight-style = "tango"
 pdf-engine = "lualatex"
 
 [output.pandoc.profile.pdf.variables]
+subtitle = "A hands-on course by Mainmatter"
 # You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
 mainfont = "Noto Serif"
 sansfont = "Noto Sans"
