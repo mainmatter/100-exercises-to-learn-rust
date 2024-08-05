@@ -11,7 +11,8 @@ to the pointer: the length of the slice it points to. Going back to the example 
 ```rust
 let mut s = String::with_capacity(5);
 s.push_str("Hello");
-// Create a string slice reference from the `String`, skipping the first byte.
+// Create a string slice reference from the `String`, 
+// skipping the first byte.
 let slice: &str = &s[1..];
 ```
 

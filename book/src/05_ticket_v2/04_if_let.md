@@ -8,7 +8,10 @@ impl Ticket {
         match &self.status {
             Status::InProgress { assigned_to } => assigned_to,
             Status::Done | Status::ToDo => {
-                panic!("Only `In-Progress` tickets can be assigned to someone")
+                panic!(
+                    "Only `In-Progress` tickets can be \
+                    assigned to someone"
+                )
             }
         }
     }
@@ -33,7 +36,9 @@ impl Ticket {
         if let Status::InProgress { assigned_to } = &self.status {
             assigned_to
         } else {
-            panic!("Only `In-Progress` tickets can be assigned to someone");
+            panic!(
+                "Only `In-Progress` tickets can be assigned to someone"
+            );
         }
     }
 }
@@ -48,7 +53,9 @@ you can use the `let/else` construct:
 impl Ticket {
     pub fn assigned_to(&self) -> &str {
         let Status::InProgress { assigned_to } = &self.status else {
-            panic!("Only `In-Progress` tickets can be assigned to someone");
+            panic!(
+                "Only `In-Progress` tickets can be assigned to someone"
+            );
         };
         assigned_to
     }

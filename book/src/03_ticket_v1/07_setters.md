@@ -50,7 +50,11 @@ It takes ownership of `self`, changes the title, and returns the modified `Ticke
 This is how you'd use it:
 
 ```rust
-let ticket = Ticket::new("Title".into(), "Description".into(), "To-Do".into());
+let ticket = Ticket::new(
+    "Title".into(), 
+    "Description".into(), 
+    "To-Do".into()
+);
 let ticket = ticket.set_title("New title".into());
 ```
 
@@ -88,7 +92,11 @@ Nothing is returned.
 You'd use it like this:
 
 ```rust
-let mut ticket = Ticket::new("Title".into(), "Description".into(), "To-Do".into());
+let mut ticket = Ticket::new(
+    "Title".into(),
+    "Description".into(),
+    "To-Do".into()
+);
 ticket.set_title("New title".into());
 
 // Use the modified ticket

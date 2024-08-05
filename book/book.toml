@@ -1,9 +1,43 @@
 [book]
-authors = ["Luca Palmieri (Mainmatter)"]
+authors = ["Luca Palmieri"]
 language = "en"
 multilingual = false
 src = "src"
 title = "100 Exercises To Learn Rust"
+
+[output.pandoc]
+optional = true
+hosted-html = "https://rust-exercises.com/100-exercises/"
+
+[output.pandoc.profile.pdf] # options to pass to Pandoc (see https://pandoc.org/MANUAL.html)
+output-file = "100-exercises-to-learn-rust.pdf"
+to = "latex"
+highlight-style = "tango"
+# We use `lualatext` because, right now, it's the only engine
+# that supports fallback fonts, which we need for emojis.
+pdf-engine = "lualatex"
+
+[output.pandoc.profile.pdf.variables]
+subtitle = "A hands-on course by Mainmatter"
+# You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
+mainfont = "Noto Serif"
+sansfont = "Noto Sans"
+monofont = "Noto Sans Mono"
+mainfontfallback = ["Noto Color Emoji:mode=harf"]
+sansfontfallback = ["Noto Color Emoji:mode=harf"]
+monofontfallback = [
+  "Noto Color Emoji:mode=harf",
+]
+linkcolor = "blue"
+urlcolor = "blue"
+urlstyle = "rm"
+documentclass = "book"
+fontsize = "11pt"
+geometry = "papersize={8in,10in},top=2cm,bottom=2cm,left=2.4cm,right=2.4cm"
+header-includes = [
+  # Reduce font size of code blocks
+  "\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\small}",
+]
 
 [output.html]
 git-repository-url = "https://github.com/mainmatter/100-exercises-to-learn-rust"

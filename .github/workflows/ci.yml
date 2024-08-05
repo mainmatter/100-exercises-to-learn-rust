@@ -18,6 +18,47 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
       - name: Install plugin
         run: cargo install --path helpers/mdbook-exercise-linker
+      - name: Install mdbook-pandoc and related dependencies
+        run: |
+          cargo install mdbook-pandoc --locked --version 0.7.1
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto
+          
+          export PANDOC_VERSION=3.3
+          curl -LsSf https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz | tar zxf -
+          echo "$PWD/pandoc-${PANDOC_VERSION}/bin" >> $GITHUB_PATH
+        shell: bash
+      - name: Setup TeX Live
+        uses: teatimeguest/setup-texlive-action@v3
+        with:
+          packages:
+            scheme-basic
+            luatex
+            lualatex-math
+            luacolor
+            luatexbase
+            luaotfload
+            framed
+            unicode-math
+            xcolor
+            geometry
+            longtable
+            booktabs
+            array
+            lua-ul
+            etoolbox
+            fancyvrb
+            footnote
+            selnolig
+            natbib
+            csquotes
+            bookmark
+            xurl
+            amsmath
+            setspace
+            iftex
+      - name: Check `tlmgr` version
+        run: tlmgr --version
       - uses: taiki-e/install-action@v2
         with:
           tool: mdbook
@@ -33,12 +74,19 @@ jobs:
             --exclude-loopback 
             --require-https 
             --no-progress 
-            book/book
-      # Upload the book as an artifact
+            book/book/html/
+      # Upload the HTML book as an artifact
       - uses: actions/upload-artifact@v4
         with:
           name: book
-          path: book/book
+          # When you support multiple formats, the output directory changes
+          # to include the format in its path.
+          path: book/book/html
+      # Upload the PDF book as an artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paperback
+          path: book/book/pandoc/pdf/100-exercises-to-learn-rust.pdf
 
   formatter:
     runs-on: ubuntu-latest

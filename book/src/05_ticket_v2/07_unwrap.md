@@ -14,8 +14,8 @@ fn parse_int(s: &str) -> Result<i32, ParseIntError> {
 }
 
 // This won't compile: we're not handling the error case.
-// We must either use `match` or one of the combinators provided by `Result`
-// to "unwrap" the success value or handle the error.
+// We must either use `match` or one of the combinators provided by 
+// `Result` to "unwrap" the success value or handle the error.
 let number = parse_int("42") + 2;
 ```
 

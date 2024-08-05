@@ -48,5 +48,5 @@ check out the [Embedded Rust book](https://docs.rust-embedded.org/book/).
 
 You can then find resources on key topics that cut across domains.\
 For testing, check out
-["Advanced testing, going beyond the basics"](https://github.com/mainmatter/rust-advanced-testing-workshop).\
-For telemetry, check out ["You can't fix what you can't see"](https://github.com/mainmatter/rust-telemetry-workshop).
+["Advanced testing, going beyond the basics"](https://rust-exercises.com/advanced-testing/).\
+For telemetry, check out ["You can't fix what you can't see"](https://rust-exercises.com/telemetry/).

@@ -30,7 +30,7 @@ instantiation syntax:
 // This won't work!
 let ticket = Ticket {
     title: "Build a ticket system".into(),
-    description: "Create a system that can manage tickets across a Kanban board".into(),
+    description: "A Kanban board".into(),
     status: "Open".into()
 };
 ```

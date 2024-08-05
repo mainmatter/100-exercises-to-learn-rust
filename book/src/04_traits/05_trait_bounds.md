@@ -94,7 +94,8 @@ fn print_if_even<T>(n: T) {
 This code won't compile:
 
 ```text
-error[E0599]: no method named `is_even` found for type parameter `T` in the current scope
+error[E0599]: no method named `is_even` found for type parameter `T` 
+              in the current scope
  --> src/lib.rs:2:10
   |
 1 | fn print_if_even<T>(n: T) {
@@ -106,7 +107,9 @@ error[E0277]: `T` doesn't implement `Debug`
  --> src/lib.rs:3:19
   |
 3 |         println!("{n:?} is even");
-  |                   ^^^^^ `T` cannot be formatted using `{:?}` because it doesn't implement `Debug`
+  |                   ^^^^^ 
+  |   `T` cannot be formatted using `{:?}` because 
+  |         it doesn't implement `Debug`
   |
 help: consider restricting type parameter `T`
   |

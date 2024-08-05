@@ -44,9 +44,11 @@ error[E0382]: use of moved value: `ticket`
    |               -------- `ticket` moved due to this method call
 ...
 30 |         println!("Your next task is: {}", ticket.title());
-   |                                           ^^^^^^ value used here after move
+   |                                           ^^^^^^ 
+   |                                value used here after move
    |
-note: `Ticket::status` takes ownership of the receiver `self`, which moves `ticket`
+note: `Ticket::status` takes ownership of the receiver `self`, 
+      which moves `ticket`
   --> src/main.rs:12:23
    |
 12 |         pub fn status(self) -> String {
@@ -130,9 +132,11 @@ error[E0382]: use of moved value: `ticket`
    |               -------- `ticket` moved due to this method call
 ...
 30 |         println!("Your next task is: {}", ticket.title());
-   |                                           ^^^^^^ value used here after move
+   |                                           ^^^^^^ 
+   |                                 value used here after move
    |
-note: `Ticket::status` takes ownership of the receiver `self`, which moves `ticket`
+note: `Ticket::status` takes ownership of the receiver `self`, 
+      which moves `ticket`
   --> src/main.rs:12:23
    |
 12 |         pub fn status(self) -> String {
@@ -199,8 +203,10 @@ fn main() {
         active: true,
     };
     // `b` is a reference to the `version` field of `config`.
-    // The type of `b` is `&u32`, since it contains a reference to a `u32` value.
-    // We create a reference by borrowing `config.version`, using the `&` operator.
+    // The type of `b` is `&u32`, since it contains a reference to 
+    // a `u32` value.
+    // We create a reference by borrowing `config.version`, using 
+    // the `&` operator.
     // Same symbol (`&`), different meaning depending on the context!
     let b: &u32 = &config.version;
     //     ^ The type annotation is not necessary, 
