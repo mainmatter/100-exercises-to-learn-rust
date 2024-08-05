@@ -32,7 +32,8 @@ jobs:
         uses: teatimeguest/setup-texlive-action@v3
         with:
           packages:
-            scheme-medium
+            scheme-basic
+            luatex
             framed
       - name: Check `tlmgr` version
         run: tlmgr --version
@@ -49,6 +50,7 @@ jobs:
           fail: true
           args: |
             --exclude-loopback 
+            --exclude-path "/book/book/pdf/src"
             --require-https 
             --no-progress 
             book/book
