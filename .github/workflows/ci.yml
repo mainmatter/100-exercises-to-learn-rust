@@ -31,7 +31,9 @@ jobs:
       - name: Setup TeX Live
         uses: teatimeguest/setup-texlive-action@v3
         with:
-          packages: framed
+          packages:
+            scheme-medium
+            framed
       - name: Check `tlmgr` version
         run: tlmgr --version
       - uses: taiki-e/install-action@v2
