@@ -86,7 +86,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: paperback
-          path: book/book/pandoc/100-exercises-to-learn-rust.pdf
+          path: book/book/pandoc/pdf/100-exercises-to-learn-rust.pdf
 
   formatter:
     runs-on: ubuntu-latest
