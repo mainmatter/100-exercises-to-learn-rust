@@ -11,9 +11,9 @@ error[E0597]: `v` does not live long enough
 ...
 15 |     let right = &v[split_point..];
    |                  ^ borrowed value does not live long enough
-16 |     let left_handle = thread::spawn(move || left.iter().sum::<i32>());
-   |                        ------------------------------------------------ 
-                          argument requires that `v` is borrowed for `'static`
+16 |     let left_handle = spawn(move || left.iter().sum::<i32>());
+   |                             -------------------------------- 
+                     argument requires that `v` is borrowed for `'static`
 19 | }
    |  - `v` dropped here while still borrowed
 ```
