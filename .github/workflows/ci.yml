@@ -22,12 +22,18 @@ jobs:
         run: |
           cargo install mdbook-pandoc --locked --version 0.7.1
           sudo apt-get update
-          sudo apt-get install -y texlive texlive-luatex texlive-luatex-extra fonts-noto
+          sudo apt-get install -y texlive texlive-luatex fonts-noto
           
           export PANDOC_VERSION=3.3
           curl -LsSf https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz | tar zxf -
           echo "$PWD/pandoc-${PANDOC_VERSION}/bin" >> $GITHUB_PATH
         shell: bash
+      - name: Check `tlmgr` version
+        run: tlmgr --version
+      - name: Setup TeX Live
+        uses: teatimeguest/setup-texlive-action@v3
+        with:
+          packages: framed
       - uses: taiki-e/install-action@v2
         with:
           tool: mdbook
