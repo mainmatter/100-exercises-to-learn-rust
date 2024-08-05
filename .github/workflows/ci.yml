@@ -46,6 +46,7 @@ jobs:
             lua-ul
             etoolbox
             fancyvrb
+            footnote
       - name: Check `tlmgr` version
         run: tlmgr --version
       - uses: taiki-e/install-action@v2
