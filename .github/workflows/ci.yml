@@ -23,6 +23,7 @@ jobs:
           cargo install mdbook-pandoc --locked --version 0.7.1
           sudo apt-get update
           sudo apt-get install -y texlive texlive-luatex fonts-noto
+          sudo tlmgr install framed
           
           export PANDOC_VERSION=3.3
           curl -LsSf https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz | tar zxf -

@@ -25,7 +25,7 @@ monofont = "Noto Sans Mono"
 mainfontfallback = ["Noto Color Emoji:mode=harf"]
 sansfontfallback = ["Noto Color Emoji:mode=harf"]
 monofontfallback = [
-    "Noto Color Emoji:mode=harf",
+  "Noto Color Emoji:mode=harf",
 ]
 linkcolor = "blue"
 urlcolor = "blue"
@@ -34,8 +34,8 @@ documentclass = "book"
 fontsize = "11pt"
 geometry = "papersize={8in,10in},top=2cm,bottom=2cm,left=2.4cm,right=2.4cm"
 header-includes = [
-    # Reduce font size of code blocks
-    "\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\small}",
+  # Reduce font size of code blocks
+  "\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\small}",
 ]
 
 [output.html]
