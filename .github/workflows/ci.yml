@@ -72,10 +72,9 @@ jobs:
           fail: true
           args: |
             --exclude-loopback 
-            --exclude-path="/book/book/pandoc/pdf/src"
             --require-https 
             --no-progress 
-            book/book
+            book/book/html/
       # Upload the HTML book as an artifact
       - uses: actions/upload-artifact@v4
         with:
