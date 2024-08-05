@@ -3,7 +3,7 @@
 So far we've been using unbounded channels.\
 You can send as many messages as you want, and the channel will grow to accommodate them.\
 In a multi-producer single-consumer scenario, this can be problematic: if the producers
-enqueues messages at a faster rate than the consumer can process them, the channel will
+enqueue messages at a faster rate than the consumer can process them, the channel will
 keep growing, potentially consuming all available memory.
 
 Our recommendation is to **never** use an unbounded channel in a production system.\
