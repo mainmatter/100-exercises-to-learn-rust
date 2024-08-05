@@ -72,7 +72,7 @@ jobs:
           fail: true
           args: |
             --exclude-loopback 
-            --exclude-path "/book/book/pdf/src"
+            --exclude-path="/book/book/pandoc/pdf/src"
             --require-https 
             --no-progress 
             book/book
