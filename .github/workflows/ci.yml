@@ -37,6 +37,7 @@ jobs:
             framed
             unicode-math
             lualatex-math
+            xcolor
       - name: Check `tlmgr` version
         run: tlmgr --version
       - uses: taiki-e/install-action@v2
