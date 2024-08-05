@@ -17,7 +17,7 @@ When you call a function, a new **stack frame** is added on top of the stack. Th
 the function's arguments, local variables and a few "bookkeeping" values.\
 When the function returns, the stack frame is popped off the stack[^stack-overflow].
 
-````text
+```text
 +-----------------+
 | frame for func1 |
 +-----------------+
@@ -37,7 +37,7 @@ When the function returns, the stack frame is popped off the stack[^stack-overfl
 +-----------------+
 | frame for func1 |
 +-----------------+
-````
+```
 
 From an operational point of view, stack allocation/de-allocation is **very fast**.\
 We are always pushing and popping data from the top of the stack, so we don't need to search for free memory.
