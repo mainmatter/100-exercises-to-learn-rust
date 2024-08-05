@@ -38,6 +38,14 @@ jobs:
             unicode-math
             lualatex-math
             xcolor
+            geometry
+            longtable
+            booktabs
+            array
+            luacolor
+            lua-ul
+            etoolbox
+            fancyvrb
       - name: Check `tlmgr` version
         run: tlmgr --version
       - uses: taiki-e/install-action@v2
