@@ -72,7 +72,8 @@ error: literal out of range for `i8`
 4 |     let a = 255 as i8;
   |             ^^^
   |
-  = note: the literal `255` does not fit into the type `i8` whose range is `-128..=127`
+  = note: the literal `255` does not fit into the type `i8` 
+          whose range is `-128..=127`
   = help: consider using the type `u8` instead
   = note: `#[deny(overflowing_literals)]` on by default
 ```

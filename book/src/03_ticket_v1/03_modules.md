@@ -81,7 +81,7 @@ You have to use a **path** pointing to the entity you want to access.
 
 You can compose the path in various ways:
 
-- starting from the root of the current crate, e.g. `crate::module_1::module_2::MyStruct`
+- starting from the root of the current crate, e.g. `crate::module_1::MyStruct`
 - starting from the parent module, e.g. `super::my_function`
 - starting from the current module, e.g. `sub_module_1::MyStruct`
 

@@ -17,13 +17,27 @@ When you call a function, a new **stack frame** is added on top of the stack. Th
 the function's arguments, local variables and a few "bookkeeping" values.\
 When the function returns, the stack frame is popped off the stack[^stack-overflow].
 
-```text
-                                 +-----------------+
-                       func2     | frame for func2 |   func2
-+-----------------+  is called   +-----------------+  returns   +-----------------+
-| frame for func1 | -----------> | frame for func1 | ---------> | frame for func1 |
-+-----------------+              +-----------------+            +-----------------+
-```
+````text
++-----------------+
+| frame for func1 |
++-----------------+
+        |
+        | func2 is 
+        | called
+        v
++-----------------+
+| frame for func2 |
++-----------------+
+| frame for func1 |
++-----------------+
+        |
+        | func2  
+        | returns
+        v
++-----------------+
+| frame for func1 |
++-----------------+
+````
 
 From an operational point of view, stack allocation/de-allocation is **very fast**.\
 We are always pushing and popping data from the top of the stack, so we don't need to search for free memory.
