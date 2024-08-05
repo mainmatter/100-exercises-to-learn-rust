@@ -44,7 +44,8 @@ impl Drop for MyType {
 The compiler will complain with this error message:
 
 ```text
-error[E0184]: the trait `Copy` cannot be implemented for this type; the type has a destructor
+error[E0184]: the trait `Copy` cannot be implemented for this type; 
+              the type has a destructor
  --> src/lib.rs:2:17
   |
 2 | #[derive(Clone, Copy)]

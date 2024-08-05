@@ -3,7 +3,11 @@
 Let's go back to where our string journey started:
 
 ```rust
-let ticket = Ticket::new("A title".into(), "A description".into(), "To-Do".into());
+let ticket = Ticket::new(
+    "A title".into(), 
+    "A description".into(), 
+    "To-Do".into()
+);
 ```
 
 We now know enough to start unpacking what `.into()` is doing here.
@@ -14,7 +18,11 @@ This is the signature of the `new` method:
 
 ```rust
 impl Ticket {
-    pub fn new(title: String, description: String, status: String) -> Self {
+    pub fn new(
+        title: String, 
+        description: String, 
+        status: String
+    ) -> Self {
         // [...]
     }
 }

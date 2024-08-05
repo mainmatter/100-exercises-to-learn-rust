@@ -33,7 +33,7 @@ impl Preprocessor for ExerciseLinker {
 
         book.sections
             .iter_mut()
-            .for_each(|i| process_book_item(i, &root_url));
+            .for_each(|i| process_book_item(i, &ctx.renderer, &root_url));
         Ok(book)
     }
 
@@ -42,11 +42,11 @@ impl Preprocessor for ExerciseLinker {
     }
 }
 
-fn process_book_item(item: &mut BookItem, root_url: &str) {
+fn process_book_item(item: &mut BookItem, renderer: &str, root_url: &str) {
     match item {
         BookItem::Chapter(chapter) => {
             chapter.sub_items.iter_mut().for_each(|item| {
-                process_book_item(item, root_url);
+                process_book_item(item, renderer, root_url);
             });
 
             let Some(source_path) = &chapter.source_path else {
@@ -61,10 +61,14 @@ fn process_book_item(item: &mut BookItem, root_url: &str) {
 
             let exercise_path = source_path.strip_suffix(".md").unwrap();
             let link_section = format!(
-                    "\n## Exercise\n\nThe exercise for this section is located in [`{exercise_path}`]({})",
+                    "\n## Exercise\n\nThe exercise for this section is located in [`{exercise_path}`]({})\n",
                     format!("{}/{}", root_url, exercise_path)
                 );
             chapter.content.push_str(&link_section);
+
+            if renderer == "pandoc" {
+                chapter.content.push_str("`\\newpage`{=latex}\n");
+            }
         }
         BookItem::Separator => {}
         BookItem::PartTitle(_) => {}

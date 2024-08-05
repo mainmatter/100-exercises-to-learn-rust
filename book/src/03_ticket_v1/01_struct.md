@@ -48,7 +48,7 @@ You can create an instance of a struct by specifying the values for each field:
 // Syntax: <StructName> { <field_name>: <value>, ... }
 let ticket = Ticket {
     title: "Build a ticket system".into(),
-    description: "Create a system that can manage tickets across a Kanban board".into(),
+    description: "A Kanban board".into(),
     status: "Open".into()
 };
 ```
@@ -130,7 +130,8 @@ let default_config = Configuration::default();
 You can use the function call syntax even for methods that take `self` as their first parameter:
 
 ```rust
-// Function call syntax: <StructName>::<method_name>(<instance>, <parameters>)
+// Function call syntax:
+//   <StructName>::<method_name>(<instance>, <parameters>)
 let is_open = Ticket::is_open(ticket);
 ```
 

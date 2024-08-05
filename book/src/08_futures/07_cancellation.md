@@ -105,5 +105,5 @@ async fn run() {
   Check out [`select!`'s documentation](https://tokio.rs/tokio/tutorial/select) for more details.\
   If you need to interleave two asynchronous streams of data (e.g. a socket and a channel), prefer using
   [`StreamExt::merge`](https://docs.rs/tokio-stream/latest/tokio_stream/trait.StreamExt.html#method.merge) instead.
-- Rather than "abrupt" cancellation, it can be preferable to rely
-  on [`CancellationToken`](https://docs.rs/tokio-util/latest/tokio_util/sync/struct.CancellationToken.html).
+- A [`CancellationToken`](https://docs.rs/tokio-util/latest/tokio_util/sync/struct.CancellationToken.html) may be
+  preferable to `JoinHandle::abort` in some cases.

@@ -4,7 +4,11 @@ Let's revisit the `Ticket::new` function from the previous exercise:
 
 ```rust
 impl Ticket {
-    pub fn new(title: String, description: String, status: Status) -> Ticket {
+    pub fn new(
+        title: String, 
+        description: String, 
+        status: Status
+    ) -> Ticket {
         if title.is_empty() {
             panic!("Title cannot be empty");
         }
@@ -70,8 +74,9 @@ Rust, with `Result`, forces you to **encode fallibility in the function's signat
 If a function can fail (and you want the caller to have a shot at handling the error), it must return a `Result`.
 
 ```rust
-// Just by looking at the signature, you know that this function can fail.
-// You can also inspect `ParseIntError` to see what kind of failures to expect.
+// Just by looking at the signature, you know that this function 
+// can fail. You can also inspect `ParseIntError` to see what 
+// kind of failures to expect.
 fn parse_int(s: &str) -> Result<i32, ParseIntError> {
     // ...
 }
