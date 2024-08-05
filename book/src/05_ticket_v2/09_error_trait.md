@@ -22,7 +22,7 @@ that implements the `Error` trait.
 pub trait Error: Debug + Display {}
 ```
 
-You might recall the `:` syntax from [the `Sized` trait](../04_traits/08_sized.md)—it's used to specify **supertraits**.
+You might recall the `:` syntax from [the `From` trait](../04_traits/09_from.md#supertrait--subtrait)—it's used to specify **supertraits**.
 For `Error`, there are two supertraits: `Debug` and `Display`. If a type wants to implement `Error`, it must also
 implement `Debug` and `Display`.
 
