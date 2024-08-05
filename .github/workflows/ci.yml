@@ -34,20 +34,33 @@ jobs:
           packages:
             scheme-basic
             luatex
+            lualatex-math
+            luacolor
+            luatexbase
+            luaotfload
             framed
             unicode-math
-            lualatex-math
             xcolor
             geometry
             longtable
             booktabs
             array
-            luacolor
             lua-ul
             etoolbox
             fancyvrb
             footnote
-            luatexbase
+            selnolig
+            natbib
+            csquotes
+            bookmark
+            xurl
+            pgfpages
+            amsmath
+            amssymb
+            setspace
+            iftex
+            textcomp
+            lmodern
       - name: Check `tlmgr` version
         run: tlmgr --version
       - uses: taiki-e/install-action@v2
