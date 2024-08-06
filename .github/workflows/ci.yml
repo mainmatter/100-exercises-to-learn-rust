@@ -104,7 +104,7 @@ jobs:
           ./helpers/json2redirects.sh book/link2alias.json > site/redirects
       # Verify nothing has changed, meaning that the redirect file is up-to-date
       - run: |
-          git diff-index --quiet HEAD || (echo "Redirects are out-of-date" && git diff && exit 1)
+          git diff --exit-code site/redirects
 
   formatter:
     runs-on: ubuntu-latest
