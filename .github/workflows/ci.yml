@@ -63,6 +63,8 @@ jobs:
         with:
           tool: mdbook
       - name: Build book
+        env:
+          LINK_SHORTENER_VERIFY: "true"
         run: |
           cd book
           mdbook build
@@ -82,11 +84,14 @@ jobs:
           # When you support multiple formats, the output directory changes
           # to include the format in its path.
           path: book/book/html
-      # Upload the PDF book as an artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: online-pdf
+          path: book/book/pandoc/pdf/100-exercises-to-learn-rust.pdf
       - uses: actions/upload-artifact@v4
         with:
           name: paperback
-          path: book/book/pandoc/pdf/100-exercises-to-learn-rust.pdf
+          path: book/book/pandoc/paperback/100-exercises-to-learn-rust.pdf
 
   formatter:
     runs-on: ubuntu-latest
