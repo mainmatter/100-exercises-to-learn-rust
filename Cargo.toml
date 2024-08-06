@@ -1,5 +1,11 @@
 [workspace]
-members = ["exercises/*/*", "helpers/common", "helpers/mdbook-exercise-linker", "helpers/ticket_fields"]
+members = [
+  "exercises/*/*",
+  "helpers/common",
+  "helpers/mdbook-exercise-linker",
+  "helpers/mdbook-link-shortener",
+  "helpers/ticket_fields",
+]
 resolver = "2"
 
 # This is needed to guarantee the expected behaviour on that specific exercise,

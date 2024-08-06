@@ -3,7 +3,6 @@ use mdbook::book::Book;
 use mdbook::preprocess::{Preprocessor, PreprocessorContext};
 use mdbook::BookItem;
 
-/// A no-op preprocessor.
 pub struct ExerciseLinker;
 
 impl ExerciseLinker {
