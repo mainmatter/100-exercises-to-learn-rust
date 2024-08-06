@@ -40,7 +40,7 @@ header-includes = [
 ]
 
 [output.pandoc.profile.paperback]
-output-file = "100-exercises-to-learn-rust-paperback.pdf"
+output-file = "100-exercises-to-learn-rust.pdf"
 to = "latex"
 highlight-style = "monochrome"
 # We use `lualatext` because, right now, it's the only engine
