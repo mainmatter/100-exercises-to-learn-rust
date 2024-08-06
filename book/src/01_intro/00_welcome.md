@@ -32,6 +32,11 @@ a mentor to help you along the way should you get stuck. You can
 also find solutions to all exercises in the
 [`solutions` branch of the GitHub repository](https://github.com/mainmatter/100-exercises-to-learn-rust/tree/solutions).
 
+## Formats
+
+You can browse the course material in the browser, at [rust-exercises.com/100-exercises/](https://rust-exercises.com/100-exercises/).\
+You can also [download the course material as a PDF file](https://rust-exercises.com/100-exercises-to-learn-rust.pdf), for offline reading.
+
 ## Structure
 
 On the left side of the screen, you can see that the course is divided into sections.
