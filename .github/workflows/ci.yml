@@ -16,8 +16,10 @@ jobs:
         with:
           fetch-depth: 0
       - uses: actions-rust-lang/setup-rust-toolchain@v1
-      - name: Install plugin
+      - name: Install exercise plugin
         run: cargo install --path helpers/mdbook-exercise-linker
+      - name: Install link shortener plugin
+        run: cargo install --path helpers/mdbook-link-shortener
       - name: Install mdbook-pandoc and related dependencies
         run: |
           cargo install mdbook-pandoc --locked --version 0.7.1
@@ -63,6 +65,8 @@ jobs:
         with:
           tool: mdbook
       - name: Build book
+        env:
+          LINK_SHORTENER_VERIFY: "true"
         run: |
           cd book
           mdbook build
@@ -82,11 +86,25 @@ jobs:
           # When you support multiple formats, the output directory changes
           # to include the format in its path.
           path: book/book/html
-      # Upload the PDF book as an artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: online-pdf
+          path: book/book/pandoc/pdf/100-exercises-to-learn-rust.pdf
       - uses: actions/upload-artifact@v4
         with:
           name: paperback
-          path: book/book/pandoc/pdf/100-exercises-to-learn-rust.pdf
+          path: book/book/pandoc/paperback/100-exercises-to-learn-rust.pdf
+
+  is_fresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo apt-get update && sudo apt-get install -y jq
+      - run: |
+          ./helpers/json2redirects.sh book/link2alias.json > site/redirects
+      # Verify nothing has changed, meaning that the redirect file is up-to-date
+      - run: |
+          git diff --exit-code site/redirects
 
   formatter:
     runs-on: ubuntu-latest
