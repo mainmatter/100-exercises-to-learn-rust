@@ -101,10 +101,10 @@ jobs:
       - uses: actions/checkout@v3
       - run: sudo apt-get update && sudo apt-get install -y jq
       - run: |
-          ./helpers/json2redirects.sh book/link2alias.json > site/redirects
+          ./helpers/json2redirects.sh book/link2alias.json > site/_redirects
       # Verify nothing has changed, meaning that the redirect file is up-to-date
       - run: |
-          git diff --exit-code site/redirects
+          git diff --exit-code site/_redirects
 
   formatter:
     runs-on: ubuntu-latest
