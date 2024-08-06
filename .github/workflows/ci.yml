@@ -93,6 +93,17 @@ jobs:
           name: paperback
           path: book/book/pandoc/paperback/100-exercises-to-learn-rust.pdf
 
+  is_fresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo apt-get update && sudo apt-get install -y jq
+      - run: |
+          ./helpers/json2redirects.sh book/link2alias.json > site/redirects
+      # Verify nothing has changed, meaning that the redirect file is up-to-date
+      - run: |
+          git diff-index --quiet HEAD || (echo "Redirects are out-of-date" && exit 1)
+
   formatter:
     runs-on: ubuntu-latest
     steps:
