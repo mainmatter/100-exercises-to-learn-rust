@@ -111,7 +111,8 @@ fn main() {
 The compiler is not happy with this code:
 
 ```text
-error[E0277]: `MutexGuard<'_, i32>` cannot be sent between threads safely
+error[E0277]: `MutexGuard<'_, i32>` cannot be sent between 
+              threads safely
    --> src/main.rs:10:7
     |
 10  |   spawn(move || {
@@ -122,9 +123,10 @@ error[E0277]: `MutexGuard<'_, i32>` cannot be sent between threads safely
 12  | | });
     | |_^ `MutexGuard<'_, i32>` cannot be sent between threads safely
     |
-    = help: the trait `Send` is not implemented for `MutexGuard<'_, i32>`, 
-            which is required by `{closure@src/main.rs:10:7: 10:14}: Send`
-    = note: required for `std::sync::mpsc::Receiver<MutexGuard<'_, i32>>` 
+    = help: the trait `Send` is not implemented for 
+            `MutexGuard<'_, i32>`, which is required by 
+            `{closure@src/main.rs:10:7: 10:14}: Send`
+    = note: required for `Receiver<MutexGuard<'_, i32>>` 
             to implement `Send`
 note: required because it's used within this closure
 ```

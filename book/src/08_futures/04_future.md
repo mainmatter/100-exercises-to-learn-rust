@@ -47,7 +47,8 @@ The compiler will reject this code:
 error: future cannot be sent between threads safely
     |
 5   |     tokio::spawn(example());
-    |                  ^^^^^^^^^ future returned by `example` is not `Send`
+    |                  ^^^^^^^^^ 
+    | future returned by `example` is not `Send`
     |
 note: future is not `Send` as this value is used across an await
     |
