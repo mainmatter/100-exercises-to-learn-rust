@@ -32,7 +32,7 @@ The function's body is enclosed in curly braces `{}`.
 In previous exercise, you saw the `greeting` function:
 
 ```rust
-// `fn` <function_name> ( <input parameters> ) -> <return_type> { <body> }
+// `fn` <function_name> ( <input params> ) -> <return_type> { <body> }
 fn greeting() -> &'static str {
     // TODO: fix me 👇
     "I'm ready to __!"

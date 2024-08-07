@@ -89,7 +89,8 @@ although a bit more cumbersome to read:
 impl ::core::cmp::PartialEq for Ticket {
     #[inline]
     fn eq(&self, other: &Ticket) -> bool {
-        self.title == other.title && self.description == other.description
+        self.title == other.title 
+            && self.description == other.description
             && self.status == other.status
     }
 }

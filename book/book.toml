@@ -61,7 +61,7 @@ monofontfallback = [
 urlstyle = "rm"
 documentclass = "book"
 fontsize = "11pt"
-geometry = "papersize={8in,10in},top=2cm,bottom=2cm,left=2.4cm,right=2.4cm"
+geometry = "papersize={8in,10in},top=2cm,bottom=2cm,left=2.8cm,right=2.5cm"
 header-includes = [
   # Reduce font size of code blocks
   "\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\small}",

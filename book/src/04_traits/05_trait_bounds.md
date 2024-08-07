@@ -99,7 +99,8 @@ error[E0599]: no method named `is_even` found for type parameter `T`
  --> src/lib.rs:2:10
   |
 1 | fn print_if_even<T>(n: T) {
-  |                  - method `is_even` not found for this type parameter
+  |                  - method `is_even` not found 
+  |                    for this type parameter
 2 |     if n.is_even() {
   |          ^^^^^^^ method not found in `T`
 
