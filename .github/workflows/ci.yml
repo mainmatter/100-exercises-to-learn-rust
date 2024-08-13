@@ -73,6 +73,7 @@ jobs:
       - name: Convert HTML to ePUB
         run: |
           cd book/book/pandoc/html
+          sed -i 's|<code>\\newpage</code>{=latex}||g' 100-exercises-to-learn-rust.html
           ebook-convert 100-exercises-to-learn-rust.html 100-exercises-to-learn-rust.epub \
             --embed-all-fonts \
             --subset-embedded-fonts
