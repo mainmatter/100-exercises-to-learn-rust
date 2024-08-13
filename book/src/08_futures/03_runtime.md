@@ -41,7 +41,7 @@ across threads.
 ## Implications
 
 `tokio::spawn` is flavor-agnostic: it'll work no matter if you're running on the multithreaded
-or current-thread runtime. The downside is that the signature assume the worst case
+or current-thread runtime. The downside is that the signature assumes the worst case
 (i.e. multithreaded) and is constrained accordingly:
 
 ```rust
