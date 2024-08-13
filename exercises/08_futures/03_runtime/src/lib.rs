@@ -1,5 +1,5 @@
 // TODO: Implement the `fixed_reply` function. It should accept two `TcpListener` instances,
-//  accept connections on both of them concurrently, and always reply clients by sending
+//  accept connections on both of them concurrently, and always reply to clients by sending
 //  the `Display` representation of the `reply` argument as a response.
 use std::fmt::Display;
 use tokio::io::AsyncWriteExt;
