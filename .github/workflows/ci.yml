@@ -20,11 +20,11 @@ jobs:
         run: cargo install --path helpers/mdbook-exercise-linker
       - name: Install link shortener plugin
         run: cargo install --path helpers/mdbook-link-shortener
-      - name: Install mdbook-pandoc and related dependencies
+      - name: Install mdbook-pandoc, calibre and related dependencies
         run: |
           cargo install mdbook-pandoc --locked --version 0.7.1
           sudo apt-get update
-          sudo apt-get install -y fonts-noto
+          sudo apt-get install -y fonts-noto calibre
           
           export PANDOC_VERSION=3.3
           curl -LsSf https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz | tar zxf -
@@ -70,6 +70,13 @@ jobs:
         run: |
           cd book
           mdbook build
+      - name: Convert HTML to ePUB
+        run: |
+          cd book/book/pandoc/html
+          sed -i 's|<code>\\newpage</code>{=latex}||g' 100-exercises-to-learn-rust.html
+          ebook-convert 100-exercises-to-learn-rust.html 100-exercises-to-learn-rust.epub \
+            --embed-all-fonts \
+            --subset-embedded-fonts
       - name: Link Checker
         uses: lycheeverse/lychee-action@v1
         with:
@@ -94,6 +101,10 @@ jobs:
         with:
           name: paperback
           path: book/book/pandoc/paperback/100-exercises-to-learn-rust.pdf
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ePUB
+          path: book/book/pandoc/html/100-exercises-to-learn-rust.epub
 
   is_fresh:
     runs-on: ubuntu-latest

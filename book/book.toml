@@ -5,6 +5,19 @@ multilingual = false
 src = "src"
 title = "100 Exercises To Learn Rust"
 
+[preprocessor.exercise-linker]
+exercise_root_url = "https://github.com/mainmatter/100-exercises-to-learn-rust/tree/main/exercises"
+
+[preprocessor.link-shortener]
+base_url = "https://ruex.io"
+renderers = ["pandoc"]
+mapping = "link2alias.json"
+verify = false
+after = ["exercise-linker"]
+
+[output.html]
+git-repository-url = "https://github.com/mainmatter/100-exercises-to-learn-rust"
+
 [output.pandoc]
 optional = true
 hosted-html = "https://rust-exercises.com/100-exercises/"
@@ -16,9 +29,9 @@ highlight-style = "tango"
 # We use `lualatext` because, right now, it's the only engine
 # that supports fallback fonts, which we need for emojis.
 pdf-engine = "lualatex"
+metadata-file = "metadata.yml"
 
 [output.pandoc.profile.pdf.variables]
-subtitle = "A hands-on course by Mainmatter"
 # You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
 mainfont = "Noto Serif"
 sansfont = "Noto Sans"
@@ -43,12 +56,12 @@ header-includes = [
 output-file = "100-exercises-to-learn-rust.pdf"
 to = "latex"
 highlight-style = "monochrome"
+metadata-file = "metadata.yml"
 # We use `lualatext` because, right now, it's the only engine
 # that supports fallback fonts, which we need for emojis.
 pdf-engine = "lualatex"
 
 [output.pandoc.profile.paperback.variables]
-subtitle = "A hands-on course by Mainmatter"
 # You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
 mainfont = "Noto Serif"
 sansfont = "Noto Sans"
@@ -68,15 +81,26 @@ header-includes = [
 ]
 links-as-notes = true
 
-[output.html]
-git-repository-url = "https://github.com/mainmatter/100-exercises-to-learn-rust"
+# We go through HTML, rather than directly to ePUB, since routing
+# Pandoc's HTML through Calibre's ePUB converter gives us better results.
+[output.pandoc.profile.html]
+output-file = "100-exercises-to-learn-rust.html"
+to = "html"
+highlight-style = "monochrome"
+embed-resources = true
+standalone = true
+metadata-file = "metadata.yml"
 
-[preprocessor.exercise-linker]
-exercise_root_url = "https://github.com/mainmatter/100-exercises-to-learn-rust/tree/main/exercises"
-
-[preprocessor.link-shortener]
-base_url = "https://ruex.io"
-renderers = ["pandoc"]
-mapping = "link2alias.json"
-verify = false
-after = ["exercise-linker"]
+[output.pandoc.profile.html.variables]
+# You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
+mainfont = "Noto Serif"
+sansfont = "Noto Sans"
+monofont = "Noto Sans Mono"
+mainfontfallback = ["Noto Color Emoji:mode=harf"]
+sansfontfallback = ["Noto Color Emoji:mode=harf"]
+monofontfallback = [
+  "Noto Color Emoji:mode=harf",
+]
+linkcolor = "blue"
+urlcolor = "blue"
+urlstyle = "rm"
