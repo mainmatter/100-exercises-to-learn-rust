@@ -37,13 +37,13 @@ mainfont = "CoreSansA45.ttf"
 mainfontoptions = [
   "BoldFont=CoreSansA65.ttf",
   "ItalicFont=CoreSansA45It.ttf",
-  "BoldItalicFont=CoreSansA65It.ttf"
+  "BoldItalicFont=CoreSansA65It.ttf",
 ]
 sansfont = "CoreSansA45.ttf"
 sansfontoptions = [
   "BoldFont=CoreSansA65.ttf",
   "ItalicFont=CoreSansA45It.ttf",
-  "BoldItalicFont=CoreSansA65It.ttf"
+  "BoldItalicFont=CoreSansA65It.ttf",
 ]
 monofont = "Noto Sans Mono"
 mainfontfallback = ["Noto Color Emoji:mode=harf"]
@@ -51,13 +51,16 @@ sansfontfallback = ["Noto Color Emoji:mode=harf"]
 monofontfallback = [
   "Noto Color Emoji:mode=harf",
 ]
-linkcolor = "blue"
-urlcolor = "blue"
+monobackgroundcolor = "\\color[HTML]{e7e7e7}"
+linkcolor = "Links"
+urlcolor = "Links"
+linkstyle = "bold"
 urlstyle = "rm"
 documentclass = "book"
 fontsize = "11pt"
 geometry = "papersize={8in,10in},top=2cm,bottom=2cm,left=2.4cm,right=2.4cm"
 header-includes = [
+  "\\definecolor{Links}{HTML}{6200EE}",
   # Reduce font size of code blocks
   "\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\small}",
 ]
@@ -77,13 +80,13 @@ mainfont = "CoreSansA45.ttf"
 mainfontoptions = [
   "BoldFont=CoreSansA65.ttf",
   "ItalicFont=CoreSansA45It.ttf",
-  "BoldItalicFont=CoreSansA65It.ttf"
+  "BoldItalicFont=CoreSansA65It.ttf",
 ]
 sansfont = "CoreSansA45.ttf"
 sansfontoptions = [
   "BoldFont=CoreSansA65.ttf",
   "ItalicFont=CoreSansA45It.ttf",
-  "BoldItalicFont=CoreSansA65It.ttf"
+  "BoldItalicFont=CoreSansA65It.ttf",
 ]
 monofont = "Noto Sans Mono"
 mainfontfallback = ["Noto Color Emoji:mode=harf"]
