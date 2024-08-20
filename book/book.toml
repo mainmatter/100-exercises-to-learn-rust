@@ -53,7 +53,6 @@ monofontfallback = [
 ]
 linkcolor = "Links"
 urlcolor = "Links"
-linkstyle = "bold"
 urlstyle = "rm"
 documentclass = "book"
 fontsize = "11pt"
@@ -63,7 +62,6 @@ header-includes = [
   # Reduce font size of code blocks
   "\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\small}",
 ]
-highlight-style = "book/custom.theme"
 
 [output.pandoc.profile.paperback]
 output-file = "100-exercises-to-learn-rust.pdf"
@@ -94,11 +92,12 @@ sansfontfallback = ["Noto Color Emoji:mode=harf"]
 monofontfallback = [
   "Noto Color Emoji:mode=harf",
 ]
+linkcolor = "Links"
+urlcolor = "Links"
 urlstyle = "rm"
-documentclass = "book"
-fontsize = "11pt"
 geometry = "papersize={8in,10in},top=2cm,bottom=2cm,left=2.8cm,right=2.5cm"
 header-includes = [
+  "\\definecolor{Links}{HTML}{6200EE}",
   # Reduce font size of code blocks
   "\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\small}",
 ]
@@ -116,14 +115,24 @@ metadata-file = "metadata.yml"
 
 [output.pandoc.profile.html.variables]
 # You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
-mainfont = "Noto Serif"
-sansfont = "Noto Sans"
+mainfont = "CoreSansA45.ttf"
+mainfontoptions = [
+  "BoldFont=CoreSansA65.ttf",
+  "ItalicFont=CoreSansA45It.ttf",
+  "BoldItalicFont=CoreSansA65It.ttf",
+]
+sansfont = "CoreSansA45.ttf"
+sansfontoptions = [
+  "BoldFont=CoreSansA65.ttf",
+  "ItalicFont=CoreSansA45It.ttf",
+  "BoldItalicFont=CoreSansA65It.ttf",
+]
 monofont = "Noto Sans Mono"
 mainfontfallback = ["Noto Color Emoji:mode=harf"]
 sansfontfallback = ["Noto Color Emoji:mode=harf"]
 monofontfallback = [
   "Noto Color Emoji:mode=harf",
 ]
-linkcolor = "blue"
-urlcolor = "blue"
+linkcolor = "Links"
+urlcolor = "Links"
 urlstyle = "rm"
