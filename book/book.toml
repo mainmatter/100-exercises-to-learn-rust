@@ -33,8 +33,18 @@ metadata-file = "metadata.yml"
 
 [output.pandoc.profile.pdf.variables]
 # You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
-mainfont = "Noto Serif"
-sansfont = "Noto Sans"
+mainfont = "CoreSansA45.ttf"
+mainfontoptions = [
+  "BoldFont=CoreSansA65.ttf",
+  "ItalicFont=CoreSansA45It.ttf",
+  "BoldItalicFont=CoreSansA65It.ttf"
+]
+sansfont = "CoreSansA45.ttf"
+sansfontoptions = [
+  "BoldFont=CoreSansA65.ttf",
+  "ItalicFont=CoreSansA45It.ttf",
+  "BoldItalicFont=CoreSansA65It.ttf"
+]
 monofont = "Noto Sans Mono"
 mainfontfallback = ["Noto Color Emoji:mode=harf"]
 sansfontfallback = ["Noto Color Emoji:mode=harf"]
@@ -63,8 +73,18 @@ pdf-engine = "lualatex"
 
 [output.pandoc.profile.paperback.variables]
 # You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
-mainfont = "Noto Serif"
-sansfont = "Noto Sans"
+mainfont = "CoreSansA45.ttf"
+mainfontoptions = [
+  "BoldFont=CoreSansA65.ttf",
+  "ItalicFont=CoreSansA45It.ttf",
+  "BoldItalicFont=CoreSansA65It.ttf"
+]
+sansfont = "CoreSansA45.ttf"
+sansfontoptions = [
+  "BoldFont=CoreSansA65.ttf",
+  "ItalicFont=CoreSansA45It.ttf",
+  "BoldItalicFont=CoreSansA65It.ttf"
+]
 monofont = "Noto Sans Mono"
 mainfontfallback = ["Noto Color Emoji:mode=harf"]
 sansfontfallback = ["Noto Color Emoji:mode=harf"]
