@@ -51,7 +51,6 @@ sansfontfallback = ["Noto Color Emoji:mode=harf"]
 monofontfallback = [
   "Noto Color Emoji:mode=harf",
 ]
-monobackgroundcolor = "\\color[HTML]{e7e7e7}"
 linkcolor = "Links"
 urlcolor = "Links"
 linkstyle = "bold"
@@ -64,6 +63,7 @@ header-includes = [
   # Reduce font size of code blocks
   "\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\small}",
 ]
+highlight-style = "book/custom.theme"
 
 [output.pandoc.profile.paperback]
 output-file = "100-exercises-to-learn-rust.pdf"
