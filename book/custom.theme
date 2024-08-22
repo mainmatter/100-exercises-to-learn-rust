@@ -26,7 +26,7 @@
             "underline": false
         },
         "BaseN": {
-            "text-color": "#03DAC5",
+            "text-color": "#a5d6ff",
             "background-color": null,
             "bold": false,
             "italic": false,
@@ -40,7 +40,7 @@
             "underline": false
         },
         "Char": {
-            "text-color": "#03DAC5",
+            "text-color": "#a5d6ff",
             "background-color": null,
             "bold": false,
             "italic": false,
@@ -180,7 +180,7 @@
             "underline": false
         },
         "String": {
-            "text-color": "#03DAC5",
+            "text-color": "#a5d6ff",
             "background-color": null,
             "bold": false,
             "italic": false,
@@ -194,7 +194,7 @@
             "underline": false
         },
         "VerbatimString": {
-            "text-color": "#03DAC5",
+            "text-color": "#a5d6ff",
             "background-color": null,
             "bold": false,
             "italic": false,
