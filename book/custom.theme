@@ -146,7 +146,7 @@
         },
         "Operator": {
             "text-color": "#03DAC5",
-            "background-color": "#161b22",
+            "background-color": null,
             "bold": false,
             "italic": false,
             "underline": false
