@@ -25,7 +25,7 @@ hosted-html = "https://rust-exercises.com/100-exercises/"
 [output.pandoc.profile.pdf] # options to pass to Pandoc (see https://pandoc.org/MANUAL.html)
 output-file = "100-exercises-to-learn-rust.pdf"
 to = "latex"
-highlight-style = "tango"
+highlight-style = "./custom.theme"
 # We use `lualatext` because, right now, it's the only engine
 # that supports fallback fonts, which we need for emojis.
 pdf-engine = "lualatex"
