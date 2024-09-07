@@ -99,5 +99,11 @@ mod tests {
 
         let ticket = &store[id];
         assert_eq!(ticket.status, Status::InProgress);
+
+        let ticket = &mut store[&id];
+        ticket.status = Status::Done;
+
+        let ticket = &store[id];
+        assert_eq!(ticket.status, Status::Done);
     }
 }
