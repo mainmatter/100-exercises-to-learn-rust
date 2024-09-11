@@ -8,7 +8,7 @@ store and retrieve tickets.
 The task will give us an opportunity to explore new Rust concepts, such as:
 
 - Stack-allocated arrays
-- `Vec`, a growable array type, and slices
+- `Vec`, a growable array type
 - `Iterator` and `IntoIterator`, for iterating over collections
 - Slices (`&[T]`), to work with parts of a collection
 - Lifetimes, to describe how long references are valid
