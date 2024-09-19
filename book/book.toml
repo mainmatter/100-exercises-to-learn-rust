@@ -22,6 +22,9 @@ git-repository-url = "https://github.com/mainmatter/100-exercises-to-learn-rust"
 optional = true
 hosted-html = "https://rust-exercises.com/100-exercises/"
 
+[output.pandoc.code]
+show-hidden-lines = true
+
 [output.pandoc.profile.pdf] # options to pass to Pandoc (see https://pandoc.org/MANUAL.html)
 output-file = "100-exercises-to-learn-rust.pdf"
 to = "latex"
