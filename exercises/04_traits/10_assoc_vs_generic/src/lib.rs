@@ -17,6 +17,12 @@
 mod tests {
     use super::Power;
 
+    pub trait Power<Exponent = Self> {
+        type Output;
+
+        fn power(&self, n: Exponent) -> Self::Output;
+    }
+
     #[test]
     fn test_power_u16() {
         let x: u32 = 2_u32.power(3u16);
