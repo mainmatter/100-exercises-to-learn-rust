@@ -1,7 +1,7 @@
 # Combinators
 
 Iterators can do so much more than `for` loops!\
-If you look at the documentation for the `Iterator` trait, you'll find a **vast** collections of
+If you look at the documentation for the `Iterator` trait, you'll find a **vast** collection of
 methods that you can leverage to transform, filter, and combine iterators in various ways.
 
 Let's mention the most common ones:
