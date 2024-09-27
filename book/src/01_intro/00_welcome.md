@@ -34,8 +34,8 @@ also find solutions to all exercises in the
 
 ## Formats
 
-You can go through the course material [in the browser](https://rust-exercises.com/100-exercises/).\
-You can also [download it as a PDF file](https://rust-exercises.com/100-exercises-to-learn-rust.pdf), for offline reading.
+You can go through the course material [in the browser](https://rust-exercises.com/100-exercises/) or [download it as a PDF file](https://rust-exercises.com/100-exercises-to-learn-rust.pdf), for offline reading.\
+If you prefer to have the course material printed out, [buy a paperback copy on Amazon](https://www.amazon.com/dp/B0DJ14KQQG/).
 
 ## Structure
 
