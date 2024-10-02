@@ -107,7 +107,7 @@ asynchronous programming in Rust.
 The entrypoint of your executable, the `main` function, must be a synchronous function.
 That's where you're supposed to set up and launch your chosen async runtime.
 
-Most runtimes provides a macro to make this easier. For `tokio`, it's `tokio::main`:
+Most runtimes provide a macro to make this easier. For `tokio`, it's `tokio::main`:
 
 ```rust
 #[tokio::main]
