@@ -119,18 +119,6 @@ standalone = true
 metadata-file = "metadata.yml"
 
 [output.pandoc.profile.html.variables]
-mainfont = "CoreSansA45.ttf"
-mainfontoptions = [
-  "BoldFont=CoreSansA65.ttf",
-  "ItalicFont=CoreSansA45It.ttf",
-  "BoldItalicFont=CoreSansA65It.ttf",
-]
-sansfont = "CoreSansA45.ttf"
-sansfontoptions = [
-  "BoldFont=CoreSansA65.ttf",
-  "ItalicFont=CoreSansA45It.ttf",
-  "BoldItalicFont=CoreSansA65It.ttf",
-]
 # You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
 monofont = "Noto Sans Mono"
 mainfontfallback = ["Noto Color Emoji:mode=harf"]
@@ -138,6 +126,4 @@ sansfontfallback = ["Noto Color Emoji:mode=harf"]
 monofontfallback = [
   "Noto Color Emoji:mode=harf",
 ]
-linkcolor = "Links"
-urlcolor = "Links"
 urlstyle = "rm"
