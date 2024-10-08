@@ -31,11 +31,11 @@ jobs:
         run: cargo install --path helpers/mdbook-exercise-linker
       - name: Install link shortener plugin
         run: cargo install --path helpers/mdbook-link-shortener
-      - name: Install mdbook-pandoc, calibre and related dependencies
+      - name: Install mdbook-pandoc, calibre, pdftk and related dependencies
         run: |
           cargo install mdbook-pandoc --locked --version 0.7.1
           sudo apt-get update
-          sudo apt-get install -y fonts-noto calibre
+          sudo apt-get install -y fonts-noto calibre pdftk
           
           export PANDOC_VERSION=3.3
           curl -LsSf https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz | tar zxf -
@@ -81,6 +81,10 @@ jobs:
         run: |
           cd book
           mdbook build
+      - name: Add cover and back to downloadable PDF
+        run: |
+          pdftk book/assets/cover.pdf book/book/pandoc/pdf/100-exercises-to-learn-rust.pdf book/assets/back.pdf cat output book/book/pandoc/pdf/100-exercises-to-learn-rust-with-cover.pdf
+          mv book/book/pandoc/pdf/100-exercises-to-learn-rust-with-cover.pdf book/book/pandoc/pdf/100-exercises-to-learn-rust.pdf
       - name: Convert HTML to ePUB
         run: |
           cd book/book/pandoc/html
