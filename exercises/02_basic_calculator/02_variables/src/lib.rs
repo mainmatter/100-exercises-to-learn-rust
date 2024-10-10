@@ -8,9 +8,13 @@
 pub fn speed(start: u32, end: u32, time_elapsed: u32) -> u32 {
     // TODO: define a variable named `distance` with the right value to get tests to pass
     //  Do you need to annotate the type of `distance`? Why or why not?
+    // I think it is important to annotate the type of variable distance
+    // else rust will assigned a default i32 (signed 320-bit integer) which
+    // is different from the type we are working with (u32)
+    let distance: u32 = end - start;
 
     // Don't change the line below
-    distance / time_elapsed
+    distance / time_elapsed 
 }
 
 #[cfg(test)]
