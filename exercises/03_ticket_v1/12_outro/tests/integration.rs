@@ -9,8 +9,8 @@ fn test_order() {
     let mut order = Order::new("Rusty Book".to_string(), 3, 2999);
 
     assert_eq!(order.product_name(), "Rusty Book");
-    assert_eq!(order.quantity(), &3);
-    assert_eq!(order.unit_price(), &2999);
+    assert_eq!(order.quantity(), 3);
+    assert_eq!(order.unit_price(), 2999);
     assert_eq!(order.total(), 8997);
 
     order.set_product_name("Rust Book".to_string());
@@ -18,8 +18,8 @@ fn test_order() {
     order.set_unit_price(3999);
 
     assert_eq!(order.product_name(), "Rust Book");
-    assert_eq!(order.quantity(), &2);
-    assert_eq!(order.unit_price(), &3999);
+    assert_eq!(order.quantity(), 2);
+    assert_eq!(order.unit_price(), 3999);
     assert_eq!(order.total(), 7998);
 }
 
