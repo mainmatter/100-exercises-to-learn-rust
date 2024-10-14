@@ -24,7 +24,7 @@ where
 {
     loop {
         let (mut socket, _) = listener.accept().await.unwrap();
-        let (mut reader, mut writer) = socket.split();
+        let (_reader, mut writer) = socket.split();
         writer
             .write_all(format!("{}", reply).as_bytes())
             .await
