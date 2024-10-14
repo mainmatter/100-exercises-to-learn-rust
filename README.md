@@ -1,3 +1,4 @@
+
 # Learn Rust, one exercise at a time
 
 You've heard about Rust, but you never had the chance to try it out?\
