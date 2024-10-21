@@ -49,8 +49,8 @@ sansfontoptions = [
 ]
 # You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
 monofont = "Noto Sans Mono"
-mainfontfallback = ["Noto Color Emoji:mode=harf"]
-sansfontfallback = ["Noto Color Emoji:mode=harf"]
+mainfontfallback = ["Open Sans"]
+sansfontfallback = ["Open Sans"]
 monofontfallback = [
   "Noto Color Emoji:mode=harf",
 ]
@@ -90,8 +90,8 @@ sansfontoptions = [
 ]
 # You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
 monofont = "Noto Sans Mono"
-mainfontfallback = ["Noto Color Emoji:mode=harf"]
-sansfontfallback = ["Noto Color Emoji:mode=harf"]
+mainfontfallback = ["Open Sans"]
+sansfontfallback = ["Open Sans"]
 monofontfallback = [
   "Noto Color Emoji:mode=harf",
 ]
@@ -121,8 +121,8 @@ metadata-file = "metadata.yml"
 [output.pandoc.profile.html.variables]
 # You can get these fonts here: https://fonts.google.com/selection?query=noto+color+
 monofont = "Noto Sans Mono"
-mainfontfallback = ["Noto Color Emoji:mode=harf"]
-sansfontfallback = ["Noto Color Emoji:mode=harf"]
+mainfontfallback = ["Open Sans"]
+sansfontfallback = ["Open Sans"]
 monofontfallback = [
   "Noto Color Emoji:mode=harf",
 ]
