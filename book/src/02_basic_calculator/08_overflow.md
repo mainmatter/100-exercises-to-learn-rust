@@ -69,7 +69,7 @@ You may be wondering—what is a profile setting? Let's get into that!
 A [**profile**](https://doc.rust-lang.org/cargo/reference/profiles.html) is a set of configuration options that can be
 used to customize the way Rust code is compiled.
 
-Cargo provides two built-in profiles: `dev` and `release`.\
+Cargo provides 4 built-in profiles: `dev`, `release`, `test`, and `bench`.\
 The `dev` profile is used every time you run `cargo build`, `cargo run` or `cargo test`. It's aimed at local
 development,
 therefore it sacrifices runtime performance in favor of faster compilation times and a better debugging experience.\
