@@ -7,6 +7,10 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+  schedule:
+    # First day of a month
+    - cron: '0 0 1 * *'
 
 jobs:
   build:
