@@ -19,17 +19,27 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/checkout@v4
+      - name: Get Core Sans
+        uses: actions/checkout@v4
+        if: "!github.event.pull_request.head.repo.fork"
         with:
           fetch-depth: 0
           repository: mainmatter/core-sans-a-fonts
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
           path: core-sans-a-fonts
-      - name: Install Fonts
+      - name: Install Core Sans Font
+        if: "!github.event.pull_request.head.repo.fork"
         run: |
           sudo cp -r core-sans-a-fonts/* /usr/local/share/fonts/
           sudo fc-cache -f -v
           fc-list | grep "Core Sans"
+      - name: Use Fallback font for fork PRs
+        if: "github.event.pull_request.head.repo.fork"
+        run: |
+          sed -i 's/"BoldFont=CoreSansA65.ttf",//g' book/book.toml
+          sed -i 's/"ItalicFont=CoreSansA45It.ttf",//g' book/book.toml
+          sed -i 's/"BoldItalicFont=CoreSansA65It.ttf",//g' book/book.toml
+          sed -i 's/CoreSansA45.ttf/Open Sans:style=Regular/g' book/book.toml
       - uses: actions-rust-lang/setup-rust-toolchain@v1
       - name: Install exercise plugin
         run: cargo install --path helpers/mdbook-exercise-linker
@@ -39,8 +49,8 @@ jobs:
         run: |
           cargo install mdbook-pandoc --locked --version 0.7.1
           sudo apt-get update
-          sudo apt-get install -y fonts-noto calibre pdftk
-          
+          sudo apt-get install -y fonts-noto fonts-open-sans calibre pdftk
+          sudo fc-cache -f -v
           export PANDOC_VERSION=3.3
           curl -LsSf https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz | tar zxf -
           echo "$PWD/pandoc-${PANDOC_VERSION}/bin" >> $GITHUB_PATH
