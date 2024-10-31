@@ -68,3 +68,10 @@ match status {
 ```
 
 The `_` pattern matches anything that wasn't matched by the previous patterns.
+
+<div class="warning">
+By using this catch-all pattern, you _won't_ get the benefits of compiler-driven refactoring.\
+If you add a new enum variant, the compiler _won't_ tell you that you're not handling it.
+
+In general, prefer to avoid catch-all patterns unless you're really sure future new variants should be handled the same way.
+</div>
