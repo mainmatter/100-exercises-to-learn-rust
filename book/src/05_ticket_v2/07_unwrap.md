@@ -21,20 +21,35 @@ let number = parse_int("42") + 2;
 
 ## You got a `Result`. Now what?
 
-When you call a function that returns a `Result`, you have two key options:
+When you call a function that returns a `Result`, you have three key options:
 
-- Panic if the operation failed.
-  This is done using either the `unwrap` or `expect` methods.
-  ```rust
-  // Panics if `parse_int` returns an `Err`.
-  let number = parse_int("42").unwrap();
-  // `expect` lets you specify a custom panic message.
-  let number = parse_int("42").expect("Failed to parse integer");
-  ```
 - Destructure the `Result` using a `match` expression to deal with the error case explicitly.
   ```rust
   match parse_int("42") {
       Ok(number) => println!("Parsed number: {}", number),
       Err(err) => eprintln!("Error: {}", err),
   }
+  ```
+- Propagate the error. If you're in a function which also returns a `Result`, you can use the `?` operator to early-return an error if it occurred:
+  ```rust
+  let number = parse_int("42")?;
+  println!("Parsed number: {}", number);
+  ```
+
+  The `?` operator works the same as manually destructuring the result and early returning:
+  ```rust
+  let number = match parse_int("42") {
+      Ok(number) => number,
+      Err(err) => return Err(err),
+  };
+  println!("Parsed number: {}", number);
+  ```
+- Panic if the operation failed.\
+  This is done using either the `unwrap` or `expect` methods.\
+  This this should generally only be done in your top-level `main` function - most functions should propagate errors rather than panic.
+  ```rust
+  // Panics if `parse_int` returns an `Err`.
+  let number = parse_int("42").unwrap();
+  // `expect` lets you specify a custom panic message.
+  let number = parse_int("42").expect("Failed to parse integer");
   ```
