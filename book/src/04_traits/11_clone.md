@@ -56,7 +56,7 @@ that to `consumer` instead.\
 ## In memory
 
 Let's look at what happened in memory in the example above.
-When `let mut s: String::from("hello");` is executed, the memory looks like this:
+When `let mut s = String::from("hello");` is executed, the memory looks like this:
 
 ```text
                     s
