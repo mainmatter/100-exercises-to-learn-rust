@@ -5,12 +5,14 @@
 pub fn sum(v: Vec<i32>) -> i32 {
     let mid = v.len() / 2;
     let (left, right) = v.split_at(mid);
+    let mut left_sum = 0;
+    let mut right_sum = 0;
 
     std::thread::scope(|s| {
-        let left = s.spawn(|| left.iter().sum::<i32>());
-        let right = s.spawn(|| right.iter().sum::<i32>());
-        left.join().unwrap() + right.join().unwrap()
-    })
+        s.spawn(|| left_sum = left.iter().sum::<i32>());
+        s.spawn(|| right_sum = right.iter().sum::<i32>());
+    });
+    left_sum + right_sum
 }
 
 #[cfg(test)]
