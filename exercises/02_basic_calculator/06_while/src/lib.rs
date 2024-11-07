@@ -4,12 +4,12 @@ pub fn factorial(mut n: u32) -> u32 {
     // interprets as "I'll get back to this later", thus
     // suppressing type errors.
     // It panics at runtime.
-    if n <= 1 {
+    if n == 0 || n == 1{
         return 1
     }
-    let mut return_int = 0;
-    while n >= 0 {
-        return_int = n*(n-1);
+    let mut return_int = 1;
+    while n >= 1 {
+        return_int = n*return_int;
         n = n-1;
     }
     println!("{}", return_int);
