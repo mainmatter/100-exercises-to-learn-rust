@@ -146,6 +146,22 @@ jobs:
       - run: |
           git diff --exit-code site/_redirects
 
+  gravity:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: book
+          pattern: book/book/pandoc/paperback/100-exercises-to-learn-rust.pdf
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Run Gravity
+        run: pnpm dlx @gravityci/cli "/book/**/*"
+        env:
+          GRAVITY_TOKEN: ${{ secrets.GRAVITY_TOKEN }}
+
   formatter:
     runs-on: ubuntu-latest
     steps:
