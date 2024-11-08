@@ -9,6 +9,26 @@
 mod tests {
     use super::*;
 
+    struct Ticket {
+        title: String,
+        description: String,
+        status: String
+        }
+    
+    struct Order {
+        price:u32,
+        quantity:u32
+    }
+    impl Order {
+        fn is_available(self) -> bool {
+            if self.quantity > 0 {
+                return true
+            } else{
+                return false
+            }
+        }
+        
+    }
     #[test]
     fn test_order_is_available() {
         let order = Order {
