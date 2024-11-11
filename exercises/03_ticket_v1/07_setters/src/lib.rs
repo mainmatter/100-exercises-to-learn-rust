@@ -10,21 +10,46 @@ pub struct Ticket {
 }
 
 impl Ticket {
+
+    // validation priv funcs
+   
+    pub fn title_empt(title: &String) -> bool {
+        title.is_empty()
+    }
+
+    pub fn title_len(title: &String) -> bool {
+        title.len() > 50
+    }
+
+    pub fn desc_empt(description: &String) -> bool {
+        description.is_empty()
+    }
+
+    pub fn desc_len(description: &String) -> bool {
+        description.len() > 500
+    }
+
+    pub fn status_val(status: &String) -> bool {
+        status != "To-Do" && status != "In Progress" && status != "Done"
+    }
+    
+
     pub fn new(title: String, description: String, status: String) -> Ticket {
-        if title.is_empty() {
+        
+        if Self::title_empt(&title) {
             panic!("Title cannot be empty");
         }
-        if title.len() > 50 {
+        if Self::title_len(&title) {
             panic!("Title cannot be longer than 50 bytes");
         }
-        if description.is_empty() {
+        if Self::desc_empt(&description) {
             panic!("Description cannot be empty");
         }
-        if description.len() > 500 {
-            panic!("Description cannot be longer than 500 bytes");
+        if Self::desc_len(&description) {
+            panic!("Description cannot be longer than 50 bytes");
         }
-        if status != "To-Do" && status != "In Progress" && status != "Done" {
-            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+        if Self::status_val(&status) {
+            panic!("Invalid status value");
         }
 
         Ticket {
@@ -45,6 +70,36 @@ impl Ticket {
     pub fn status(&self) -> &String {
         &self.status
     }
+
+    // setters
+
+    pub fn set_title(&mut self, new_title: String) {
+        if Self::title_empt(&new_title) {
+            panic!("Title cannot be empty");
+        }
+        if Self::title_len(&new_title) {
+            panic!("Title cannot be longer than 50 bytes");
+        }
+        self.title = new_title;
+    }
+
+    pub fn set_description(&mut self, new_desc: String) {
+        if Self::desc_empt(&new_desc) {
+            panic!("Description cannot be empty");
+        }
+        if Self::desc_len(&new_desc) {
+            panic!("Description cannot be longer than 500 bytes");
+        }
+        self.description = new_desc;
+    }
+
+    pub fn set_status(&mut self, new_status: String) {
+        if Self::status_val(&new_status) {
+            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+        }
+        self.status = new_status;
+    }
+
 }
 
 #[cfg(test)]
