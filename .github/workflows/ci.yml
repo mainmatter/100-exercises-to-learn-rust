@@ -153,12 +153,13 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           path: book
-          pattern: book/book/pandoc/paperback/100-exercises-to-learn-rust.pdf
+          pattern: online-pdf
       - uses: pnpm/action-setup@v4
         with:
           version: 9
+      - run: ls -las ./book
       - name: Run Gravity
-        run: pnpm dlx @gravityci/cli "/book/**/*"
+        run: pnpm dlx @gravityci/cli "./book/**/*"
         env:
           GRAVITY_TOKEN: ${{ secrets.GRAVITY_TOKEN }}
 
