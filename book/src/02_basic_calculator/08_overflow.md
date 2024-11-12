@@ -80,8 +80,6 @@ The `bench` profile is the default profile used by `cargo bench`. The `bench` pr
 Use `dev` for iterative development and debugging, `release` for optimized production builds,\
 `test` for correctness testing, and `bench` for performance benchmarking.
 
-
-
 > "Have you built your project in release mode?" is almost a meme in the Rust community.\
 > It refers to developers who are not familiar with Rust and complain about its performance on
 > social media (e.g. Reddit, Twitter, etc.) before realizing they haven't built their project in
