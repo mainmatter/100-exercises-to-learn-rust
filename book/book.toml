@@ -33,7 +33,6 @@ highlight-style = "./custom.theme"
 # that supports fallback fonts, which we need for emojis.
 pdf-engine = "lualatex"
 metadata-file = "metadata.yml"
-verbosity = "INFO"
 
 [output.pandoc.profile.pdf.variables]
 mainfont = "CoreSansA45.ttf"
