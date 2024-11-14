@@ -3,7 +3,10 @@
 //  partner in this course and it'll often guide you in the right direction!
 //
 // The input parameters should have the same type of the return type.
-fn compute(a, b) -> u32 {
+
+type InputNumber = u32;
+
+fn compute(a: InputNumber, b: InputNumber) -> InputNumber {
     // Don't touch the function body.
     a + b * 2
 }
@@ -17,3 +20,4 @@ mod tests {
         assert_eq!(compute(1, 2), 5);
     }
 }
+
