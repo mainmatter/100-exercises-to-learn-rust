@@ -1,3 +1,5 @@
+static ALLOWED_STATUS: [&str; 3] = ["To-Do", "In Progress", "Done"];
+
 struct Ticket {
     title: String,
     description: String,
@@ -18,7 +20,21 @@ impl Ticket {
     // as well as some `String` methods. Use the documentation of Rust's standard library
     // to find the most appropriate options -> https://doc.rust-lang.org/std/string/struct.String.html
     fn new(title: String, description: String, status: String) -> Self {
-        todo!();
+        if !ALLOWED_STATUS.contains(&status.as_str()) {
+            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed")
+        }
+        if title.is_empty() {
+            panic!("Title cannot be empty")
+        };
+        if description.is_empty() {
+            panic!("Description cannot be empty")
+        }
+        if title.bytes().len() >= 50 {
+            panic!("Title cannot be longer than 50 bytes")
+        }
+        if description.bytes().len() > 500 {
+            panic!("Description cannot be longer than 500 bytes")
+        }
         Self {
             title,
             description,
