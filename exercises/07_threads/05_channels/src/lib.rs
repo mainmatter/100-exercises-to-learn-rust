@@ -7,7 +7,7 @@ pub enum Command {
     Insert(todo!()),
 }
 
-// Start the system by spawning the server the thread.
+// Start the system by spawning the server thread.
 // It returns a `Sender` instance which can then be used
 // by one or more clients to interact with the server.
 pub fn launch() -> Sender<Command> {
