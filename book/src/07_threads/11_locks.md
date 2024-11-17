@@ -58,7 +58,7 @@ drop(guard)
 ## Locking granularity
 
 What should our `Mutex` wrap?\
-The simplest option would be the wrap the entire `TicketStore` in a single `Mutex`.\
+The simplest option would be to wrap the entire `TicketStore` in a single `Mutex`.\
 This would work, but it would severely limit the system's performance: you wouldn't be able to read tickets in parallel,
 because every read would have to wait for the lock to be released.\
 This is known as **coarse-grained locking**.
