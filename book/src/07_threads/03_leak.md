@@ -38,7 +38,7 @@ When the process exits, the operating system will reclaim that memory.
 
 Keeping this in mind, it can be OK to leak memory when:
 
-- The amount of memory you need to leak is not unbounded/known upfront, or
+- The amount of memory you need to leak is bounded/known upfront, or
 - Your process is short-lived and you're confident you won't exhaust
   all the available memory before it exits
 
