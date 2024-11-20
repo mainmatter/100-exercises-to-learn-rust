@@ -79,3 +79,15 @@ Stack:  | 1 | 2 | 3 |
 In other words, the size of an array is `std::mem::size_of::<T>() * N`, where `T` is the type of the elements and `N` is
 the number of elements.\
 You can access and replace each element in `O(1)` time.
+
+### Initialization with a single value
+
+You can create an array while initializing it with a single value, using the following syntax will set the entire length of the array to `1`:
+
+```rust
+let ones = [1; 3];
+
+assert_eq!(numbers[0], 1);
+assert_eq!(numbers[1], 1);
+assert_eq!(numbers[2], 1);
+```
