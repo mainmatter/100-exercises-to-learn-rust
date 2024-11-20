@@ -37,6 +37,16 @@ also find solutions to all exercises in the
 You can go through the course material [in the browser](https://rust-exercises.com/100-exercises/) or [download it as a PDF file](https://rust-exercises.com/100-exercises-to-learn-rust.pdf), for offline reading.\
 If you prefer to have the course material printed out, [buy a paperback copy on Amazon](https://www.amazon.com/dp/B0DJ14KQQG/).
 
+## Installing tools
+
+To work through this course, you need:
+
+- **Rust** (follow instructions [here](https://www.rust-lang.org/tools/install)). If `rustup` is already installed on your system, run `rustup update` (or another appropriate command depending on how you installed Rust on your system) to make sure you're running on the latest stable version.
+- _(Optional but recommended)_ An IDE with Rust autocompletion support.
+  We recommend one of the following:
+  - [RustRover](https://www.jetbrains.com/rust/);
+  - [Visual Studio Code](https://code.visualstudio.com) with the [`rust-analyzer`](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer) extension.
+
 ## Structure
 
 On the left side of the screen, you can see that the course is divided into sections.
