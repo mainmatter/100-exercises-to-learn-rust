@@ -13,7 +13,10 @@ mod tests {
 
     #[test]
     fn string_size() {
-        assert_eq!(size_of::<String>(), todo!());
+        assert_eq!(size_of::<String>(), 24);
+        // 8 bytes (on 64-bit systems) to the heap reference
+        // 8 bytes for length
+        // 8 bytes for capacity
     }
 
     #[test]
@@ -23,6 +26,8 @@ mod tests {
         // but, in general, the memory layout of structs is a more complex topic.
         // If you're curious, check out the "Type layout" section of The Rust Reference
         // https://doc.rust-lang.org/reference/type-layout.html for more information.
-        assert_eq!(size_of::<Ticket>(), todo!());
+        assert_eq!(size_of::<Ticket>(), 72); 
+        // size of a String type on the stack x number of String type variables in the struct
+        // 24 x 3 = 72
     }
 }
