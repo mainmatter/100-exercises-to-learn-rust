@@ -9,15 +9,13 @@ trait IsEven {
 
 impl IsEven for u32 {
     fn is_even(self) -> bool {
-        if(self % 2 == 0) { true }
-        else { false }
+        self % 2 == 0
     }
 }
 
 impl IsEven for i32 {
     fn is_even(self) -> bool {
-        if(self % 2 == 0) { true }
-        else { false }
+        self % 2 == 0
     }
 }
 
