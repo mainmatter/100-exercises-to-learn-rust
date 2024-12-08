@@ -8,7 +8,22 @@
 // print both sides of the comparison to the terminal.
 // If the compared type doesn't implement `Debug`, it doesn't know how to represent them!
 
-#[derive(PartialEq)]
+/*
+    Rust macros are CODE GENERATORS.
+    They generate new Rust code based on the input you provide, and that generated code
+    is then compiled alongside the rest of your program. some macros are built into Rust's
+    standard library, but you can also write your own. 
+
+    A derive macro is a an attribute ontop of a struct. 
+    Derive macros are used to automate the implementation of common (and 'obvious') traits
+    for custom types. 
+
+    Putting #[derive(PartialEq)] ontop of the Ticket struct, will automatically implement
+    the PartialEq trait for Ticket. 
+
+*/
+
+#[derive(PartialEq, Debug)]
 struct Ticket {
     title: String,
     description: String,
