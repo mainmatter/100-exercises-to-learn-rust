@@ -1442,6 +1442,9 @@ version = "0.1.0"
 [[package]]
 name = "outro_04"
 version = "0.1.0"
+dependencies = [
+ "thiserror",
+]
 
 [[package]]
 name = "outro_08"
