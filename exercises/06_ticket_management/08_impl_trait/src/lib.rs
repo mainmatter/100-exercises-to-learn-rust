@@ -31,6 +31,22 @@ impl TicketStore {
     pub fn add_ticket(&mut self, ticket: Ticket) {
         self.tickets.push(ticket);
     }
+
+    /*
+        The previous example introduces a new heap allocation every time to_dos is called, which may
+        be unecessary depending on what the called needs to do wit hthe result. This will instead 
+        return an iterator instead of a Vec, thus empowering the caller to decide whether to collect
+        the results into a Vec or just iterate over them.
+
+        impl Trait: is a feature that allows you to return a type without specifying its name. You just
+        declare what trait(s) the type implements, and Rust figures out the rest.
+
+        In this case we want to return an iterator of references to Tickets:
+     */
+
+    pub fn in_progress(&self) -> impl Iterator<Item = &Ticket> {
+        self.tickets.iter().filter((|ticket| ticket.status == Status::InProgress))
+    }
 }
 
 #[cfg(test)]
