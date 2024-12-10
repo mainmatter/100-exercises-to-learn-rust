@@ -29,11 +29,48 @@ impl TicketStore {
         }
     }
 
+    /*
+        In the previous section, we saw how impl Trait can be used to return a type without 
+        specifying its name. The same syntax can also be used in argument position:
+
+        fn print_iter(iter: impl Iterator<Item = i32>) {
+            for i in iter {
+                println!("{}", i);
+            }
+        }
+
+
+        print_iter takes an iterator of i32s and prints each element. 
+        When used in argument position, impl Trait is equivalent to a generic parameter with
+        a trait bound: 
+    
+        fn print_iter<T>(iter: T) 
+        where
+            T: Iterator<Item = i32>
+        {
+            for i in iter {
+                println!("{}", i);
+            }
+        }
+
+        Downsides:
+        As a rule of thumb, prefer generics over impl Trait in argument position. Generics allow 
+        the called to explicitly specify the type of the argument, using the turbofish syntax
+        (::<>), which can be useful for disambiguation. That's not the case with impl Trait. 
+    
+     */
+
+
     // Using `Into<Ticket>` as the type parameter for `ticket` allows the method to accept any type
     // that can be infallibly converted into a `Ticket`.
     // This can make it nicer to use the method, as it removes the syntax noise of `.into()`
     // from the calling site. It can worsen the quality of the compiler error messages, though.
-    pub fn add_ticket(&mut self, ticket: impl Into<Ticket>) {
+
+    // pub fn add_ticket(&mut self, ticket: impl Into<Ticket>) {
+    //     self.tickets.push(ticket.into());
+    // }
+
+    pub fn add_ticket<T: Into<Ticket>>(&mut self, ticket: T) {
         self.tickets.push(ticket.into());
     }
 }
