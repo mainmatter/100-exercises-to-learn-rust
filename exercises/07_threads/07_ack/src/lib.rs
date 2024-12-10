@@ -1,13 +1,24 @@
 use std::sync::mpsc::{Receiver, Sender};
+use data::Ticket;
+use store::TicketId;
+
 use crate::store::TicketStore;
 
 pub mod data;
 pub mod store;
 
+use crate::data::TicketDraft;
+
 // Refer to the tests to understand the expected schema.
 pub enum Command {
-    Insert { todo!() },
-    Get { todo!() }
+    Insert { 
+        draft: TicketDraft,
+        response_sender: Sender<TicketId> 
+    },
+    Get { 
+        id: TicketId,
+        response_sender: Sender<Option<Ticket>>
+    },
 }
 
 pub fn launch() -> Sender<Command> {
@@ -20,14 +31,20 @@ pub fn launch() -> Sender<Command> {
 pub fn server(receiver: Receiver<Command>) {
     let mut store = TicketStore::new();
     loop {
-        match receiver.recv() {
-            Ok(Command::Insert {}) => {
-                todo!()
+        match receiver.recv() { // match receiver's command
+            Ok(Command::Insert { // insert command needs a draft and a response_sender
+                draft,
+                response_sender,
+            }) => {
+                let id = store.add_ticket(draft);
+                let _ = response_sender.send(id);
             }
             Ok(Command::Get {
-                todo!()
+                id,
+                response_sender,
             }) => {
-                todo!()
+                let ticket = store.get(id);
+                let _ = response_sender.send(ticket.cloned());
             }
             Err(_) => {
                 // There are no more senders, so we can safely break
