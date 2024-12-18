@@ -74,4 +74,5 @@ By using this catch-all pattern, you _won't_ get the benefits of compiler-driven
 If you add a new enum variant, the compiler _won't_ tell you that you're not handling it.
 
 If you're keen on correctness, avoid using catch-alls. Leverage the compiler to re-examine all matching sites and determine how new enum variants should be handled.
+
 </div>
