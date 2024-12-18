@@ -5,6 +5,9 @@ use ticket_fields::{TicketDescription, TicketTitle};
 //  it contains using a `for` loop.
 //
 // Hint: you shouldn't have to implement the `Iterator` trait in this case.
+//   You want to *delegate* the iteration to the `Vec<Ticket>` field in `TicketStore`.
+//   Look at the standard library documentation for `Vec` to find the right type
+//   to return from `into_iter`.
 #[derive(Clone)]
 pub struct TicketStore {
     tickets: Vec<Ticket>,
