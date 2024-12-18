@@ -179,6 +179,7 @@
   "https://rust-lang.github.io/api-guidelines/naming.html#casing-conforms-to-rfc-430-c-case": "fze",
   "https://rust-lang.github.io/wg-async/vision/submitted_stories/status_quo/barbara_battles_buffered_streams.html": "f6w",
   "https://ryhl.io/blog/async-what-is-blocking/": "f6v",
+  "https://ti.to/mainmatter/rust-from-scratch-jan-2025": "fvf",
   "https://tokio.rs/tokio/tutorial/select": "f6n",
   "https://valgrind.org/docs/manual/dh-manual.html": "f2t",
   "https://veykril.github.io/tlborm/": "fz5",

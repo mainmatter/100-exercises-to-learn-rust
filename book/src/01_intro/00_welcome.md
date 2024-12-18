@@ -24,12 +24,12 @@ It has been designed to be interactive and hands-on.
 to be delivered in a classroom setting, over 4 days: each attendee advances
 through the lessons at their own pace, with an experienced instructor providing
 guidance, answering questions and diving deeper into the topics as needed.\
-If you're interested in attending one of our training sessions, or if you'd like to
-bring this course to your company, please [get in touch](https://mainmatter.com/contact/).
+You can sign up for the next tutored session on [our website](https://ti.to/mainmatter/rust-from-scratch-jan-2025).
+If you'd like to organise a private session for your company, please [get in touch](https://mainmatter.com/contact/).
 
-You can also follow the course on your own, but we recommend you find a friend or
+You can also take the courses on your own, but we recommend you find a friend or
 a mentor to help you along the way should you get stuck. You can
-also find solutions to all exercises in the
+find solutions for all exercises in the
 [`solutions` branch of the GitHub repository](https://github.com/mainmatter/100-exercises-to-learn-rust/tree/solutions).
 
 ## Formats
