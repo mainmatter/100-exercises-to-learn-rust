@@ -38,7 +38,7 @@ if number < 5 {
 
 ### `else if` clauses
 
-Your code drifts more and more to the right when you have multiple `if` expressions, one nested inside the other.\
+Your code drifts more and more to the right when you have multiple `if` expressions, one nested inside the other.
 
 ```rust
 let number = 3;
