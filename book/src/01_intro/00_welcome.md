@@ -67,9 +67,18 @@ Each exercise is structured as a Rust package.
 The package contains the exercise itself, instructions on what to do (in `src/lib.rs`), and a test suite to
 automatically verify your solution.
 
-### `wr`, the workshop runner
+### Tools
 
-To verify your solutions, we've provided a tool that will guide you through the course.
+To work through this course, you'll need:
+
+- [**Rust**](https://www.rust-lang.org/tools/install)).
+  If `rustup` is already installed on your system, run `rustup update` (or another appropriate command depending on how you installed Rust on your system) to ensure you're running on the latest stable version.
+- _(Optional but recommended)_ An IDE with Rust autocompletion support.
+  We recommend one of the following:
+  - [RustRover](https://www.jetbrains.com/rust/);
+  - [Visual Studio Code](https://code.visualstudio.com) with the [`rust-analyzer`](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer) extension.
+
+To verify your solutions, we've also provided a tool to guide you through the course.
 It is the `wr` CLI (short for "workshop runner").
 Install it with:
 
