@@ -36,6 +36,38 @@ if number < 5 {
 }
 ```
 
+### `else if` clauses
+
+Your code drifts more and more to the right when you have multiple `if` expressions, one nested inside the other.
+
+```rust
+let number = 3;
+
+if number < 5 {
+    println!("`number` is smaller than 5");
+} else {
+    if number >= 3 {
+        println!("`number` is greater than or equal to 3, but smaller than 5");
+    } else {
+        println!("`number` is smaller than 3");
+    }
+}
+```
+
+You can use the `else if` keyword to combine multiple `if` expressions into a single one:
+
+```rust
+let number = 3;
+
+if number < 5 {
+    println!("`number` is smaller than 5");
+} else if number >= 3 {
+    println!("`number` is greater than or equal to 3, but smaller than 5");
+} else {
+    println!("`number` is smaller than 3");
+}
+```
+
 ## Booleans
 
 The condition in an `if` expression must be of type `bool`, a **boolean**.\
