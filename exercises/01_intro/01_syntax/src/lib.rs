@@ -1,5 +1,5 @@
 // TODO: fix the function signature below to make the tests pass.
-//  Make sure to read the compiler error message—the Rust compiler is your pair programming
+//  Make sure to read the compiler error message—the Rust compiler is your pair programmer
 //  partner in this course and it'll often guide you in the right direction!
 //
 // The input parameters should have the same type of the return type.
