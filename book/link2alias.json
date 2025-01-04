@@ -1,5 +1,6 @@
 {
   "https://blog.acolyer.org/2019/05/28/cheri-abi/": "f2u",
+  "https://code.visualstudio.com": "f6c",
   "https://crates.io": "f4q",
   "https://crates.io/crates/cargo-modules": "f2n",
   "https://doc.rust-lang.org/book/ch03-02-data-types.html#integer-types": "ffr",
@@ -164,6 +165,7 @@
   "https://mainmatter.com/contact/": "ff2",
   "https://mainmatter.com/rust-consulting/": "fff",
   "https://marabos.nl/atomics/": "fxg",
+  "https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer": "f6a",
   "https://nostarch.com/rust-rustaceans": "f6p",
   "https://owasp.org/www-community/vulnerabilities/Doubly_freeing_memory": "f2k",
   "https://owasp.org/www-community/vulnerabilities/Using_freed_memory": "f2s",
@@ -177,14 +179,17 @@
   "https://rust-lang.github.io/api-guidelines/naming.html#casing-conforms-to-rfc-430-c-case": "fze",
   "https://rust-lang.github.io/wg-async/vision/submitted_stories/status_quo/barbara_battles_buffered_streams.html": "f6w",
   "https://ryhl.io/blog/async-what-is-blocking/": "f6v",
+  "https://ti.to/mainmatter/rust-from-scratch-jan-2025": "fvf",
   "https://tokio.rs/tokio/tutorial/select": "f6n",
   "https://valgrind.org/docs/manual/dh-manual.html": "f2t",
   "https://veykril.github.io/tlborm/": "fz5",
   "https://without.boats/blog/the-scoped-task-trilemma/": "f67",
   "https://www.amazon.com/dp/B0DJ14KQQG/": "f6g",
+  "https://www.jetbrains.com/rust/": "f6d",
   "https://www.lpalmieri.com/": "ffv",
   "https://www.lpalmieri.com/posts/2020-12-11-zero-to-production-6-domain-modelling/": "f4t",
   "https://www.oreilly.com/library/view/programming-rust-2nd/9781492052586/": "f6y",
+  "https://www.rust-lang.org/tools/install": "f6j",
   "https://www.youtube.com/playlist?list=PLqbS7AVVErFirH9armw8yXlE6dacF-A6z": "f6l",
   "https://zero2prod.com": "ff8"
 }

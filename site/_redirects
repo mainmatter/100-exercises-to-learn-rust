@@ -1,4 +1,5 @@
 /f2u https://blog.acolyer.org/2019/05/28/cheri-abi/
+/f6c https://code.visualstudio.com
 /f4q https://crates.io
 /f2n https://crates.io/crates/cargo-modules
 /ffr https://doc.rust-lang.org/book/ch03-02-data-types.html#integer-types
@@ -163,6 +164,7 @@
 /ff2 https://mainmatter.com/contact/
 /fff https://mainmatter.com/rust-consulting/
 /fxg https://marabos.nl/atomics/
+/f6a https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer
 /f6p https://nostarch.com/rust-rustaceans
 /f2k https://owasp.org/www-community/vulnerabilities/Doubly_freeing_memory
 /f2s https://owasp.org/www-community/vulnerabilities/Using_freed_memory
@@ -176,13 +178,16 @@
 /fze https://rust-lang.github.io/api-guidelines/naming.html#casing-conforms-to-rfc-430-c-case
 /f6w https://rust-lang.github.io/wg-async/vision/submitted_stories/status_quo/barbara_battles_buffered_streams.html
 /f6v https://ryhl.io/blog/async-what-is-blocking/
+/fvf https://ti.to/mainmatter/rust-from-scratch-jan-2025
 /f6n https://tokio.rs/tokio/tutorial/select
 /f2t https://valgrind.org/docs/manual/dh-manual.html
 /fz5 https://veykril.github.io/tlborm/
 /f67 https://without.boats/blog/the-scoped-task-trilemma/
 /f6g https://www.amazon.com/dp/B0DJ14KQQG/
+/f6d https://www.jetbrains.com/rust/
 /ffv https://www.lpalmieri.com/
 /f4t https://www.lpalmieri.com/posts/2020-12-11-zero-to-production-6-domain-modelling/
 /f6y https://www.oreilly.com/library/view/programming-rust-2nd/9781492052586/
+/f6j https://www.rust-lang.org/tools/install
 /f6l https://www.youtube.com/playlist?list=PLqbS7AVVErFirH9armw8yXlE6dacF-A6z
 /ff8 https://zero2prod.com

@@ -18,6 +18,9 @@ after = ["exercise-linker"]
 [output.html]
 git-repository-url = "https://github.com/mainmatter/100-exercises-to-learn-rust"
 
+[output.html.playground]
+runnable = false
+
 [output.pandoc]
 optional = true
 hosted-html = "https://rust-exercises.com/100-exercises/"
