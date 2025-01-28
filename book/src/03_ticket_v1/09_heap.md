@@ -137,6 +137,6 @@ or [a custom allocator](https://docs.rs/dhat/latest/dhat/)) to inspect the heap 
 Heap memory will be reserved when you push data into it for the first time.
 
 [^equivalence]: The size of a pointer depends on the operating system too.
-In certain environments, a pointer is **larger** than a memory address (e.g. [CHERI](https://blog.acolyer.org/2019/05/28/cheri-abi/)).
+In certain environments, a pointer is **larger** than a memory address (e.g. [CHERI](https://web.archive.org/web/20240517051950/https://blog.acolyer.org/2019/05/28/cheri-abi/)).
 Rust makes the simplifying assumption that pointers are the same size as memory addresses,
 which is true for most modern systems you're likely to encounter.
