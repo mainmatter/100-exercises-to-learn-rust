@@ -35,6 +35,6 @@ When you call a function that returns a `Result`, you have two key options:
   ```rust
   match parse_int("42") {
       Ok(number) => println!("Parsed number: {}", number),
-      Err(err) => eprintln!("Error: {}", err),
+      Err(err) => println!("Error: {}", err),
   }
   ```
