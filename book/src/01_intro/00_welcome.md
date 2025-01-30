@@ -78,15 +78,12 @@ To work through this course, you'll need:
   - [RustRover](https://www.jetbrains.com/rust/);
   - [Visual Studio Code](https://code.visualstudio.com) with the [`rust-analyzer`](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer) extension.
 
-To verify your solutions, we've also provided a tool to guide you through the course.
-It is the `wr` CLI (short for "workshop runner").
-Install it with:
+### Workshop runner, `wr`
 
-```bash
-cargo install --locked workshop-runner
-```
+To verify your solutions, we've also provided a tool to guide you through the course: the `wr` CLI, short for "workshop runner".
+Install `wr` by following the instructions on [its website](https://mainmatter.github.io/rust-workshop-runner/).
 
-In a new terminal, navigate back to the top-level folder of the repository.
+Once you have `wr` installed, open a new terminal and navigate to the top-level folder of the repository.
 Run the `wr` command to start the course:
 
 ```bash
