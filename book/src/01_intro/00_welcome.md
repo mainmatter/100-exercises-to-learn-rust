@@ -71,7 +71,7 @@ automatically verify your solution.
 
 To work through this course, you'll need:
 
-- [**Rust**](https://www.rust-lang.org/tools/install)).
+- [**Rust**](https://www.rust-lang.org/tools/install).
   If `rustup` is already installed on your system, run `rustup update` (or another appropriate command depending on how you installed Rust on your system) to ensure you're running on the latest stable version.
 - _(Optional but recommended)_ An IDE with Rust autocompletion support.
   We recommend one of the following:
