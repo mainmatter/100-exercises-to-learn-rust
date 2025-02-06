@@ -33,7 +33,7 @@ Let's review the facts:
 - `&self.title` is, therefore, a `&String`
 - The output of the (modified) `title` method is `&str`
 
-You would expect a compiler error, wouldn't you? `Expected &String, found &str` or something similar.
+You would expect a compiler error, wouldn't you? `Expected &str, found &String` or something similar.
 Instead, it just works. **Why**?
 
 ## `Deref` to the rescue
