@@ -1,0 +1,28 @@
+01_intro
+02_basic_calculator
+    00 intro
+    01 integers
+    02 variables
+    03 if else
+    04 panics
+    05 factorial
+    06 while
+    07 for
+    08 overflow
+    09 saturating
+    10 casting
+03_ticket
+    01 struct 
+    02 validation
+    03 modules
+    04 visibility
+    05 encapsulation
+    06 ownership
+    07 setters
+    08 stack    
+    09 heap
+    10 references
+    11 destructors
+    12 outro
+04 traits
+    00 intro
