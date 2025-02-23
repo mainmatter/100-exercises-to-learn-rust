@@ -75,14 +75,14 @@ development,
 therefore it sacrifices runtime performance in favor of faster compilation times and a better debugging experience.\
 The `release` profile, instead, is optimized for runtime performance but incurs longer compilation times. You need
 to explicitly request via the `--release` flag—e.g. `cargo build --release` or `cargo run --release`.
-The `test` profile is the default profile used by `cargo test`. The `test` profile inherits the settings form the `dev` profile.
+The `test` profile is the default profile used by `cargo test`. The `test` profile inherits the settings from the `dev` profile.
 The `bench` profile is the default profile used by `cargo bench`. The `bench` profile inherits from the `release` profile.
 Use `dev` for iterative development and debugging, `release` for optimized production builds,\
 `test` for correctness testing, and `bench` for performance benchmarking.
 
 > "Have you built your project in release mode?" is almost a meme in the Rust community.\
 > It refers to developers who are not familiar with Rust and complain about its performance on
-> social media (e.g. Reddit, Twitter, etc.) before realizing they haven't built their project in
+> social media (e.g. Reddit, Twitter) before realizing they haven't built their project in
 > release mode.
 
 You can also define custom profiles or customize the built-in ones.
