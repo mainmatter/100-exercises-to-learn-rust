@@ -8,6 +8,10 @@ members = [
 ]
 resolver = "2"
 
+[profile.dev]
+opt-level = 1               # Use slightly better optimizations.
+overflow-checks = false     # Disable integer overflow checks.
+
 # This is needed to guarantee the expected behaviour on that specific exercise,
 # regardless of the "global" setting for `overflow-checks` on the `dev` profile.
 [profile.dev.package.copy]

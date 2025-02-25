@@ -1,6 +1,11 @@
 // Rewrite the factorial function using a `for` loop.
 pub fn factorial(n: u32) -> u32 {
-    todo!()
+    let mut fact: u32 = 1;
+
+    for i in 2..=n {
+        fact *= i;
+    }
+    return fact;
 }
 
 #[cfg(test)]
@@ -20,6 +25,11 @@ mod tests {
     #[test]
     fn third() {
         assert_eq!(factorial(2), 2);
+    }
+
+    #[test]
+    fn fourth() {
+        assert_eq!(factorial(3), 6);
     }
 
     #[test]
