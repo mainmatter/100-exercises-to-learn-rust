@@ -64,7 +64,7 @@ match status {
         println!("Assigned to: {}", assigned_to);
     },
     Status::ToDo | Status::Done => {
-        println!("Done");
+        println!("ToDo or Done");
     }
 }
 ```
@@ -82,7 +82,7 @@ match status {
         println!("Assigned to: {}", person);
     },
     Status::ToDo | Status::Done => {
-        println!("Done");
+        println!("ToDo or Done");
     }
 }
 ```
