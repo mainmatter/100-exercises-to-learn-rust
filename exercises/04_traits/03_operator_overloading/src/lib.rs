@@ -1,14 +1,24 @@
 use std::cmp::PartialEq;
 
-struct Ticket {
+pub struct Ticket {
     title: String,
     description: String,
     status: String,
 }
 
-// TODO: Implement the `PartialEq` trait for `Ticket`.
+impl PartialEq for Ticket {
+    fn eq(&self, other: &Self) -> bool {
+        self.description == other.description
+            && self.title == other.title
+            && self.status == other.status
+    }
 
-impl PartialEq for Ticket {}
+    fn ne(&self, other: &Self) -> bool {
+        self.description != other.description
+            || self.title != other.title
+            || self.status != other.status
+    }
+}
 
 #[cfg(test)]
 mod tests {

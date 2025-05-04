@@ -1,23 +1,44 @@
-// TODO: implement a so-called "Drop bomb": a type that panics when dropped
-//  unless a certain operation has been performed on it.
-//  You can see the expected API in the tests below.
+pub struct DropBomb {
+    defused: bool,
+}
+
+impl DropBomb {
+    pub fn new() -> Self {
+        DropBomb { defused: false }
+    }
+
+    pub fn defuse(&mut self) {
+        self.defused = true;
+    }
+}
+
+impl Drop for DropBomb {
+    fn drop(&mut self) {
+        if !self.defused {
+            panic!("Bomb dropped!");
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "Bomb dropped!")]
     fn test_drop_bomb() {
-        let bomb = DropBomb::new();
-        // The bomb should panic when dropped
+        {
+            let _bomb = DropBomb::new();
+            // Bomb goes out of scope here and should panic
+        }
     }
 
     #[test]
-    fn test_defused_drop_bomb() {
-        let mut bomb = DropBomb::new();
-        bomb.defuse();
-        // The bomb should not panic when dropped
-        // since it has been defused
+    fn test_no_panic() {
+        let result = std::panic::catch_unwind(|| {
+            let mut bomb = DropBomb::new();
+            bomb.defuse();
+        });
+        assert!(result.is_ok(), "Expected no panic");
     }
 }
