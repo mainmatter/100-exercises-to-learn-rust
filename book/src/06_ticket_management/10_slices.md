@@ -3,9 +3,9 @@
 Let's go back to the memory layout of a `Vec`:
 
 ```rust
-let mut numbers = Vec::with_capacity(3);
-numbers.push(1);
-numbers.push(2);
+let mut NUMBERS = Vec::with_capacity(3);
+NUMBERS.push(1);
+NUMBERS.push(2);
 ```
 
 ```text
@@ -32,24 +32,24 @@ It's most commonly used in its borrowed form, `&[T]`.
 There are various ways to create a slice reference from a `Vec`:
 
 ```rust
-let numbers = vec![1, 2, 3];
+let NUMBERS = vec![1, 2, 3];
 // Via index syntax
-let slice: &[i32] = &numbers[..];
+let slice: &[i32] = &NUMBERS[..];
 // Via a method
-let slice: &[i32] = numbers.as_slice();
+let slice: &[i32] = NUMBERS.as_slice();
 // Or for a subset of the elements
-let slice: &[i32] = &numbers[1..];
+let slice: &[i32] = &NUMBERS[1..];
 ```
 
 `Vec` implements the `Deref` trait using `[T]` as the target type, so you can use slice methods on a `Vec` directly
 thanks to deref coercion:
 
 ```rust
-let numbers = vec![1, 2, 3];
+let NUMBERS = vec![1, 2, 3];
 // Surprise, surprise: `iter` is not a method on `Vec`!
 // It's a method on `&[T]`, but you can call it on a `Vec` 
 // thanks to deref coercion.
-let sum: i32 = numbers.iter().sum();
+let sum: i32 = NUMBERS.iter().sum();
 ```
 
 ### Memory layout
@@ -60,19 +60,19 @@ It consists of a pointer to the first element of the slice and the length of the
 If you have a `Vec` with three elements:
 
 ```rust
-let numbers = vec![1, 2, 3];
+let NUMBERS = vec![1, 2, 3];
 ```
 
 and then create a slice reference:
 
 ```rust
-let slice: &[i32] = &numbers[1..];
+let slice: &[i32] = &NUMBERS[1..];
 ```
 
 you'll get this memory layout:
 
 ```text
-                  numbers                          slice
+                  NUMBERS                          slice
       +---------+--------+----------+      +---------+--------+
 Stack | pointer | length | capacity |      | pointer | length |
       |    |    |   3    |    4     |      |    |    |   2    |

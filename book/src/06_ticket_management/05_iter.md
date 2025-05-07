@@ -13,9 +13,9 @@ Most collections expose a method called `.iter()` that returns an iterator over 
 For example:
 
 ```rust
-let numbers: Vec<u32> = vec![1, 2];
+let NUMBERS: Vec<u32> = vec![1, 2];
 // `n` has type `&u32` here
-for n in numbers.iter() {
+for n in NUMBERS.iter() {
     // [...]
 }
 ```
@@ -25,11 +25,11 @@ In our example above, that would be `&Vec<Ticket>`.\
 The standard library does this, that's why the following code works:
 
 ```rust
-let numbers: Vec<u32> = vec![1, 2];
+let NUMBERS: Vec<u32> = vec![1, 2];
 // `n` has type `&u32` here
 // We didn't have to call `.iter()` explicitly
-// It was enough to use `&numbers` in the `for` loop
-for n in &numbers {
+// It was enough to use `&NUMBERS` in the `for` loop
+for n in &NUMBERS {
     // [...]
 }
 ```

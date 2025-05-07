@@ -9,6 +9,16 @@
 // `factorial(2)` to return `2`, and so on.
 //
 // Use only what you learned! No loops yet, so you'll have to use recursion!
+static mut NUMBERS: [i32 ; 7] = [-1;7];
+
+fn factorial(n : i32) -> i32{
+    if n == 1{return 1;}
+    let new_idx = n as usize;
+    unsafe {
+        NUMBERS[new_idx] = factorial(n - 1) * n;
+        NUMBERS[new_idx]
+    }
+}
 
 #[cfg(test)]
 mod tests {

@@ -19,7 +19,7 @@ But the _mathematically correct result_ doesn't fit into that integer type!
 > The `speed` function you wrote in the ["Variables" section](02_variables.md) underflowed for some input
 > combinations.
 > E.g. if `end` is smaller than `start`, `end - start` will underflow the `u32` type since the result is supposed
-> to be negative but `u32` can't represent negative numbers.
+> to be negative but `u32` can't represent negative NUMBERS.
 
 ## No automatic promotion
 

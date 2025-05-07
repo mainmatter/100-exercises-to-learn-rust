@@ -19,9 +19,9 @@ These methods are called **combinators**.\
 They are usually **chained** together to create complex transformations in a concise and readable way:
 
 ```rust
-let numbers = vec![1, 2, 3, 4, 5];
-// The sum of the squares of the even numbers
-let outcome: u32 = numbers.iter()
+let NUMBERS = vec![1, 2, 3, 4, 5];
+// The sum of the squares of the even NUMBERS
+let outcome: u32 = NUMBERS.iter()
     .filter(|&n| n % 2 == 0)
     .map(|&n| n * n)
     .sum();
@@ -76,11 +76,11 @@ You either iterate over the transformed values using a `for` loop, or you collec
 The latter is done using the `collect` method.\
 `collect` consumes the iterator and collects its elements into a collection of your choice.
 
-For example, you can collect the squares of the even numbers into a `Vec`:
+For example, you can collect the squares of the even NUMBERS into a `Vec`:
 
 ```rust
-let numbers = vec![1, 2, 3, 4, 5];
-let squares_of_evens: Vec<u32> = numbers.iter()
+let NUMBERS = vec![1, 2, 3, 4, 5];
+let squares_of_evens: Vec<u32> = NUMBERS.iter()
     .filter(|&n| n % 2 == 0)
     .map(|&n| n * n)
     .collect();
@@ -92,7 +92,7 @@ In the example above, we annotated the type of `squares_of_evens` to be `Vec<u32
 Alternatively, you can use the **turbofish syntax** to specify the type:
 
 ```rust
-let squares_of_evens = numbers.iter()
+let squares_of_evens = NUMBERS.iter()
     .filter(|&n| n % 2 == 0)
     .map(|&n| n * n)
     // Turbofish syntax: `<method_name>::<type>()`

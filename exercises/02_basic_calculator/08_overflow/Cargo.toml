@@ -3,6 +3,10 @@ name = "overflow"
 version = "0.1.0"
 edition = "2021"
 
+[profile.dev]
+overflow-checks = false     # Disable integer overflow checks.
+
+
 [lints.rust]
 # We silence dead code warnings for the time being in order to reduce
 # compiler noise.

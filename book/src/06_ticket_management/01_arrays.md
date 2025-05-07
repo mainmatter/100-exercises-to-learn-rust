@@ -15,7 +15,7 @@ Here's how you can define an array:
 
 ```rust
 // Array type syntax: [ <type> ; <number of elements> ]
-let numbers: [u32; 3] = [1, 2, 3];
+let NUMBERS: [u32; 3] = [1, 2, 3];
 ```
 
 This creates an array of 3 integers, initialized with the values `1`, `2`, and `3`.\
@@ -25,7 +25,7 @@ If all array elements are the same, you can use a shorter syntax to initialize i
 
 ```rust
 // [ <value> ; <number of elements> ]
-let numbers: [u32; 3] = [1; 3];
+let NUMBERS: [u32; 3] = [1; 3];
 ```
 
 `[1; 3]` creates an array of three elements, all equal to `1`.
@@ -35,9 +35,9 @@ let numbers: [u32; 3] = [1; 3];
 You can access elements of an array using square brackets:
 
 ```rust
-let first = numbers[0];
-let second = numbers[1];
-let third = numbers[2];
+let first = NUMBERS[0];
+let second = NUMBERS[1];
+let third = NUMBERS[2];
 ```
 
 The index must be of type `usize`.\
@@ -49,8 +49,8 @@ tuples/tuple-like variants.
 If you try to access an element that's out of bounds, Rust will panic:
 
 ```rust
-let numbers: [u32; 3] = [1, 2, 3];
-let fourth = numbers[3]; // This will panic
+let NUMBERS: [u32; 3] = [1, 2, 3];
+let fourth = NUMBERS[3]; // This will panic
 ```
 
 This is enforced at runtime using **bounds checking**. It comes with a small performance overhead, but it's how
@@ -61,11 +61,11 @@ more about this later on.
 If you don't want to panic, you can use the `get` method, which returns an `Option<&T>`:
 
 ```rust
-let numbers: [u32; 3] = [1, 2, 3];
-assert_eq!(numbers.get(0), Some(&1));
+let NUMBERS: [u32; 3] = [1, 2, 3];
+assert_eq!(NUMBERS.get(0), Some(&1));
 // You get a `None` if you try to access an out-of-bounds index
 // rather than a panic.
-assert_eq!(numbers.get(3), None);
+assert_eq!(NUMBERS.get(3), None);
 ```
 
 ### Performance
@@ -74,7 +74,7 @@ Since the size of an array is known at compile-time, the compiler can allocate t
 If you run the following code:
 
 ```rust
-let numbers: [u32; 3] = [1, 2, 3];
+let NUMBERS: [u32; 3] = [1, 2, 3];
 ```
 
 You'll get the following memory layout:

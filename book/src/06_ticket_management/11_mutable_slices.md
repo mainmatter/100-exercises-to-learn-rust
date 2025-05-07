@@ -6,8 +6,8 @@ But slices can also be mutable!
 Here's how you create a mutable slice:
 
 ```rust
-let mut numbers = vec![1, 2, 3];
-let slice: &mut [i32] = &mut numbers;
+let mut NUMBERS = vec![1, 2, 3];
+let slice: &mut [i32] = &mut NUMBERS;
 ```
 
 You can then modify the elements in the slice:
@@ -27,8 +27,8 @@ That's **not** the case with mutable borrows.
 Consider this scenario:
 
 ```rust
-let mut numbers = Vec::with_capacity(2);
-let mut slice: &mut [i32] = &mut numbers;
+let mut NUMBERS = Vec::with_capacity(2);
+let mut slice: &mut [i32] = &mut NUMBERS;
 slice.push(1);
 ```
 

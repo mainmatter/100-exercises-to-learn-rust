@@ -19,8 +19,8 @@ An integer is a number that can be written without a fractional component. E.g. 
 ### Signed vs. unsigned
 
 An integer can be **signed** or **unsigned**.\
-An unsigned integer can only represent non-negative numbers (i.e. `0` or greater).
-A signed integer can represent both positive and negative numbers (e.g. `-1`, `12`, etc.).
+An unsigned integer can only represent non-negative NUMBERS (i.e. `0` or greater).
+A signed integer can represent both positive and negative NUMBERS (e.g. `-1`, `12`, etc.).
 
 The `u` in `u32` stands for **unsigned**.\
 The equivalent type for signed integer is `i32`, where the `i` stands for integer (i.e. any integer, positive or
@@ -29,12 +29,12 @@ negative).
 ### Bit width
 
 The `32` in `u32` refers to the **number of bits[^bit]** used to represent the number in memory.\
-The more bits, the larger the range of numbers that can be represented.
+The more bits, the larger the range of NUMBERS that can be represented.
 
 Rust supports multiple bit widths for integers: `8`, `16`, `32`, `64`, `128`.
 
-With 32 bits, `u32` can represent numbers from `0` to `2^32 - 1` (a.k.a. [`u32::MAX`](https://doc.rust-lang.org/std/primitive.u32.html#associatedconstant.MAX)).\
-With the same number of bits, a signed integer (`i32`) can represent numbers from `-2^31` to `2^31 - 1`
+With 32 bits, `u32` can represent NUMBERS from `0` to `2^32 - 1` (a.k.a. [`u32::MAX`](https://doc.rust-lang.org/std/primitive.u32.html#associatedconstant.MAX)).\
+With the same number of bits, a signed integer (`i32`) can represent NUMBERS from `-2^31` to `2^31 - 1`
 (i.e. from [`i32::MIN`](https://doc.rust-lang.org/std/primitive.i32.html#associatedconstant.MIN)
 to [`i32::MAX`](https://doc.rust-lang.org/std/primitive.i32.html#associatedconstant.MAX)).\
 The maximum value for `i32` is smaller than the maximum value for `u32` because one bit is used to represent
@@ -69,7 +69,7 @@ explicitly typed as a `u64`.
 
 ### Underscores in literals
 
-You can use underscores `_` to improve the readability of large numbers.\
+You can use underscores `_` to improve the readability of large NUMBERS.\
 For example, `1_000_000` is the same as `1000000`.
 
 ## Arithmetic operators

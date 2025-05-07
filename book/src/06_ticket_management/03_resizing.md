@@ -4,11 +4,11 @@ We said that `Vec` is a "growable" vector type, but what does that mean?
 What happens if you try to insert an element into a `Vec` that's already at maximum capacity?
 
 ```rust
-let mut numbers = Vec::with_capacity(3);
-numbers.push(1);
-numbers.push(2);
-numbers.push(3); // Max capacity reached
-numbers.push(4); // What happens here?
+let mut NUMBERS = Vec::with_capacity(3);
+NUMBERS.push(1);
+NUMBERS.push(2);
+NUMBERS.push(3); // Max capacity reached
+NUMBERS.push(4); // What happens here?
 ```
 
 The `Vec` will **resize** itself.\

@@ -5,7 +5,7 @@ If you try to create an array with a size that's only known at runtime, you'll g
 
 ```rust
 let n = 10;
-let numbers: [u32; n];
+let NUMBERS: [u32; n];
 ```
 
 ```text
@@ -13,7 +13,7 @@ error[E0435]: attempt to use a non-constant value in a constant
  --> src/main.rs:3:20
   |
 2 | let n = 10;
-3 | let numbers: [u32; n];
+3 | let NUMBERS: [u32; n];
   |                    ^ non-constant value
 ```
 
@@ -26,22 +26,22 @@ This is where `Vec` comes in.
 You can create an empty array using the `Vec::new` function:
 
 ```rust
-let mut numbers: Vec<u32> = Vec::new();
+let mut NUMBERS: Vec<u32> = Vec::new();
 ```
 
 You would then push elements into the vector using the `push` method:
 
 ```rust
-numbers.push(1);
-numbers.push(2);
-numbers.push(3);
+NUMBERS.push(1);
+NUMBERS.push(2);
+NUMBERS.push(3);
 ```
 
 New values are added to the end of the vector.\
 You can also create an initialized vector using the `vec!` macro, if you know the values at creation time:
 
 ```rust
-let numbers = vec![1, 2, 3];
+let NUMBERS = vec![1, 2, 3];
 ```
 
 ## Accessing elements
@@ -49,21 +49,21 @@ let numbers = vec![1, 2, 3];
 The syntax for accessing elements is the same as with arrays:
 
 ```rust
-let numbers = vec![1, 2, 3];
-let first = numbers[0];
-let second = numbers[1];
-let third = numbers[2];
+let NUMBERS = vec![1, 2, 3];
+let first = NUMBERS[0];
+let second = NUMBERS[1];
+let third = NUMBERS[2];
 ```
 
 The index must be of type `usize`.\
 You can also use the `get` method, which returns an `Option<&T>`:
 
 ```rust
-let numbers = vec![1, 2, 3];
-assert_eq!(numbers.get(0), Some(&1));
+let NUMBERS = vec![1, 2, 3];
+assert_eq!(NUMBERS.get(0), Some(&1));
 // You get a `None` if you try to access an out-of-bounds index
 // rather than a panic.
-assert_eq!(numbers.get(3), None);
+assert_eq!(NUMBERS.get(3), None);
 ```
 
 Access is bounds-checked, just like element access with arrays. It has O(1) complexity.
@@ -76,9 +76,9 @@ When you create a `Vec`, it allocates memory on the heap to store the elements.
 If you run the following code:
 
 ```rust
-let mut numbers = Vec::with_capacity(3);
-numbers.push(1);
-numbers.push(2);
+let mut NUMBERS = Vec::with_capacity(3);
+NUMBERS.push(1);
+NUMBERS.push(2);
 ```
 
 you'll get the following memory layout:

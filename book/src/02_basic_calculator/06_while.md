@@ -17,7 +17,7 @@ while <condition> {
 }
 ```
 
-For example, we might want to sum the numbers from 1 to 5:
+For example, we might want to sum the NUMBERS from 1 to 5:
 
 ```rust
 let sum = 0;

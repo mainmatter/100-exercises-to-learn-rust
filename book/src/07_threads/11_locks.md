@@ -4,7 +4,7 @@ The patching strategy you just implemented has a major drawback: it's racy.\
 If two clients send patches for the same ticket roughly at same time, the server will apply them in an arbitrary order.
 Whoever enqueues their patch last will overwrite the changes made by the other client.
 
-## Version numbers
+## Version NUMBERS
 
 We could try to fix this by using a **version number**.\
 Each ticket gets assigned a version number upon creation, set to `0`.\
