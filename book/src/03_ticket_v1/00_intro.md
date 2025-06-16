@@ -1,4 +1,4 @@
-# Modelling A Ticket
+# Modeling A Ticket
 
 The first chapter should have given you a good grasp over some of Rust's primitive types, operators and
 basic control flow constructs.\

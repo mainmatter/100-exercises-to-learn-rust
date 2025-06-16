@@ -64,7 +64,7 @@ let x = ticket.description;
 
 ## Methods
 
-We can attach behaviour to our structs by defining **methods**.\
+We can attach behavior to our structs by defining **methods**.\
 Using the `Ticket` struct as an example:
 
 ```rust
