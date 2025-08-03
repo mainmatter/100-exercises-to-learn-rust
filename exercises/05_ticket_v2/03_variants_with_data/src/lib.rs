@@ -1,6 +1,6 @@
 // TODO: Implement `Ticket::assigned_to`.
 //  Return the name of the person assigned to the ticket, if the ticket is in progress.
-//  Panic otherwise.
+//  Panic with message - Only `In-Progress` tickets can be assigned to someone.
 
 #[derive(Debug, PartialEq)]
 struct Ticket {
