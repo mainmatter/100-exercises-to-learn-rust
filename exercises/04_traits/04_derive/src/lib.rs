@@ -8,11 +8,23 @@
 // print both sides of the comparison to the terminal.
 // If the compared type doesn't implement `Debug`, it doesn't know how to represent them!
 
+use std::fmt::{Debug, Formatter, Result};
+
 #[derive(PartialEq)]
 struct Ticket {
     title: String,
     description: String,
     status: String,
+}
+
+impl Debug for Ticket {
+    fn fmt(&self, f: &mut Formatter) -> Result {
+        return write!(
+            f,
+            "{{title: {:?}, description: {:?}, status: {:?}}}",
+            self.title, self.description, self.status
+        );
+    }
 }
 
 #[cfg(test)]
