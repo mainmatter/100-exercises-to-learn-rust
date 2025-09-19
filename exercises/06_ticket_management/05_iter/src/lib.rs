@@ -5,9 +5,29 @@ use ticket_fields::{TicketDescription, TicketTitle};
 // Hint: just like in the previous exercise, you want to delegate the iteration to
 //   the `Vec<Ticket>` field in `TicketStore`. Look at the standard library documentation
 //   for `Vec` to find the right type to return from `iter`.
-#[derive(Clone)]
+#[derive(Clone, Default)]
 pub struct TicketStore {
     tickets: Vec<Ticket>,
+}
+
+impl IntoIterator for TicketStore {
+    type Item = Ticket;
+
+    type IntoIter = std::vec::IntoIter<Ticket>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.tickets.into_iter()
+    }
+}
+
+impl<'a> IntoIterator for &'a TicketStore {
+    type Item = &'a Ticket;
+
+    type IntoIter = std::slice::Iter<'a, Ticket>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.tickets.iter()
+    }
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -33,6 +53,10 @@ impl TicketStore {
 
     pub fn add_ticket(&mut self, ticket: Ticket) {
         self.tickets.push(ticket);
+    }
+
+    pub fn iter(&self) -> impl Iterator<Item = &Ticket> {
+        self.into_iter()
     }
 }
 

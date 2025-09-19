@@ -15,6 +15,7 @@ enum Status {
     InProgress { assigned_to: String },
     Done,
 }
+use Status::*;
 
 impl Ticket {
     pub fn new(title: String, description: String, status: Status) -> Ticket {
@@ -38,7 +39,10 @@ impl Ticket {
         }
     }
     pub fn assigned_to(&self) -> &str {
-        todo!()
+        match &self.status {
+            InProgress { assigned_to } => assigned_to,
+            _ => panic!("Only `In-Progress` tickets can be assigned to someone"),
+        }
     }
 }
 

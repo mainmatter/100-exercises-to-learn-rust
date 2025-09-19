@@ -1,10 +1,27 @@
 // Rewrite the factorial function using a `while` loop.
 pub fn factorial(n: u32) -> u32 {
-    // The `todo!()` macro is a placeholder that the compiler
-    // interprets as "I'll get back to this later", thus
-    // suppressing type errors.
-    // It panics at runtime.
-    todo!()
+    // The factorial of a number greater than 12 would overflow a u32.
+    // We use an assertion to prevent this from happening, which will cause
+    // the program to panic if the condition is not met.
+    assert!(n <= 12); // 13! overflows
+
+    // We need a mutable variable to hold the current number, so we shadow the
+    // original `n` parameter.
+    let mut n = n;
+    // We start with an accumulator of 1.
+    // The factorial of 0 is 1, and this is also the multiplicative identity.
+    let mut accum = 1;
+
+    // We loop as long as n is greater than 1.
+    while n > 1 {
+        // We multiply the accumulator by the current number.
+        accum *= n;
+        // We decrement the number.
+        n -= 1;
+    }
+
+    // We return the final accumulated value.
+    accum
 }
 
 #[cfg(test)]

@@ -3,9 +3,46 @@
 //  The docs for the `std::fmt` module are a good place to start and look for examples:
 //  https://doc.rust-lang.org/std/fmt/index.html#write
 
+use std::{
+    error::Error,
+    fmt::{Debug, Display},
+};
+
 enum TicketNewError {
     TitleError(String),
     DescriptionError(String),
+}
+
+impl Display for TicketNewError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::TitleError(arg0) => write!(f, "{}", arg0),
+            Self::DescriptionError(arg0) => write!(f, "{}", arg0),
+        }
+    }
+}
+
+impl Error for TicketNewError {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        None
+    }
+
+    fn description(&self) -> &str {
+        "description() is deprecated; use Display"
+    }
+
+    fn cause(&self) -> Option<&dyn Error> {
+        self.source()
+    }
+}
+
+impl Debug for TicketNewError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::TitleError(arg0) => f.debug_tuple("TitleError").field(arg0).finish(),
+            Self::DescriptionError(arg0) => f.debug_tuple("DescriptionError").field(arg0).finish(),
+        }
+    }
 }
 
 // TODO: `easy_ticket` should panic when the title is invalid, using the error message
@@ -13,7 +50,15 @@ enum TicketNewError {
 //   When the description is invalid, instead, it should use a default description:
 //   "Description not provided".
 fn easy_ticket(title: String, description: String, status: Status) -> Ticket {
-    todo!()
+    match Ticket::new(title.clone(), description, status.clone()) {
+        Ok(ticket) => ticket,
+        Err(TicketNewError::TitleError(e)) => panic!("{}", e),
+        Err(TicketNewError::DescriptionError(_)) => Ticket {
+            title,
+            description: "Description not provided".to_string(),
+            status,
+        },
+    }
 }
 
 #[derive(Debug, PartialEq, Clone)]
