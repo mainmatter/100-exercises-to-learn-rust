@@ -12,6 +12,14 @@ impl TryFrom<String> for Status {
     type Error = ParseStatusError;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
+        value.try_into()
+    }
+}
+
+impl TryFrom<&str> for Status {
+    type Error = ParseStatusError;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
         let value = value.to_lowercase();
         match value.as_str() {
             "todo" => Ok(Status::ToDo),
@@ -21,14 +29,6 @@ impl TryFrom<String> for Status {
                 invalid_status: value,
             }),
         }
-    }
-}
-
-impl TryFrom<&str> for Status {
-    type Error = ParseStatusError;
-
-    fn try_from(value: &str) -> Result<Self, Self::Error> {
-        value.to_lowercase().try_into()
     }
 }
 
