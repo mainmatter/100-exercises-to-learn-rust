@@ -4,20 +4,21 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
+type Counter = Rc<RefCell<i32>>;
 pub struct DropTracker<T> {
     value: T,
-    counter: todo!(),
+    counter: Counter,
 }
 
 impl<T> DropTracker<T> {
-    pub fn new(value: T, counter: todo!()) -> Self {
+    pub fn new(value: T, counter: Counter) -> Self {
         Self { value, counter }
     }
 }
 
 impl<T> Drop for DropTracker<T> {
     fn drop(&mut self) {
-        todo!()
+        *self.counter.borrow_mut() += 1;
     }
 }
 

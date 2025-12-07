@@ -231,6 +231,7 @@ dependencies = [
 name = "bounded"
 version = "0.1.0"
 dependencies = [
+ "thiserror 1.0.69",
  "ticket_fields",
 ]
 
@@ -504,6 +505,9 @@ checksum = "2a2330da5de22e8a3cb63252ce2abb30116bf5265e89c0e01bc17015ce30a476"
 [[package]]
 name = "deps"
 version = "0.1.0"
+dependencies = [
+ "anyhow",
+]
 
 [[package]]
 name = "deref"
@@ -1629,6 +1633,9 @@ version = "0.1.0"
 [[package]]
 name = "outro_04"
 version = "0.1.0"
+dependencies = [
+ "thiserror 1.0.69",
+]
 
 [[package]]
 name = "outro_08"
@@ -2422,6 +2429,7 @@ name = "thiserror_"
 version = "0.1.0"
 dependencies = [
  "common",
+ "thiserror 1.0.69",
 ]
 
 [[package]]

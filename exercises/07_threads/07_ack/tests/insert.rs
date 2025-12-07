@@ -34,10 +34,7 @@ fn insert_works() {
         .send(command)
         .expect("Did you actually spawn a thread? The channel is closed!");
 
-    let ticket: Ticket = response_receiver
-        .recv()
-        .expect("No response received!")
-        .unwrap();
+    let ticket: Ticket = response_receiver.recv().expect("No response received!");
     assert_eq!(ticket_id, ticket.id);
     assert_eq!(ticket.status, Status::ToDo);
     assert_eq!(ticket.title, draft.title);

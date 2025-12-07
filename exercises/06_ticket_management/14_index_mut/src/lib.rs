@@ -67,6 +67,21 @@ impl Index<TicketId> for TicketStore {
     }
 }
 
+impl std::ops::IndexMut<TicketId> for TicketStore {
+    fn index_mut(&mut self, index: TicketId) -> &mut Self::Output {
+        self.tickets
+            .iter_mut()
+            .find(|mut t| t.id == index)
+            .expect("Can not find by mut index")
+    }
+}
+
+impl std::ops::IndexMut<&TicketId> for TicketStore {
+    fn index_mut(&mut self, index: &TicketId) -> &mut Self::Output {
+        &mut self[*index]
+    }
+}
+
 impl Index<&TicketId> for TicketStore {
     type Output = Ticket;
 
