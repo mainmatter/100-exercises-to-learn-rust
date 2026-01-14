@@ -66,5 +66,6 @@ mod tests {
         let tickets: Vec<&Ticket> = store.iter().collect();
         let tickets2: Vec<&Ticket> = store.iter().collect();
         assert_eq!(tickets, tickets2);
+        assert_eq!(store.iter().len(), 2);
     }
 }
