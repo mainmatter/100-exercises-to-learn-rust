@@ -2,6 +2,21 @@
 // even, otherwise `false`.
 //
 // Then implement the trait for `u32` and `i32`.
+pub trait IsEven {
+	fn is_even(&self) -> bool;
+}
+
+impl IsEven for u32 {
+	fn is_even(&self) -> bool {
+		self & 1 == 0
+	}
+}
+
+impl IsEven for i32 {
+	fn is_even(&self) -> bool {
+		self & 1 == 0
+	}
+}
 
 #[cfg(test)]
 mod tests {
