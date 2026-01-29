@@ -56,7 +56,7 @@ jobs:
           echo "$PWD/pandoc-${PANDOC_VERSION}/bin" >> $GITHUB_PATH
         shell: bash
       - name: Setup TeX Live
-        uses: teatimeguest/setup-texlive-action@v3
+        uses: TeX-Live/setup-texlive-action@v3
         with:
           packages:
             scheme-basic
@@ -111,9 +111,9 @@ jobs:
         with:
           fail: true
           args: |
-            --exclude-loopback 
-            --require-https 
-            --no-progress 
+            --exclude-loopback
+            --require-https
+            --no-progress
             book/book/html/
       # Upload the HTML book as an artifact
       - uses: actions/upload-artifact@v4

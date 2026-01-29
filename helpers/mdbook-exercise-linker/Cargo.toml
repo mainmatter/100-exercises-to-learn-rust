@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1.0.86"
-clap = "4.5.4"
-mdbook = "0.4.40"
-semver = "1.0.23"
-serde_json = "1.0.117"
+anyhow = "1.0.100"
+clap = "4.5.50"
+mdbook = "0.4.52"
+semver = "1.0.27"
+serde_json = "1.0.145"

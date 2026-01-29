@@ -1,5 +1,4 @@
 {
-  "https://blog.acolyer.org/2019/05/28/cheri-abi/": "f2u",
   "https://code.visualstudio.com": "f6c",
   "https://crates.io": "f4q",
   "https://crates.io/crates/cargo-modules": "f2n",
@@ -164,6 +163,7 @@
   "https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/": "f4r",
   "https://mainmatter.com/contact/": "ff2",
   "https://mainmatter.com/rust-consulting/": "fff",
+  "https://mainmatter.github.io/rust-workshop-runner/": "fv2",
   "https://marabos.nl/atomics/": "fxg",
   "https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer": "f6a",
   "https://nostarch.com/rust-rustaceans": "f6p",
@@ -183,6 +183,7 @@
   "https://tokio.rs/tokio/tutorial/select": "f6n",
   "https://valgrind.org/docs/manual/dh-manual.html": "f2t",
   "https://veykril.github.io/tlborm/": "fz5",
+  "https://web.archive.org/web/20240517051950/https://blog.acolyer.org/2019/05/28/cheri-abi/": "f2u",
   "https://without.boats/blog/the-scoped-task-trilemma/": "f67",
   "https://www.amazon.com/dp/B0DJ14KQQG/": "f6g",
   "https://www.jetbrains.com/rust/": "f6d",

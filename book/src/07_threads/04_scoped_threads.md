@@ -27,7 +27,7 @@ Let's unpack what's happening.
 ## `scope`
 
 The `std::thread::scope` function creates a new **scope**.\
-`std::thread::scope` takes as input a closure, with a single argument: a `Scope` instance.
+`std::thread::scope` takes a closure as input, with a single argument: a `Scope` instance.
 
 ## Scoped spawns
 

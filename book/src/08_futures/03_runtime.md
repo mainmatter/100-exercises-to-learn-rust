@@ -26,7 +26,7 @@ at any given time.
 
 ### Multithreaded runtime
 
-When using the multithreaded runtime, instead, there can up to `N` tasks running
+When using the multithreaded runtime, instead, there can be up to `N` tasks running
 _in parallel_ at any given time, where `N` is the number of threads used by the
 runtime. By default, `N` matches the number of available CPU cores.
 

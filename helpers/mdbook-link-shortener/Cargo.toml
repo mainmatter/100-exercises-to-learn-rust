@@ -4,12 +4,12 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1.0.86"
+anyhow = "1.0.100"
 bimap = { version = "0.6.3", features = ["serde"] }
-clap = { version = "4.5.4", features = ["derive"] }
+clap = { version = "4.5.50", features = ["derive"] }
 itertools = "0.13.0"
-mdbook = "0.4.40"
-pulldown-cmark = "0.11.0"
+mdbook = "0.4.52"
+pulldown-cmark = "0.11.3"
 pulldown-cmark-to-cmark = "15"
-semver = "1.0.23"
-serde_json = "1.0.117"
+semver = "1.0.27"
+serde_json = "1.0.145"
