@@ -46,10 +46,10 @@ let number = 3;
 if number < 5 {
     println!("`number` is smaller than 5");
 } else {
-    if number >= 3 {
-        println!("`number` is greater than or equal to 3, but smaller than 5");
+    if number < 8 {
+        println!("`number` is greater than or equal to 5, but smaller than 8");
     } else {
-        println!("`number` is smaller than 3");
+        println!("`number` is greater than or equal to 8");
     }
 }
 ```
@@ -61,10 +61,10 @@ let number = 3;
 
 if number < 5 {
     println!("`number` is smaller than 5");
-} else if number >= 3 {
-    println!("`number` is greater than or equal to 3, but smaller than 5");
+} else if number < 8 {
+    println!("`number` is greater than or equal to 5, but smaller than 8");
 } else {
-    println!("`number` is smaller than 3");
+    println!("`number` is greater than or equal to 8");
 }
 ```
 
