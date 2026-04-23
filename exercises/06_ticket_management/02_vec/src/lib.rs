@@ -13,7 +13,7 @@
 pub fn fibonacci(n: u32) -> u32 {
     // TODO: implement the `fibonacci` function
     //
-    // Hint: use a `Vec` to memoize the results you have already calculated
+    // Hint: use a `Vec` to memorize the results you have already calculated
     // so that you don't have to recalculate them several times.
     todo!()
 }
