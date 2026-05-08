@@ -6,7 +6,10 @@
 // collections (e.g. BTreeMap).
 
 /// Return the minimum of two values.
-pub fn min<T>(left: T, right: T) -> T {
+pub fn min<T: Ord>(left: T, right: T) -> T {
+    // `Ord` guarantees that the values can be compared.
+    // `PartialOrd` would also make the compiler happy, but it would have different semantics:
+    // it'd either return the minimum value or `right` if they can't be compared.
     if left <= right {
         left
     } else {
