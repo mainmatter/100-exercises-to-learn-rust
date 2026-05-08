@@ -121,6 +121,7 @@ dependencies = [
 name = "bounded"
 version = "0.1.0"
 dependencies = [
+ "thiserror 2.0.17",
  "ticket_fields",
 ]
 
@@ -232,6 +233,9 @@ version = "0.1.0"
 [[package]]
 name = "deps"
 version = "0.1.0"
+dependencies = [
+ "anyhow",
+]
 
 [[package]]
 name = "deref"
@@ -611,6 +615,9 @@ version = "0.1.0"
 [[package]]
 name = "outro_04"
 version = "0.1.0"
+dependencies = [
+ "thiserror 2.0.17",
+]
 
 [[package]]
 name = "outro_08"
@@ -994,6 +1001,7 @@ name = "thiserror_"
 version = "0.1.0"
 dependencies = [
  "common",
+ "thiserror 2.0.17",
 ]
 
 [[package]]
@@ -1117,6 +1125,9 @@ version = "0.1.0"
 [[package]]
 name = "tryfrom"
 version = "0.1.0"
+dependencies = [
+ "thiserror 2.0.17",
+]
 
 [[package]]
 name = "two_states"
