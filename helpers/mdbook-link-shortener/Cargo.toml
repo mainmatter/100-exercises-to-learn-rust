@@ -8,7 +8,7 @@ anyhow = "1.0.100"
 bimap = { version = "0.6.3", features = ["serde"] }
 clap = { version = "4.5.50", features = ["derive"] }
 itertools = "0.13.0"
-mdbook = "0.4.52"
+mdbook-preprocessor = "0.5.3"
 pulldown-cmark = "0.11.3"
 pulldown-cmark-to-cmark = "15"
 semver = "1.0.27"

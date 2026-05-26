@@ -1,9 +1,8 @@
 use anyhow::{Context, Error};
 use bimap::BiHashMap;
 use itertools::Itertools;
-use mdbook::book::{Book, Chapter};
-use mdbook::preprocess::{Preprocessor, PreprocessorContext};
-use mdbook::BookItem;
+use mdbook_preprocessor::book::{Book, BookItem, Chapter};
+use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs::File;
 use std::path::PathBuf;
@@ -65,23 +64,17 @@ impl Preprocessor for LinkShortener {
     }
 
     fn run(&self, ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
-        let config = ctx
+        let root_url: String = ctx
             .config
-            .get_preprocessor(self.name())
-            .context("Failed to get preprocessor configuration")?;
-        let root_url = {
-            let root_url = config.get("base_url").context("Failed to get `base_url`")?;
-            root_url
-                .as_str()
-                .context("`base_url` is not a string")?
-                .to_owned()
-        };
+            .get("preprocessor.link-shortener.base_url")
+            .context("Failed to get `base_url`")?
+            .context("`base_url` is not set")?;
         let mapping = {
-            let mapping = config.get("mapping").context("Failed to get `mapping`")?;
-            let mapping = mapping
-                .as_str()
-                .context("`mapping` is not a string")?
-                .to_owned();
+            let mapping: String = ctx
+                .config
+                .get("preprocessor.link-shortener.mapping")
+                .context("Failed to get `mapping`")?
+                .context("`mapping` is not set")?;
             PathBuf::from_str(&mapping).context("Failed to parse `mapping` as a path")?
         };
         let mut link2alias = {
@@ -98,11 +91,11 @@ impl Preprocessor for LinkShortener {
                 }
             }
         };
-        let verify = config
-            .get("verify")
+        let verify: bool = ctx
+            .config
+            .get("preprocessor.link-shortener.verify")
             .context("Failed to get `verify`")?
-            .as_bool()
-            .context("`verify` is not a boolean")?;
+            .context("`verify` is not set")?;
         // Env var overrides config
         let verify = std::env::var("LINK_SHORTENER_VERIFY")
             .map(|v| v == "true")
@@ -110,7 +103,7 @@ impl Preprocessor for LinkShortener {
 
         let mut alias_gen = AliasGenerator::new();
 
-        book.sections.iter_mut().for_each(|i| {
+        book.items.iter_mut().for_each(|i| {
             if let BookItem::Chapter(c) = i {
                 c.content = replace_anchors(c, &root_url, &mut alias_gen, &mut link2alias, verify)
                     .expect("Error converting links for chapter");
@@ -139,8 +132,8 @@ impl Preprocessor for LinkShortener {
         Ok(book)
     }
 
-    fn supports_renderer(&self, _renderer: &str) -> bool {
-        true
+    fn supports_renderer(&self, _renderer: &str) -> mdbook_preprocessor::errors::Result<bool> {
+        Ok(true)
     }
 }
 
