@@ -1,7 +1,6 @@
 use anyhow::{Context, Error};
-use mdbook::book::Book;
-use mdbook::preprocess::{Preprocessor, PreprocessorContext};
-use mdbook::BookItem;
+use mdbook_preprocessor::book::{Book, BookItem};
+use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
 
 pub struct ExerciseLinker;
 
@@ -17,27 +16,20 @@ impl Preprocessor for ExerciseLinker {
     }
 
     fn run(&self, ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
-        let config = ctx
+        let root_url: String = ctx
             .config
-            .get_preprocessor(self.name())
-            .context("Failed to get preprocessor configuration")?;
-        let key = String::from("exercise_root_url");
-        let root_url = config
-            .get(&key)
-            .context("Failed to get `exercise_root_url`")?;
-        let root_url = root_url
-            .as_str()
-            .context("`exercise_root_url` is not a string")?
-            .to_owned();
+            .get("preprocessor.exercise-linker.exercise_root_url")
+            .context("Failed to get `exercise_root_url`")?
+            .context("`exercise_root_url` is not set")?;
 
-        book.sections
+        book.items
             .iter_mut()
             .for_each(|i| process_book_item(i, &ctx.renderer, &root_url));
         Ok(book)
     }
 
-    fn supports_renderer(&self, _renderer: &str) -> bool {
-        true
+    fn supports_renderer(&self, _renderer: &str) -> mdbook_preprocessor::errors::Result<bool> {
+        Ok(true)
     }
 }
 
@@ -60,9 +52,9 @@ fn process_book_item(item: &mut BookItem, renderer: &str, root_url: &str) {
 
             let exercise_path = source_path.strip_suffix(".md").unwrap();
             let link_section = format!(
-                    "\n## Exercise\n\nThe exercise for this section is located in [`{exercise_path}`]({})\n",
-                    format!("{}/{}", root_url, exercise_path)
-                );
+                "\n## Exercise\n\nThe exercise for this section is located in [`{exercise_path}`]({})\n",
+                format!("{}/{}", root_url, exercise_path)
+            );
             chapter.content.push_str(&link_section);
 
             if renderer == "pandoc" {
