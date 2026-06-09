@@ -1,4 +1,4 @@
-# Intro
+# Threads
 
 One of Rust's big promises is _fearless concurrency_: making it easier to write safe, concurrent programs.
 We haven't seen much of that yet. All the work we've done so far has been single-threaded.
