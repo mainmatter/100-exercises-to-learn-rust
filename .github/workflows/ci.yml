@@ -42,9 +42,9 @@ jobs:
           sed -i 's/CoreSansA45.ttf/Open Sans:style=Regular/g' book/book.toml
       - uses: actions-rust-lang/setup-rust-toolchain@v1
       - name: Install exercise plugin
-        run: cargo install --path helpers/mdbook-exercise-linker
+        run: cargo install --git https://github.com/mainmatter/mdbook-exercise-linker
       - name: Install link shortener plugin
-        run: cargo install --path helpers/mdbook-link-shortener
+        run: cargo install --git https://github.com/mainmatter/mdbook-link-shortener
       - name: Install mdbook-pandoc, calibre, pdftk and related dependencies
         run: |
           cargo install mdbook-pandoc --locked --version 0.11.0
