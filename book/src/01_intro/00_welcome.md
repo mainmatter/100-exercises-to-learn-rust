@@ -60,6 +60,7 @@ in updates from the main repository, if needed:
 ```bash
 cd 100-exercises-to-learn-rust
 git checkout -b my-solutions
+git submodule update --init
 ```
 
 All exercises are located in the `exercises` folder.
