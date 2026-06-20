@@ -1,0 +1,6 @@
+[submodule "helpers/mdbook-link-shortener"]
+	path = helpers/mdbook-link-shortener
+	url = https://github.com/mainmatter/mdbook-link-shortener.git
+[submodule "helpers/mdbook-exercise-linker"]
+	path = helpers/mdbook-exercise-linker
+	url = https://github.com/mainmatter/mdbook-exercise-linker.git
