@@ -2,8 +2,6 @@
 members = [
   "exercises/*/*",
   "helpers/common",
-  "helpers/mdbook-exercise-linker",
-  "helpers/mdbook-link-shortener",
   "helpers/ticket_fields",
 ]
 resolver = "2"
