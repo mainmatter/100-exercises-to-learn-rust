@@ -68,4 +68,13 @@ mod tests {
             Ticket::new(valid_title(), overly_long_description(), Status::ToDo).unwrap_err();
         assert_eq!(error, "Description cannot be longer than 500 bytes");
     }
+    
+    #[test]
+    fn valid_ticket() {
+        let response =
+            Ticket::new(valid_title(), valid_description(), Status::ToDo);
+        assert!(response.is_ok());
+    }
+
+    
 }
