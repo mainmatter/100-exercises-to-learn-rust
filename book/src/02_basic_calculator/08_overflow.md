@@ -57,7 +57,7 @@ will give you -128 (=`i8::MIN`).
 ## `overflow-checks`
 
 Rust lets you, the developer, choose which approach to use when an integer overflow occurs.
-The behaviour is controlled by the `overflow-checks` profile setting.
+The behavior is controlled by the `overflow-checks` profile setting.
 
 If `overflow-checks` is set to `true`, Rust will **panic at runtime** when an integer operation overflows.
 If `overflow-checks` is set to `false`, Rust will **wrap around** when an integer operation overflows.
@@ -99,7 +99,7 @@ This is in line with the goals of the two profiles.\
 `release`, instead, is tuned for runtime performance: checking for overflows would slow down the program, so it
 prefers to wrap around.
 
-At the same time, having different behaviours for the two profiles can lead to subtle bugs.\
+At the same time, having different behaviors for the two profiles can lead to subtle bugs.\
 Our recommendation is to enable `overflow-checks` for both profiles: it's better to crash than to silently produce
 incorrect results. The runtime performance hit is negligible in most cases; if you're working on a performance-critical
 application, you can run benchmarks to decide if it's something you can afford.

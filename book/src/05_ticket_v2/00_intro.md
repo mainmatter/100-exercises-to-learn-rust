@@ -1,4 +1,4 @@
-# Modelling A Ticket, pt. 2
+# Modeling A Ticket, pt. 2
 
 The `Ticket` struct we worked on in the previous chapters is a good start,
 but it still screams "I'm a beginner Rustacean!".
