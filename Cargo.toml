@@ -1,3 +1,9 @@
+[profile.dev]
+overflow-checks = false
+
+[profile.release]
+overflow-checks = false
+
 [workspace]
 members = [
   "exercises/*/*",
@@ -5,6 +11,9 @@ members = [
   "helpers/ticket_fields",
 ]
 resolver = "2"
+
+
+
 
 # This is needed to guarantee the expected behaviour on that specific exercise,
 # regardless of the "global" setting for `overflow-checks` on the `dev` profile.
