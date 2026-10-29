@@ -15,7 +15,7 @@ mod tests {
         // The compiler is smart enough to know that the value 255 cannot fit
         // inside an i8, so it'll emit a hard error. We intentionally disable
         // this guardrail to make this (bad) conversion possible.
-        // The compiler is only able to pick on this because the value is a
+        // The compiler is only able to pick up on this because the value is a
         // literal. If we were to use a variable, the compiler wouldn't be able to
         // catch this at compile time.
         #[allow(overflowing_literals)]
