@@ -70,9 +70,9 @@ match status {
 The `_` pattern matches anything that wasn't matched by the previous patterns.
 
 <div class="warning">
-By using this catch-all pattern, you _won't_ get the benefits of compiler-driven refactoring.
-If you add a new enum variant, the compiler _won't_ tell you that you're not handling it.
+  The convenience of `_` comes at a cost: the compiler can no longer help you when the enum changes. In the above example, where a `Blocked` variant is added to `Status`, this `match` keeps compiling as the new `Blocked` variant is silently handled by the `_` arm, whether or not that's the behavior you want.
 
-If you're keen on correctness, avoid using catch-alls. Leverage the compiler to re-examine all matching sites and determine how new enum variants should be handled.
+When correctness matters, spell out every variant, even if several arms share the same logic
+(e.g. `Status::ToDo | Status::InProgress => false`). That way, each new variant forces a deliberate decision.
 
 </div>

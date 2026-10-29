@@ -108,3 +108,8 @@ the go-to resource for learning how to build backend applications in Rust.\
 He is also the author and maintainer of a variety of open-source Rust projects, including
 [`cargo-chef`](https://github.com/LukeMathWalker/cargo-chef),
 [Pavex](https://pavex.dev) and [`wiremock`](https://github.com/LukeMathWalker/wiremock-rs).
+
+## License
+
+Copyright © 2024- Mainmatter GmbH (https://mainmatter.com), released under the
+[PolyForm-Noncommercial-1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0).

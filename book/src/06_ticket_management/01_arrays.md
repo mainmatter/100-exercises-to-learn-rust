@@ -21,14 +21,14 @@ let numbers: [u32; 3] = [1, 2, 3];
 This creates an array of 3 integers, initialized with the values `1`, `2`, and `3`.\
 The type of the array is `[u32; 3]`, which reads as "an array of `u32`s with a length of 3".
 
-If all array elements are the same, you can use a shorter syntax to initialize it:
+When every element should start out with the same value, there's no need to spell it out repeatedly. Rust has a dedicated short syntax for that:
 
 ```rust
-// [ <value> ; <number of elements> ]
-let numbers: [u32; 3] = [1; 3];
+// Repeat syntax: [ <value> ; <number of elements> ]
+let zeros: [u32; 3] = [0; 3];
 ```
 
-`[1; 3]` creates an array of three elements, all equal to `1`.
+`[0; 3]` is equivalent to `[0, 0, 0]`.
 
 ### Accessing elements
 
