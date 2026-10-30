@@ -3,6 +3,7 @@ members = [
   "exercises/*/*",
   "helpers/common",
   "helpers/ticket_fields",
+  "runner",
 ]
 resolver = "2"
 

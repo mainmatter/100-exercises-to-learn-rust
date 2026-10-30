@@ -78,19 +78,36 @@ To work through this course, you'll need:
   - [RustRover](https://www.jetbrains.com/rust/);
   - [Visual Studio Code](https://code.visualstudio.com) with the [`rust-analyzer`](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer) extension.
 
-### Workshop runner, `wr`
+### Verifying your solutions
 
-To verify your solutions, we've also provided a tool to guide you through the course: the `wr` CLI, short for "workshop runner".
-Install `wr` by following the instructions on [its website](https://mainmatter.github.io/rust-workshop-runner/).
+There are two ways to verify your solutions as you work through the course — pick whichever you prefer.
 
-Once you have `wr` installed, open a new terminal and navigate to the top-level folder of the repository.
-Run the `wr` command to start the course:
+#### `wr` (workshop runner)
+
+The original course tool. Install `wr` by following the instructions on [its website](https://mainmatter.github.io/rust-workshop-runner/), then from the top-level folder of the repository run:
 
 ```bash
 wr
 ```
 
-`wr` will verify the solution to the current exercise.\
+`wr` verifies the solution to the current exercise.
+
+#### `runner` (bundled in this repo)
+
+A small `rustlings`-style runner is included in this repository, so no separate install is needed. From the top-level folder run:
+
+```bash
+cargo run -p runner
+```
+
+It compiles and runs the tests for the current exercise, auto-advances on success, and re-runs as soon as you save a change.\
+Press `Ctrl-C` to quit at any time — your progress is saved to `.runner-state` and resumed on the next run.\
+Run `cargo run -p runner -- help` for the full set of commands (`list`, `reset`, `check-all`).
+
+> The interactive watch mode currently needs macOS or Linux (it relies on a raw
+> terminal and process signals). On Windows, use `wr`, or the non-interactive
+> `cargo run -p runner -- run` / `-- check-all` commands.
+
 Don't move on to the next section until you've solved the exercise for the current one.
 
 > We recommend committing your solutions to Git as you progress through the course,
