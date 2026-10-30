@@ -35,5 +35,11 @@ The opposite happens for underflows: `0 - 1` is `-1`, which is smaller than `u8:
 You can't get saturating arithmetic via the `overflow-checks` profile setting—you have to explicitly opt into it
 when performing the arithmetic operation.
 
+A word of caution: unlike operators such as `+` and `*`, methods like `saturating_add` and `saturating_mul` are
+**not** generic—each, it's implemented separately for every integer type. This can confuse Rust's type inference,
+and the compiler may ask you to explicitly annotate the type it couldn't figure out on its own. As the very
+first exercise reminded you, the compiler is your pair programming partner. Sometimes it just needs a bit of
+help from you to move forward.
+
 [^method]: You can think of methods as functions that are "attached" to a specific type.
 We'll cover methods (and how to define them) in the next chapter.
