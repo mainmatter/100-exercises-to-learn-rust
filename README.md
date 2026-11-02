@@ -30,6 +30,29 @@ to get started with the course.
   - [Visual Studio Code](https://code.visualstudio.com) with
     the [`rust-analyzer`](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer) extension.
 
+## Read the book locally
+
+The book uses [mdBook](https://rust-lang.github.io/mdBook/).
+
+1. Install `mdbook`:
+
+   ```sh
+   cargo install mdbook
+   ```
+
+2. Install the `mdbook-exercise-linker` and `mdbook-link-shortener` preprocessors:
+
+   ```sh
+   cargo install --git https://github.com/mainmatter/mdbook-exercise-linker
+   cargo install --git https://github.com/mainmatter/mdbook-link-shortener
+   ```
+
+3. Build the book, start a local server, and open the book in your browser:
+
+   ```sh
+   mdbook serve --open book
+   ```
+
 ## Solutions
 
 You can find the solutions to the exercises in
