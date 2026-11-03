@@ -1,4 +1,4 @@
-# Leaking data
+# Leaking memory
 
 The main concern around passing references to spawned threads is use-after-free bugs:
 accessing data using a pointer to a memory region that's already been freed/de-allocated.\
