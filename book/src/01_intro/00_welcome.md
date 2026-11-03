@@ -25,7 +25,7 @@ to be delivered in a classroom setting, over 4 days: each attendee advances
 through the lessons at their own pace, with an experienced instructor providing
 guidance, answering questions and diving deeper into the topics as needed.\
 You can sign up for the next tutored session on [our website](https://ti.to/mainmatter/rust-from-scratch-jan-2025).
-If you'd like to organise a private session for your company, please [get in touch](https://mainmatter.com/contact/).
+If you'd like to organize a private session for your company, please [get in touch](https://mainmatter.com/contact/).
 
 You can also take the courses on your own, but we recommend you find a friend or
 a mentor to help you along the way should you get stuck. You can

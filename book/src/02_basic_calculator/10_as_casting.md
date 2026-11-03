@@ -88,7 +88,7 @@ explore later in the course.
 
 ### Limitations
 
-Surprising behaviour is not the only downside of `as` casting.
+Surprising behavior is not the only downside of `as` casting.
 It is also fairly limited: you can only rely on `as` casting
 for primitive types and a few other special cases.\
 When working with composite types, you'll have to rely on
@@ -98,5 +98,5 @@ and [infallible](../04_traits/09_from.md)), which we'll explore later on.
 ## Further reading
 
 - Check out [Rust's official reference](https://doc.rust-lang.org/reference/expressions/operator-expr.html#numeric-cast)
-  to learn the precise behaviour of `as` casting for each source/target combination,
+  to learn the precise behavior of `as` casting for each source/target combination,
   as well as the exhaustive list of allowed conversions.

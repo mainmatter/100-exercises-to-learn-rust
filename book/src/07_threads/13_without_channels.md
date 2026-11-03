@@ -11,7 +11,7 @@ Our first implementation of a multithreaded ticket store used:
 
 No locking of the state was necessary, since the server was the only one modifying the state. That's because
 the "inbox" channel naturally **serialized** incoming requests: the server would process them one by one.\
-We've already discussed the limitations of this approach when it comes to patching behaviour, but we didn't
+We've already discussed the limitations of this approach when it comes to patching behavior, but we didn't
 discuss the performance implications of the original design: the server could only process one request at a time,
 including reads.
 

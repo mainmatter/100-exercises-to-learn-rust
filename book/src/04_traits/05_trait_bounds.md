@@ -2,8 +2,8 @@
 
 We've seen two use cases for traits so far:
 
-- Unlocking "built-in" behaviour (e.g. operator overloading)
-- Adding new behaviour to existing types (i.e. extension traits)
+- Unlocking "built-in" behavior (e.g. operator overloading)
+- Adding new behavior to existing types (i.e. extension traits)
 
 There's a third use case: **generic programming**.
 
@@ -120,8 +120,8 @@ help: consider restricting type parameter `T`
 
 Without trait bounds, the compiler doesn't know what `T` **can do**.\
 It doesn't know that `T` has an `is_even` method, and it doesn't know how to format `T` for printing.
-From the compiler point of view, a bare `T` has no behaviour at all.\
-Trait bounds restrict the set of types that can be used by ensuring that the behaviour required by the function
+From the compiler point of view, a bare `T` has no behavior at all.\
+Trait bounds restrict the set of types that can be used by ensuring that the behavior required by the function
 body is present.
 
 ## Syntax: inlining trait bounds
