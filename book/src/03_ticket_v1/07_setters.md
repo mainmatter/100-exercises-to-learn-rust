@@ -29,10 +29,10 @@ are respected (i.e. you can't set a `Ticket`'s title to an empty string).
 
 There are two common ways to implement setters in Rust:
 
-- Taking `self` as input.
+- Taking `mut self` as input.
 - Taking `&mut self` as input.
 
-### Taking `self` as input
+### Taking `mut self` as input
 
 The first approach looks like this:
 
