@@ -1,27 +1,24 @@
-# Update operations
+# 更新操作 (パッチ適用)
 
-So far we've implemented only insertion and retrieval operations.\
-Let's see how we can expand the system to provide an update operation.
+これまでは挿入（insert）と取得（get）の操作のみを実装してきました。\
+ここからは、システムを拡張して更新（update）操作を提供する方法を見ていきましょう。
 
-## Legacy updates
+## 従来の更新方法
 
-In the non-threaded version of the system, updates were fairly straightforward: `TicketStore` exposed a
-`get_mut` method that allowed the caller to obtain a mutable reference to a ticket, and then modify it.
+シングルスレッド版のシステムでは、更新は非常に簡単でした。`TicketStore` が `get_mut` メソッドを公開しており、呼び出し元はそれを使ってチケットへの可変参照を取得し、直接変更することができました。
 
-## Multithreaded updates
+## マルチスレッドでの更新
 
-The same strategy won't work in the current multithreaded version. The borrow checker would
-stop us: `SyncSender<&mut Ticket>` isn't `'static` because `&mut Ticket` doesn't satisfy the `'static` lifetime, therefore
-they can't be captured by the closure that gets passed to `std::thread::spawn`.
+現在のマルチスレッド版では、同じ戦略は機能しません。ボローチェッカーがそれを止めるからです。`&mut Ticket` は `'static` ライフタイムを満たさないため、`SyncSender<&mut Ticket>` も `'static` にならず、`std::thread::spawn` に渡されるクロージャによってキャプチャすることができません。
 
-There are a few ways to work around this limitation. We'll explore a few of them in the following exercises.
+この制限を回避する方法はいくつかあります。これからのいくつかの演習でそれらを探求していきましょう。
 
-### Patching
+### パッチ適用 (Patching)
 
-We can't send a `&mut Ticket` over a channel, therefore we can't mutate on the client-side.\
-Can we mutate on the server-side?
+チャネルを介して `&mut Ticket` を送信することはできないため、クライアント側で直接変更を行うことはできません。\
+では、サーバー側で変更を行うことはできるでしょうか？
 
-We can, if we tell the server what needs to be changed. In other words, if we send a **patch** to the server:
+何を変更する必要があるかをサーバーに伝えれば可能です。言い換えれば、サーバーに**パッチ (patch)** を送信すればよいのです：
 
 ```rust
 struct TicketPatch {
@@ -32,8 +29,8 @@ struct TicketPatch {
 }
 ```
 
-The `id` field is mandatory, since it's required to identify the ticket that needs to be updated.\
-All other fields are optional:
+`id` フィールドは、更新が必要なチケットを特定するために不可欠なので必須です。\
+その他のすべてのフィールドはオプショナル（`Option`）になっています：
 
-- If a field is `None`, it means that the field should not be changed.
-- If a field is `Some(value)`, it means that the field should be changed to `value`.
+- フィールドが `None` の場合、そのフィールドは変更すべきではないことを意味します。
+- フィールドが `Some(value)` の場合、そのフィールドを `value` に変更すべきであることを意味します。

@@ -1,13 +1,12 @@
-// TODO: Define a new `Order` type.
-//   It should keep track of three pieces of information: `product_name`, `quantity`, and `unit_price`.
-//   The product name can't be empty and it can't be longer than 300 bytes.
-//   The quantity must be strictly greater than zero.
-//   The unit price is in cents and must be strictly greater than zero.
-//   Order must include a method named `total` that returns the total price of the order.
-//   Order must provide setters and getters for each field.
+// TODO: 新しい `Order` 型を定義してください。
+//   これには `product_name`、`quantity`、`unit_price` の3つの情報を保持する必要があります。
+//   商品名 (`product_name`) は空であってはならず、300バイトより長くてはなりません。
+//   数量 (`quantity`) は 0 より厳密に大きくなければなりません。
+//   単価 (`unit_price`) はセント単位であり、0 より厳密に大きくなければなりません。
+//   `Order` には、注文の合計金額を返す `total` という名前のメソッドを含める必要があります。
+//   `Order` は各フィールドに対するセッターとゲッターを提供する必要があります。
 //
-// Tests are located in a different place this time—in the `tests` folder.
-// The `tests` folder is a special location for `cargo`. It's where it looks for **integration tests**.
-// Integration here has a very specific meaning: they test **the public API** of your project.
-// You'll need to pay attention to the visibility of your types and methods; integration
-// tests can't access private or `pub(crate)` items.
+// 今回はテストが異なる場所（`tests` フォルダ）にあります。
+// `tests` フォルダは `cargo` にとって特別な場所であり、**統合テスト (integration tests)** を探す場所です。
+// ここでの「統合」には非常に具体的な意味があります。プロジェクトの**公開API (public API)** をテストするということです。
+// 型やメソッドの可視性に注意を払う必要があります。統合テストからは、非公開または `pub(crate)` のアイテムにはアクセスできません。

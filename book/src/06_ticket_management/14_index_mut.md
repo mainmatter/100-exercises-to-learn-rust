@@ -1,20 +1,18 @@
-# Mutable indexing
+# 可変インデックスアクセス (`IndexMut` トレイト)
 
-`Index` allows read-only access. It doesn't let you mutate the value you
-retrieved.
+`Index` は読み取り専用のアクセスを許可しますが、取得した値を変更（ミューテート）することはできません。
 
 ## `IndexMut`
 
-If you want to allow mutability, you need to implement the `IndexMut` trait.
+可変性を許可したい場合は、`IndexMut` トレイトを実装する必要があります。
 
 ```rust
-// Slightly simplified
+// 少し簡略化しています
 pub trait IndexMut<Idx>: Index<Idx>
 {
-    // Required method
+    // 必須メソッド
     fn index_mut(&mut self, index: Idx) -> &mut Self::Output;
 }
 ```
 
-`IndexMut` can only be implemented if the type already implements `Index`,
-since it unlocks an _additional_ capability.
+`IndexMut` は*追加の*機能を解禁するものであるため、その型がすでに `Index` を実装している場合にのみ実装できます。

@@ -1,19 +1,17 @@
-# Error enums
+# エラー列挙型 (Error enums)
 
-Your solution to the previous exercise may have felt awkward: matching on strings is not ideal!\
-A colleague might rework the error messages returned by `Ticket::new` (e.g. to improve readability) and,
-all of a sudden, your calling code would break.
+前回の演習の解答は、少しぎこちなく感じたかもしれません。文字列に対してパターンマッチを行うのは理想的とは言えませんよね！\
+もし同僚が（可読性を向上させるためなどで）`Ticket::new` が返すエラーメッセージを書き換えたら、突然あなたの呼び出し側のコードが壊れてしまいます。
 
-You already know the machinery required to fix this: enums!
+これを修正するために必要な仕組みはすでに知っています。列挙型（`enum`）です！
 
-## Reacting to errors
+## エラーに応じた処理
 
-When you want to allow the caller to behave differently based on the specific error that occurred, you can
-use an enum to represent the different error cases:
+発生した特定のエラーに基づいて呼び出し元が異なる振る舞いをできるようにしたい場合、列挙型を使用してさまざまなエラーケースを表現できます：
 
 ```rust
-// An error enum to represent the different error cases
-// that may occur when parsing a `u32` from a string.
+// 文字列から `u32` をパースする際に発生する可能性のある
+// さまざまなエラーケースを表すエラー列挙型。
 enum U32ParseError {
     NotANumber,
     TooLarge,
@@ -21,10 +19,8 @@ enum U32ParseError {
 }
 ```
 
-Using an error enum, you're encoding the different error cases in the type system—they become part of the
-signature of the fallible function.\
-This simplifies error handling for the caller, as they can use a `match` expression to react to the different
-error cases:
+エラー列挙型を使用すると、さまざまなエラーケースを型システムに組み込むことになり、それらが失敗する可能性のある関数のシグネチャの一部になります。\
+これにより、呼び出し元は `match` 式を使用してそれぞれのエラーケースに対応できるため、エラー処理が簡素化されます：
 
 ```rust
 match s.parse_u32() {

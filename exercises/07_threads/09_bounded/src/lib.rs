@@ -1,4 +1,4 @@
-// TODO: Convert the implementation to use bounded channels.
+// TODO: 有界チャネルを使用するように実装を変更してください。
 use crate::data::{Ticket, TicketDraft};
 use crate::store::{TicketId, TicketStore};
 use std::sync::mpsc::{Receiver, Sender};
@@ -57,8 +57,8 @@ pub fn server(receiver: Receiver<Command>) {
                 todo!()
             }
             Err(_) => {
-                // There are no more senders, so we can safely break
-                // and shut down the server.
+                // 送信側（Sender）がもう存在しないため、安全に break して
+                // サーバーをシャットダウンできます。
                 break;
             }
         }

@@ -1,27 +1,27 @@
-# Iteration
+# イテレーション (反復処理)
 
-During the very first exercises, you learned that Rust lets you iterate over collections using `for` loops.
-We were looking at ranges at that point (e.g. `0..5`), but the same holds true for collections like arrays and vectors.
+ごく初期の演習の中で、Rustでは `for` ループを使ってコレクションを反復処理（イテレート）できることを学びました。
+その時点では範囲（例：`0..5`）を見ていましたが、配列やベクタのようなコレクションに対しても同じことが言えます。
 
 ```rust
-// It works for `Vec`s
+// `Vec` に対して機能します
 let v = vec![1, 2, 3];
 for n in v {
     println!("{}", n);
 }
 
-// It also works for arrays
+// 配列に対しても機能します
 let a: [u32; 3] = [1, 2, 3];
 for n in a {
     println!("{}", n);
 }
 ```
 
-It's time to understand how this works under the hood.
+これが内部でどのように機能しているのかを理解する時が来ました。
 
-## `for` desugaring
+## `for` の脱糖 (Desugaring)
 
-Every time you write a `for` loop in Rust, the compiler _desugars_ it into the following code:
+Rustで `for` ループを書くたびに、コンパイラはそれを以下のコードに*脱糖 (desugar / 糖衣構文を展開)*します：
 
 ```rust
 let mut iter = IntoIterator::into_iter(v);
@@ -35,14 +35,13 @@ loop {
 }
 ```
 
-`loop` is another looping construct, on top of `for` and `while`.\
-A `loop` block will run forever, unless you explicitly `break` out of it.
+`loop` は、`for` や `while` に加わるもう1つのループ構造です。\
+`loop` ブロックは、明示的に `break` で抜け出さない限り、永久に実行され続けます。
 
-## `Iterator` trait
+## `Iterator` トレイト
 
-The `next` method in the previous code snippet comes from the `Iterator` trait.
-The `Iterator` trait is defined in Rust's standard library and provides a shared interface for
-types that can produce a sequence of values:
+先ほどのコードスニペットの `next` メソッドは、`Iterator` トレイトに由来するものです。
+`Iterator` トレイトはRustの標準ライブラリで定義されており、一連の値を生成できる型に対して共通のインターフェースを提供します：
 
 ```rust
 trait Iterator {
@@ -51,19 +50,17 @@ trait Iterator {
 }
 ```
 
-The `Item` associated type specifies the type of the values produced by the iterator.
+関連型 `Item` は、イテレータによって生成される値の型を指定します。
 
-`next` returns the next value in the sequence.\
-It returns `Some(value)` if there's a value to return, and `None` when there isn't.
+`next` はシーケンス内の次の値を返します。\
+返す値がある場合は `Some(value)` を返し、ない場合は `None` を返します。
 
-Be careful: there is no guarantee that an iterator is exhausted when it returns `None`. That's only
-guaranteed if the iterator implements the (more restrictive)
-[`FusedIterator`](https://doc.rust-lang.org/std/iter/trait.FusedIterator.html) trait.
+注意してください。イテレータが `None` を返したからといって、そのイテレータが枯渇した（以降もずっと `None` を返し続ける）という保証はありません。それが保証されるのは、イテレータが（より制約の強い）[`FusedIterator`](https://doc.rust-lang.org/std/iter/trait.FusedIterator.html) トレイトを実装している場合のみです。
 
-## `IntoIterator` trait
+## `IntoIterator` トレイト
 
-Not all types implement `Iterator`, but many can be converted into a type that does.\
-That's where the `IntoIterator` trait comes in:
+すべての型が `Iterator` を実装しているわけではありませんが、多くの型は `Iterator` を実装する型に変換できます。\
+そこで登場するのが `IntoIterator` トレイトです：
 
 ```rust
 trait IntoIterator {
@@ -73,18 +70,18 @@ trait IntoIterator {
 }
 ```
 
-The `into_iter` method consumes the original value and returns an iterator over its elements.\
-A type can only have one implementation of `IntoIterator`: there can be no ambiguity as to what `for` should desugar to.
+`into_iter` メソッドは元の値を消費し、その要素に対するイテレータを返します。\
+ある型が持つことができる `IntoIterator` の実装はただ1つだけです。`for` が何に脱糖されるべきかについて曖昧さがあってはならないからです。
 
-One detail: every type that implements `Iterator` automatically implements `IntoIterator` as well.
-They just return themselves from `into_iter`!
+細かい点ですが、`Iterator` を実装するすべての型は、自動的に `IntoIterator` も実装します。
+`into_iter` から単に自分自身を返すだけです！
 
-## Bounds checks
+## 境界チェック (Bounds checks)
 
-Iterating over iterators has a nice side effect: you can't go out of bounds, by design.\
-This allows Rust to remove bounds checks from the generated machine code, making iteration faster.
+イテレータを使った反復処理には嬉しい副作用があります。設計上、境界外（範囲外）に出ることがあり得ないのです。\
+これにより、Rustは生成される機械語コードから境界チェックを取り除くことができ、反復処理がより高速になります。
 
-In other words,
+つまり、
 
 ```rust
 let v = vec![1, 2, 3];
@@ -93,7 +90,7 @@ for n in v {
 }
 ```
 
-is usually faster than
+は通常、次のコードよりも高速です：
 
 ```rust
 let v = vec![1, 2, 3];
@@ -102,6 +99,4 @@ for i in 0..v.len() {
 }
 ```
 
-There are exceptions to this rule: the compiler can sometimes prove that you're not going out of bounds even
-with manual indexing, thus removing the bounds checks anyway. But in general, prefer iteration to indexing
-where possible.
+このルールには例外もあります。手動でインデックスアクセスを行っていても、境界外に出ないことをコンパイラが証明できる場合があり、その場合はいずれにせよ境界チェックが削除されます。しかし一般的には、可能な限りインデックスアクセスよりもイテレータによる反復処理を優先してください。

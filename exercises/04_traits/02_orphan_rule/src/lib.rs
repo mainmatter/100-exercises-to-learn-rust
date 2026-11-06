@@ -1,8 +1,7 @@
-// TODO: this is an example of an orphan rule violation.
-//  We're implementing a foreign trait (`PartialEq`, from `std`) on
-//  a foreign type (`u32`, from `std`).
-//  Look at the compiler error to get familiar with what it looks like.
-//  Then delete the code below and move on to the next exercise.
+// TODO: これはオーファンルール違反の例です。
+//  外部の型（`std` の `u32`）に対して、外部のトレイト（`std` の `PartialEq`）を実装しようとしています。
+//  コンパイルエラーを見て、どのようなエラーメッセージになるか確認してください。
+//  その後、以下のコードを削除して次の演習に進んでください。
 
 impl PartialEq for u32 {
     fn eq(&self, _other: &Self) -> bool {

@@ -1,7 +1,7 @@
-# Panics
+# パニック (Panics)
 
-Let's go back to the `speed` function you wrote for the ["Variables" section](02_variables.md).
-It probably looked something like this:
+[「変数」セクション](02_variables.md)で書いた `speed` 関数に戻りましょう。
+おそらく次のようなコードだったはずです：
 
 ```rust
 fn speed(start: u32, end: u32, time_elapsed: u32) -> u32 {
@@ -10,45 +10,40 @@ fn speed(start: u32, end: u32, time_elapsed: u32) -> u32 {
 }
 ```
 
-If you have a keen eye, you might have spotted one issue[^one]: what happens if `time_elapsed` is zero?
+鋭い目をお持ちの方なら、1つ問題点[^one]に気づいたかもしれません。もし `time_elapsed` が 0 だったらどうなるでしょうか？
 
-You can try it
-out [on the Rust playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=36e5ddbe3b3f741dfa9f74c956622bac)!\
-The program will exit with the following error message:
+[Rust Playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=36e5ddbe3b3f741dfa9f74c956622bac) で実際に試してみることができます！\
+プログラムは以下のエラーメッセージを出して終了します：
 
 ```text
 thread 'main' panicked at src/main.rs:3:5:
 attempt to divide by zero
 ```
 
-This is known as a **panic**.\
-A panic is Rust's way to signal that something went so wrong that
-the program can't continue executing, it's an **unrecoverable error**[^catching]. Division by zero classifies as such an
-error.
+これは**パニック (panic)** と呼ばれます。\
+パニックとは、プログラムの実行を継続できないほど深刻な問題が発生したことを知らせるRustの仕組みであり、**回復不能なエラー (unrecoverable error)**[^catching] です。ゼロ除算はそのようなエラーに分類されます。
 
-## The panic! macro
+## `panic!` マクロ
 
-You can intentionally trigger a panic by calling the `panic!` macro[^macro]:
+`panic!` マクロ[^macro]を呼び出すことで、意図的にパニックを引き起こすことができます：
 
 ```rust
 fn main() {
     panic!("This is a panic!");
-    // The line below will never be executed
+    // 以下の行は決して実行されません
     let x = 1 + 2;
 }
 ```
 
-There are other mechanisms to work with recoverable errors in Rust, which [we'll cover later](../05_ticket_v2/06_fallibility.md).
-For the time being we'll stick with panics as a brutal but simple stopgap solution.
+Rustには回復可能なエラーを扱うための他の仕組みもあり、それについては[後半で説明します](../05_ticket_v2/06_fallibility.md)。
+当面の間は、乱暴ですがシンプルな一時しのぎの解決策としてパニックを使っていきます。
 
-## Further reading
+## さらに詳しく知りたい方へ
 
-- [The panic! macro documentation](https://doc.rust-lang.org/std/macro.panic.html)
+- [`panic!` マクロのドキュメント](https://doc.rust-lang.org/std/macro.panic.html)
 
-[^one]: There's another issue with `speed` that we'll address soon enough. Can you spot it?
+[^one]: `speed` にはもう1つ問題があり、それについてもすぐ後で対処します。どこだかわかりますか？
 
-[^catching]: You can try to catch a panic, but it should be a last resort attempt reserved for very specific
-circumstances.
+[^catching]: パニックをキャッチ（捕捉）しようとすることも可能ですが、それは非常に特殊な状況に限定された最終手段とすべきです。
 
-[^macro]: If it's followed by a `!`, it's a macro invocation. Think of macros as spicy functions for now. We'll
-cover them in more detail later in the course.
+[^macro]: 名前の後ろに `!` が付いている場合、それはマクロ呼び出しです。今のところは、マクロを「ちょっと特別な関数」くらいに考えておいてください。コースの後半でより詳しく説明します。

@@ -1,16 +1,15 @@
-# A Basic Calculator
+# 基本的な電卓
 
-In this chapter we'll learn how to use Rust as a **calculator**.\
-It might not sound like much, but it'll give us a chance to cover a lot of Rust's basics, such as:
+この章では、Rustを**電卓**として使う方法を学びます。\
+大したことのないように聞こえるかもしれませんが、これによって以下のようなRustの基礎の多くをカバーする機会が得られます：
 
-- How to define and call functions
-- How to declare and use variables
-- Primitive types (integers and booleans)
-- Arithmetic operators (including overflow and underflow behavior)
-- Comparison operators
-- Control flow
-- Panics
+- 関数の定義と呼び出し方
+- 変数の宣言と使い方
+- プリミティブ型（整数と真偽値）
+- 算術演算子（オーバーフローとアンダーフローの挙動を含む）
+- 比較演算子
+- 制御フロー
+- パニック
 
-Nailing the basics with a few exercises will get the language flowing under your fingers.
-When we move on to more complex topics, such as traits and ownership, you'll be able to focus on the new concepts
-without getting bogged down by the syntax or other trivial details.
+いくつかの演習を通して基礎をしっかり固めることで、言語が指先に馴染んでいきます。
+トレイトや所有権といった、より複雑なトピックに進んだときにも、構文やその他の些細な詳細に足を取られることなく、新しい概念に集中できるようになります。

@@ -1,53 +1,52 @@
-# Destructors
+# デストラクタ (Destructors)
 
-When introducing the heap, we mentioned that you're responsible for freeing the memory you allocate.\
-When introducing the borrow-checker, we also stated that you rarely have to manage memory directly in Rust.
+ヒープを紹介した際、割り当てたメモリを解放する責任は開発者にあると述べました。\
+また、ボローチェッカーを紹介した際には、Rustではメモリを直接管理しなければならないことは滅多にないとも述べました。
 
-These two statements might seem contradictory at first.
-Let's see how they fit together by introducing **scopes** and **destructors**.
+これら2つの記述は、一見すると矛盾しているように思えるかもしれません。
+**スコープ (scopes)** と**デストラクタ (destructors)** を導入することで、これらがどのように噛み合っているのかを見ていきましょう。
 
-## Scopes
+## スコープ (Scopes)
 
-The **scope** of a variable is the region of Rust code where that variable is valid, or **alive**.
+変数の**スコープ**とは、その変数が有効である（または**生きている (alive)**）Rustコードの領域のことです。
 
-The scope of a variable starts with its declaration.
-It ends when one of the following happens:
+変数のスコープは、その宣言から始まります。
+そして、次のいずれかが発生したときに終了します：
 
-1. the block (i.e. the code between `{}`) where the variable was declared ends
+1. 変数が宣言されたブロック（つまり `{}` の間のコード）が終了したとき
    ```rust
    fn main() {
-      // `x` is not yet in scope here
+      // `x` はここではまだスコープに入っていません
       let y = "Hello".to_string();
-      let x = "World".to_string(); // <-- x's scope starts here...
+      let x = "World".to_string(); // <-- x のスコープはここから始まり...
       let h = "!".to_string(); //   |
-   } //  <-------------- ...and ends here
+   } //  <-------------- ...ここで終わります
    ```
-2. ownership of the variable is transferred to someone else (e.g. a function or another variable)
+2. 変数の所有権が他の誰か（関数や別の変数など）に譲渡（ムーブ）されたとき
    ```rust
    fn compute(t: String) {
-      // Do something [...]
+      // 何か処理をする [...]
    }
 
    fn main() {
-       let s = "Hello".to_string(); // <-- s's scope starts here...
+       let s = "Hello".to_string(); // <-- s のスコープはここから始まり...
                    //                    | 
-       compute(s); // <------------------- ..and ends here
-                   //   because `s` is moved into `compute`
+       compute(s); // <------------------- ..ここで終わります
+                   //   `s` が `compute` にムーブされるためです
    }
    ```
 
-## Destructors
+## デストラクタ (Destructors)
 
-When the owner of a value goes out of scope, Rust invokes its **destructor**.\
-The destructor tries to clean up the resources used by that value—in particular, whatever memory it allocated.
+値の所有者がスコープを抜けると、Rustはその**デストラクタ (destructor)** を呼び出します。\
+デストラクタは、その値によって使用されていたリソース（特に、割り当てられたあらゆるメモリ）をクリーンアップしようとします。
 
-You can manually invoke the destructor of a value by passing it to `std::mem::drop`.\
-That's why you'll often hear Rust developers saying "that value has been **dropped**" as a way to state that a value
-has gone out of scope and its destructor has been invoked.
+値を `std::mem::drop` に渡すことで、その値のデストラクタを手動で呼び出すこともできます。\
+そのため、Rust開発者が「値がスコープを抜けてデストラクタが呼び出された」という意味で、「その値は**ドロップされた (dropped)**」と表現するのをよく耳にするでしょう。
 
-### Visualizing drop points
+### ドロップ位置の可視化
 
-We can insert explicit calls to `drop` to "spell out" what the compiler does for us. Going back to the previous example:
+コンパイラが私たちのために行ってくれることを「明示する」ために、`drop` の明示的な呼び出しを挿入してみることができます。先ほどの例に戻りましょう：
 
 ```rust
 fn main() {
@@ -57,25 +56,25 @@ fn main() {
 }
 ```
 
-It's equivalent to:
+これは以下と等価です：
 
 ```rust
 fn main() {
    let y = "Hello".to_string();
    let x = "World".to_string();
    let h = "!".to_string();
-   // Variables are dropped in reverse order of declaration
+   // 変数は宣言された順序と逆の順序でドロップされます
    drop(h);
    drop(x);
    drop(y);
 }
 ```
 
-Let's look at the second example instead, where `s`'s ownership is transferred to `compute`:
+次は、`s` の所有権が `compute` に譲渡される2つ目の例を見てみましょう：
 
 ```rust
 fn compute(s: String) {
-   // Do something [...]
+   // 何か処理をする [...]
 }
 
 fn main() {
@@ -84,14 +83,14 @@ fn main() {
 }
 ```
 
-It's equivalent to this:
+これは以下と等価です：
 
 ```rust
 fn compute(t: String) {
-    // Do something [...]
-    drop(t); // <-- Assuming `t` wasn't dropped or moved 
-             //     before this point, the compiler will call 
-             //     `drop` here, when it goes out of scope
+    // 何か処理をする [...]
+    drop(t); // <-- この時点より前に `t` がドロップされたりムーブされたり
+             //     していないと仮定すると、スコープを抜けるここで
+             //     コンパイラが `drop` を呼び出します
 }
 
 fn main() {
@@ -100,16 +99,14 @@ fn main() {
 }
 ```
 
-Notice the difference: even though `s` is no longer valid after `compute` is called in `main`, there is no `drop(s)`
-in `main`.
-When you transfer ownership of a value to a function, you're also **transferring the responsibility of cleaning it up**.
+違いに注目してください。`main` 内で `compute` が呼び出された後、`s` はもはや有効ではありませんが、`main` 内には `drop(s)` がありません。
+値の所有権を関数に譲渡すると、**それをクリーンアップする責任も譲渡する**ことになるのです。
 
-This ensures that the destructor for a value is called **at most[^leak] once**, preventing
-[double free bugs](https://owasp.org/www-community/vulnerabilities/Doubly_freeing_memory) by design.
+これにより、ある値に対するデストラクタが**高々[^leak]1回だけ**呼び出されることが保証され、設計上[二重解放バグ (double free bugs)](https://owasp.org/www-community/vulnerabilities/Doubly_freeing_memory) が防止されます。
 
-### Use after drop
+### ドロップ後の使用 (Use after drop)
 
-What happens if you try to use a value after it's been dropped?
+値がドロップされた後にそれを使用しようとするとどうなるでしょうか？
 
 ```rust
 let x = "Hello".to_string();
@@ -117,7 +114,7 @@ drop(x);
 println!("{}", x);
 ```
 
-If you try to compile this code, you'll get an error:
+このコードをコンパイルしようとすると、エラーが発生します：
 
 ```rust
 error[E0382]: use of moved value: `x`
@@ -129,13 +126,13 @@ error[E0382]: use of moved value: `x`
   |                    ^ value used here after move
 ```
 
-Drop **consumes** the value it's called on, meaning that the value is no longer valid after the call.\
-The compiler will therefore prevent you from using it, avoiding [use-after-free bugs](https://owasp.org/www-community/vulnerabilities/Using_freed_memory).
+`drop` は呼び出された対象の値を**消費**します。つまり、呼び出しの後、その値はもはや有効ではありません。\
+したがって、コンパイラはそれを使用することを防ぎ、[解放後使用バグ (use-after-free bugs)](https://owasp.org/www-community/vulnerabilities/Using_freed_memory) を回避します。
 
-### Dropping references
+### 参照のドロップ
 
-What if a variable contains a reference?\
-For example:
+変数が参照を保持している場合はどうなるでしょうか？\
+例えば：
 
 ```rust
 let x = 42i32;
@@ -143,8 +140,8 @@ let y = &x;
 drop(y);
 ```
 
-When you call `drop(y)`... nothing happens.\
-If you actually try to compile this code, you'll get a warning:
+`drop(y)` を呼び出しても……何も起こりません。\
+実際にこのコードをコンパイルしようとすると、警告が表示されます：
 
 ```text
 warning: calls to `std::mem::drop` with a reference 
@@ -158,12 +155,9 @@ warning: calls to `std::mem::drop` with a reference
   |
 ```
 
-It goes back to what we said earlier: we only want to call the destructor once.\
-You can have multiple references to the same value—if we called the destructor for the value they point at
-when one of them goes out of scope, what would happen to the others?
-They would refer to a memory location that's no longer valid: a so-called [**dangling pointer**](https://en.wikipedia.org/wiki/Dangling_pointer),
-a close relative of [**use-after-free bugs**](https://owasp.org/www-community/vulnerabilities/Using_freed_memory).
-Rust's ownership system rules out these kinds of bugs by design.
+これは先ほど述べたことに立ち返ります。デストラクタは1回だけ呼び出したいのです。\
+同じ値に対して複数の参照を持つことができます。もし、そのうちの1つがスコープを抜けたときに、指し示している値のデストラクタを呼び出してしまったら、残りの参照はどうなってしまうでしょうか？
+それらはもはや有効ではないメモリ位置を参照することになります。いわゆる[**ダングリングポインタ (dangling pointer)**](https://en.wikipedia.org/wiki/Dangling_pointer) であり、[**解放後使用バグ (use-after-free bugs)**](https://owasp.org/www-community/vulnerabilities/Using_freed_memory) の近親者です。
+Rustの所有権システムは、設計上このような種類のバグを排除しています。
 
-[^leak]: Rust doesn't guarantee that destructors will run. They won't, for example, if
-you explicitly choose to [leak memory](../07_threads/03_leak.md).
+[^leak]: Rustはデストラクタが必ず実行されることを保証しているわけではありません。例えば、明示的に[メモリをリークさせる](../07_threads/03_leak.md)ことを選択した場合などには実行されません。

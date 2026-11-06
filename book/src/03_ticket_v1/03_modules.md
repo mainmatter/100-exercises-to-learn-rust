@@ -1,17 +1,15 @@
-# Modules
+# モジュール (Modules)
 
-The `new` method you've just defined is trying to enforce some **constraints** on the field values for `Ticket`.
-But are those invariants really enforced? What prevents a developer from creating a `Ticket`
-without going through `Ticket::new`?
+先ほど定義した `new` メソッドは、`Ticket` のフィールド値に対していくつかの**制約**を強制しようとしています。
+しかし、それらの不変条件（インバリアント）は本当に守られているでしょうか？開発者が `Ticket::new` を経由せずに `Ticket` を作成するのを、何が防いでくれるのでしょうか？
 
-To get proper **encapsulation** you need to become familiar with two new concepts: **visibility** and **modules**.
-Let's start with modules.
+適切な**カプセル化 (encapsulation)** を実現するには、**可視性 (visibility)** と**モジュール (modules)** という2つの新しい概念に慣れる必要があります。
+まずはモジュールから始めましょう。
 
-## What is a module?
+## モジュールとは何か？
 
-In Rust a **module** is a way to group related code together, under a common namespace (i.e. the module's name).\
-You've already seen modules in action: the unit tests that verify the correctness of your code are defined in a
-different module, named `tests`.
+Rustにおける**モジュール (module)** とは、関連するコードを共通の名前空間（つまりモジュール名）の下にグループ化する方法です。\
+すでにモジュールが実際に使われているのを見たことがあります。コードの正しさを検証するユニットテストは、`tests` という名前の別のモジュール内で定義されています。
 
 ```rust
 #[cfg(test)]
@@ -20,105 +18,97 @@ mod tests {
 }
 ```
 
-## Inline modules
+## インラインモジュール
 
-The `tests` module above is an example of an **inline module**: the module declaration (`mod tests`) and the module
-contents (the stuff inside `{ ... }`) are next to each other.
+上記の `tests` モジュールは、**インラインモジュール (inline module)** の一例です。モジュールの宣言 (`mod tests`) とモジュールの内容（`{ ... }` の中身）が同じ場所に並んでいます。
 
-## Module tree
+## モジュールツリー
 
-Modules can be nested, forming a **tree** structure.\
-The root of the tree is the **crate** itself, which is the top-level module that contains all the other modules.
-For a library crate, the root module is usually `src/lib.rs` (unless its location has been customized).
-The root module is also known as the **crate root**.
+モジュールは入れ子（ネスト）にすることができ、**ツリー（木）**構造を形成します。\
+ツリーの根（ルート）は**クレート (crate)** そのものであり、他のすべてのモジュールを含むトップレベルのモジュールです。
+ライブラリクレートの場合、ルートモジュールは通常 `src/lib.rs` です（場所がカスタマイズされていない限り）。
+ルートモジュールは**クレートルート (crate root)** とも呼ばれます。
 
-The crate root can have submodules, which in turn can have their own submodules, and so on.
+クレートルートはサブモジュールを持つことができ、そのサブモジュールはさらに自身のサブモジュールを持つことができる、といった具合です。
 
-## External modules and the filesystem
+## 外部モジュールとファイルシステム
 
-Inline modules are useful for small pieces of code, but as your project grows you'll want to split your code into
-multiple files. In the parent module, you declare the existence of a submodule using the `mod` keyword.
+インラインモジュールは小さなコード片には便利ですが、プロジェクトが大きくなるにつれて、コードを複数のファイルに分割したくなるでしょう。親モジュールでは、`mod` キーワードを使用してサブモジュールの存在を宣言します。
 
 ```rust
 mod dog;
 ```
 
-`cargo`, Rust's build tool, is then in charge of finding the file that contains
-the module implementation.\
-If your module is declared in the root of your crate (e.g. `src/lib.rs` or `src/main.rs`),
-`cargo` expects the file to be named either:
+すると、Rustのビルドツールである `cargo` が、そのモジュールの実装を含むファイルを見つける役割を担います。\
+モジュールがクレートのルート（例：`src/lib.rs` や `src/main.rs`）で宣言されている場合、`cargo` はファイル名が次のいずれかであることを期待します：
 
-- `src/<module_name>.rs`
-- `src/<module_name>/mod.rs`
+- `src/<モジュール名>.rs`
+- `src/<モジュール名>/mod.rs`
 
-If your module is a submodule of another module, the file should be named:
+モジュールが別のモジュールのサブモジュールである場合、ファイル名は次のいずれかである必要があります：
 
-- `[..]/<parent_module>/<module_name>.rs`
-- `[..]/<parent_module>/<module_name>/mod.rs`
+- `[..]/<親モジュール>/<モジュール名>.rs`
+- `[..]/<親モジュール>/<モジュール名>/mod.rs`
 
-E.g. `src/animals/dog.rs` or `src/animals/dog/mod.rs` if `dog` is a submodule of `animals`.
+例えば、`dog` が `animals` のサブモジュールである場合、`src/animals/dog.rs` または `src/animals/dog/mod.rs` となります。
 
-Your IDE might help you create these files automatically when you declare a new module using the `mod` keyword.
+`mod` キーワードを使用して新しいモジュールを宣言すると、IDEがこれらのファイルを自動的に作成するのを手伝ってくれる場合があります。
 
-## Item paths and `use` statements
+## アイテムのパスと `use` 文
 
-You can access items defined in the same module without any special syntax. You just use their name.
+同じモジュール内で定義されたアイテムには、特別な構文なしでアクセスできます。単にその名前を使うだけです。
 
 ```rust
 struct Ticket {
     // [...]
 }
 
-// No need to qualify `Ticket` in any way here
-// because we're in the same module
+// 同じモジュール内にいるため、ここで `Ticket` を
+// 修飾する必要はありません
 fn mark_ticket_as_done(ticket: Ticket) {
     // [...]
 }
 ```
 
-That's not the case if you want to access an entity from a different module.\
-You have to use a **path** pointing to the entity you want to access.
+別のモジュールからエンティティにアクセスしたい場合はそうはいきません。\
+アクセスしたいエンティティを指す**パス (path)** を使用する必要があります。
 
-You can compose the path in various ways:
+パスはさまざまな方法で組み立てることができます：
 
-- starting from the root of the current crate, e.g. `crate::module_1::MyStruct`
-- starting from the parent module, e.g. `super::my_function`
-- starting from the current module, e.g. `sub_module_1::MyStruct`
+- 現在のクレートのルートから始める（例：`crate::module_1::MyStruct`）
+- 親モジュールから始める（例：`super::my_function`）
+- 現在のモジュールから始める（例：`sub_module_1::MyStruct`）
 
-Both `crate` and `super` are **keywords**.\
-`crate` refers to the root of the current crate, while `super` refers to the parent of the current module.
+`crate` と `super` はどちらも**キーワード**です。\
+`crate` は現在のクレートのルートを指し、`super` は現在のモジュールの親を指します。
 
-Having to write the full path every time you want to refer to a type can be cumbersome.
-To make your life easier, you can introduce a `use` statement to bring the entity into scope.
+型を参照するたびにフルパスを書かなければならないのは面倒です。
+作業を楽にするために、`use` 文を導入してエンティティをスコープ内に持ち込むことができます。
 
 ```rust
-// Bring `MyStruct` into scope
+// `MyStruct` をスコープに持ち込む
 use crate::module_1::module_2::MyStruct;
 
-// Now you can refer to `MyStruct` directly
+// これで `MyStruct` を直接参照できるようになります
 fn a_function(s: MyStruct) {
      // [...]
 }
 ```
 
-### Star imports
+### スターインポート (Star imports)
 
-You can also import all the items from a module with a single `use` statement.
+1つの `use` 文で、モジュールからすべてのアイテムをインポートすることもできます。
 
 ```rust
 use crate::module_1::module_2::*;
 ```
 
-This is known as a **star import**.\
-It is generally discouraged because it can pollute the current namespace, making it hard to understand
-where each name comes from and potentially introducing name conflicts.\
-Nonetheless, it can be useful in some cases, like when writing unit tests. You might have noticed
-that most of our test modules start with a `use super::*;` statement to bring all the items from the parent module
-(the one being tested) into scope.
+これは**スターインポート (star import)**（またはグロブインポート）と呼ばれます。\
+現在の名前空間を汚染し、各名前がどこから来たのかを理解しにくくし、名前の衝突を引き起こす可能性があるため、一般的には非推奨とされています。\
+とはいえ、ユニットテストを書くときなど、いくつかのケースでは便利です。私たちのテストモジュールのほとんどが、親モジュール（テスト対象）のすべてのアイテムをスコープに持ち込むために `use super::*;` 文で始まっていることに気づいたかもしれません。
 
-## Visualizing the module tree
+## モジュールツリーの可視化
 
-If you're struggling to picture the module tree of your project, you can try using
-[`cargo-modules`](https://crates.io/crates/cargo-modules) to visualize it!
+プロジェクトのモジュールツリーをイメージするのに苦労している場合は、[`cargo-modules`](https://crates.io/crates/cargo-modules) を使って可視化してみることができます！
 
-Refer to their documentation for installation instructions and usage examples.
+インストール手順と使用例については、そちらのドキュメントを参照してください。

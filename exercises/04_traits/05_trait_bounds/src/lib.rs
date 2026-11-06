@@ -1,11 +1,10 @@
-// TODO: Add the necessary trait bounds to `min` so that it compiles successfully.
-//   Refer to the documentation of the `std::cmp` module for more information on the traits you might need.
+// TODO: `min` が正常にコンパイルできるように、必要なトレイト境界を追加してください。
+//   必要になる可能性のあるトレイトの詳細については、`std::cmp` モジュールのドキュメントを参照してください。
 //
-// Note: there are different trait bounds that'll make the compiler happy, but they come with
-// different _semantics_. We'll cover those differences later in the course when we talk about ordered
-// collections (e.g. BTreeMap).
+// 注意：コンパイラを満足させるトレイト境界は複数ありますが、それぞれ異なる*セマンティクス（意味）*を持っています。
+// それらの違いについては、コースの後半で順序付きコレクション（例：`BTreeMap`）について話すときに扱います。
 
-/// Return the minimum of two values.
+/// 2つの値のうち小さい方を返します。
 pub fn min<T>(left: T, right: T) -> T {
     if left <= right {
         left

@@ -1,16 +1,14 @@
 # `HashMap`
 
-Our implementation of `Index`/`IndexMut` is not ideal: we need to iterate over the entire
-`Vec` to retrieve a ticket by id; the algorithmic complexity is `O(n)`, where
-`n` is the number of tickets in the store.
+先ほどの `Index`/`IndexMut` の実装は理想的とは言えません。IDによってチケットを取得するために `Vec` 全体を反復処理する必要があり、アルゴリズムの計算量は `O(n)`（`n` はストア内のチケット数）になってしまいます。
 
-We can do better by using a different data structure for storing tickets: a `HashMap<K, V>`.
+チケットを保存するために別のデータ構造、すなわち `HashMap<K, V>` を使用することで、これを改善できます。
 
 ```rust
 use std::collections::HashMap;
 
-// Type inference lets us omit an explicit type signature (which
-// would be `HashMap<String, String>` in this example).
+// 型推論により、明示的な型シグネチャ（この例では
+// `HashMap<String, String>` になります）を省略できます。
 let mut book_reviews = HashMap::new();
 
 book_reviews.insert(
@@ -19,19 +17,17 @@ book_reviews.insert(
 );
 ```
 
-`HashMap` works with key-value pairs. It's generic over both: `K` is the generic
-parameter for the key type, while `V` is the one for the value type.
+`HashMap` はキーと値のペア（key-value pairs）を扱います。両方に関してジェネリックであり、`K` はキーの型のジェネリックパラメータ、`V` は値の型のジェネリックパラメータです。
 
-The expected cost of insertions, retrievals and removals is **constant**, `O(1)`.
-That sounds perfect for our usecase, doesn't it?
+挿入、取得、削除の期待コストは**定数時間**、つまり `O(1)` です。
+私たちのユースケースにぴったりだと思いませんか？
 
-## Key requirements
+## キーの要件
 
-There are no trait bounds on `HashMap`'s struct definition, but you'll find some
-on its methods. Let's look at `insert`, for example:
+`HashMap` の構造体定義自体にはトレイト境界はありませんが、そのメソッドにはいくつかの境界があります。例えば `insert` を見てみましょう：
 
 ```rust
-// Slightly simplified
+// 少し簡略化しています
 impl<K, V> HashMap<K, V>
 where
     K: Eq + Hash,
@@ -42,31 +38,29 @@ where
 }
 ```
 
-The key type must implement the `Eq` and `Hash` traits.\
-Let's dig into those two.
+キーの型は `Eq` トレイトと `Hash` トレイトを実装していなければなりません。\
+これら2つを掘り下げて見ていきましょう。
 
 ## `Hash`
 
-A hashing function (or hasher) maps a potentially infinite set of a values (e.g.
-all possible strings) to a bounded range (e.g. a `u64` value).\
-There are many different hashing functions around, each with different properties
-(speed, collision risk, reversibility, etc.).
+ハッシュ関数（またはハッシャー）は、潜在的に無限の値の集合（例：起こり得るすべての文字列）を、有界な範囲（例：`u64` の値）にマッピングします。\
+世の中には多くの異なるハッシュ関数が存在し、それぞれ異なる特性（速度、衝突リスク、可逆性など）を持っています。
 
-A `HashMap`, as the name suggests, uses a hashing function behind the scene.
-It hashes your key and then uses that hash to store/retrieve the associated value.
-This strategy requires the key type must be hashable, hence the `Hash` trait bound on `K`.
+`HashMap` は、その名前が示す通り、舞台裏でハッシュ関数を使用しています。
+キーをハッシュ化し、そのハッシュ値を使用して関連する値を保存・取得します。
+この戦略ではキーの型がハッシュ化可能である必要があるため、`K` に `Hash` トレイト境界が課されています。
 
-You can find the `Hash` trait in the `std::hash` module:
+`Hash` トレイトは `std::hash` モジュールにあります：
 
 ```rust
 pub trait Hash {
-    // Required method
+    // 必須メソッド
     fn hash<H>(&self, state: &mut H)
        where H: Hasher;
 }
 ```
 
-You will rarely implement `Hash` manually. Most of the times you'll derive it:
+`Hash` を手動で実装することは滅多にありません。ほとんどの場合は `derive` します：
 
 ```rust
 #[derive(Hash)]
@@ -78,28 +72,24 @@ struct Person {
 
 ## `Eq`
 
-`HashMap` must be able to compare keys for equality. This is particularly important
-when dealing with hash collisions—i.e. when two different keys hash to the same value.
+`HashMap` は、キーの等価性を比較できなければなりません。これは、ハッシュの衝突（つまり、2つの異なるキーが同じハッシュ値になること）を処理する際に特に重要です。
 
-You may wonder: isn't that what the `PartialEq` trait is for? Almost!\
-`PartialEq` is not enough for `HashMap` because it doesn't guarantee reflexivity, i.e. `a == a` is always `true`.\
-For example, floating point numbers (`f32` and `f64`) implement `PartialEq`,
-but they don't satisfy the reflexivity property: `f32::NAN == f32::NAN` is `false`.\
-Reflexivity is crucial for `HashMap` to work correctly: without it, you wouldn't be able to retrieve a value
-from the map using the same key you used to insert it.
+ここで疑問に思うかもしれません。「そのための `PartialEq` トレイトではないのか？」と。惜しいです！\
+`PartialEq` は反射律（つまり `a == a` が常に `true` であること）を保証しないため、`HashMap` にとっては不十分なのです。\
+例えば、浮動小数点数（`f32` と `f64`）は `PartialEq` を実装していますが、反射律を満たしていません。`f32::NAN == f32::NAN` は `false` になります。\
+反射律は `HashMap` が正しく機能するために不可欠です。これがないと、挿入時に使用したのと同じキーを使ってマップから値を取得できなくなってしまいます。
 
-The `Eq` trait extends `PartialEq` with the reflexivity property:
+`Eq` トレイトは、`PartialEq` を反射律の性質で拡張したものです：
 
 ```rust
 pub trait Eq: PartialEq {
-    // No additional methods
+    // 追加のメソッドはありません
 }
 ```
 
-It's a marker trait: it doesn't add any new methods, it's just a way for you to say to the compiler
-that the equality logic implemented in `PartialEq` is reflexive.
+これはマーカートレイトです。新しいメソッドは追加せず、`PartialEq` で実装された等価性ロジックが反射的であることをコンパイラに伝えるための手段に過ぎません。
 
-You can derive `Eq` automatically when you derive `PartialEq`:
+`PartialEq` を導出するときに、`Eq` も自動的に導出（`derive`）できます：
 
 ```rust
 #[derive(PartialEq, Eq)]
@@ -109,8 +99,7 @@ struct Person {
 }
 ```
 
-## `Eq` and `Hash` are linked
+## `Eq` と `Hash` は連動している
 
-There is an implicit contract between `Eq` and `Hash`: if two keys are equal, their hashes must be equal too.
-This is crucial for `HashMap` to work correctly. If you break this contract, you'll get nonsensical results
-when using `HashMap`.
+`Eq` と `Hash` の間には暗黙の契約があります。2つのキーが等しい場合、それらのハッシュ値も等しくなければなりません。
+これは `HashMap` が正しく機能するために極めて重要です。この契約に違反すると、`HashMap` を使用したときに意味不明な結果が生じることになります。

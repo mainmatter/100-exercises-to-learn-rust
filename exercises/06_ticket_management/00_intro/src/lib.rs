@@ -1,5 +1,5 @@
 fn intro() -> &'static str {
-    // TODO: fix me 👇
+    // TODO: 修正してください 👇
     "I'm ready to __!"
 }
 

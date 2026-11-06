@@ -1,54 +1,43 @@
-# Design review
+# 設計の振り返り (チャネルなし)
 
-Let's take a moment to review the journey we've been through.
+ここで少し時間をとって、これまでの道のりを振り返ってみましょう。
 
-## Lockless with channel serialization
+## チャネルによる直列化を用いたロックレス設計
 
-Our first implementation of a multithreaded ticket store used:
+マルチスレッド対応チケットストアの最初の実装では、以下を使用しました：
 
-- a single long-lived thread (server), to hold the shared state
-- multiple clients sending requests to it via channels from their own threads.
+- 共有状態を保持する単一の長時間実行スレッド（サーバー）
+- 自身のスレッドからチャネルを介してサーバーにリクエストを送信する複数のクライアント
 
-No locking of the state was necessary, since the server was the only one modifying the state. That's because
-the "inbox" channel naturally **serialized** incoming requests: the server would process them one by one.\
-We've already discussed the limitations of this approach when it comes to patching behaviour, but we didn't
-discuss the performance implications of the original design: the server could only process one request at a time,
-including reads.
+状態を直接変更するのはサーバーだけだったため、状態のロックは必要ありませんでした。「受信箱（inbox）」チャネルが着信リクエストを自然に**直列化 (serialize)** し、サーバーがそれらを1つずつ処理していたからです。\
+パッチ適用の振る舞いに関するこのアプローチの限界についてはすでに議論しましたが、元の設計のパフォーマンスへの影響については議論していませんでした。サーバーは、読み取りを含め、一度に1つのリクエストしか処理できなかったのです。
 
-## Fine-grained locking
+## 細粒度ロック
 
-We then moved to a more sophisticated design, where each ticket was protected by its own lock and
-clients could independently decide if they wanted to read or atomically modify a ticket, acquiring the appropriate lock.
+そこで、より洗練された設計に移行しました。各チケットが独自のロックによって保護され、クライアントはチケットを読み取りたいのかアトミックに変更したいのかを独立して決定し、適切なロックを取得できるようになりました。
 
-This design allows for better parallelism (i.e. multiple clients can read tickets at the same time), but it is
-still fundamentally **serial**: the server processes commands one by one. In particular, it hands out locks to clients
-one by one.
+この設計により並列性が向上しました（つまり、複数のクライアントが同時にチケットを読み取れるようになりました）が、根本的には依然として**直列的 (serial)** です。サーバーはコマンドを1つずつ処理しており、具体的にはクライアントへのロックの貸し出しを1つずつ行っています。
 
-Could we remove the channels entirely and allow clients to directly access the `TicketStore`, relying exclusively on
-locks to synchronize access?
+では、チャネルを完全に排除し、アクセスの同期をロックのみに頼ることで、クライアントが `TicketStore` に直接アクセスできるようにすることは可能でしょうか？
 
-## Removing channels
+## チャネルの排除
 
-We have two problems to solve:
+解決すべき問題が2つあります：
 
-- Sharing `TicketStore` across threads
-- Synchronizing access to the store
+- スレッド間での `TicketStore` の共有
+- ストアへのアクセスの同期
 
-### Sharing `TicketStore` across threads
+### スレッド間での `TicketStore` の共有
 
-We want all threads to refer to the same state, otherwise we don't really have a multithreaded system—we're just
-running multiple single-threaded systems in parallel.\
-We've already encountered this problem when we tried to share a lock across threads: we can use an `Arc`.
+すべてのスレッドが同じ状態を参照するようにしたいと考えています。そうでなければ、真のマルチスレッドシステムとは言えず、単に複数のシングルスレッドシステムを並列に実行しているだけになってしまいます。\
+この問題には、スレッド間でロックを共有しようとしたときにすでに出くわしています。`Arc` を使用すれば解決できます。
 
-### Synchronizing access to the store
+### ストアへのアクセスの同期
 
-There is one interaction that's still lockless thanks to the serialization provided by the channels: inserting
-(or removing) a ticket from the store.\
-If we remove the channels, we need to introduce (another) lock to synchronize access to the `TicketStore` itself.
+チャネルが提供する直列化のおかげで、これまでロックレスのままで済んでいた操作が1つあります。ストアへのチケットの挿入（または削除）です。\
+チャネルを取り除く場合、`TicketStore` 自体へのアクセスを同期するために（さらにもう1つの）ロックを導入する必要があります。
 
-If we use a `Mutex`, then it makes no sense to use an additional `RwLock` for each ticket: the `Mutex` will
-already serialize access to the entire store, so we wouldn't be able to read tickets in parallel anyway.\
-If we use a `RwLock`, instead, we can read tickets in parallel. We just need to pause all reads while inserting
-or removing a ticket.
+もしここで `Mutex` を使用すると、各チケットに対して個別の `RwLock` を使用する意味がなくなってしまいます。`Mutex` がすでにストア全体へのアクセスを直列化してしまうため、結局チケットを並列に読み取ることができなくなるからです。\
+一方、`RwLock` を使用すれば、チケットを並列に読み取ることができます。チケットを挿入または削除する間だけ、すべての読み取りを一時停止すればよいのです。
 
-Let's go down this path and see where it leads us.
+この方針で進めてみて、どうなるか見てみましょう。

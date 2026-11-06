@@ -1,27 +1,22 @@
-# Threads
+# スレッド (Threads)
 
-Before we start writing multithreaded code, let's take a step back and talk about what threads are
-and why we might want to use them.
+マルチスレッドのコードを書く前に、一歩下がってスレッドとは何か、そしてなぜスレッドを使いたいのかについてお話ししましょう。
 
-## What is a thread?
+## スレッドとは何か？
 
-A **thread** is an execution context managed by the underlying operating system.\
-Each thread has its own stack and instruction pointer.
+**スレッド (thread)** とは、基盤となるオペレーティングシステム（OS）によって管理される実行コンテキストのことです。\
+各スレッドは、独自のスタックと命令ポインタを持っています。
 
-A single **process** can manage multiple threads.
-These threads share the same memory space, which means they can access the same data.
+単一の**プロセス (process)** は複数のスレッドを管理できます。
+これらのスレッドは同じメモリ空間を共有しており、つまり同じデータにアクセスできます。
 
-Threads are a **logical** construct. In the end, you can only run one set of instructions
-at a time on a CPU core, the **physical** execution unit.\
-Since there can be many more threads than there are CPU cores, the operating system's
-**scheduler** is in charge of deciding which thread to run at any given time,
-partitioning CPU time among them to maximize throughput and responsiveness.
+スレッドは**論理的な**構成要素です。結局のところ、**物理的な**実行ユニットであるCPUコア上では、一度に1つの命令セットしか実行できません。\
+CPUコアの数よりもはるかに多くのスレッドが存在し得るため、OSの**スケジューラ (scheduler)** が、スループットと応答性を最大化するようにCPU時間をスレッド間で分割し、どの時点でどのスレッドを実行するかを決定する役割を担います。
 
 ## `main`
 
-When a Rust program starts, it runs on a single thread, the **main thread**.\
-This thread is created by the operating system and is responsible for running the `main`
-function.
+Rustプログラムが起動すると、単一のスレッド、すなわち**メインスレッド (main thread)** 上で実行されます。\
+このスレッドはOSによって作成され、`main` 関数を実行する責任を負います。
 
 ```rust
 use std::thread;
@@ -37,14 +32,13 @@ fn main() {
 
 ## `std::thread`
 
-Rust's standard library provides a module, `std::thread`, that allows you to create
-and manage threads.
+Rustの標準ライブラリは、スレッドを作成および管理するための `std::thread` モジュールを提供しています。
 
 ### `spawn`
 
-You can use `std::thread::spawn` to create new threads and execute code on them.
+`std::thread::spawn` を使用して新しいスレッドを作成（スポーン）し、その上でコードを実行できます。
 
-For example:
+例えば：
 
 ```rust
 use std::thread;
@@ -65,14 +59,13 @@ fn main() {
 }
 ```
 
-If you execute this program on the [Rust playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=afedf7062298ca8f5a248bc551062eaa)
-you'll see that the main thread and the spawned thread run concurrently.\
-Each thread makes progress independently of the other.
+このプログラムを [Rust Playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=afedf7062298ca8f5a248bc551062eaa) で実行すると、メインスレッドとスポーンされたスレッドが並行して実行されることがわかります。\
+各スレッドは互いに独立して処理を進めます。
 
-### Process termination
+### プロセスの終了
 
-When the main thread finishes, the overall process will exit.\
-A spawned thread will continue running until it finishes or the main thread finishes.
+メインスレッドが終了すると、プロセス全体が終了します。\
+スポーンされたスレッドは、自身の処理が終了するか、メインスレッドが終了するまで実行を続けます。
 
 ```rust
 use std::thread;
@@ -90,13 +83,12 @@ fn main() {
 }
 ```
 
-In the example above, you can expect to see the message "Hello from a thread!" printed roughly five times.\
-Then the main thread will finish (when the `sleep` call returns), and the spawned thread will be terminated
-since the overall process exits.
+上記の例では、"Hello from a thread!" というメッセージがおよそ5回出力されることが期待できます。\
+その後、メインスレッドが終了し（`sleep` の呼び出しから戻ったとき）、プロセス全体が終了するため、スポーンされたスレッドも強制終了されます。
 
 ### `join`
 
-You can also wait for a spawned thread to finish by calling the `join` method on the `JoinHandle` that `spawn` returns.
+`spawn` が返す `JoinHandle` に対して `join` メソッドを呼び出すことで、スポーンされたスレッドが終了するのを待つこともできます。
 
 ```rust
 use std::thread;
@@ -109,7 +101,5 @@ fn main() {
 }
 ```
 
-In this example, the main thread will wait for the spawned thread to finish before exiting.\
-This introduces a form of **synchronization** between the two threads: you're guaranteed to see the message
-"Hello from a thread!" printed before the program exits, because the main thread won't exit
-until the spawned thread has finished.
+この例では、メインスレッドは終了する前に、スポーンされたスレッドが終了するのを待機します。\
+これにより、2つのスレッド間に一種の**同期 (synchronization)** が導入されます。スポーンされたスレッドが終了するまでメインスレッドは終了しないため、プログラムが終了する前に "Hello from a thread!" というメッセージが出力されることが保証されます。

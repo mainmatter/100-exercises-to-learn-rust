@@ -1,7 +1,7 @@
-// TODO: Given a vector of integers, leak its heap allocation.
-//  Then split the resulting static slice into two halves and
-//  sum each half in a separate thread.
-//  Hint: check out `Vec::leak`.
+// TODO: 整数のベクタが与えられたら、そのヒープアロケーションをリークさせてください。
+//  その後、結果として得られた静的スライスを半分に分割し、
+//  それぞれの半分を別々のスレッドで合計してください。
+//  ヒント：`Vec::leak` を確認してみてください。
 
 use std::thread;
 

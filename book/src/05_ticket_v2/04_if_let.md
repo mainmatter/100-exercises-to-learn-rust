@@ -1,6 +1,6 @@
-# Concise branching
+# 簡潔な条件分岐 (`if let` と `let/else`)
 
-Your solution to the previous exercise probably looks like this:
+前回の演習の解答は、おそらく次のようになっていることでしょう：
 
 ```rust
 impl Ticket {
@@ -18,17 +18,16 @@ impl Ticket {
 }
 ```
 
-You only care about the `Status::InProgress` variant.
-Do you really need to match on all the other variants?
+ここで関心があるのは `Status::InProgress` バリアントだけです。
+本当に他のすべてのバリアントに対してマッチを行う必要があるのでしょうか？
 
-New constructs to the rescue!
+新しい構文の出番です！
 
 ## `if let`
 
-The `if let` construct allows you to match on a single variant of an enum,
-without having to handle all the other variants.
+`if let` 構文を使用すると、他のすべてのバリアントを個別に処理することなく、列挙型の単一のバリアントに対してマッチを行うことができます。
 
-Here's how you can use `if let` to simplify the `assigned_to` method:
+`if let` を使って `assigned_to` メソッドを簡略化する方法は次の通りです：
 
 ```rust
 impl Ticket {
@@ -46,8 +45,7 @@ impl Ticket {
 
 ## `let/else`
 
-If the `else` branch is meant to return early (a panic counts as returning early!),
-you can use the `let/else` construct:
+`else` 分岐が早期リターンを目的としている場合（パニックも早期リターンに数えられます！）、`let/else` 構文を使用できます：
 
 ```rust
 impl Ticket {
@@ -62,12 +60,9 @@ impl Ticket {
 }
 ```
 
-It allows you to assign the destructured variable without incurring
-any "right drift", i.e. the variable is assigned at the same indentation level
-as the code that precedes it.
+これを使うと、ネストが深くなってコードが右にずれていくのを防ぎながら、分割代入された変数を束縛できます。つまり、直前のコードと同じインデントレベルで変数が定義されます。
 
-## Style
+## スタイル
 
-Both `if let` and `let/else` are idiomatic Rust constructs.\
-Use them as you see fit to improve the readability of your code,
-but don't overdo it: `match` is always there when you need it.
+`if let` と `let/else` はどちらもイディオマティックなRustの構文です。\
+コードの可読性を向上させるために適宜使用するとよいですが、無理に使いすぎないようにしましょう。必要なときにはいつでも `match` があります。

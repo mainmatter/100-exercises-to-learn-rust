@@ -1,12 +1,12 @@
-// TODO: Use two variants, one for a title error and one for a description error.
-//   Each variant should contain a string with the explanation of what went wrong exactly.
-//   You'll have to update the implementation of `Ticket::new` as well.
+// TODO: タイトルエラー用と説明文エラー用の2つのバリアントを使用してください。
+//   各バリアントには、具体的に何が問題だったかを説明する文字列を含める必要があります。
+//   あわせて `Ticket::new` の実装も更新する必要があります。
 enum TicketNewError {}
 
-// TODO: `easy_ticket` should panic when the title is invalid, using the error message
-//   stored inside the relevant variant of the `TicketNewError` enum.
-//   When the description is invalid, instead, it should use a default description:
-//   "Description not provided".
+// TODO: `easy_ticket` は、タイトルが無効な場合に、`TicketNewError` 列挙型の該当するバリアント内に
+//   保存されているエラーメッセージを使用してパニックする必要があります。
+//   一方、説明文 (`description`) が無効な場合は、デフォルトの説明文として
+//   `"Description not provided"` を使用する必要があります。
 fn easy_ticket(title: String, description: String, status: Status) -> Ticket {
     todo!()
 }

@@ -1,42 +1,42 @@
 # `.iter()`
 
-`IntoIterator` **consumes** `self` to create an iterator.
+`IntoIterator` はイテレータを作成するために `self` を**消費 (consume)** します。
 
-This has its benefits: you get **owned** values from the iterator.
-For example: if you call `.into_iter()` on a `Vec<Ticket>` you'll get an iterator that returns `Ticket` values.
+これには利点もあります。イテレータから**所有された (owned)** 値を取得できる点です。
+例えば、`Vec<Ticket>` に対して `.into_iter()` を呼び出すと、`Ticket` の値を返すイテレータが得られます。
 
-That's also its downside: you can no longer use the original collection after calling `.into_iter()` on it.
-Quite often you want to iterate over a collection without consuming it, looking at **references** to the values instead.
-In the case of `Vec<Ticket>`, you'd want to iterate over `&Ticket` values.
+しかし、それは同時に欠点でもあります。`.into_iter()` を呼び出した後は、元のコレクションを使用できなくなるからです。
+コレクションを消費せずに反復処理を行い、代わりに値への**参照**を見たいというケースは非常に多くあります。
+`Vec<Ticket>` の場合であれば、`&Ticket` の値を反復処理したいといった具合です。
 
-Most collections expose a method called `.iter()` that returns an iterator over references to the collection's elements.
-For example:
+ほとんどのコレクションは、コレクションの要素への参照に対するイテレータを返す `.iter()` というメソッドを公開しています。
+例えば：
 
 ```rust
 let numbers: Vec<u32> = vec![1, 2];
-// `n` has type `&u32` here
+// ここで `n` の型は `&u32` です
 for n in numbers.iter() {
     // [...]
 }
 ```
 
-This pattern can be simplified by implementing `IntoIterator` for a **reference to the collection**.
-In our example above, that would be `&Vec<Ticket>`.\
-The standard library does this, that's why the following code works:
+このパターンは、**コレクションへの参照**に対して `IntoIterator` を実装することで簡略化できます。
+上記の例であれば、`&Vec<Ticket>` に対して実装することになります。\
+標準ライブラリはこれを行っているため、次のコードが機能します：
 
 ```rust
 let numbers: Vec<u32> = vec![1, 2];
-// `n` has type `&u32` here
-// We didn't have to call `.iter()` explicitly
-// It was enough to use `&numbers` in the `for` loop
+// ここで `n` の型は `&u32` です
+// 明示的に `.iter()` を呼び出す必要はありませんでした
+// `for` ループで `&numbers` を使うだけで十分です
 for n in &numbers {
     // [...]
 }
 ```
 
-It's idiomatic to provide both options:
+以下の両方の選択肢を提供するのがイディオマティック（Rustらしい設計）です：
 
-- An implementation of `IntoIterator` for a reference to the collection.
-- An `.iter()` method that returns an iterator over references to the collection's elements.
+- コレクションへの参照に対する `IntoIterator` の実装。
+- コレクションの要素への参照に対するイテレータを返す `.iter()` メソッド。
 
-The former is convenient in `for` loops, the latter is more explicit and can be used in other contexts.
+前者は `for` ループで便利であり、後者はより明示的で他の文脈（メソッドチェーンなど）で使用できます。

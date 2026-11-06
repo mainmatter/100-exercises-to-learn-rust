@@ -1,56 +1,52 @@
-# Operator overloading
+# 演算子のオーバーロード (Operator overloading)
 
-Now that we have a basic understanding of what traits are, let's circle back to **operator overloading**.
-Operator overloading is the ability to define custom behavior for operators like `+`, `-`, `*`, `/`, `==`, `!=`, etc.
+トレイトとは何かについての基本的な理解が得られたところで、**演算子のオーバーロード (operator overloading)** に話を戻しましょう。
+演算子のオーバーロードとは、`+`、`-`、`*`、`/`、`==`、`!=` などの演算子に対してカスタムの振る舞いを定義する機能のことです。
 
-## Operators are traits
+## 演算子はトレイトである
 
-In Rust, operators are traits.\
-For each operator, there is a corresponding trait that defines the behavior of that operator.
-By implementing that trait for your type, you **unlock** the usage of the corresponding operators.
+Rustでは、演算子はトレイトです。\
+各演算子には、その演算子の振る舞いを定義する対応するトレイトが存在します。
+自分の型に対してそのトレイトを実装することで、対応する演算子の使用が**解禁 (unlock)** されます。
 
-For example, the [`PartialEq` trait](https://doc.rust-lang.org/std/cmp/trait.PartialEq.html) defines the behavior of
-the `==` and `!=` operators:
+例えば、[`PartialEq` トレイト](https://doc.rust-lang.org/std/cmp/trait.PartialEq.html)は `==` 演算子と `!=` 演算子の振る舞いを定義します：
 
 ```rust
-// The `PartialEq` trait definition, from Rust's standard library
-// (It is *slightly* simplified, for now)
+// Rust標準ライブラリからの `PartialEq` トレイト定義
+// （今のところは*少しだけ*簡略化しています）
 pub trait PartialEq {
-    // Required method
+    // 必須メソッド (Required method)
     //
-    // `Self` is a Rust keyword that stands for 
-    // "the type that is implementing the trait"
+    // `Self` は「トレイトを実装している型」を表す
+    // Rustのキーワードです
     fn eq(&self, other: &Self) -> bool;
 
-    // Provided method
+    // 提供メソッド (Provided method)
     fn ne(&self, other: &Self) -> bool { ... }
 }
 ```
 
-When you write `x == y` the compiler will look for an implementation of the `PartialEq` trait for the types of `x` and `y`
-and replace `x == y` with `x.eq(y)`. It's syntactic sugar!
+`x == y` と書くと、コンパイラは `x` と `y` の型に対する `PartialEq` トレイトの実装を探し、`x == y` を `x.eq(y)` に置き換えます。これは糖衣構文（シンタックスシュガー）なのです！
 
-This is the correspondence for the main operators:
+主要な演算子とトレイトの対応関係は以下の通りです：
 
-| Operator                 | Trait                                                                   |
+| 演算子                   | トレイト                                                                |
 | ------------------------ | ----------------------------------------------------------------------- |
 | `+`                      | [`Add`](https://doc.rust-lang.org/std/ops/trait.Add.html)               |
 | `-`                      | [`Sub`](https://doc.rust-lang.org/std/ops/trait.Sub.html)               |
 | `*`                      | [`Mul`](https://doc.rust-lang.org/std/ops/trait.Mul.html)               |
 | `/`                      | [`Div`](https://doc.rust-lang.org/std/ops/trait.Div.html)               |
 | `%`                      | [`Rem`](https://doc.rust-lang.org/std/ops/trait.Rem.html)               |
-| `==` and `!=`            | [`PartialEq`](https://doc.rust-lang.org/std/cmp/trait.PartialEq.html)   |
-| `<`, `>`, `<=`, and `>=` | [`PartialOrd`](https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html) |
+| `==` および `!=`         | [`PartialEq`](https://doc.rust-lang.org/std/cmp/trait.PartialEq.html)   |
+| `<`、`>`、`<=`、および `>=` | [`PartialOrd`](https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html) |
 
-Arithmetic operators live in the [`std::ops`](https://doc.rust-lang.org/std/ops/index.html) module,
-while comparison ones live in the [`std::cmp`](https://doc.rust-lang.org/std/cmp/index.html) module.
+算術演算子は [`std::ops`](https://doc.rust-lang.org/std/ops/index.html) モジュールにあり、比較演算子は [`std::cmp`](https://doc.rust-lang.org/std/cmp/index.html) モジュールにあります。
 
-## Default implementations
+## デフォルト実装 (Default implementations)
 
-The comment on `PartialEq::ne` states that "`ne` is a provided method".\
-It means that `PartialEq` provides a **default implementation** for `ne` in the trait definition—the `{ ... }` elided
-block in the definition snippet.\
-If we expand the elided block, it looks like this:
+`PartialEq::ne` のコメントには「`ne` は提供メソッド (provided method) である」と書かれています。\
+これは、`PartialEq` がトレイト定義の中で `ne` の**デフォルト実装 (default implementation)** を提供していることを意味します（定義スニペットで `{ ... }` と省略されているブロックです）。\
+省略されているブロックを展開すると、次のようになります：
 
 ```rust
 pub trait PartialEq {
@@ -62,9 +58,9 @@ pub trait PartialEq {
 }
 ```
 
-It's what you expect: `ne` is the negation of `eq`.\
-Since a default implementation is provided, you can skip implementing `ne` when you implement `PartialEq` for your type.
-It's enough to implement `eq`:
+期待通り、`ne` は `eq` の否定になっています。\
+デフォルト実装が提供されているため、自分の型に対して `PartialEq` を実装する際には `ne` の実装を省略できます。
+`eq` を実装するだけで十分です：
 
 ```rust
 struct WrappingU8 {
@@ -76,23 +72,23 @@ impl PartialEq for WrappingU8 {
         self.inner == other.inner
     }
     
-    // No `ne` implementation here
+    // ここには `ne` の実装はありません
 }
 ```
 
-You are not forced to use the default implementation though.
-You can choose to override it when you implement the trait:
+ただし、デフォルト実装の使用が強制されるわけではありません。
+トレイトを実装する際に、それをオーバーライド（上書き）することを選択できます：
 
 ```rust
 struct MyType;
 
 impl PartialEq for MyType {
     fn eq(&self, other: &MyType) -> bool {
-        // Custom implementation
+        // カスタム実装
     }
 
     fn ne(&self, other: &MyType) -> bool {
-        // Custom implementation
+        // カスタム実装
     }
 }
 ```

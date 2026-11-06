@@ -1,20 +1,20 @@
-// Given a number `n`, return the `n+1`th number in the Fibonacci sequence.
+// 数値 `n` が与えられたとき、フィボナッチ数列の `n+1` 番目の数値を返してください。
 //
-// The Fibonacci sequence is defined as follows:
+// フィボナッチ数列は次のように定義されます：
 //
-// - The first number of the sequence is 0.
-// - The second number of the sequence is 1.
-// - Every subsequent number is the sum of the two preceding numbers.
+// - 数列の最初の数値は 0 です。
+// - 数列の2番目の数値は 1 です。
+// - それ以降の各数値は、直前の2つの数値の和になります。
 //
-// So the sequence goes: 0, 1, 1, 2, 3, 5, 8, 13, 21, and so on.
+// したがって、数列は 0, 1, 1, 2, 3, 5, 8, 13, 21... と続きます。
 //
-// We expect `fibonacci(0)` to return `0`, `fibonacci(1)` to return `1`,
-// `fibonacci(2)` to return `1`, and so on.
+// `fibonacci(0)` は `0` を返し、`fibonacci(1)` は `1` を返し、
+// `fibonacci(2)` は `1` を返す、といった動作が期待されます。
 pub fn fibonacci(n: u32) -> u32 {
-    // TODO: implement the `fibonacci` function
+    // TODO: `fibonacci` 関数を実装してください
     //
-    // Hint: use a `Vec` to memoize the results you have already calculated
-    // so that you don't have to recalculate them several times.
+    // ヒント：同じ計算を何度もやり直さなくて済むように、`Vec` を使って
+    // すでに計算した結果をメモ化（保存）しましょう。
     todo!()
 }
 

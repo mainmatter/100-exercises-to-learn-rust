@@ -1,6 +1,6 @@
-# Spawning tasks
+# タスクのスポーン (Spawning tasks)
 
-Your solution to the previous exercise should look something like this:
+前回の演習の解答は、おそらく次のようになっているはずです：
 
 ```rust
 pub async fn echo(listener: TcpListener) -> Result<(), anyhow::Error> {
@@ -12,24 +12,20 @@ pub async fn echo(listener: TcpListener) -> Result<(), anyhow::Error> {
 }
 ```
 
-This is not bad!\
-If a long time passes between two incoming connections, the `echo` function will be idle
-(since `TcpListener::accept` is an asynchronous function), thus allowing the executor
-to run other tasks in the meantime.
+これは悪くありません！\
+2つの着信接続の間に長い時間が経過した場合、`echo` 関数はアイドル状態になり（`TcpListener::accept` は非同期関数であるため）、エグゼキュータはその間に他のタスクを実行できます。
 
-But how can we actually have multiple tasks running concurrently?\
-If we always run our asynchronous functions until completion (by using `.await`), we'll never
-have more than one task running at a time.
+しかし、どうすれば実際に複数のタスクを並行して実行できるのでしょうか？\
+もし非同期関数を常に（`.await` を使って）完了するまで実行していたら、一度に実行されるタスクは決して1つ以上にはなりません。
 
-This is where the `tokio::spawn` function comes in.
+そこで登場するのが `tokio::spawn` 関数です。
 
 ## `tokio::spawn`
 
-`tokio::spawn` allows you to hand off a task to the executor, **without waiting for it to complete**.\
-Whenever you invoke `tokio::spawn`, you're telling `tokio` to continue running
-the spawned task, in the background, **concurrently** with the task that spawned it.
+`tokio::spawn` を使用すると、**完了を待つことなく**タスクをエグゼキュータに引き渡すことができます。\
+`tokio::spawn` を呼び出すたびに、スポーンした元のタスクと**並行して**、スポーンされたタスクをバックグラウンドで実行し続けるよう `tokio` に指示していることになります。
 
-Here's how you can use it to process multiple connections concurrently:
+これを使用して複数の接続を並行して処理する方法は次の通りです：
 
 ```rust
 use tokio::net::TcpListener;
@@ -37,9 +33,8 @@ use tokio::net::TcpListener;
 pub async fn echo(listener: TcpListener) -> Result<(), anyhow::Error> {
     loop {
         let (mut socket, _) = listener.accept().await?;
-        // Spawn a background task to handle the connection
-        // thus allowing the main task to immediately start 
-        // accepting new connections
+        // 接続を処理するためのバックグラウンドタスクをスポーンし、
+        // メインタスクが即座に新しい接続の受け入れを再開できるようにします
         tokio::spawn(async move {
             let (mut reader, mut writer) = socket.split();
             tokio::io::copy(&mut reader, &mut writer).await?;
@@ -48,27 +43,25 @@ pub async fn echo(listener: TcpListener) -> Result<(), anyhow::Error> {
 }
 ```
 
-### Asynchronous blocks
+### 非同期ブロック (Asynchronous blocks)
 
-In this example, we've passed an **asynchronous block** to `tokio::spawn`: `async move { /* */ }`
-Asynchronous blocks are a quick way to mark a region of code as asynchronous without having
-to define a separate async function.
+この例では、`tokio::spawn` に**非同期ブロック (asynchronous block)** である `async move { /* */ }` を渡しています。
+非同期ブロックは、個別の非同期関数を定義することなく、コードの特定の領域を非同期としてマークするための手軽な方法です。
 
 ### `JoinHandle`
 
-`tokio::spawn` returns a `JoinHandle`.\
-You can use `JoinHandle` to `.await` the background task, in the same way
-we used `join` for spawned threads.
+`tokio::spawn` は `JoinHandle` を返します。\
+スポーンされたスレッドに対して `join` を使用したのと同じように、`JoinHandle` を使用してバックグラウンドタスクの完了を `.await`（待機）することができます。
 
 ```rust
 pub async fn run() {
-    // Spawn a background task to ship telemetry data
-    // to a remote server
+    // リモートサーバーにテレメトリデータを送信するための
+    // バックグラウンドタスクをスポーンする
     let handle = tokio::spawn(emit_telemetry());
-    // In the meantime, do some other useful work
+    // その間に、他の有用な作業を行う
     do_work().await;
-    // But don't return to the caller until 
-    // the telemetry data has been successfully delivered
+    // ただし、テレメトリデータが正常に配信されるまでは
+    // 呼び出し元に戻らないようにする
     handle.await;
 }
 
@@ -81,14 +74,12 @@ pub async fn do_work() {
 }
 ```
 
-### Panic boundary
+### パニック境界 (Panic boundary)
 
-If a task spawned with `tokio::spawn` panics, the panic will be caught by the executor.\
-If you don't `.await` the corresponding `JoinHandle`, the panic won't be propagated to the spawner.
-Even if you do `.await` the `JoinHandle`, the panic won't be propagated automatically.
-Awaiting a `JoinHandle` returns a `Result`, with [`JoinError`](https://docs.rs/tokio/latest/tokio/task/struct.JoinError.html)
-as its error type. You can then check if the task panicked by calling `JoinError::is_panic` and
-choose what to do with the panic—either log it, ignore it, or propagate it.
+`tokio::spawn` でスポーンされたタスクがパニックを起こした場合、そのパニックはエグゼキュータによって捕捉（キャッチ）されます。\
+対応する `JoinHandle` を `.await` しない場合、パニックはスポーン元には伝播しません。
+また、`JoinHandle` を `.await` したとしても、パニックが自動的に伝播するわけではありません。
+`JoinHandle` を `.await` すると、エラー型として [`JoinError`](https://docs.rs/tokio/latest/tokio/task/struct.JoinError.html) を持つ `Result` が返されます。その後、`JoinError::is_panic` を呼び出すことでタスクがパニックしたかどうかを確認でき、そのパニックをどう処理するか（ログに記録する、無視する、または伝播させる）を選択できます。
 
 ```rust
 use tokio::task::JoinError;
@@ -97,9 +88,9 @@ pub async fn run() {
     let handle = tokio::spawn(work());
     if let Err(e) = handle.await {
         if let Ok(reason) = e.try_into_panic() {
-            // The task has panicked
-            // We resume unwinding the panic,
-            // thus propagating it to the current task
+            // タスクがパニックを起こしました。
+            // パニックの巻き戻し（アンワインド）を再開し、
+            // 現在のタスクへとパニックを伝播させます。
             panic::resume_unwind(reason);
         }
     }
@@ -110,13 +101,11 @@ pub async fn work() {
 }
 ```
 
-### `std::thread::spawn` vs `tokio::spawn`
+### `std::thread::spawn` と `tokio::spawn` の違い
 
-You can think of `tokio::spawn` as the asynchronous sibling of `std::thread::spawn`.
+`tokio::spawn` は、`std::thread::spawn` の非同期版の兄弟だと考えることができます。
 
-Notice a key difference: with `std::thread::spawn`, you're delegating control to the OS scheduler.
-You're not in control of how threads are scheduled.
+ただし、重要な違いに注目してください。`std::thread::spawn` では、制御をOSのスケジューラに委譲しています。
+スレッドがどのようにスケジュールされるかを開発者が制御することはできません。
 
-With `tokio::spawn`, you're delegating to an async executor that runs entirely in
-user space. The underlying OS scheduler is not involved in the decision of which task
-to run next. We're in charge of that decision now, via the executor we chose to use.
+一方、`tokio::spawn` では、完全にユーザー空間（ユーザースペース）で動作する非同期エグゼキュータに委譲しています。次にどのタスクを実行するかの決定に、基盤となるOSのスケジューラは関与しません。使用するエグゼキュータを通じて、私たち自身がその決定を担うことになるのです。

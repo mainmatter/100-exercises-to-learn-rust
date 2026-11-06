@@ -1,15 +1,14 @@
-# Modelling A Ticket, pt. 2
+# チケットのモデリング (パート2)
 
-The `Ticket` struct we worked on in the previous chapters is a good start,
-but it still screams "I'm a beginner Rustacean!".
+これまでの章で取り組んできた `Ticket` 構造体は良いスタートですが、まだ「私は初心者のRustacean（Rustプログラマ）です！」と叫んでいるような状態です。
 
-We'll use this chapter to refine our Rust domain modelling skills.
-We'll need to introduce a few more concepts along the way:
+この章では、Rustによるドメインモデリングのスキルを洗練させていきます。
+その過程で、さらにいくつかの概念を導入する必要があります：
 
-- `enum`s, one of Rust's most powerful features for data modeling
-- The `Option` type, to model nullable values
-- The `Result` type, to model recoverable errors
-- The `Debug` and `Display` traits, for printing
-- The `Error` trait, to mark error types
-- The `TryFrom` and `TryInto` traits, for fallible conversions
-- Rust's package system, explaining what's a library, what's a binary, how to use third-party crates
+- `enum`（列挙型）：データモデリングにおけるRustの最も強力な機能の1つ
+- `Option` 型：NULLになり得る値（有無がある値）をモデル化する
+- `Result` 型：回復可能なエラーをモデル化する
+- `Debug` トレイトと `Display` トレイト：値の出力・フォーマット用
+- `Error` トレイト：エラー型であることを示す
+- `TryFrom` トレイトと `TryInto` トレイト：失敗する可能性のある型変換
+- Rustのパッケージシステム：ライブラリとは何か、バイナリとは何か、サードパーティ製クレートの使い方

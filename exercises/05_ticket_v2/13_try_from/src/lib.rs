@@ -1,5 +1,5 @@
-// TODO: Implement `TryFrom<String>` and `TryFrom<&str>` for `Status`.
-//  The parsing should be case-insensitive.
+// TODO: `Status` に対して `TryFrom<String>` と `TryFrom<&str>` を実装してください。
+//  パースは大文字・小文字を区別しない（case-insensitive）ようにする必要があります。
 
 #[derive(Debug, PartialEq, Clone)]
 enum Status {

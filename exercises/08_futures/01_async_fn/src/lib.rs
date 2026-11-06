@@ -1,15 +1,14 @@
 use tokio::net::TcpListener;
 
-// TODO: write an echo server that accepts incoming TCP connections and
-//  echoes the received data back to the client.
-//  `echo` should not return when it finishes processing a connection, but should
-//  continue to accept new connections.
+// TODO: 着信TCP接続を受け入れ、受信したデータをクライアントにそのまま送り返す（エコーする）
+//  エコーサーバーを書いてください。
+//  `echo` は1つの接続の処理を終えてもリターンせず、新しい接続を受け入れ続ける必要があります。
 //
-// Hint: you should rely on `tokio`'s structs and methods to implement the echo server.
-// In particular:
-// - `tokio::net::TcpListener::accept` to process the next incoming connection
-// - `tokio::net::TcpStream::split` to obtain a reader and a writer from the socket
-// - `tokio::io::copy` to copy data from the reader to the writer
+// ヒント：エコーサーバーを実装するには、`tokio` の構造体とメソッドに頼る必要があります。
+// 具体的には：
+// - 次の着信接続を処理するための `tokio::net::TcpListener::accept`
+// - ソケットからリーダー（読み取り側）とライター（書き込み側）を取得するための `tokio::net::TcpStream::split`
+// - リーダーからライターへデータをコピーするための `tokio::io::copy`
 pub async fn echo(listener: TcpListener) -> Result<(), anyhow::Error> {
     todo!()
 }
@@ -31,12 +30,12 @@ mod tests {
             let mut socket = tokio::net::TcpStream::connect(addr).await.unwrap();
             let (mut reader, mut writer) = socket.split();
 
-            // Send the request
+            // リクエストを送信する
             writer.write_all(request.as_bytes()).await.unwrap();
-            // Close the write side of the socket
+            // ソケットの書き込み側を閉じる
             writer.shutdown().await.unwrap();
 
-            // Read the response
+            // レスポンスを読み取る
             let mut buf = Vec::with_capacity(request.len());
             reader.read_to_end(&mut buf).await.unwrap();
             assert_eq!(&buf, request.as_bytes());

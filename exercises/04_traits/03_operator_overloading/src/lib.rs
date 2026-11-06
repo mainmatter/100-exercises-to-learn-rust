@@ -6,7 +6,7 @@ struct Ticket {
     status: String,
 }
 
-// TODO: Implement the `PartialEq` trait for `Ticket`.
+// TODO: `Ticket` に対して `PartialEq` トレイトを実装してください。
 
 impl PartialEq for Ticket {}
 

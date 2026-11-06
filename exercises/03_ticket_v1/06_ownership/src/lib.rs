@@ -1,7 +1,6 @@
-// TODO: based on what we just learned about ownership, it sounds like immutable references
-//   are a good fit for our accessor methods.
-//   Change the existing implementation of `Ticket`'s accessor methods to take a reference
-//   to `self` as an argument, rather than taking ownership of it.
+// TODO: 所有権について学んだことに基づくと、アクセサメソッドには不変参照が適しているようです。
+//   `Ticket` のアクセサメソッドの既存の実装を変更して、`self` の所有権を奪うのではなく、
+//   引数として `self` への参照を受け取るようにしてください。
 
 pub struct Ticket {
     title: String,
@@ -54,9 +53,9 @@ mod tests {
     #[test]
     fn works() {
         let ticket = Ticket::new("A title".into(), "A description".into(), "To-Do".into());
-        // If you change the signatures as requested, this should compile:
-        // we can call these methods one after the other because they borrow `self`
-        // rather than taking ownership of it.
+        // 要求通りにシグネチャを変更すれば、これはコンパイルできるはずです。
+        // これらのメソッドは `self` の所有権を奪うのではなく借用するため、
+        // 次々に呼び出すことができます。
         assert_eq!(ticket.title(), "A title");
         assert_eq!(ticket.description(), "A description");
         assert_eq!(ticket.status(), "To-Do");

@@ -1,27 +1,20 @@
-# Wrapping up
+# まとめ
 
-We've covered quite a few different traits in this chapter—and we've only scratched the surface!
-It may feel like you have a lot to remember, but don't worry: you'll bump into these traits
-so often when writing Rust code that they'll soon become second nature.
+この章では、実にさまざまなトレイトを扱いましたが、それでもまだ表面をなぞったに過ぎません！
+覚えることがたくさんあるように感じるかもしれませんが、心配はいりません。Rustのコードを書いているとこれらのトレイトには非常に頻繁に出くわすため、すぐに自然と身につくようになります。
 
-## Closing thoughts
+## 最後に
 
-Traits are powerful, but don't overuse them.\
-A few guidelines to keep in mind:
+トレイトは強力ですが、使いすぎには注意しましょう。\
+いくつか心に留めておくべきガイドラインがあります：
 
-- Don't make a function generic if it is always invoked with a single type. It introduces indirection in your
-  codebase, making it harder to understand and maintain.
-- Don't create a trait if you only have one implementation. It's a sign that the trait is not needed.
-- Implement standard traits for your types (`Debug`, `PartialEq`, etc.) whenever it makes sense.
-  It will make your types more idiomatic and easier to work with, unlocking a lot of functionality provided
-  by the standard library and ecosystem crates.
-- Implement traits from third-party crates if you need the functionality they unlock within their ecosystem.
-- Beware of making code generic solely to use mocks in your tests. The maintainability cost of this approach
-  can be high, and it's often better to use a different testing strategy. Check out the
-  [testing masterclass](https://github.com/mainmatter/rust-advanced-testing-workshop)
-  for details on high-fidelity testing.
+- 常に単一の型でしか呼び出されない関数をジェネリックにしないでください。コードベースに間接性（インダイレクション）が持ち込まれ、理解や保守が難しくなります。
+- 実装が1つしかないのにトレイトを作成しないでください。それはトレイトが不要であるサインです。
+- 意味がある場合はいつでも、自分の型に標準トレイト（`Debug`、`PartialEq` など）を実装してください。そうすることで、型がよりイディオマティックで扱いやすくなり、標準ライブラリやエコシステムのクレートが提供する多くの機能が使えるようになります。
+- サードパーティ製クレートのエコシステム内で提供される機能が必要な場合は、それらのクレートのトレイトを実装してください。
+- テストでモックを使用することだけを目的にコードをジェネリックにすることには注意してください。このアプローチの保守コストは高くなる可能性があり、多くの場合、別のテスト戦略を使用する方が優れています。忠実度の高い（ハイフィデリティな）テストの詳細については、[テストのマスタークラス](https://github.com/mainmatter/rust-advanced-testing-workshop)をチェックしてください。
 
-## Testing your knowledge
+## 知識の確認
 
-Before moving on, let's go through one last exercise to consolidate what we've learned.
-You'll have minimal guidance this time—just the exercise description and the tests to guide you.
+次に進む前に、学んだことを定着させるための最後の演習に取り組みましょう。
+今回もガイダンスは最小限です。演習の説明とテストだけを頼りに進めてみてください。

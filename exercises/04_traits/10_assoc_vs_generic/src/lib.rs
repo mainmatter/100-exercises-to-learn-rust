@@ -1,17 +1,13 @@
-// TODO: Define a new trait, `Power`, that has a method `power` that raises `self`
-//  to the power of `n`.
-//  The trait definition and its implementations should be enough to get
-//  the tests to compile and pass.
+// TODO: `self` を `n` 乗する `power` メソッドを持つ新しいトレイト `Power` を定義してください。
+//  トレイト定義とその実装だけで、テストがコンパイルされ通過するようになるはずです。
 //
-// Recommendation: you may be tempted to write a generic implementation to handle
-// all cases at once. However, this is fairly complicated and requires the use of
-// additional crates (i.e. `num-traits`).
-// Even then, it might be preferable to use a simple macro instead to avoid
-// the complexity of a highly generic implementation. Check out the
-// "Little book of Rust macros" (https://veykril.github.io/tlborm/) if you're
-// interested in learning more about it.
-// You don't have to though: it's perfectly okay to write three separate
-// implementations manually. Venture further only if you're curious.
+// 推奨事項：すべてのケースを一度に処理するためにジェネリックな実装を書きたくなるかもしれません。
+// しかし、それはかなり複雑であり、追加のクレート（`num-traits` など）を使用する必要があります。
+// 仮にそうしたとしても、高度にジェネリックな実装の複雑さを避けるためには、代わりにシンプルなマクロを
+// 使用する方が望ましい場合もあります。これについて詳しく知りたい場合は、
+// 「The Little Book of Rust Macros」(https://veykril.github.io/tlborm/) をチェックしてください。
+// ただし、そうする必要はありません。3つの個別の実装を手動で書いてもまったく問題ありません。
+// 好奇心がある場合にのみ、さらに踏み込んでみてください。
 
 #[cfg(test)]
 mod tests {

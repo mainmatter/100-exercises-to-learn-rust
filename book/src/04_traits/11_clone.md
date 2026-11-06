@@ -1,14 +1,13 @@
-# Copying values, pt. 1
+# 値のコピー (パート1)
 
-In the previous chapter we introduced ownership and borrowing.\
-We stated, in particular, that:
+前の章では、所有権と借用を紹介しました。\
+特に、以下の点について述べました：
 
-- Every value in Rust has a single owner at any given time.
-- When a function takes ownership of a value ("it consumes it"), the caller can't use that value anymore.
+- Rustのすべての値には、いかなる時点においても単一の所有者が存在する。
+- 関数が値の所有権を奪う（「値を消費する」）と、呼び出し元はそれ以降その値を使用できなくなる。
 
-These restrictions can be somewhat limiting.\
-Sometimes we might have to call a function that takes ownership of a value, but we still need to use
-that value afterward.
+これらの制限は、時に少し窮屈に感じられることがあります。\
+値の所有権を奪う関数を呼び出さなければならないものの、その後も引き続きその値を使用したい場合があるからです。
 
 ```rust
 fn consumer(s: String) { /* */ }
@@ -16,15 +15,15 @@ fn consumer(s: String) { /* */ }
 fn example() {
      let mut s = String::from("hello");
      consumer(s);
-     s.push_str(", world!"); // error: value borrowed here after move
+     s.push_str(", world!"); // エラー: ムーブされた後の値がここで借用されています
 }
 ```
 
-That's where `Clone` comes in.
+そこで登場するのが `Clone` です。
 
 ## `Clone`
 
-`Clone` is a trait defined in Rust's standard library:
+`Clone` はRustの標準ライブラリで定義されているトレイトです：
 
 ```rust
 pub trait Clone {
@@ -32,11 +31,11 @@ pub trait Clone {
 }
 ```
 
-Its method, `clone`, takes a reference to `self` and returns a new **owned** instance of the same type.
+そのメソッドである `clone` は、`self` への参照を受け取り、同じ型の新しい**所有された (owned)** インスタンスを返します。
 
-## In action
+## 実際の動作
 
-Going back to the example above, we can use `clone` to create a new `String` instance before calling `consumer`:
+先ほどの例に戻り、`consumer` を呼び出す前に `clone` を使って新しい `String` インスタンスを作成してみましょう：
 
 ```rust
 fn consumer(s: String) { /* */ }
@@ -45,63 +44,61 @@ fn example() {
      let mut s = String::from("hello");
      let t = s.clone();
      consumer(t);
-     s.push_str(", world!"); // no error
+     s.push_str(", world!"); // エラーなし
 }
 ```
 
-Instead of giving ownership of `s` to `consumer`, we create a new `String` (by cloning `s`) and give
-that to `consumer` instead.\
-`s` remains valid and usable after the call to `consumer`.
+`s` の所有権を `consumer` に渡す代わりに、（`s` をクローンして）新しい `String` を作成し、それを `consumer` に渡しています。\
+`s` は `consumer` の呼び出し後も有効であり、引き続き使用可能です。
 
-## In memory
+## メモリ上の動き
 
-Let's look at what happened in memory in the example above.
-When `let mut s = String::from("hello");` is executed, the memory looks like this:
-
-```text
-                    s
-      +---------+--------+----------+
-Stack | pointer | length | capacity | 
-      |  |      |   5    |    5     |
-      +--|------+--------+----------+
-         |
-         |
-         v
-       +---+---+---+---+---+
-Heap:  | H | e | l | l | o |
-       +---+---+---+---+---+
-```
-
-When `let t = s.clone()` is executed, a whole new region is allocated on the heap to store a copy of the data:
+上記の例で、メモリ上で何が起きたかを見てみましょう。
+`let mut s = String::from("hello");` が実行されると、メモリは次のようになります：
 
 ```text
-                    s                                    t
-      +---------+--------+----------+      +---------+--------+----------+
-Stack | pointer | length | capacity |      | pointer | length | capacity |
-      |  |      |   5    |    5     |      |  |      |   5    |    5     |
-      +--|------+--------+----------+      +--|------+--------+----------+
-         |                                    |
-         |                                    |
-         v                                    v
-       +---+---+---+---+---+                +---+---+---+---+---+
-Heap:  | H | e | l | l | o |                | H | e | l | l | o |
-       +---+---+---+---+---+                +---+---+---+---+---+
+                      s
+         +---------+--------+----------+
+スタック | pointer | length | capacity | 
+         |  |      |   5    |    5     |
+         +--|------+--------+----------+
+            |
+            |
+            v
+         +---+---+---+---+---+
+ヒープ:  | H | e | l | l | o |
+         +---+---+---+---+---+
 ```
 
-If you're coming from a language like Java, you can think of `clone` as a way to create a deep copy of an object.
+`let t = s.clone()` が実行されると、データのコピーを保存するためにヒープ上にまったく新しい領域が割り当てられます：
 
-## Implementing `Clone`
+```text
+                      s                                    t
+         +---------+--------+----------+      +---------+--------+----------+
+スタック | pointer | length | capacity |      | pointer | length | capacity |
+         |  |      |   5    |    5     |      |  |      |   5    |    5     |
+         +--|------+--------+----------+      +--|------+--------+----------+
+            |                                    |
+            |                                    |
+            v                                    v
+         +---+---+---+---+---+                +---+---+---+---+---+
+ヒープ:  | H | e | l | l | o |                | H | e | l | l | o |
+         +---+---+---+---+---+                +---+---+---+---+---+
+```
 
-To make a type `Clone`-able, we have to implement the `Clone` trait for it.\
-You almost always implement `Clone` by deriving it:
+Javaのような言語の経験がある方なら、`clone` はオブジェクトのディープコピー（深いコピー）を作成する方法だと考えることができます。
+
+## `Clone` の実装
+
+型を `Clone` 可能にするには、その型に対して `Clone` トレイトを実装する必要があります。\
+ほとんどの場合、`Clone` は `derive` によって実装します：
 
 ```rust
 #[derive(Clone)]
 struct MyType {
-    // fields
+    // フィールド
 }
 ```
 
-The compiler implements `Clone` for `MyType` as you would expect: it clones each field of `MyType` individually and
-then constructs a new `MyType` instance using the cloned fields.\
-Remember that you can use `cargo expand` (or your IDE) to explore the code generated by `derive` macros.
+コンパイラは期待通りに `MyType` に対して `Clone` を実装してくれます。つまり、`MyType` の各フィールドを個別にクローンし、クローンされたフィールドを使用して新しい `MyType` インスタンスを構築します。\
+`derive` マクロによって生成されたコードを確認するには、`cargo expand`（またはお使いのIDE）を使用できることを覚えておきましょう。

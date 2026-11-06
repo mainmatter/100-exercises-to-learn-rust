@@ -1,17 +1,17 @@
 use crate::status::Status;
 
-// We've seen how to declare modules in one of the earliest exercises, but
-// we haven't seen how to extract them into separate files.
-// Let's fix that now!
+// 初期の演習の1つでモジュールを宣言する方法を見ましたが、
+// それらを別々のファイルに抽出する方法はまだ見ていませんでした。
+// 今ここでそれをやってみましょう！
 //
-// In the simplest case, when the extracted module is a single file, it is enough to
-// create a new file with the same name as the module and move the module content there.
-// The module file should be placed in the same directory as the file that declares the module.
-// In this case, `src/lib.rs`, thus `status.rs` should be placed in the `src` directory.
+// 最も単純なケースとして、抽出されたモジュールが単一のファイルである場合、
+// モジュールと同じ名前の新しいファイルを作成し、そこにモジュールの内容を移動するだけで十分です。
+// モジュールファイルは、モジュールを宣言しているファイルと同じディレクトリに配置する必要があります。
+// この場合は `src/lib.rs` で宣言しているため、`status.rs` は `src` ディレクトリに配置する必要があります。
 mod status;
 
-// TODO: Add a new error variant to `TicketNewError` for when the status string is invalid.
-//   When calling `source` on an error of that variant, it should return a `ParseStatusError` rather than `None`.
+// TODO: ステータス文字列が無効な場合のために、`TicketNewError` に新しいエラーバリアントを追加してください。
+//   そのバリアントのエラーに対して `source` を呼び出したとき、`None` ではなく `ParseStatusError` を返す必要があります。
 
 #[derive(Debug, thiserror::Error)]
 pub enum TicketNewError {
@@ -47,7 +47,7 @@ impl Ticket {
             return Err(TicketNewError::DescriptionTooLong);
         }
 
-        // TODO: Parse the status string into a `Status` enum.
+        // TODO: ステータス文字列を `Status` 列挙型にパースしてください。
 
         Ok(Ticket {
             title,

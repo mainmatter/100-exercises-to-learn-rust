@@ -1,12 +1,11 @@
-# The `Drop` trait
+# `Drop` トレイト
 
-When we introduced [destructors](../03_ticket_v1/11_destructor.md),
-we mentioned that the `drop` function:
+[デストラクタ](../03_ticket_v1/11_destructor.md)を紹介した際、`drop` 関数は以下のことを行うと述べました：
 
-1. reclaims the memory occupied by the type (i.e. `std::mem::size_of` bytes)
-2. cleans up any additional resources that the value might be managing (e.g. the heap buffer of a `String`)
+1. 型が占有していたメモリ（つまり `std::mem::size_of` バイト）を回収する
+2. 値が管理している可能性のある追加のリソース（例：`String` のヒープバッファ）をクリーンアップする
 
-Step 2. is where the `Drop` trait comes in.
+ステップ 2 こそが、`Drop` トレイトの出番です。
 
 ```rust
 pub trait Drop {
@@ -14,34 +13,31 @@ pub trait Drop {
 }
 ```
 
-The `Drop` trait is a mechanism for you to define _additional_ cleanup logic for your types,
-beyond what the compiler does for you automatically.\
-Whatever you put in the `drop` method will be executed when the value goes out of scope.
+`Drop` トレイトは、コンパイラが自動的に行ってくれる処理を超えて、型に対して*追加の*クリーンアップロジックを定義するための仕組みです。\
+`drop` メソッド内に記述した処理は何であれ、その値がスコープを抜けたときに実行されます。
 
-## `Drop` and `Copy`
+## `Drop` と `Copy`
 
-When talking about the `Copy` trait, we said that a type can't implement `Copy` if it
-manages additional resources beyond the `std::mem::size_of` bytes that it occupies in memory.
+`Copy` トレイトについて話した際、メモリ上で占有する `std::mem::size_of` バイト以外の追加リソースを管理している型は、`Copy` を実装できないと述べました。
 
-You might wonder: how does the compiler know if a type manages additional resources?
-That's right: `Drop` trait implementations!\
-If your type has an explicit `Drop` implementation, the compiler will assume
-that your type has additional resources attached to it and won't allow you to implement `Copy`.
+ここで疑問に思うかもしれません。コンパイラはどうやって、ある型が追加のリソースを管理しているかどうかを知るのでしょうか？
+その通りです、`Drop` トレイトの実装によって知るのです！\
+自分の型に明示的な `Drop` の実装がある場合、コンパイラはその型に追加のリソースが紐づいているとみなし、`Copy` の実装を許可しません。
 
 ```rust
-// This is a unit struct, i.e. a struct with no fields.
+// これはユニット構造体（つまりフィールドを持たない構造体）です。
 #[derive(Clone, Copy)]
 struct MyType;
 
 impl Drop for MyType {
     fn drop(&mut self) {
-       // We don't need to do anything here,
-       // it's enough to have an "empty" Drop implementation
+       // ここで何かをする必要はありません。
+       // 「空の」Drop実装があるだけで十分です。
     }
 }
 ```
 
-The compiler will complain with this error message:
+コンパイラは次のエラーメッセージを出します：
 
 ```text
 error[E0184]: the trait `Copy` cannot be implemented for this type; 

@@ -1,72 +1,68 @@
-# Memory layout
+# メモリレイアウト
 
-We've looked at ownership and references from an operational point of view—what you can and can't do with them.
-Now it's a good time to take a look under the hood: let's talk about **memory**.
+これまでは所有権と参照を操作的な観点（それらを使って何ができ、何ができないか）から見てきました。
+ここで内部の仕組みを覗いてみましょう。**メモリ (memory)** について話します。
 
-## Stack and heap
+## スタックとヒープ
 
-When discussing memory, you'll often hear people talk about the **stack** and the **heap**.\
-These are two different memory regions used by programs to store data.
+メモリについて議論するとき、よく**スタック (stack)** と**ヒープ (heap)** という言葉を耳にするでしょう。\
+これらは、プログラムがデータを保存するために使用する2つの異なるメモリ領域です。
 
-Let's start with the stack.
+まずはスタックから始めましょう。
 
-## Stack
+## スタック (Stack)
 
-The **stack** is a **LIFO** (Last In, First Out) data structure.\
-When you call a function, a new **stack frame** is added on top of the stack. That stack frame stores
-the function's arguments, local variables and a few "bookkeeping" values.\
-When the function returns, the stack frame is popped off the stack[^stack-overflow].
+**スタック**は **LIFO**（Last In, First Out：後入れ先出し）のデータ構造です。\
+関数を呼び出すと、新しい**スタックフレーム (stack frame)** がスタックの一番上に追加されます。そのスタックフレームには、関数の引数、ローカル変数、およびいくつかの「管理用（ブックキーピング）」の値が保存されます。\
+関数から戻るとき、そのスタックフレームはスタックからポップ（取り出し）されます[^stack-overflow]。
 
 ```text
 +-----------------+
-| frame for func1 |
+| func1 のフレーム |
 +-----------------+
-        |
-        | func2 is 
-        | called
-        v
+         |
+         | func2 が
+         | 呼び出される
+         v
 +-----------------+
-| frame for func2 |
+| func2 のフレーム |
 +-----------------+
-| frame for func1 |
+| func1 のフレーム |
 +-----------------+
-        |
-        | func2  
-        | returns
-        v
+         |
+         | func2 から
+         | 戻る
+         v
 +-----------------+
-| frame for func1 |
+| func1 のフレーム |
 +-----------------+
 ```
 
-From an operational point of view, stack allocation/de-allocation is **very fast**.\
-We are always pushing and popping data from the top of the stack, so we don't need to search for free memory.
-We also don't have to worry about fragmentation: the stack is a single contiguous block of memory.
+動作の観点から見ると、スタックのメモリ割り当て（アロケーション）と解放（デアロケーション）は**非常に高速**です。\
+常にスタックの一番上からデータをプッシュしたりポップしたりするため、空きメモリを探す必要がありません。
+また、断片化（フラグメンテーション）を心配する必要もありません。スタックは単一の連続したメモリブロックだからです。
 
-### Rust
+### Rustにおけるスタック
 
-Rust will often allocate data on the stack.\
-You have a `u32` input argument in a function? Those 32 bits will be on the stack.\
-You define a local variable of type `i64`? Those 64 bits will be on the stack.\
-It all works quite nicely because the size of those integers is known at compile time, therefore
-the compiled program knows how much space it needs to reserve on the stack for them.
+Rustは多くの場合、スタック上にデータを割り当てます。\
+関数に `u32` の入力引数がありますか？その32ビットはスタック上に置かれます。\
+`i64` 型のローカル変数を定義しましたか？その64ビットはスタック上に置かれます。\
+これらの整数のサイズはコンパイル時にわかっているため、コンパイルされたプログラムはスタック上にどれだけのスペースを確保すればよいかを把握しており、すべてが非常にうまく機能します。
 
 ### `std::mem::size_of`
 
-You can verify how much space a type would take on the stack
-using the [`std::mem::size_of`](https://doc.rust-lang.org/std/mem/fn.size_of.html) function.
+[`std::mem::size_of`](https://doc.rust-lang.org/std/mem/fn.size_of.html) 関数を使用すると、ある型がスタック上でどれだけのスペースを占めるかを確認できます。
 
-For a `u8`, for example:
+例えば、`u8` の場合：
 
 ```rust
-// We'll explain this funny-looking syntax (`::<u8>`) later on.
-// Ignore it for now.
+// この奇妙に見える構文 (`::<u8>`) については後ほど説明します。
+// 今のところは無視してください。
 assert_eq!(std::mem::size_of::<u8>(), 1);
 ```
 
-1 makes sense, because a `u8` is 8 bits long, or 1 byte.
+`u8` は8ビット長、つまり1バイトなので、1というのは理にかなっています。
 
-[^stack-overflow]: If you have nested function calls, each function pushes its data onto the stack when it's called but
-it doesn't pop it off until the innermost function returns.
-If you have too many nested function calls, you can run out of stack space—the stack is not infinite!
-That's called a [**stack overflow**](https://en.wikipedia.org/wiki/Stack_overflow).
+[^stack-overflow]: ネストされた（入れ子の）関数呼び出しがある場合、各関数は呼び出されたときにデータをスタックにプッシュしますが、最も内側の関数が戻るまでデータをポップしません。
+ネストされた関数呼び出しが多すぎると、スタックスペースを使い果たしてしまう可能性があります。スタックは無限ではないのです！
+これは[**スタックオーバーフロー (stack overflow)**](https://en.wikipedia.org/wiki/Stack_overflow) と呼ばれます。

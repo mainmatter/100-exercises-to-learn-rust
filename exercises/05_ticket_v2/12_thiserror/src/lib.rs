@@ -1,7 +1,7 @@
-// TODO: Implement the `Error` trait for `TicketNewError` using `thiserror`.
-//   We've changed the enum variants to be more specific, thus removing the need for storing
-//   a `String` field into each variant.
-//   You'll also have to add `thiserror` as a dependency in the `Cargo.toml` file.
+// TODO: `thiserror` を使用して、`TicketNewError` に対して `Error` トレイトを実装してください。
+//   列挙型のバリアントをより具体的なものに変更したため、各バリアント内に `String` フィールドを
+//   保存する必要がなくなりました。
+//   また、`Cargo.toml` ファイルの依存関係に `thiserror` を追加する必要もあります。
 
 enum TicketNewError {
     TitleCannotBeEmpty,

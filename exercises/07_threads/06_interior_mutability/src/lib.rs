@@ -1,5 +1,6 @@
-// TODO: Use `Rc` and `RefCell` to implement `DropTracker<T>`, a wrapper around a value of type `T`
-//  that increments a shared `usize` counter every time the wrapped value is dropped.
+// TODO: `Rc` と `RefCell` を使用して、型 `T` の値をラップし、
+//  ラップされた値がドロップされるたびに共有された `usize` カウンタをインクリメントする
+//  `DropTracker<T>` を実装してください。
 
 use std::cell::RefCell;
 use std::rc::Rc;

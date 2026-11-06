@@ -1,6 +1,6 @@
-# Traits
+# トレイト (Traits)
 
-Let's look again at our `Ticket` type:
+もう一度 `Ticket` 型を見てみましょう：
 
 ```rust
 pub struct Ticket {
@@ -10,13 +10,13 @@ pub struct Ticket {
 }
 ```
 
-All our tests, so far, have been making assertions using `Ticket`'s fields.
+これまでのすべてのテストでは、`Ticket` のフィールドを使ってアサーション（検証）を行っていました。
 
 ```rust
 assert_eq!(ticket.title(), "A new title");
 ```
 
-What if we wanted to compare two `Ticket` instances directly?
+もし、2つの `Ticket` インスタンスを直接比較したいとしたらどうでしょうか？
 
 ```rust
 let ticket1 = Ticket::new(/* ... */);
@@ -24,7 +24,7 @@ let ticket2 = Ticket::new(/* ... */);
 ticket1 == ticket2
 ```
 
-The compiler will stop us:
+コンパイラがそれを止めます：
 
 ```text
 error[E0369]: binary operation `==` cannot be applied to type `Ticket`
@@ -38,28 +38,27 @@ error[E0369]: binary operation `==` cannot be applied to type `Ticket`
 note: an implementation of `PartialEq` might be missing for `Ticket`
 ```
 
-`Ticket` is a new type. Out of the box, there is **no behavior attached to it**.\
-Rust doesn't magically infer how to compare two `Ticket` instances just because they contain `String`s.
+`Ticket` は新しい型です。そのままの状態では、**いかなる振る舞いも紐づいていません**。\
+`String` を含んでいるからといって、Rustが2つの `Ticket` インスタンスを比較する方法を魔法のように推論してくれることはありません。
 
-The Rust compiler is nudging us in the right direction though: it's suggesting that we might be missing an implementation
-of `PartialEq`. `PartialEq` is a **trait**!
+それでも、Rustコンパイラは私たちを正しい方向へ導いてくれています。`PartialEq` の実装が欠けている可能性を示唆しているのです。この `PartialEq` こそが**トレイト (trait)** です！
 
-## What are traits?
+## トレイトとは何か？
 
-Traits are Rust's way of defining **interfaces**.\
-A trait defines a set of methods that a type must implement to satisfy the trait's contract.
+トレイトとは、Rustにおける**インターフェース (interfaces)** の定義方法です。\
+トレイトは、そのトレイトの契約（要件）を満たすために型が実装しなければならない一連のメソッドを定義します。
 
-### Defining a trait
+### トレイトの定義
 
-The syntax for a trait definition goes like this:
+トレイト定義の構文は次のようになります：
 
 ```rust
-trait <TraitName> {
-    fn <method_name>(<parameters>) -> <return_type>;
+trait <トレイト名> {
+    fn <メソッド名>(<パラメータ>) -> <戻り値の型>;
 }
 ```
 
-We might, for example, define a trait named `MaybeZero` that requires its implementors to define an `is_zero` method:
+例えば、実装する型（実装者）に対して `is_zero` メソッドの定義を要求する `MaybeZero` という名前のトレイトを定義するとしましょう：
 
 ```rust
 trait MaybeZero {
@@ -67,20 +66,19 @@ trait MaybeZero {
 }
 ```
 
-### Implementing a trait
+### トレイトの実装
 
-To implement a trait for a type we use the `impl` keyword, just like we do for regular[^inherent] methods,
-but the syntax is a bit different:
+型に対してトレイトを実装するには、通常の[^inherent]メソッドと同様に `impl` キーワードを使用しますが、構文が少し異なります：
 
 ```rust
-impl <TraitName> for <TypeName> {
-    fn <method_name>(<parameters>) -> <return_type> {
-        // Method body
+impl <トレイト名> for <型名> {
+    fn <メソッド名>(<パラメータ>) -> <戻り値の型> {
+        // メソッド本体
     }
 }
 ```
 
-For example, to implement the `MaybeZero` trait for a custom number type, `WrappingU32`:
+例えば、カスタム数値型である `WrappingU32` に対して `MaybeZero` トレイトを実装する場合は次のようになります：
 
 ```rust
 pub struct WrappingU32 {
@@ -94,34 +92,33 @@ impl MaybeZero for WrappingU32 {
 }
 ```
 
-### Invoking a trait method
+### トレイトメソッドの呼び出し
 
-To invoke a trait method, we use the `.` operator, just like we do with regular methods:
+トレイトメソッドを呼び出すには、通常のメソッドと同様に `.` 演算子を使用します：
 
 ```rust
 let x = WrappingU32 { inner: 5 };
 assert!(!x.is_zero());
 ```
 
-To invoke a trait method, two things must be true:
+トレイトメソッドを呼び出すには、以下の2つが成り立っている必要があります：
 
-- The type must implement the trait.
-- The trait must be in scope.
+- 型がそのトレイトを実装していること。
+- そのトレイトがスコープ内にあること。
 
-To satisfy the latter, you may have to add a `use` statement for the trait:
+後者を満たすために、トレイトに対する `use` 文を追加する必要がある場合があります：
 
 ```rust
 use crate::MaybeZero;
 ```
 
-This is not necessary if:
+ただし、以下の場合には `use` 文は必要ありません：
 
-- The trait is defined in the same module where the invocation occurs.
-- The trait is defined in the standard library's **prelude**.
-  The prelude is a set of traits and types that are automatically imported into every Rust program.
-  It's as if `use std::prelude::*;` was added at the beginning of every Rust module.
+- 呼び出しが行われるのと同じモジュール内でトレイトが定義されている場合。
+- 標準ライブラリの**プレリュード (prelude)** でトレイトが定義されている場合。
+  プレリュードとは、すべてのRustプログラムに自動的にインポートされる一連のトレイトと型のことです。
+  すべてのRustモジュールの先頭に `use std::prelude::*;` が追加されているかのように動作します。
 
-You can find the list of traits and types in the prelude in the
-[Rust documentation](https://doc.rust-lang.org/std/prelude/index.html).
+プレリュードに含まれているトレイトと型のリストは、[Rustのドキュメント](https://doc.rust-lang.org/std/prelude/index.html)で確認できます。
 
-[^inherent]: A method defined directly on a type, without using a trait, is also known as an **inherent method**.
+[^inherent]: トレイトを使用せずに型に直接定義されたメソッドは、**固有メソッド (inherent method)** とも呼ばれます。

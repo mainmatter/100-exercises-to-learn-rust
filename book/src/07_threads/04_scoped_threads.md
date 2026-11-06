@@ -1,8 +1,7 @@
-# Scoped threads
+# スコープ付きスレッド (Scoped threads)
 
-All the lifetime issues we discussed so far have a common source:
-the spawned thread can outlive its parent.\
-We can sidestep this issue by using **scoped threads**.
+これまで議論してきたすべてのライフタイム問題は、共通の原因を持っています。それは、スポーンされたスレッドが親スレッドよりも長生きする可能性があるということです。\
+**スコープ付きスレッド (scoped threads)** を使用することで、この問題を回避できます。
 
 ```rust
 let v = vec![1, 2, 3];
@@ -22,21 +21,19 @@ std::thread::scope(|scope| {
 println!("Here's v: {v:?}");
 ```
 
-Let's unpack what's happening.
+何が起きているのかを紐解いていきましょう。
 
 ## `scope`
 
-The `std::thread::scope` function creates a new **scope**.\
-`std::thread::scope` takes a closure as input, with a single argument: a `Scope` instance.
+`std::thread::scope` 関数は、新しい**スコープ (scope)** を作成します。\
+`std::thread::scope` は入力として、`Scope` インスタンスという単一の引数を持つクロージャを受け取ります。
 
-## Scoped spawns
+## スコープ付きスポーン (Scoped spawns)
 
-`Scope` exposes a `spawn` method.\
-Unlike `std::thread::spawn`, all threads spawned using a `Scope` will be
-**automatically joined** when the scope ends.
+`Scope` は `spawn` メソッドを公開しています。\
+`std::thread::spawn` とは異なり、`Scope` を使用してスポーンされたすべてのスレッドは、スコープが終了するときに**自動的に `join`（合流・待機）**されます。
 
-If we were to "translate" the previous example to `std::thread::spawn`,
-it'd look like this:
+もし前の例を `std::thread::spawn` に「翻訳」したとすると、次のようになります：
 
 ```rust
 let v = vec![1, 2, 3];
@@ -57,17 +54,13 @@ handle2.join().unwrap();
 println!("Here's v: {v:?}");
 ```
 
-## Borrowing from the environment
+## 環境からの借用
 
-The translated example wouldn't compile, though: the compiler would complain
-that `&v` can't be used from our spawned threads since its lifetime isn't
-`'static`.
+しかし、この翻訳された例はコンパイルできません。`&v` のライフタイムが `'static` ではないため、スポーンされたスレッドからは使用できないとコンパイラが文句を言うからです。
 
-That's not an issue with `std::thread::scope`—you can **safely borrow from the environment**.
+`std::thread::scope` を使えば、これは問題になりません。**周囲の環境から安全に借用する**ことができます。
 
-In our example, `v` is created before the spawning points.
-It will only be dropped _after_ `scope` returns. At the same time,
-all threads spawned inside `scope` are guaranteed to finish _before_ `scope` returns,
-therefore there is no risk of having dangling references.
+上記の例では、`v` はスレッドがスポーンされる地点よりも前に作成されています。
+そして、`v` がドロップされるのは `scope` が戻った*後*だけです。同時に、`scope` 内でスポーンされたすべてのスレッドは、`scope` が戻る*前*に終了することが保証されているため、ダングリング参照が発生するリスクはありません。
 
-The compiler won't complain!
+コンパイラも文句を言いません！

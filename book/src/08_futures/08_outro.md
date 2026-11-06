@@ -1,34 +1,19 @@
-# Outro
+# まとめ (Outro)
 
-Rust's asynchronous model is quite powerful, but it does introduce additional
-complexity. Take time to know your tools: dive deep into `tokio`'s documentation
-and get familiar with its primitives to make the most out of it.
+Rustの非同期モデルは非常に強力ですが、追加の複雑さをもたらすことも事実です。時間をかけて自分のツールをよく理解しましょう。`tokio` のドキュメントを深く掘り下げ、そのプリミティブに慣れ親しむことで、最大限に活用できるようになります。
 
-Keep in mind, as well, that there is ongoing work at the language and `std` level
-to streamline and "complete" Rust's asynchronous story. You may experience some
-rough edges in your day-to-day work due to some of these missing pieces.
+また、Rustの非同期機能を合理化し「完成」させるための作業が、言語および標準ライブラリ（`std`）レベルで現在も進行中であることも念頭に置いておいてください。これらのまだ欠けているピースのせいで、日常の業務の中で少し粗削りな部分に遭遇することもあるかもしれません。
 
-A few recommendations for a mostly-pain-free async experience:
+ほとんど苦労のない非同期プログラミング体験を得るための推奨事項をいくつか紹介します：
 
-- **Pick a runtime and stick to it.**\
-  Some primitives (e.g. timers, I/O) are not portable across runtimes. Trying to
-  mix runtimes is likely to cause you pain. Trying to write code that's runtime
-  agnostic can significantly increase the complexity of your codebase. Avoid it
-  if you can.
-- **There is no stable `Stream`/`AsyncIterator` interface yet.**\
-  An `AsyncIterator` is, conceptually, an iterator that yields new items
-  asynchronously. There is ongoing design work, but no consensus (yet).
-  If you're using `tokio`, refer to [`tokio_stream`](https://docs.rs/tokio-stream/latest/tokio_stream/)
-  as your go-to interface.
-- **Be careful with buffering.**\
-  It is often the cause of subtle bugs. Check out
-  ["Barbara battles buffered streams"](https://rust-lang.github.io/wg-async/vision/submitted_stories/status_quo/barbara_battles_buffered_streams.html)
-  for more details.
-- **There is no equivalent of scoped threads for asynchronous tasks**.\
-  Check out ["The scoped task trilemma"](https://without.boats/blog/the-scoped-task-trilemma/)
-  for more details.
+- **ランタイムを1つ選び、それに統一すること。**\
+  一部のプリミティブ（タイマーやI/Oなど）は、異なるランタイム間で互換性（ポータビリティ）がありません。複数のランタイムを混在させようとすると、痛い目を見ることになりがちです。また、特定のランタイムに依存しない（runtime-agnosticな）コードを書こうとすると、コードベースの複雑さが著しく増大する可能性があります。可能な限り避けましょう。
+- **安定した `Stream`/`AsyncIterator` インターフェースはまだ存在しない。**\
+  `AsyncIterator` とは、概念的には新しいアイテムを非同期に生成するイテレータのことです。現在も設計作業が進められていますが、（まだ）合意には至っていません。`tokio` を使用している場合は、定番のインターフェースとして [`tokio_stream`](https://docs.rs/tokio-stream/latest/tokio_stream/) を参照してください。
+- **バッファリングには注意すること。**\
+  バッファリングはしばしば微妙なバグの原因となります。詳細については [「Barbara battles buffered streams」](https://rust-lang.github.io/wg-async/vision/submitted_stories/status_quo/barbara_battles_buffered_streams.html)をチェックしてください。
+- **非同期タスクには、スコープ付きスレッドに相当するものが存在しない。**\
+  詳細については [「The scoped task trilemma」](https://without.boats/blog/the-scoped-task-trilemma/)をチェックしてください。
 
-Don't let these caveats scare you: asynchronous Rust is being used effectively
-at _massive_ scale (e.g. AWS, Meta) to power foundational services.\
-You will have to master it if you're planning building networked applications
-in Rust.
+これらの注意点に怯える必要はありません。非同期Rustは、基盤となるサービスを支えるために*巨大な*スケール（AWSやMetaなど）で効果的に使用されています。\
+Rustでネットワークアプリケーションを構築する予定があるなら、ぜひ習得しておきたい技術です。

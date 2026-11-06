@@ -1,8 +1,8 @@
-# The `Future` trait
+# `Future` トレイト
 
-## The local `Rc` problem
+## ローカルな `Rc` の問題
 
-Let's go back to `tokio::spawn`'s signature:
+`tokio::spawn` のシグネチャに戻りましょう：
 
 ```rust
 pub fn spawn<F>(future: F) -> JoinHandle<F::Output>
@@ -12,12 +12,11 @@ pub fn spawn<F>(future: F) -> JoinHandle<F::Output>
 { /* */ }
 ```
 
-What does it _actually_ mean for `F` to be `Send`?\
-It implies, as we saw in the previous section, that whatever value it captures from the
-spawning environment has to be `Send`. But it goes further than that.
+`F` が `Send` であるとは、*実際には*どういう意味でしょうか？\
+前のセクションで見たように、スポーン元の環境からキャプチャするあらゆる値が `Send` でなければならないことを意味します。しかし、それだけにとどまりません。
 
-Any value that's _held across a .await point_ has to be `Send`.\
-Let's look at an example:
+*.await ポイントをまたいで保持される*あらゆる値も `Send` でなければならないのです。\
+例を見てみましょう：
 
 ```rust
 use std::rc::Rc;
@@ -28,20 +27,20 @@ fn spawner() {
 }
 
 async fn example() {
-    // A value that's not `Send`,
-    // created _inside_ the async function
+    // 非同期関数の*内部*で作成された、
+    // `Send` ではない値
     let non_send = Rc::new(1);
     
-    // A `.await` point that does nothing
+    // 何もしない `.await` ポイント
     yield_now().await;
 
-    // The local non-`Send` value is still needed
-    // after the `.await`
+    // `.await` の後でも、ローカルな非 `Send` の値が
+    // 引き続き必要とされている
     println!("{}", non_send);
 }
 ```
 
-The compiler will reject this code:
+コンパイラはこのコードを拒否します：
 
 ```text
 error: future cannot be sent between threads safely
@@ -67,25 +66,23 @@ note: required by a bound in `tokio::spawn`
     |                     ^^^^ required by this bound in `spawn`
 ```
 
-To understand why that's the case, we need to refine our understanding of
-Rust's asynchronous model.
+なぜこうなるのかを理解するには、Rustの非同期モデルについての理解をさらに深める必要があります。
 
-## The `Future` trait
+## `Future` トレイト
 
-We stated early on that `async` functions return **futures**, types that implement
-the `Future` trait. You can think of a future as a **state machine**.
-It's in one of two states:
+最初の頃、`async` 関数は `Future` トレイトを実装する型である**フューチャー (futures)** を返すと述べました。フューチャーは**ステートマシン（状態機械）**だと考えることができます。
+フューチャーは以下の2つの状態のいずれかにあります：
 
-- **pending**: the computation has not finished yet.
-- **ready**: the computation has finished, here's the output.
+- **pending（保留中）**：計算がまだ終了していない。
+- **ready（完了）**：計算が終了し、ここに出力がある。
 
-This is encoded in the trait definition:
+これはトレイト定義の中で次のように表現されています：
 
 ```rust
 trait Future {
     type Output;
     
-    // Ignore `Pin` and `Context` for now
+    // 今のところは `Pin` と `Context` を無視してください
     fn poll(
       self: Pin<&mut Self>, 
       cx: &mut Context<'_>
@@ -95,36 +92,32 @@ trait Future {
 
 ### `poll`
 
-The `poll` method is the heart of the `Future` trait.\
-A future on its own doesn't do anything. It needs to be **polled** to make progress.\
-When you call `poll`, you're asking the future to do some work.
-`poll` tries to make progress, and then returns one of the following:
+`poll` メソッドは `Future` トレイトの心臓部です。\
+フューチャーはそれ単体では何もしません。処理を進めるには**ポーリング (poll)** される必要があります。\
+`poll` を呼び出すことは、フューチャーに作業を進めるよう依頼することです。
+`poll` は処理を進めようと試み、以下のいずれかを返します：
 
-- `Poll::Pending`: the future is not ready yet. You need to call `poll` again later.
-- `Poll::Ready(value)`: the future has finished. `value` is the result of the computation,
-  of type `Self::Output`.
+- `Poll::Pending`：フューチャーはまだ完了していません。後でもう一度 `poll` を呼び出す必要があります。
+- `Poll::Ready(value)`：フューチャーが完了しました。`value` は計算結果であり、その型は `Self::Output` です。
 
-Once `Future::poll` returns `Poll::Ready`, it should not be polled again: the future has
-completed, there's nothing left to do.
+`Future::poll` が一度 `Poll::Ready` を返したら、それを再度ポーリングしてはなりません。フューチャーは完了しており、やるべきことは何も残っていないからです。
 
-### The role of the runtime
+### ランタイムの役割
 
-You'll rarely, if ever, be calling poll directly.\
-That's the job of your async runtime: it has all the required information (the `Context`
-in `poll`'s signature) to ensure that your futures are making progress whenever they can.
+開発者が直接 `poll` を呼び出すことは、あったとしてもごく稀です。\
+それは非同期ランタイムの仕事です。ランタイムは、フューチャーが進められるときにいつでも確実に処理を進められるようにするために必要なすべての情報（`poll` のシグネチャにある `Context`）を持っています。
 
-## `async fn` and futures
+## `async fn` とフューチャー
 
-We've worked with the high-level interface, asynchronous functions.\
-We've now looked at the low-level primitive, the `Future trait`.
+これまで高レベルのインターフェースである非同期関数を扱ってきました。\
+そして今、低レベルのプリミティブである `Future` トレイトを見ました。
 
-How are they related?
+これら2つはどのように関連しているのでしょうか？
 
-Every time you mark a function as asynchronous, that function will return a future.
-The compiler will transform the body of your asynchronous function into a **state machine**:
-one state for each `.await` point.
+関数を非同期（`async`）としてマークするたびに、その関数はフューチャーを返すようになります。
+コンパイラは、非同期関数の本体を**ステートマシン**に変換します。`.await` ポイントごとに1つの状態が作られます。
 
-Going back to our `Rc` example:
+先ほどの `Rc` の例に戻りましょう：
 
 ```rust
 use std::rc::Rc;
@@ -137,7 +130,7 @@ async fn example() {
 }
 ```
 
-The compiler would transform it into an enum that looks somewhat like this:
+コンパイラはこれを、おおよそ次のような列挙型に変換します：
 
 ```rust
 pub enum ExampleFuture {
@@ -147,24 +140,15 @@ pub enum ExampleFuture {
 }
 ```
 
-When `example` is called, it returns `ExampleFuture::NotStarted`. The future has never
-been polled yet, so nothing has happened.\
-When the runtime polls it the first time, `ExampleFuture` will advance until the next
-`.await` point: it'll stop at the `ExampleFuture::YieldNow(Rc<i32>)` stage of the state
-machine, returning `Poll::Pending`.\
-When it's polled again, it'll execute the remaining code (`println!`) and
-return `Poll::Ready(())`.
+`example` が呼び出されると、`ExampleFuture::NotStarted` を返します。このフューチャーはまだ一度もポーリングされていないため、何も起きていません。\
+ランタイムが最初にそれをポーリングすると、`ExampleFuture` は次の `.await` ポイントまで処理を進め、ステートマシンの `ExampleFuture::YieldNow(Rc<i32>)` の段階で停止し、`Poll::Pending` を返します。\
+再度ポーリングされると、残りのコード（`println!`）を実行し、`Poll::Ready(())` を返します。
 
-When you look at its state machine representation, `ExampleFuture`,
-it is now clear why `example` is not `Send`: it holds an `Rc`, therefore
-it cannot be `Send`.
+ステートマシン表現である `ExampleFuture` を見れば、なぜ `example` が `Send` ではないのかが明確になります。内部に `Rc` を保持しているため、`Send` になり得ないのです。
 
-## Yield points
+## イールドポイント (Yield points)
 
-As you've just seen with `example`, every `.await` point creates a new intermediate
-state in the lifecycle of a future.\
-That's why `.await` points are also known as **yield points**: your future _yields control_
-back to the runtime that was polling it, allowing the runtime to pause it and (if necessary)
-schedule another task for execution, thus making progress on multiple fronts concurrently.
+`example` で今見たように、すべての `.await` ポイントはフューチャーのライフサイクルにおいて新しい中間状態を作り出します。\
+そのため、`.await` ポイントは**イールドポイント (yield points / 譲渡地点)** とも呼ばれます。フューチャーは自身をポーリングしていたランタイムに*制御を譲り渡し (yield)*、ランタイムがそのフューチャーを一時停止して（必要であれば）別のタスクの実行をスケジュールできるようにします。これにより、複数の処理を並行して進めることができるのです。
 
-We'll come back to the importance of yielding in a later section.
+制御を譲ること（yielding）の重要性については、後のセクションで再び取り上げます。

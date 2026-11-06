@@ -1,16 +1,14 @@
-# Two-way communication
+# 双方向通信 (Ackパターン)
 
-In our current client-server implementation, communication flows in one direction: from the client to the server.\
-The client has no way of knowing if the server received the message, executed it successfully, or failed.
-That's not ideal.
+現在のクライアント・サーバー実装では、通信はクライアントからサーバーへの一方向にしか流れていません。\
+クライアントは、サーバーがメッセージを受信したのか、それを正常に実行したのか、あるいは失敗したのかを知る術がありません。
+これは理想的とは言えません。
 
-To solve this issue, we can introduce a two-way communication system.
+この問題を解決するために、双方向通信システムを導入しましょう。
 
-## Response channel
+## レスポンスチャネル
 
-We need a way for the server to send a response back to the client.\
-There are various ways to do this, but the simplest option is to include a `Sender` channel in
-the message that the client sends to the server. After processing the message, the server can use
-this channel to send a response back to the client.
+サーバーがクライアントにレスポンス（応答）を送り返すための方法が必要です。\
+これを行う方法はいくつかありますが、最もシンプルな選択肢は、クライアントがサーバーに送信するメッセージの中にレスポンス用の `Sender` チャネルを含めることです。メッセージを処理した後、サーバーはこのチャネルを使用してクライアントにレスポンスを送り返すことができます。
 
-This is a fairly common pattern in Rust applications built on top of message-passing primitives.
+これは、メッセージパッシングのプリミティブの上に構築されたRustアプリケーションにおいて非常によく見られるパターンです。

@@ -1,48 +1,45 @@
-# Libraries and binaries
+# ライブラリとバイナリ
 
-It took a bit of code to implement the `Error` trait for `TicketNewError`, didn't it?\
-A manual `Display` implementation, plus an `Error` impl block.
+`TicketNewError` に対して `Error` トレイトを実装するには、少しコードを書く必要がありましたよね？\
+手動の `Display` 実装に加えて、`Error` の `impl` ブロックが必要でした。
 
-We can remove some of the boilerplate by using [`thiserror`](https://docs.rs/thiserror/latest/thiserror/),
-a Rust crate that provides a **procedural macro** to simplify the creation of custom error types.\
-But we're getting ahead of ourselves: `thiserror` is a third-party crate, it'd be our first dependency!
+カスタムエラー型の作成を簡素化する**手続き型マクロ (procedural macro)** を提供するRustクレートである [`thiserror`](https://docs.rs/thiserror/latest/thiserror/) を使用すれば、ボイラープレート（定型コード）の一部を取り除くことができます。\
+しかし、少し先走りすぎました。`thiserror` はサードパーティ製のクレートであり、私たちにとって初めての依存関係（dependency）になります！
 
-Let's take a step back to talk about Rust's packaging system before we dive into dependencies.
+依存関係に飛び込む前に、一歩下がってRustのパッケージシステムについてお話ししましょう。
 
-## What is a package?
+## パッケージとは何か？
 
-A Rust package is defined by the `[package]` section in a `Cargo.toml` file, also known as its **manifest**.
-Within `[package]` you can set the package's metadata, such as its name and version.
+Rustのパッケージは、**マニフェスト (manifest)** とも呼ばれる `Cargo.toml` ファイル内の `[package]` セクションによって定義されます。
+`[package]` の中では、名前やバージョンなどのパッケージのメタデータを設定できます。
 
-Go check the `Cargo.toml` file in the directory of this section's exercise!
+このセクションの演習ディレクトリにある `Cargo.toml` ファイルを確認してみてください！
 
-## What is a crate?
+## クレートとは何か？
 
-Inside a package, you can have one or more **crates**, also known as **targets**.\
-The two most common crate types are **binary crates** and **library crates**.
+1つのパッケージの内部には、**ターゲット (targets)** とも呼ばれる1つ以上の**クレート (crates)** を含めることができます。\
+最も一般的な2つのクレートの種類は、**バイナリクレート (binary crates)** と**ライブラリクレート (library crates)** です。
 
-### Binaries
+### バイナリ (Binaries)
 
-A binary is a program that can be compiled to an **executable file**.\
-It must include a function named `main`—the program's entry point. `main` is invoked when the program is executed.
+バイナリとは、**実行可能ファイル (executable file)** にコンパイルできるプログラムのことです。\
+プログラムのエントリーポイントである `main` という名前の関数を含める必要があります。プログラムが実行されると、`main` が呼び出されます。
 
-### Libraries
+### ライブラリ (Libraries)
 
-Libraries, on the other hand, are not executable on their own. You can't _run_ a library,
-but you can _import its code_ from another package that depends on it.\
-A library groups together code (i.e. functions, types, etc.) that can be leveraged by other packages as a **dependency**.
+一方、ライブラリはそれ単体では実行できません。ライブラリを*実行*することはできませんが、それに依存する別のパッケージから*そのコードをインポート*することはできます。\
+ライブラリは、他のパッケージから**依存関係 (dependency)** として活用できるコード（関数や型など）を1つにまとめたものです。
 
-All the exercises you've solved so far have been structured as libraries, with a test suite attached to them.
+これまでに解いてきたすべての演習は、テストスイートが付属したライブラリとして構成されていました。
 
-### Conventions
+### 規約 (Conventions)
 
-There are some conventions around Rust packages that you need to keep in mind:
+Rustパッケージに関しては、覚えておくべきいくつかの規約があります：
 
-- The package's source code is usually located in the `src` directory.
-- If there's a `src/lib.rs` file, `cargo` will infer that the package contains a library crate.
-- If there's a `src/main.rs` file, `cargo` will infer that the package contains a binary crate.
+- パッケージのソースコードは通常 `src` ディレクトリに配置されます。
+- `src/lib.rs` ファイルがある場合、`cargo` はそのパッケージにライブラリクレートが含まれていると推論します。
+- `src/main.rs` ファイルがある場合、`cargo` はそのパッケージにバイナリクレートが含まれていると推論します。
 
-You can override these defaults by explicitly declaring your targets in the `Cargo.toml` file—see
-[`cargo`'s documentation](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#cargo-targets) for more details.
+`Cargo.toml` ファイル内でターゲットを明示的に宣言することで、これらのデフォルト設定を上書きできます。詳細については [`cargo` のドキュメント](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#cargo-targets)を参照してください。
 
-Keep in mind that while a package can contain multiple crates, it can only contain one library crate.
+なお、1つのパッケージには複数のクレート（複数のバイナリなど）を含めることができますが、ライブラリクレートは1つしか含めることができない点に注意してください。

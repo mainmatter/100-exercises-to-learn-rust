@@ -1,38 +1,33 @@
-# Visibility
+# 可視性 (Visibility)
 
-When you start breaking down your code into multiple modules, you need to start thinking about **visibility**.
-Visibility determines which regions of your code (or other people's code) can access a given entity,
-be it a struct, a function, a field, etc.
+コードを複数のモジュールに分割し始めると、**可視性 (visibility)** について考え始める必要があります。
+可視性は、構造体、関数、フィールドなどの特定のエンティティに、自分のコード（または他人のコード）のどの領域からアクセスできるかを決定します。
 
-## Private by default
+## デフォルトで非公開 (Private by default)
 
-By default, everything in Rust is **private**.\
-A private entity can only be accessed:
+デフォルトでは、Rustのすべてのものは**非公開 (private)** です。\
+非公開のエンティティには、以下の場所からのみアクセスできます：
 
-1. within the same module where it's defined, or
-2. by one of its submodules
+1. それが定義されているのと同じモジュール内、または
+2. そのサブモジュールの1つ
 
-We've used this extensively in the previous exercises:
+これまでの演習では、この仕組みを大いに利用してきました：
 
-- `create_todo_ticket` worked (once you added a `use` statement) because `helpers` is a submodule of the crate root,
-  where `Ticket` is defined. Therefore, `create_todo_ticket` can access `Ticket` without any issues even
-  though `Ticket` is private.
-- All our unit tests are defined in a submodule of the code they're testing, so they can access everything without
-  restrictions.
+- `create_todo_ticket` が（`use` 文を追加した後に）機能したのは、`helpers` が `Ticket` の定義されているクレートルートのサブモジュールだからです。したがって、`Ticket` が非公開であっても、`create_todo_ticket` は問題なく `Ticket` にアクセスできます。
+- すべてのユニットテストは、テスト対象のコードのサブモジュール内で定義されているため、制限なしにすべてのものにアクセスできます。
 
-## Visibility modifiers
+## 可視性修飾子 (Visibility modifiers)
 
-You can modify the default visibility of an entity using a **visibility modifier**.\
-Some common visibility modifiers are:
+**可視性修飾子 (visibility modifier)** を使用して、エンティティのデフォルトの可視性を変更できます。\
+一般的な可視性修飾子には以下のようなものがあります：
 
-- `pub`: makes the entity **public**, i.e. accessible from outside the module where it's defined, potentially from
-  other crates.
-- `pub(crate)`: makes the entity public within the same **crate**, but not outside of it.
-- `pub(super)`: makes the entity public within the parent module.
-- `pub(in path::to::module)`: makes the entity public within the specified module.
+- `pub`：エンティティを**公開 (public)** にします。つまり、定義されているモジュールの外部（場合によっては他のクレート）からアクセス可能にします。
+- `pub(crate)`：同じ**クレート**内では公開しますが、クレートの外部には公開しません。
+- `pub(super)`：親モジュール内で公開します。
+- `pub(in path::to::module)`：指定されたモジュール内で公開します。
 
-You can use these modifiers on modules, structs, functions, fields, etc.
-For example:
+これらの修飾子は、モジュール、構造体、関数、フィールドなどに使用できます。
+例えば：
 
 ```rust
 pub struct Configuration {
@@ -41,5 +36,5 @@ pub struct Configuration {
 }
 ```
 
-`Configuration` is public, but you can only access the `version` field from within the same crate.
-The `active` field, instead, is private and can only be accessed from within the same module or one of its submodules.
+`Configuration` は公開されていますが、`version` フィールドには同じクレート内からしかアクセスできません。
+一方、`active` フィールドは非公開であり、同じモジュールまたはそのサブモジュール内からしかアクセスできません。

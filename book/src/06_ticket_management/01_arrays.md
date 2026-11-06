@@ -1,38 +1,37 @@
-# Arrays
+# 配列 (Arrays)
 
-As soon as we start talking about "ticket management" we need to think about a way to store _multiple_ tickets.
-In turn, this means we need to think about collections. In particular, homogeneous collections:
-we want to store multiple instances of the same type.
+「チケット管理」について考え始めるとすぐに、*複数の*チケットを保存する方法について考える必要があります。
+つまり、コレクションについて考える必要があります。特に、同種（ホモジニアス）コレクション、すなわち同じ型の複数のインスタンスを保存したいと考えています。
 
-What does Rust have to offer in this regard?
+この点において、Rustは何を提供してくれるでしょうか？
 
-## Arrays
+## 配列
 
-A first attempt could be to use an **array**.\
-Arrays in Rust are fixed-size collections of elements of the same type.
+最初の試みとして、**配列 (array)** を使うことが考えられます。\
+Rustにおける配列は、同じ型の要素からなる固定長のコレクションです。
 
-Here's how you can define an array:
+配列を定義する方法は次の通りです：
 
 ```rust
-// Array type syntax: [ <type> ; <number of elements> ]
+// 配列型の構文: [ <型> ; <要素数> ]
 let numbers: [u32; 3] = [1, 2, 3];
 ```
 
-This creates an array of 3 integers, initialized with the values `1`, `2`, and `3`.\
-The type of the array is `[u32; 3]`, which reads as "an array of `u32`s with a length of 3".
+これは、値 `1`、`2`、`3` で初期化された3つの整数の配列を作成します。\
+配列の型は `[u32; 3]` であり、「長さが3である `u32` の配列」と読みます。
 
-When every element should start out with the same value, there's no need to spell it out repeatedly. Rust has a dedicated short syntax for that:
+すべての要素を同じ初期値で始めたい場合、同じ値を何度も繰り返し書く必要はありません。Rustにはそのための専用の短縮構文があります：
 
 ```rust
-// Repeat syntax: [ <value> ; <number of elements> ]
+// 繰り返し構文: [ <値> ; <要素数> ]
 let zeros: [u32; 3] = [0; 3];
 ```
 
-`[0; 3]` is equivalent to `[0, 0, 0]`.
+`[0; 3]` は `[0, 0, 0]` と等価です。
 
-### Accessing elements
+### 要素へのアクセス
 
-You can access elements of an array using square brackets:
+角括弧 `[]` を使用して、配列の要素にアクセスできます：
 
 ```rust
 let first = numbers[0];
@@ -40,51 +39,47 @@ let second = numbers[1];
 let third = numbers[2];
 ```
 
-The index must be of type `usize`.\
-Arrays are **zero-indexed**, like everything in Rust. You've seen this before with string slices and field indexing in
-tuples/tuple-like variants.
+インデックスの型は `usize` でなければなりません。\
+Rustの他のすべてのものと同様に、配列も**ゼロ始まり（0-indexed）**です。文字列スライスや、タプル／タプル風バリアントのフィールドインデックスでもすでにこれを見てきました。
 
-### Out-of-bounds access
+### 境界外アクセス (Out-of-bounds access)
 
-If you try to access an element that's out of bounds, Rust will panic:
+範囲外（境界外）の要素にアクセスしようとすると、Rustはパニックを起こします：
 
 ```rust
 let numbers: [u32; 3] = [1, 2, 3];
-let fourth = numbers[3]; // This will panic
+let fourth = numbers[3]; // これはパニックを起こします
 ```
 
-This is enforced at runtime using **bounds checking**. It comes with a small performance overhead, but it's how
-Rust prevents buffer overflows.\
-In some scenarios the Rust compiler can optimize away bounds checks, especially if iterators are involved—we'll speak
-more about this later on.
+これは**境界チェック (bounds checking)** を使用して実行時に強制されます。わずかなパフォーマンスのオーバーヘッドが伴いますが、Rustはこの仕組みによってバッファオーバーフローを防いでいます。\
+いくつかのシナリオ、特にイテレータが関与する場合には、Rustコンパイラは境界チェックを最適化によって取り除くことができます。これについては後ほど詳しく説明します。
 
-If you don't want to panic, you can use the `get` method, which returns an `Option<&T>`:
+パニックさせたくない場合は、`Option<&T>` を返す `get` メソッドを使用できます：
 
 ```rust
 let numbers: [u32; 3] = [1, 2, 3];
 assert_eq!(numbers.get(0), Some(&1));
-// You get a `None` if you try to access an out-of-bounds index
-// rather than a panic.
+// 範囲外のインデックスにアクセスしようとしても、
+// パニックではなく `None` が返されます。
 assert_eq!(numbers.get(3), None);
 ```
 
-### Performance
+### パフォーマンス
 
-Since the size of an array is known at compile-time, the compiler can allocate the array on the stack.
-If you run the following code:
+配列のサイズはコンパイル時にわかっているため、コンパイラは配列をスタック上に割り当てることができます。
+次のコードを実行すると：
 
 ```rust
 let numbers: [u32; 3] = [1, 2, 3];
 ```
 
-You'll get the following memory layout:
+次のようなメモリレイアウトになります：
 
 ```text
-        +---+---+---+
-Stack:  | 1 | 2 | 3 |
-        +---+---+---+
+         +---+---+---+
+スタック: | 1 | 2 | 3 |
+         +---+---+---+
 ```
 
-In other words, the size of an array is `std::mem::size_of::<T>() * N`, where `T` is the type of the elements and `N` is
-the number of elements.\
-You can access and replace each element in `O(1)` time.
+言い換えれば、配列のサイズは `std::mem::size_of::<T>() * N` になります（ここで `T` は要素の型、`N` は要素数です）。\
+各要素へのアクセスや置き換えは `O(1)`（定数）時間で行うことができます。

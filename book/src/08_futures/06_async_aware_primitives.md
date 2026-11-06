@@ -1,18 +1,14 @@
-# Async-aware primitives
+# 非同期対応プリミティブ (Async-aware primitives)
 
-If you browse `tokio`'s documentation, you'll notice that it provides a lot of types
-that "mirror" the ones in the standard library, but with an asynchronous twist:
-locks, channels, timers, and more.
+`tokio` のドキュメントを眺めていると、標準ライブラリにある型を「ミラーリング（模倣）」しつつ、非同期向けのひねりを加えた多くの型（ロック、チャネル、タイマーなど）が提供されていることに気づくでしょう。
 
-When working in an asynchronous context, you should prefer these asynchronous alternatives
-to their synchronous counterparts.
+非同期コンテキストで作業する場合は、同期版のプリミティブよりも、これらの非同期版の代替手段を優先すべきです。
 
-To understand why, let's take a look at `Mutex`, the mutually exclusive lock we explored
-in the previous chapter.
+その理由を理解するために、前の章で探求した相互排他ロックである `Mutex` を見てみましょう。
 
-## Case study: `Mutex`
+## ケーススタディ：`Mutex`
 
-Let's look at a simple example:
+シンプルな例を見てみましょう：
 
 ```rust
 use std::sync::{Arc, Mutex};
@@ -21,44 +17,40 @@ async fn run(m: Arc<Mutex<Vec<u64>>>) {
     let guard = m.lock().unwrap();
     http_call(&guard).await;
     println!("Sent {:?} to the server", &guard);
-    // `guard` is dropped here
+    // `guard` はここでドロップされます
 }
 
-/// Use `v` as the body of an HTTP call.
+/// HTTP呼び出しのボディとして `v` を使用します。
 async fn http_call(v: &[u64]) {
   // [...]
 }
 ```
 
-### `std::sync::MutexGuard` and yield points
+### `std::sync::MutexGuard` とイールドポイント
 
-This code will compile, but it's dangerous.
+このコードはコンパイルできますが、危険です。
 
-We try to acquire a lock over a `Mutex` from `std` in an asynchronous context.
-We then hold on to the resulting `MutexGuard` across a yield point (the `.await` on
-`http_call`).
+非同期コンテキスト内で `std` の `Mutex` のロックを取得しようとしています。
+そして、結果として得られた `MutexGuard` をイールドポイント（`http_call` の `.await`）をまたいで保持し続けています。
 
-Let's imagine that there are two tasks executing `run`, concurrently, on a single-threaded
-runtime. We observe the following sequence of scheduling events:
+シングルスレッドのランタイム上で、2つのタスクが並行して `run` を実行していると想像してみましょう。次のようなスケジューリングイベントの順序が観測されます：
 
 ```text
-     Task A          Task B
-        | 
-  Acquire lock
-Yields to runtime
-        | 
-        +--------------+
-                       |
-             Tries to acquire lock
+      タスクA               タスクB
+         | 
+    ロックを取得
+ランタイムに制御を譲る
+         | 
+         +--------------------+
+                              |
+                       ロックの取得を試みる
 ```
 
-We have a deadlock. Task B will never manage to acquire the lock, because the lock
-is currently held by task A, which has yielded to the runtime before releasing the
-lock and won't be scheduled again because the runtime cannot preempt task B.
+デッドロックが発生しました。タスクBは決してロックを取得できません。なぜなら、ロックは現在タスクAによって保持されており、タスクAはロックを解放する前にランタイムに制御を譲ってしまっており、さらにランタイムはタスクBをプリエンプト（強制中断）できないため、タスクAが再びスケジュールされることもないからです。
 
 ### `tokio::sync::Mutex`
 
-You can solve the issue by switching to `tokio::sync::Mutex`:
+`tokio::sync::Mutex` に切り替えることで、この問題を解決できます：
 
 ```rust
 use std::sync::Arc;
@@ -68,62 +60,53 @@ async fn run(m: Arc<Mutex<Vec<u64>>>) {
     let guard = m.lock().await;
     http_call(&guard).await;
     println!("Sent {:?} to the server", &guard);
-    // `guard` is dropped here
+    // `guard` はここでドロップされます
 }
 ```
 
-Acquiring the lock is now an asynchronous operation, which yields back to the runtime
-if it can't make progress.\
-Going back to the previous scenario, the following would happen:
+ロックの取得自体が非同期操作になり、処理を進められない（ロックを取得できない）場合はランタイムに制御を譲り渡すようになります。\
+先ほどのシナリオに戻ると、次のような動きになります：
 
 ```text
-       Task A          Task B
-          | 
-  Acquires the lock
-  Starts `http_call`
-  Yields to runtime
-          | 
-          +--------------+
-                         |
-             Tries to acquire the lock
-              Cannot acquire the lock
-                 Yields to runtime
-                         |
-          +--------------+
-          |
-`http_call` completes      
-  Releases the lock
-   Yield to runtime
-          |
-          +--------------+
-                         |
-                 Acquires the lock
-                       [...]
+         タスクA                   タスクB
+            | 
+       ロックを取得する
+     `http_call` を開始
+   ランタイムに制御を譲る
+            | 
+            +------------------------+
+                                     |
+                              ロックの取得を試みる
+                              ロックを取得できない
+                            ランタイムに制御を譲る
+                                     |
+            +------------------------+
+            |
+     `http_call` が完了      
+       ロックを解放する
+   ランタイムに制御を譲る
+            |
+            +------------------------+
+                                     |
+                               ロックを取得する
+                                   [...]
 ```
 
-All good!
+これで万事解決です！
 
-### Multithreaded won't save you
+### マルチスレッドでも救われない
 
-We've used a single-threaded runtime as the execution context in our
-previous example, but the same risk persists even when using a multithreaded
-runtime.\
-The only difference is in the number of concurrent tasks required to create the deadlock:
-in a single-threaded runtime, 2 are enough; in a multithreaded runtime, we
-would need `N+1` tasks, where `N` is the number of runtime threads.
+先ほどの例では実行コンテキストとしてシングルスレッドランタイムを使用しましたが、マルチスレッドランタイムを使用している場合でも同じリスクが存在し続けます。\
+唯一の違いは、デッドロックを引き起こすために必要な並行タスクの数です。シングルスレッドランタイムでは2つで十分でしたが、マルチスレッドランタイムでは `N+1` 個のタスクが必要になります（ここで `N` はランタイムのスレッド数です）。
 
-### Downsides
+### 欠点
 
-Having an async-aware `Mutex` comes with a performance penalty.\
-If you're confident that the lock isn't under significant contention
-_and_ you're careful to never hold it across a yield point, you can
-still use `std::sync::Mutex` in an asynchronous context.
+非同期対応の `Mutex` を使用することには、パフォーマンス上のペナルティが伴います。\
+ロックの競合がほとんど発生しないと確信でき、*かつ*イールドポイントをまたいでロックを決して保持しないように十分注意できるのであれば、非同期コンテキスト内でも `std::sync::Mutex` を引き続き使用することは可能です。
 
-But weigh the performance benefit against the liveness risk you
-will incur.
+ただし、パフォーマンス上の利点と、抱え込むことになる生存性（liveness / デッドロック）のリスクを天秤にかけて慎重に判断してください。
 
-## Other primitives
+## その他のプリミティブ
 
-We used `Mutex` as an example, but the same applies to `RwLock`, semaphores, etc.\
-Prefer async-aware versions when working in an asynchronous context to minimise
-the risk of issues.
+ここでは `Mutex` を例に挙げましたが、`RwLock` やセマフォなどについても同じことが当てはまります。\
+問題が発生するリスクを最小限に抑えるため、非同期コンテキストで作業する際には非同期対応（async-aware）バージョンを優先してください。

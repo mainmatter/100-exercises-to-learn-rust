@@ -1,7 +1,7 @@
-/// Given the start and end points of a journey, and the time it took to complete the journey,
-/// calculate the average speed of the journey.
+/// 移動の開始地点と終了地点、および移動にかかった時間が与えられたとき、
+/// 移動の平均速度を計算します。
 fn speed(start: u32, end: u32, time_elapsed: u32) -> u32 {
-    // TODO: Panic with a custom message if `time_elapsed` is 0
+    // TODO: `time_elapsed` が 0 の場合、カスタムメッセージを出してパニックさせてください
 
     (end - start) / time_elapsed
 }
@@ -16,9 +16,9 @@ mod tests {
     }
 
     #[test]
-    // 👇 With the `#[should_panic]` annotation we can assert that we expect the code
-    //    under test to panic. We can also check the panic message by using `expected`.
-    //    This is all part of Rust's built-in test framework!
+    // 👇 `#[should_panic]` アノテーションを使うと、テスト対象のコードがパニックすることを
+    //    期待しているとアサート（検証）できます。また、`expected` を使ってパニックメッセージを
+    //    チェックすることもできます。これらはすべてRustの組み込みテストフレームワークの一部です！
     #[should_panic(expected = "The journey took no time at all. That's impossible!")]
     fn by_zero() {
         speed(0, 10, 0);

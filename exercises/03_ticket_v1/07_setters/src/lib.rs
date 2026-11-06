@@ -1,7 +1,7 @@
-// TODO: Add &mut-setters to the `Ticket` struct for each of its fields.
-//   Make sure to enforce the same validation rules you have in `Ticket::new`!
-//   Even better, extract that logic and reuse it in both places. You can use
-//   private functions or private static methods for that.
+// TODO: `Ticket` 構造体の各フィールドに対して、`&mut` セッターを追加してください。
+//   `Ticket::new` と同じバリデーションルールを必ず強制するようにしてください！
+//   さらに良いのは、そのロジックを抽出して両方の場所で再利用することです。
+//   そのために非公開関数または非公開の静的メソッドを使用できます。
 
 pub struct Ticket {
     title: String,

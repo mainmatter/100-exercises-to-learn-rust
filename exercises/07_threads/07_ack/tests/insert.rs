@@ -19,8 +19,8 @@ fn insert_works() {
 
     sender
         .send(command)
-        // If the thread is no longer running, this will panic
-        // because the channel will be closed.
+        // スレッドがすでに実行されていない場合、チャネルが閉じられるため
+        // ここでパニックが発生します。
         .expect("Did you actually spawn a thread? The channel is closed!");
 
     let ticket_id: TicketId = response_receiver.recv().expect("No response received!");

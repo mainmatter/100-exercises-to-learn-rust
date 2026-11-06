@@ -1,15 +1,15 @@
-# Control flow, part 1
+# 制御フロー (パート1)
 
-All our programs so far have been pretty straightforward.\
-A sequence of instructions is executed from top to bottom, and that's it.
+これまでのプログラムはどれも非常に単純なものでした。\
+一連の命令が上から下へと順番に実行され、それだけでした。
 
-It's time to introduce some **branching**.
+ここで**条件分岐 (branching)** を導入しましょう。
 
-## `if` clauses
+## `if` 節
 
-The `if` keyword is used to execute a block of code only if a condition is true.
+`if` キーワードは、条件が真 (`true`) の場合にのみコードブロックを実行するために使用されます。
 
-Here's a simple example:
+簡単な例を見てみましょう：
 
 ```rust
 let number = 3;
@@ -18,13 +18,12 @@ if number < 5 {
 }
 ```
 
-This program will print `number is smaller than 5` because the condition `number < 5` is true.
+条件 `number < 5` が真であるため、このプログラムは `` `number` is smaller than 5 `` と出力します。
 
-### `else` clauses
+### `else` 節
 
-Like most programming languages, Rust supports an optional `else` branch to execute a block of code when the condition in an
-`if` expression is false.\
-For example:
+ほとんどのプログラミング言語と同様に、Rustも `if` 式の条件が偽 (`false`) のときにコードブロックを実行するためのオプションの `else` 分岐をサポートしています。\
+例えば：
 
 ```rust
 let number = 3;
@@ -36,9 +35,9 @@ if number < 5 {
 }
 ```
 
-### `else if` clauses
+### `else if` 節
 
-Your code drifts more and more to the right when you have multiple `if` expressions, one nested inside the other.
+複数の `if` 式が入れ子（ネスト）になっていると、コードがどんどん右側にずれていってしまいます。
 
 ```rust
 let number = 3;
@@ -54,7 +53,7 @@ if number < 5 {
 }
 ```
 
-You can use the `else if` keyword to combine multiple `if` expressions into a single one:
+`else if` キーワードを使用すると、複数の `if` 式を1つにまとめることができます：
 
 ```rust
 let number = 3;
@@ -68,18 +67,18 @@ if number < 5 {
 }
 ```
 
-## Booleans
+## 真偽値 (Booleans)
 
-The condition in an `if` expression must be of type `bool`, a **boolean**.\
-Booleans, just like integers, are a primitive type in Rust.
+`if` 式の条件は、**真偽値 (boolean)** である `bool` 型でなければなりません。\
+真偽値は、整数と同様にRustのプリミティブ型です。
 
-A boolean can have one of two values: `true` or `false`.
+真偽値は、`true`（真）または `false`（偽）の2つの値のいずれかをとります。
 
-### No truthy or falsy values
+### truthy や falsy な値は存在しない
 
-If the condition in an `if` expression is not a boolean, you'll get a compilation error.
+`if` 式の条件が真偽値でない場合、コンパイルエラーが発生します。
 
-For example, the following code will not compile:
+例えば、以下のコードはコンパイルできません：
 
 ```rust
 let number = 3;
@@ -88,7 +87,7 @@ if number {
 }
 ```
 
-You'll get the following compilation error:
+以下のコンパイルエラーが得られます：
 
 ```text
 error[E0308]: mismatched types
@@ -98,26 +97,26 @@ error[E0308]: mismatched types
   |        ^^^^^^ expected `bool`, found integer
 ```
 
-This follows from Rust's philosophy around type coercion: there's no automatic conversion from non-boolean types to booleans.
-Rust doesn't have the concept of **truthy** or **falsy** values, like JavaScript or Python.\
-You have to be explicit about the condition you want to check.
+これは型強制に関するRustの哲学に従ったものです。真偽値以外の型から真偽値への自動変換は行われません。
+Rustには、JavaScriptやPythonのような **truthy（真とみなされる値）** や **falsy（偽とみなされる値）** という概念はありません。\
+チェックしたい条件は明示的に記述する必要があります。
 
-### Comparison operators
+### 比較演算子
 
-It's quite common to use comparison operators to build conditions for `if` expressions.\
-Here are the comparison operators available in Rust when working with integers:
+`if` 式の条件を組み立てるために比較演算子を使うのは非常に一般的です。\
+Rustで整数を扱う際に使用できる比較演算子は以下の通りです：
 
-- `==`: equal to
-- `!=`: not equal to
-- `<`: less than
-- `>`: greater than
-- `<=`: less than or equal to
-- `>=`: greater than or equal to
+- `==`：等しい
+- `!=`：等しくない
+- `<`：より小さい（未満）
+- `>`：より大きい
+- `<=`：以下
+- `>=`：以上
 
-## `if/else` is an expression
+## `if/else` は式 (expression) である
 
-In Rust, `if` expressions are **expressions**, not statements: they return a value.\
-That value can be assigned to a variable or used in other expressions. For example:
+Rustでは、`if` 式は文 (statement) ではなく**式 (expression)** です。つまり、値を返します。\
+その値は変数に代入したり、他の式の中で使用したりすることができます。例えば：
 
 ```rust
 let number = 3;
@@ -128,6 +127,5 @@ let message = if number < 5 {
 };
 ```
 
-In the example above, each branch of the `if` evaluates to a string literal,
-which is then assigned to the `message` variable.\
-The only requirement is that both `if` branches return the same type.
+上記の例では、`if` の各分岐が文字列リテラルに評価され、それが `message` 変数に代入されます。\
+唯一の要件は、`if` の両方の分岐が同じ型を返すことです。

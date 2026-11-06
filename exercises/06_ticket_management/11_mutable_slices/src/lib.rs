@@ -1,5 +1,5 @@
-// TODO: Define a function named `squared` that raises all `i32`s within a slice to the power of 2.
-//  The slice should be modified in place.
+// TODO: スライス内のすべての `i32` を2乗する `squared` という名前の関数を定義してください。
+//  スライスはその場で（in placeで）直接変更される必要があります。
 
 #[cfg(test)]
 mod tests {

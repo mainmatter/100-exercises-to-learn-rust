@@ -1,7 +1,7 @@
-# `impl Trait` in argument position
+# 引数位置の `impl Trait`
 
-In the previous section, we saw how `impl Trait` can be used to return a type without specifying its name.\
-The same syntax can also be used in **argument position**:
+前のセクションでは、型の名前を指定せずに型を返すために `impl Trait` を使用する方法を見ました。\
+同じ構文を**引数の位置 (argument position)** でも使用できます：
 
 ```rust
 fn print_iter(iter: impl Iterator<Item = i32>) {
@@ -11,8 +11,8 @@ fn print_iter(iter: impl Iterator<Item = i32>) {
 }
 ```
 
-`print_iter` takes an iterator of `i32`s and prints each element.\
-When used in **argument position**, `impl Trait` is equivalent to a generic parameter with a trait bound:
+`print_iter` は `i32` のイテレータを受け取り、各要素を出力します。\
+**引数の位置**で使用された場合、`impl Trait` はトレイト境界を持つジェネリックパラメータと等価です：
 
 ```rust
 fn print_iter<T>(iter: T) 
@@ -25,8 +25,7 @@ where
 }
 ```
 
-## Downsides
+## 欠点
 
-As a rule of thumb, prefer generics over `impl Trait` in argument position.\
-Generics allow the caller to explicitly specify the type of the argument, using the turbofish syntax (`::<>`),
-which can be useful for disambiguation. That's not the case with `impl Trait`.
+経験則として、引数の位置では `impl Trait` よりもジェネリクスを優先してください。\
+ジェネリクスを使用すると、呼び出し元はターボフィッシュ構文 (`::<>`) を使って引数の型を明示的に指定できるため、型の曖昧さを解消する際に役立ちます。`impl Trait` の場合はそれができません。

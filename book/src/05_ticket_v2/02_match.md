@@ -1,7 +1,7 @@
 # `match`
 
-You may be wondering—what can you actually **do** with an enum?\
-The most common operation is to **match** on it.
+列挙型を使って実際に何が**できる**のだろうかと疑問に思っているかもしれません。\
+最も一般的な操作は、列挙型に対して**マッチ (match)** を行うことです。
 
 ```rust
 enum Status {
@@ -14,24 +14,23 @@ impl Status {
     fn is_done(&self) -> bool {
         match self {
             Status::Done => true,
-            // The `|` operator lets you match multiple patterns.
-            // It reads as "either `Status::ToDo` or `Status::InProgress`".
+            // `|` 演算子を使うと、複数のパターンにマッチさせることができます。
+            // これは「`Status::ToDo` または `Status::InProgress` のいずれか」と読みます。
             Status::InProgress | Status::ToDo => false
         }
     }
 }
 ```
 
-A `match` statement that lets you compare a Rust value against a series of **patterns**.\
-You can think of it as a type-level `if`. If `status` is a `Done` variant, execute the first block;
-if it's a `InProgress` or `ToDo` variant, execute the second block.
+`match` 式を使用すると、Rustの値を一連の**パターン (patterns)** と比較できます。\
+これは型レベルの `if` のようなものだと考えることができます。`status` が `Done` バリアントであれば最初のブロックを実行し、`InProgress` または `ToDo` バリアントであれば2番目のブロックを実行します。
 
-## Exhaustiveness
+## 網羅性 (Exhaustiveness)
 
-There's one key detail here: `match` is **exhaustive**. You must handle all enum variants.\
-If you forget to handle a variant, Rust will stop you **at compile-time** with an error.
+ここで1つ重要な点があります。`match` は**網羅的 (exhaustive)** です。すべての列挙型のバリアントを処理しなければなりません。\
+バリアントの処理を1つでも忘れると、Rustは**コンパイル時に**エラーを出して止めてくれます。
 
-E.g. if we forget to handle the `ToDo` variant:
+例えば、`ToDo` バリアントの処理を忘れた場合：
 
 ```rust
 match self {
@@ -40,7 +39,7 @@ match self {
 }
 ```
 
-the compiler will complain:
+コンパイラは次のようにエラーを出します：
 
 ```text
 error[E0004]: non-exhaustive patterns: `ToDo` not covered
@@ -50,15 +49,13 @@ error[E0004]: non-exhaustive patterns: `ToDo` not covered
   |     ^^^^^^^^^^^^ pattern `ToDo` not covered
 ```
 
-This is a big deal!\
-Codebases evolve over time—you might add a new status down the line, e.g. `Blocked`. The Rust compiler
-will emit an error for every single `match` statement that's missing logic for the new variant.
-That's why Rust developers often sing the praises of "compiler-driven refactoring"—the compiler tells you
-what to do next, you just have to fix what it reports.
+これは非常に大きな利点です！\
+コードベースは時間とともに進化します。将来、例えば `Blocked` のような新しいステータスを追加するかもしれません。するとRustコンパイラは、その新しいバリアントに対するロジックが欠けているすべての `match` 式に対してエラーを出力してくれます。
+Rust開発者がしばしば「コンパイラ駆動リファクタリング」を称賛するのはこのためです。次に何をすべきかをコンパイラが教えてくれるので、報告された箇所を修正していくだけでよいのです。
 
-## Catch-all
+## すべてを捕捉するパターン (Catch-all)
 
-If you don't care about one or more variants, you can use the `_` pattern as a catch-all:
+1つ以上のバリアントに関心がない場合は、すべてを捕捉する（キャッチオール）パターンとして `_` を使用できます：
 
 ```rust
 match status {
@@ -67,12 +64,11 @@ match status {
 }
 ```
 
-The `_` pattern matches anything that wasn't matched by the previous patterns.
+`_` パターンは、それ以前のパターンにマッチしなかったすべてのものにマッチします。
 
 <div class="warning">
-  The convenience of `_` comes at a cost: the compiler can no longer help you when the enum changes. In the above example, where a `Blocked` variant is added to `Status`, this `match` keeps compiling as the new `Blocked` variant is silently handled by the `_` arm, whether or not that's the behavior you want.
+  `_` の便利さには代償が伴います。列挙型が変更されたときに、コンパイラが助けてくれなくなるのです。上記の例で `Status` に `Blocked` バリアントが追加された場合、それが望ましい振る舞いであるかどうかにかかわらず、新しい `Blocked` バリアントは `_` のアーム（分岐）によって暗黙のうちに処理されるため、この `match` はそのままコンパイルが通ってしまいます。
 
-When correctness matters, spell out every variant, even if several arms share the same logic
-(e.g. `Status::ToDo | Status::InProgress => false`). That way, each new variant forces a deliberate decision.
+正確さが重要な場面では、たとえ複数のアームが同じロジックを共有する場合であっても（例：`Status::ToDo | Status::InProgress => false`）、すべてのバリアントを明示的に書き出しましょう。そうすることで、新しいバリアントが追加された際に、必ず意識的な判断が求められるようになります。
 
 </div>

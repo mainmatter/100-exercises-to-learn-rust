@@ -1,6 +1,6 @@
-# `From` and `Into`
+# `From` と `Into`
 
-Let's go back to where our string journey started:
+文字列をめぐる旅が始まった場所に戻りましょう：
 
 ```rust
 let ticket = Ticket::new(
@@ -10,11 +10,11 @@ let ticket = Ticket::new(
 );
 ```
 
-We now know enough to start unpacking what `.into()` is doing here.
+ここで `.into()` が何をしているのかを紐解くのに十分な知識が揃いました。
 
-## The problem
+## 問題点
 
-This is the signature of the `new` method:
+`new` メソッドのシグネチャは次の通りです：
 
 ```rust
 impl Ticket {
@@ -28,14 +28,13 @@ impl Ticket {
 }
 ```
 
-We've also seen that string literals (such as `"A title"`) are of type `&str`.\
-We have a type mismatch here: a `String` is expected, but we have a `&str`.
-No magical coercion will come to save us this time; we need **to perform a conversion**.
+また、文字列リテラル（`"A title"` など）の型は `&str` であることも見てきました。\
+ここで型の不一致が生じています。`String` が期待されているのに、手元にあるのは `&str` です。
+今回は魔法のような型強制が助けに来てくれることはありません。**型変換を実行する**必要があります。
 
-## `From` and `Into`
+## `From` と `Into`
 
-The Rust standard library defines two traits for **infallible conversions**: `From` and `Into`,
-in the `std::convert` module.
+Rustの標準ライブラリは、`std::convert` モジュール内で**失敗しない型変換 (infallible conversions)** のための2つのトレイト、`From` と `Into` を定義しています。
 
 ```rust
 pub trait From<T>: Sized {
@@ -47,20 +46,19 @@ pub trait Into<T>: Sized {
 }
 ```
 
-These trait definitions showcase a few concepts that we haven't seen before: **supertraits** and **implicit trait bounds**.
-Let's unpack those first.
+これらのトレイト定義には、これまで見たことのない概念がいくつか含まれています。**スーパートレイト (supertraits)** と**暗黙のトレイト境界 (implicit trait bounds)** です。
+まずはそれらを紐解いていきましょう。
 
-### Supertrait / Subtrait
+### スーパートレイトとサブトレイト
 
-The `From: Sized` syntax implies that `From` is a **subtrait** of `Sized`: any type that
-implements `From` must also implement `Sized`.
-Alternatively, you could say that `Sized` is a **supertrait** of `From`.
+`From: Sized` という構文は、`From` が `Sized` の**サブトレイト (subtrait)** であることを意味します。つまり、`From` を実装する任意の型は、`Sized` も実装していなければなりません。
+逆に言えば、`Sized` は `From` の**スーパートレイト (supertrait)** であると言うこともできます。
 
-### Implicit trait bounds
+### 暗黙のトレイト境界
 
-Every time you have a generic type parameter, the compiler implicitly assumes that it's `Sized`.
+ジェネリック型パラメータを導入するたびに、コンパイラは暗黙的にその型が `Sized` であると仮定します。
 
-For example:
+例えば：
 
 ```rust
 pub struct Foo<T> {
@@ -68,7 +66,7 @@ pub struct Foo<T> {
 }
 ```
 
-is actually equivalent to:
+これは実際には以下と等価です：
 
 ```rust
 pub struct Foo<T: Sized> 
@@ -77,7 +75,7 @@ pub struct Foo<T: Sized>
 }
 ```
 
-In the case of `From<T>`, the trait definition is equivalent to:
+`From<T>` の場合、トレイト定義は以下と等価になります：
 
 ```rust
 pub trait From<T: Sized>: Sized {
@@ -85,41 +83,36 @@ pub trait From<T: Sized>: Sized {
 }
 ```
 
-In other words, _both_ `T` and the type implementing `From<T>` must be `Sized`, even
-though the former bound is implicit.
+言い換えれば、前者の境界は暗黙的であるものの、`T` と `From<T>` を実装する型の*両方*が `Sized` でなければなりません。
 
-### Negative trait bounds
+### 負のトレイト境界 (Negative trait bounds)
 
-You can opt out of the implicit `Sized` bound with a **negative trait bound**:
+**負のトレイト境界 (negative trait bound)**（または境界の緩和）を使用すると、暗黙の `Sized` 境界を解除（オプトアウト）できます：
 
 ```rust
 pub struct Foo<T: ?Sized> {
     //            ^^^^^^^
-    //            This is a negative trait bound
+    //            これが負のトレイト境界です
     inner: T,
 }
 ```
 
-This syntax reads as "`T` may or may not be `Sized`", and it allows you to
-bind `T` to a DST (e.g. `Foo<str>`). It is a special case, though: negative trait bounds are exclusive to `Sized`,
-you can't use them with other traits.
+この構文は「`T` は `Sized` であるかもしれないし、そうでないかもしれない」と読み、`T` をDSTに束縛することを可能にします（例：`Foo<str>`）。ただし、これは特別なケースです。`?` を使った境界の緩和は `Sized` 専用であり、他のトレイトには使用できません。
 
-## `&str` to `String`
+## `&str` から `String` へ
 
-In [`std`'s documentation](https://doc.rust-lang.org/std/convert/trait.From.html#implementors)
-you can see which `std` types implement the `From` trait.\
-You'll find that `String` implements `From<&str> for String`. Thus, we can write:
+[`std` のドキュメント](https://doc.rust-lang.org/std/convert/trait.From.html#implementors)を見ると、どの標準ライブラリの型が `From` トレイトを実装しているかを確認できます。\
+そこでは、`String` が `From<&str> for String` を実装していることがわかります。したがって、次のように書くことができます：
 
 ```rust
 let title = String::from("A title");
 ```
 
-We've been primarily using `.into()`, though.\
-If you check out the [implementors of `Into`](https://doc.rust-lang.org/std/convert/trait.Into.html#implementors)
-you won't find `Into<String> for &str`. What's going on?
+しかし、私たちは主に `.into()` を使用してきました。\
+[`Into` の実装者一覧](https://doc.rust-lang.org/std/convert/trait.Into.html#implementors)を確認しても、`Into<String> for &str` は見当たりません。一体どうなっているのでしょうか？
 
-`From` and `Into` are **dual traits**.\
-In particular, `Into` is implemented for any type that implements `From` using a **blanket implementation**:
+`From` と `Into` は**双対 (dual) のトレイト**です。\
+具体的には、**ブランケット実装 (blanket implementation / 一括実装)** を使用して、`From` を実装する任意の型に対して `Into` が自動的に実装されます：
 
 ```rust
 impl<T, U> Into<U> for T
@@ -132,17 +125,16 @@ where
 }
 ```
 
-If a type `U` implements `From<T>`, then `Into<U> for T` is automatically implemented. That's why
-we can write `let title = "A title".into();`.
+型 `U` が `From<T>` を実装している場合、`Into<U> for T` が自動的に実装されます。だからこそ、`let title = "A title".into();` と書くことができるのです。
 
 ## `.into()`
 
-Every time you see `.into()`, you're witnessing a conversion between types.\
-What's the target type, though?
+`.into()` を見かけるたびに、そこでは型同士の変換が行われています。\
+しかし、変換先の型（ターゲット型）は何なのでしょうか？
 
-In most cases, the target type is either:
+ほとんどの場合、変換先の型は以下のいずれかです：
 
-- Specified by the signature of a function/method (e.g. `Ticket::new` in our example above)
-- Specified in the variable declaration with a type annotation (e.g. `let title: String = "A title".into();`)
+- 関数やメソッドのシグネチャによって指定されている（例：上記の例の `Ticket::new`）
+- 変数宣言の中で型注釈によって指定されている（例：`let title: String = "A title".into();`）
 
-`.into()` will work out of the box as long as the compiler can infer the target type from the context without ambiguity.
+コンパイラが文脈から曖昧さなく変換先の型を推論できる限り、`.into()` はそのまま問題なく機能します。

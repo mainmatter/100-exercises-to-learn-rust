@@ -1,20 +1,18 @@
-# Traits
+# トレイト (Traits)
 
-In the previous chapter we covered the basics of Rust's type and ownership system.\
-It's time to dig deeper: we'll explore **traits**, Rust's take on interfaces.
+前の章では、Rustの型システムと所有権システムの基礎を扱いました。\
+ここからはさらに深く掘り下げていきます。Rustにおけるインターフェースである**トレイト (traits)** について探求しましょう。
 
-Once you learn about traits, you'll start seeing their fingerprints all over the place.\
-In fact, you've already seen traits in action throughout the previous chapter, e.g. `.into()` invocations as well
-as operators like `==` and `+`.
+トレイトについて学ぶと、いたるところでその痕跡を目にするようになります。\
+実際、前の章を通じて、`.into()` の呼び出しや `==`、`+` などの演算子といった形で、すでにトレイトが機能しているのを目にしています。
 
-On top of traits as a concept, we'll also cover some of the key traits that are defined in Rust's standard library:
+概念としてのトレイトに加えて、Rustの標準ライブラリで定義されている以下の主要なトレイトのいくつかも扱います：
 
-- Operator traits (e.g. `Add`, `Sub`, `PartialEq`, etc.)
-- `From` and `Into`, for infallible conversions
-- `Clone` and `Copy`, for copying values
-- `Deref` and deref coercion
-- `Sized`, to mark types with a known size
-- `Drop`, for custom cleanup logic
+- 演算子トレイト（例：`Add`、`Sub`、`PartialEq` など）
+- 失敗しない型変換のための `From` と `Into`
+- 値をコピーするための `Clone` と `Copy`
+- `Deref` と参照外し型強制 (deref coercion)
+- コンパイル時にサイズが既知である型を示す `Sized`
+- カスタムのクリーンアップロジックのための `Drop`
 
-Since we'll be talking about conversions, we'll seize the opportunity to plug some of the "knowledge gaps"
-from the previous chapter—e.g. what is `"A title"`, exactly? Time to learn more about slices too!
+また、型変換について話す機会を活かして、前の章で残していたいくつかの「知識の空白」（例えば、`"A title"` とは正確には何なのか？）も埋めていきます。スライスについても詳しく学ぶ時が来ました！

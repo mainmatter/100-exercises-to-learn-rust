@@ -1,43 +1,40 @@
-# Ordering
+# 順序付け (`BTreeMap` と `Ord`)
 
-By moving from a `Vec` to a `HashMap` we have improved the performance of our ticket management system,
-and simplified our code in the process.\
-It's not all roses, though. When iterating over a `Vec`-backed store, we could be sure that the tickets
-would be returned in the order they were added.\
-That's not the case with a `HashMap`: you can iterate over the tickets, but the order is random.
+`Vec` から `HashMap` に移行したことで、チケット管理システムのパフォーマンスが向上し、その過程でコードも簡素化されました。\
+しかし、良いことばかりではありません。`Vec` をベースにしたストアを反復処理していたときは、チケットが追加された順序で返されることが確実でした。\
+`HashMap` の場合はそうではありません。チケットを反復処理することはできますが、その順序はランダムになります。
 
-We can recover a consistent ordering by switching from a `HashMap` to a `BTreeMap`.
+`HashMap` から `BTreeMap` に切り替えることで、一貫した順序付けを取り戻すことができます。
 
 ## `BTreeMap`
 
-A `BTreeMap` guarantees that entries are sorted by their keys.\
-This is useful when you need to iterate over the entries in a specific order, or if you need to
-perform range queries (e.g. "give me all tickets with an id between 10 and 20").
+`BTreeMap` は、エントリがそのキーによってソートされることを保証します。\
+これは、特定の順序でエントリを反復処理する必要がある場合や、範囲クエリ（例：「IDが10から20の間のすべてのチケットを取得する」）を実行する必要がある場合に便利です。
 
-Just like `HashMap`, you won't find trait bounds on the definition of `BTreeMap`.
-But you'll find trait bounds on its methods. Let's look at `insert`:
+`HashMap` と同様に、`BTreeMap` の定義自体にはトレイト境界はありません。
+しかし、そのメソッドにはトレイト境界があります。`insert` を見てみましょう：
 
 ```rust
-// `K` and `V` stand for the key and value types, respectively,
-// just like in `HashMap`.
+// `HashMap` と同様に、`K` と `V` はそれぞれ
+// キーと値の型を表します。
 impl<K, V> BTreeMap<K, V> {
     pub fn insert(&mut self, key: K, value: V) -> Option<V>
     where
         K: Ord,
     {
-        // implementation
+        // 実装
     }
 }
 ```
 
-`Hash` is no longer required. Instead, the key type must implement the `Ord` trait.
+`Hash` は不要になりました。その代わり、キーの型は `Ord` トレイトを実装していなければなりません。
 
 ## `Ord`
 
-The `Ord` trait is used to compare values.\
-While `PartialEq` is used to compare for equality, `Ord` is used to compare for ordering.
+`Ord` トレイトは値を比較するために使用されます。\
+`PartialEq` が等価性の比較に使用されるのに対し、`Ord` は大小関係（順序）の比較に使用されます。
 
-It's defined in `std::cmp`:
+これは `std::cmp` で定義されています：
 
 ```rust
 pub trait Ord: Eq + PartialOrd {
@@ -45,14 +42,13 @@ pub trait Ord: Eq + PartialOrd {
 }
 ```
 
-The `cmp` method returns an `Ordering` enum, which can be one
-of `Less`, `Equal`, or `Greater`.\
-`Ord` requires that two other traits are implemented: `Eq` and `PartialOrd`.
+`cmp` メソッドは `Ordering` 列挙型を返します。これは `Less`（より小さい）、`Equal`（等しい）、`Greater`（より大きい）のいずれかの値をとります。\
+`Ord` は、他の2つのトレイトである `Eq` と `PartialOrd` が実装されていることを要求します。
 
 ## `PartialOrd`
 
-`PartialOrd` is a weaker version of `Ord`, just like `PartialEq` is a weaker version of `Eq`.
-You can see why by looking at its definition:
+`PartialEq` が `Eq` の弱いバージョンであるのと同様に、`PartialOrd` は `Ord` の弱いバージョン（部分順序）です。
+その定義を見ると理由がわかります：
 
 ```rust
 pub trait PartialOrd: PartialEq {
@@ -60,23 +56,21 @@ pub trait PartialOrd: PartialEq {
 }
 ```
 
-`PartialOrd::partial_cmp` returns an `Option`—it is not guaranteed that two values can
-be compared.\
-For example, `f32` doesn't implement `Ord` because `NaN` values are not comparable,
-the same reason why `f32` doesn't implement `Eq`.
+`PartialOrd::partial_cmp` は `Option` を返します。つまり、2つの値が常に比較可能であるとは保証されていません。\
+例えば、`f32` が `Eq` を実装していないのと同じ理由（`NaN` の値が比較不能であるため）で、`f32` は `Ord` を実装していません。
 
-## Implementing `Ord` and `PartialOrd`
+## `Ord` と `PartialOrd` の実装
 
-Both `Ord` and `PartialOrd` can be derived for your types:
+`Ord` と `PartialOrd` はどちらも、自分の型に対して `derive`（導出）することができます：
 
 ```rust
-// You need to add `Eq` and `PartialEq` too,
-// since `Ord` requires them.
+// `Ord` が要求するため、`Eq` と `PartialEq` も
+// 追加する必要があります。
 #[derive(Eq, PartialEq, Ord, PartialOrd)]
 struct TicketId(u64);
 ```
 
-If you choose (or need) to implement them manually, be careful:
+手動で実装することを選択した（またはその必要がある）場合は、以下の点に注意してください：
 
-- `Ord` and `PartialOrd` must be consistent with `Eq` and `PartialEq`.
-- `Ord` and `PartialOrd` must be consistent with each other.
+- `Ord` と `PartialOrd` は、`Eq` および `PartialEq` と一貫していなければなりません。
+- `Ord` と `PartialOrd` は、互いに一貫していなければなりません。

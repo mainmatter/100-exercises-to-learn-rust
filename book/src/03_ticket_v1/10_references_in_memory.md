@@ -1,50 +1,48 @@
-# References
+# メモリ上の参照 (References)
 
-What about references, like `&String` or `&mut String`? How are they represented in memory?
+`&String` や `&mut String` のような参照はどうでしょうか？これらはメモリ上でどのように表現されるのでしょうか？
 
-Most references[^fat] in Rust are represented, in memory, as a pointer to a memory location.\
-It follows that their size is the same as the size of a pointer, a `usize`.
+Rustにおけるほとんどの参照[^fat]は、メモリ上では特定のメモリ位置へのポインタとして表現されます。\
+したがって、そのサイズはポインタのサイズ、つまり `usize` と同じになります。
 
-You can verify this using `std::mem::size_of`:
+これは `std::mem::size_of` を使って確認できます：
 
 ```rust
 assert_eq!(std::mem::size_of::<&String>(), 8);
 assert_eq!(std::mem::size_of::<&mut String>(), 8);
 ```
 
-A `&String`, in particular, is a pointer to the memory location where the `String`'s metadata is stored.\
-If you run this snippet:
+特に `&String` は、`String` のメタデータが保存されているメモリ位置へのポインタです。\
+次のコードスニペットを実行すると：
 
 ```rust
 let s = String::from("Hey");
 let r = &s;
 ```
 
-you'll get something like this in memory:
+メモリ上では次のようになります：
 
+```text
+             --------------------------------------
+             |                                    |
+         +----v----+--------+----------+      +----|----+
+スタック | pointer | length | capacity |      | pointer |
+         |  |      |   3    |    5     |      |         |
+         +--|  ----+--------+----------+      +---------+
+            |          s                           r
+            |
+            v
+         +---+---+---+---+---+
+ヒープ   | H | e | y | ? | ? |
+         +---+---+---+---+---+
 ```
-           --------------------------------------
-           |                                    |
-      +----v----+--------+----------+      +----|----+
-Stack | pointer | length | capacity |      | pointer |
-      |  |      |   3    |    5     |      |         |
-      +--|  ----+--------+----------+      +---------+
-         |          s                           r
-         |
-         v
-       +---+---+---+---+---+
-Heap   | H | e | y | ? | ? |
-       +---+---+---+---+---+
-```
 
-It's a pointer to a pointer to the heap-allocated data, if you will.
-The same goes for `&mut String`.
+言うなれば、ヒープに割り当てられたデータへのポインタを指すポインタです。
+`&mut String` についても同様です。
 
-## Not all pointers point to the heap
+## すべてのポインタがヒープを指すわけではない
 
-The example above should clarify one thing: not all pointers point to the heap.\
-They just point to a memory location, which _may_ be on the heap, but doesn't have to be.
+上記の例から1つ明確にしておきたいことがあります。それは、すべてのポインタがヒープを指すわけではないということです。\
+ポインタは単にメモリ位置を指しているだけであり、その場所がヒープ上にある*場合もあれば*、そうでない場合もあります。
 
-[^fat]: [Later in the course](../04_traits/06_str_slice.md) we'll talk about **fat pointers**,
-i.e. pointers with additional metadata. As the name implies, they are larger than
-the pointers we discussed in this chapter, also known as **thin pointers**.
+[^fat]: [コースの後半](../04_traits/06_str_slice.md)では、追加のメタデータを持つポインタである**ファットポインタ (fat pointers)** について説明します。その名前が示す通り、それらは本章で説明したポインタ（**シンポインタ (thin pointers)** とも呼ばれます）よりも大きくなります。

@@ -1,6 +1,6 @@
-# Generics and associated types
+# ジェネリクスと関連型
 
-Let's re-examine the definition for two of the traits we studied so far, `From` and `Deref`:
+これまでに学んだ2つのトレイト、`From` と `Deref` の定義をもう一度確認してみましょう：
 
 ```rust
 pub trait From<T> {
@@ -14,28 +14,25 @@ pub trait Deref {
 }
 ```
 
-They both feature type parameters.\
-In the case of `From`, it's a generic parameter, `T`.\
-In the case of `Deref`, it's an associated type, `Target`.
+どちらも型パラメータを特徴としています。\
+`From` の場合は、ジェネリックパラメータ `T` です。\
+`Deref` の場合は、関連型 `Target` です。
 
-What's the difference? Why use one over the other?
+この2つにはどのような違いがあるのでしょうか？なぜ一方ではなく他方を使うのでしょうか？
 
-## At most one implementation
+## 実装は高々1つだけ
 
-Due to how deref coercion works, there can only be one "target" type for a given type. E.g. `String` can
-only deref to `str`.
-It's about avoiding ambiguity: if you could implement `Deref` multiple times for a type,
-which `Target` type should the compiler choose when you call a `&self` method?
+参照外し型強制の仕組み上、ある型に対する「ターゲット（変換先）」の型はただ1つしか存在できません。例えば、`String` は `str` にしか参照外し（deref）できません。
+これは曖昧さを避けるためです。もしある型に対して `Deref` を複数回実装できたとしたら、`&self` メソッドを呼び出したときにコンパイラはどの `Target` 型を選べばよいのでしょうか？
 
-That's why `Deref` uses an associated type, `Target`.\
-An associated type is uniquely determined **by the trait implementation**.
-Since you can't implement `Deref` more than once, you'll only be able to specify one `Target` for a given type
-and there won't be any ambiguity.
+だからこそ、`Deref` は関連型 `Target` を使用しているのです。\
+関連型は、**トレイトの実装によって**一意に決定されます。
+`Deref` は1度しか実装できないため、ある型に対して指定できる `Target` は1つだけとなり、曖昧さは生じません。
 
-## Generic traits
+## ジェネリックトレイト (Generic traits)
 
-On the other hand, you can implement `From` multiple times for a type, **as long as the input type `T` is different**.
-For example, you can implement `From` for `WrappingU32` using both `u32` and `u16` as input types:
+一方、`From` は**入力の型 `T` が異なる限り**、ある型に対して複数回実装することができます。
+例えば、`u32` と `u16` の両方を入力型として、`WrappingU32` に `From` を実装できます：
 
 ```rust
 impl From<u32> for WrappingU32 {
@@ -51,12 +48,12 @@ impl From<u16> for WrappingU32 {
 }
 ```
 
-This works because `From<u16>` and `From<u32>` are considered **different traits**.\
-There is no ambiguity: the compiler can determine which implementation to use based on type of the value being converted.
+これが機能するのは、`From<u16>` と `From<u32>` が**異なるトレイト**とみなされるからです。\
+変換される値の型に基づいてどの実装を使用すべきかをコンパイラが決定できるため、曖昧さはありません。
 
-## Case study: `Add`
+## ケーススタディ：`Add`
 
-As a closing example, consider the `Add` trait from the standard library:
+最後の例として、標準ライブラリの `Add` トレイトを考えてみましょう：
 
 ```rust
 pub trait Add<RHS = Self> {
@@ -66,15 +63,15 @@ pub trait Add<RHS = Self> {
 }
 ```
 
-It uses both mechanisms:
+これは両方の仕組みを使用しています：
 
-- it has a generic parameter, `RHS` (right-hand side), which defaults to `Self`
-- it has an associated type, `Output`, the type of the result of the addition
+- ジェネリックパラメータ `RHS`（right-hand side：右辺）を持ち、そのデフォルト型は `Self` になっています。
+- 加算結果の型を表す関連型 `Output` を持っています。
 
 ### `RHS`
 
-`RHS` is a generic parameter to allow for different types to be added together.\
-For example, you'll find these two implementations in the standard library:
+`RHS` は、異なる型同士の加算を可能にするためのジェネリックパラメータです。\
+例えば、標準ライブラリには以下の2つの実装があります：
 
 ```rust
 impl Add<u32> for u32 {
@@ -82,10 +79,9 @@ impl Add<u32> for u32 {
     
     fn add(self, rhs: u32) -> u32 {
       //                      ^^^
-      // This could be written as `Self::Output` instead.
-      // The compiler doesn't care, as long as the type you
-      // specify here matches the type you assigned to `Output` 
-      // right above.
+      // ここは代わりに `Self::Output` と書くこともできます。
+      // ここで指定する型が、すぐ上で `Output` に割り当てた型と
+      // 一致している限り、コンパイラはどちらでも構いません。
       // [...]
     }
 }
@@ -99,21 +95,20 @@ impl Add<&u32> for u32 {
 }
 ```
 
-This allows the following code to compile:
+これにより、次のコードがコンパイルできるようになります：
 
 ```rust
 let x = 5u32 + &5u32 + 6u32;
 ```
 
-because `u32` implements `Add<&u32>` _as well as_ `Add<u32>`.
+なぜなら、`u32` は `Add<u32>` *だけでなく* `Add<&u32>` も実装しているからです。
 
 ### `Output`
 
-`Output` represents the type of the result of the addition.
+`Output` は加算結果の型を表します。
 
-Why do we need `Output` in the first place? Can't we just use `Self` as output, the type implementing `Add`?
-We could, but it would limit the flexibility of the trait. In the standard library, for example, you'll find
-this implementation:
+そもそも、なぜ `Output` が必要なのでしょうか？`Add` を実装している型である `Self` をそのまま出力として使うことはできないのでしょうか？
+そうすることも可能ですが、トレイトの柔軟性が制限されてしまいます。例えば標準ライブラリには、次のような実装があります：
 
 ```rust
 impl Add<&u32> for &u32 {
@@ -125,22 +120,17 @@ impl Add<&u32> for &u32 {
 }
 ```
 
-The type they're implementing the trait for is `&u32`, but the result of the addition is `u32`.\
-It would be impossible[^flexible] to provide this implementation if `add` had to return `Self`, i.e. `&u32` in this case.
-`Output` lets `std` decouple the implementor from the return type, thus supporting this case.
+トレイトを実装している対象の型は `&u32` ですが、加算の結果は `u32` です。\
+もし `add` が必ず `Self`（この場合は `&u32`）を返さなければならないとしたら、この実装を提供することは不可能[^flexible]でしょう。
+`Output` があることで、`std` は実装対象の型と戻り値の型を切り離すことができ、このようなケースをサポートできています。
 
-On the other hand, `Output` can't be a generic parameter. The output type of the operation **must** be uniquely determined
-once the types of the operands are known. That's why it's an associated type: for a given combination of implementor
-and generic parameters, there is only one `Output` type.
+一方で、`Output` をジェネリックパラメータにすることはできません。演算の出力型は、オペランド（被演算子）の型がわかった時点で**一意に**決定されなければならないからです。だからこそ関連型になっているのです。実装対象の型とジェネリックパラメータの特定の組み合わせに対して、`Output` 型はただ1つだけ決まります。
 
-## Conclusion
+## まとめ
 
-To recap:
+整理すると：
 
-- Use an **associated type** when the type must be uniquely determined for a given trait implementation.
-- Use a **generic parameter** when you want to allow multiple implementations of the trait for the same type,
-  with different input types.
+- 特定のトレイト実装に対して型が一意に決定されなければならない場合は、**関連型 (associated type)** を使用します。
+- 異なる入力型を使って、同じ型に対してトレイトの複数の実装を許可したい場合は、**ジェネリックパラメータ (generic parameter)** を使用します。
 
-[^flexible]: Flexibility is rarely free: the trait definition is more complex due to `Output`, and implementors have to reason about
-what they want to return. The trade-off is only justified if that flexibility is actually needed. Keep that in mind
-when designing your own traits.
+[^flexible]: 柔軟性が無料で手に入ることは滅多にありません。`Output` のせいでトレイト定義はより複雑になり、実装者は何を返したいかについて頭を悩ませる必要があります。このトレードオフが正当化されるのは、その柔軟性が実際に必要な場合だけです。独自のトレイトを設計する際には、この点を念頭に置いておきましょう。

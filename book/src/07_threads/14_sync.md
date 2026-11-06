@@ -1,28 +1,25 @@
-# `Sync`
+# `Sync` トレイト
 
-Before we wrap up this chapter, let's talk about another key trait in Rust's standard library: `Sync`.
+この章を締めくくる前に、Rustの標準ライブラリにあるもう1つの重要なトレイト、`Sync` について話しておきましょう。
 
-`Sync` is an auto trait, just like `Send`.\
-It is automatically implemented by all types that can be safely **shared** between threads.
+`Sync` は `Send` と同様の自動トレイト（auto trait）です。\
+スレッド間で安全に**共有 (share)** できるすべての型によって自動的に実装されます。
 
-In other words: `T` is Sync if `&T` is `Send`.
+言い換えれば、`&T` が `Send` である場合、`T` は `Sync` です。
 
-## `T: Sync` doesn't imply `T: Send`
+## `T: Sync` は `T: Send` を意味しない
 
-It's important to note that `T` can be `Sync` without being `Send`.\
-For example: `MutexGuard` is not `Send`, but it is `Sync`.
+`T` が `Send` でなくても `Sync` になり得るという点に注意することが重要です。\
+例えば、`MutexGuard` は `Send` ではありませんが、`Sync` です。
 
-It isn't `Send` because the lock must be released on the same thread that acquired it, therefore we don't
-want `MutexGuard` to be dropped on a different thread.\
-But it is `Sync`, because giving a `&MutexGuard` to another thread has no impact on where the lock is released.
+ロックはそれを取得したのと同じスレッド上で解放されなければならず、異なるスレッド上で `MutexGuard` がドロップされるのを防ぎたいため、`MutexGuard` は `Send` ではありません。\
+しかし、別のスレッドに `&MutexGuard`（不変参照）を渡しても、ロックがどこで解放されるかには何の影響もないため、`Sync` ではあるのです。
 
-## `T: Send` doesn't imply `T: Sync`
+## `T: Send` は `T: Sync` を意味しない
 
-The opposite is also true: `T` can be `Send` without being `Sync`.\
-For example: `RefCell<T>` is `Send` (if `T` is `Send`), but it is not `Sync`.
+その逆もまた真です。`T` が `Sync` でなくても `Send` になり得ます。\
+例えば、`RefCell<T>` は（`T` が `Send` であれば）`Send` ですが、`Sync` ではありません。
 
-`RefCell<T>` performs runtime borrow checking, but the counters it uses to track borrows are not thread-safe.
-Therefore, having multiple threads holding a `&RefCell` would lead to a data race, with potentially
-multiple threads obtaining mutable references to the same data. Hence `RefCell` is not `Sync`.\
-`Send` is fine, instead, because when we send a `RefCell` to another thread we're not
-leaving behind any references to the data it contains, hence no risk of concurrent mutable access.
+`RefCell<T>` は実行時の借用チェックを行いますが、借用を追跡するために使用しているカウンタはスレッドセーフ（アトミック）ではありません。
+したがって、複数のスレッドが `&RefCell` を保持しているとデータ競合（data race）が発生し、複数のスレッドが同じデータに対する可変参照を同時に取得してしまう可能性があります。そのため、`RefCell` は `Sync` ではありません。\
+一方、`RefCell` 自体を別のスレッドに送信（ムーブ）する場合は、そこに含まれるデータへの参照を元のスレッドに残すことがないため、並行して可変アクセスが行われるリスクがなく、`Send` であっても問題ないのです。

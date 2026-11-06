@@ -1,5 +1,5 @@
-// TODO: Replace `todo!()`s with the correct implementation.
-//  Implement additional traits on `TicketId` if needed.
+// TODO: `todo!()` を正しい実装に置き換えてください。
+//  必要に応じて `TicketId` に追加のトレイトを実装してください。
 
 use std::collections::HashMap;
 use std::ops::{Index, IndexMut};

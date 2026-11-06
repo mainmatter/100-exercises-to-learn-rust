@@ -1,13 +1,13 @@
-// TODO: Implement the `fixed_reply` function. It should accept two `TcpListener` instances,
-//  accept connections on both of them concurrently, and always reply to clients by sending
-//  the `Display` representation of the `reply` argument as a response.
+// TODO: `fixed_reply` 関数を実装してください。これは2つの `TcpListener` インスタンスを受け取り、
+//  両方で並行して接続を受け入れ、常に `reply` 引数の `Display` 表現をレスポンスとして送信することで
+//  クライアントに応答する必要があります。
 use std::fmt::Display;
 use tokio::io::AsyncWriteExt;
 use tokio::net::TcpListener;
 
 pub async fn fixed_reply<T>(first: TcpListener, second: TcpListener, reply: T)
 where
-    // `T` cannot be cloned. How do you share it between the two server tasks?
+    // `T` はクローンできません。2つのサーバータスク間でどうやって共有しますか？
     T: Display + Send + Sync + 'static,
 {
     todo!()
@@ -42,7 +42,7 @@ mod tests {
                     let mut socket = tokio::net::TcpStream::connect(addr).await.unwrap();
                     let (mut reader, _) = socket.split();
 
-                    // Read the response
+                    // レスポンスを読み取る
                     let mut buf = Vec::new();
                     reader.read_to_end(&mut buf).await.unwrap();
                     assert_eq!(&buf, reply.as_bytes());

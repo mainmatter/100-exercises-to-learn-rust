@@ -1,4 +1,4 @@
-# Variants can hold data
+# バリアントはデータを保持できる
 
 ```rust
 enum Status {
@@ -8,18 +8,16 @@ enum Status {
 }
 ```
 
-Our `Status` enum is what's usually called a **C-style enum**.\
-Each variant is a simple label, a bit like a named constant. You can find this kind of enum in many programming
-languages, like C, C++, Java, C#, Python, etc.
+私たちの `Status` 列挙型は、通常**C言語風の列挙型 (C-style enum)** と呼ばれるものです。\
+各バリアントは単純なラベルであり、名前付き定数のようなものです。この種の列挙型は、C、C++、Java、C#、Pythonなど、多くのプログラミング言語で見られます。
 
-Rust enums can go further though. We can **attach data to each variant**.
+しかし、Rustの列挙型はさらに一歩進んでいます。**各バリアントにデータを紐づける**ことができるのです。
 
-## Variants
+## バリアント
 
-Let's say that we want to store the name of the person who's currently working on a ticket.\
-We would only have this information if the ticket is in progress. It wouldn't be there for a to-do ticket or
-a done ticket.
-We can model this by attaching a `String` field to the `InProgress` variant:
+例えば、現在チケットに取り組んでいる担当者の名前を保存したいとしましょう。\
+この情報が存在するのは、チケットが進行中 (`InProgress`) の場合だけです。未着手 (`ToDo`) のチケットや完了 (`Done`) したチケットには存在しません。
+これをモデル化するには、`InProgress` バリアントに `String` フィールドを紐づけます：
 
 ```rust
 enum Status {
@@ -31,21 +29,21 @@ enum Status {
 }
 ```
 
-`InProgress` is now a **struct-like variant**.\
-The syntax mirrors, in fact, the one we used to define a struct—it's just "inlined" inside the enum, as a variant.
+これで、`InProgress` は**構造体風のバリアント (struct-like variant)** になりました。\
+実際、この構文は構造体を定義するときに使った構文そのものであり、列挙型の内部にバリアントとして「インライン化」されているだけです。
 
-## Accessing variant data
+## バリアントのデータへのアクセス
 
-If we try to access `assigned_to` on a `Status` instance,
+`Status` インスタンスに対して直接 `assigned_to` にアクセスしようとすると：
 
 ```rust
 let status: Status = /* */;
 
-// This won't compile
+// これはコンパイルできません
 println!("Assigned to: {}", status.assigned_to);
 ```
 
-the compiler will stop us:
+コンパイラがそれを止めます：
 
 ```text
 error[E0609]: no field `assigned_to` on type `Status`
@@ -55,8 +53,8 @@ error[E0609]: no field `assigned_to` on type `Status`
   |                                        ^^^^^^^^^^^ unknown field
 ```
 
-`assigned_to` is **variant-specific**, it's not available on all `Status` instances.\
-To access `assigned_to`, we need to use **pattern matching**:
+`assigned_to` は**バリアント固有 (variant-specific)** であり、すべての `Status` インスタンスで利用できるわけではありません。\
+`assigned_to` にアクセスするには、**パターンマッチング (pattern matching)** を使用する必要があります：
 
 ```rust
 match status {
@@ -69,12 +67,11 @@ match status {
 }
 ```
 
-## Bindings
+## 束縛 (Bindings)
 
-In the match pattern `Status::InProgress { assigned_to }`, `assigned_to` is a **binding**.\
-We're **destructuring** the `Status::InProgress` variant and binding the `assigned_to` field to
-a new variable, also named `assigned_to`.\
-If we wanted, we could bind the field to a different variable name:
+マッチパターン `Status::InProgress { assigned_to }` における `assigned_to` は**束縛 (binding)** です。\
+`Status::InProgress` バリアントを**分割代入 (destructuring)** し、`assigned_to` フィールドを同じく `assigned_to` という名前の新しい変数に束縛しています。\
+必要であれば、フィールドを別の変数名に束縛することもできます：
 
 ```rust
 match status {

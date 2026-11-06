@@ -4,7 +4,7 @@ use crate::store::TicketStore;
 pub mod data;
 pub mod store;
 
-// Refer to the tests to understand the expected schema.
+// 期待されるスキーマを理解するために、テストを参照してください。
 pub enum Command {
     Insert { todo!() },
     Get { todo!() }
@@ -16,7 +16,7 @@ pub fn launch() -> Sender<Command> {
     sender
 }
 
-// TODO: handle incoming commands as expected.
+// TODO: 期待通りに受信したコマンドを処理してください。
 pub fn server(receiver: Receiver<Command>) {
     let mut store = TicketStore::new();
     loop {
@@ -30,8 +30,8 @@ pub fn server(receiver: Receiver<Command>) {
                 todo!()
             }
             Err(_) => {
-                // There are no more senders, so we can safely break
-                // and shut down the server.
+                // 送信側（Sender）がもう存在しないため、安全に break して
+                // サーバーをシャットダウンできます。
                 break
             },
         }

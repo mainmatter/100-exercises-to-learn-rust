@@ -1,6 +1,6 @@
-# Validation
+# バリデーション (Validation)
 
-Let's go back to our ticket definition:
+チケットの定義に戻りましょう：
 
 ```rust
 struct Ticket {
@@ -10,12 +10,10 @@ struct Ticket {
 }
 ```
 
-We are using "raw" types for the fields of our `Ticket` struct.
-This means that users can create a ticket with an empty title, a suuuuuuuper long description or
-a nonsensical status (e.g. "Funny").\
-We can do better than that!
+ここでは、`Ticket` 構造体のフィールドに「生の（汎用の）」型を使用しています。
+つまり、ユーザーは空のタイトル、とてつもなく長い説明文、あるいは意味不明なステータス（例：「Funny」）を持つチケットを作成できてしまいます。\
+もっと良くできるはずです！
 
-## Further reading
+## さらに詳しく知りたい方へ
 
-- Check out [`String`'s documentation](https://doc.rust-lang.org/std/string/struct.String.html)
-  for a thorough overview of the methods it provides. You'll need it for the exercise!
+- `String` が提供するメソッドの全体像については、[`String` のドキュメント](https://doc.rust-lang.org/std/string/struct.String.html)をチェックしてください。今回の演習で必要になります！

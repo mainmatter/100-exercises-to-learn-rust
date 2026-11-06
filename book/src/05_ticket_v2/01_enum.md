@@ -1,9 +1,7 @@
-# Enumerations
+# 列挙型 (Enumerations)
 
-Based on the validation logic you wrote [in a previous chapter](../03_ticket_v1/02_validation.md),
-there are only a few valid statuses for a ticket: `To-Do`, `InProgress` and `Done`.\
-This is not obvious if we look at the `status` field in the `Ticket` struct or at the type of the `status`
-parameter in the `new` method:
+[以前の章](../03_ticket_v1/02_validation.md)で書いたバリデーションロジックに基づくと、チケットに対して有効なステータスは `To-Do`、`InProgress`、`Done` のわずかしかありません。\
+しかし、`Ticket` 構造体の `status` フィールドや、`new` メソッドの `status` パラメータの型を見ても、このことはすぐにはわかりません：
 
 ```rust
 #[derive(Debug, PartialEq)]
@@ -24,17 +22,15 @@ impl Ticket {
 }
 ```
 
-In both cases we're using `String` to represent the `status` field.
-`String` is a very general type—it doesn't immediately convey the information that the `status` field
-has a limited set of possible values. Even worse, the caller of `Ticket::new` will only find out **at runtime**
-if the status they provided is valid or not.
+どちらのケースでも、`status` フィールドを表現するために `String` を使用しています。
+`String` は非常に汎用的な型であり、`status` フィールドがとり得る値の集合が限られているという情報を即座には伝えてくれません。さらに悪いことに、`Ticket::new` の呼び出し元は、渡したステータスが有効かどうかを**実行時**になるまで知ることができません。
 
-We can do better than that with **enumerations**.
+**列挙型 (enumerations)** を使えば、これをもっと改善できます。
 
 ## `enum`
 
-An enumeration is a type that can have a fixed set of values, called **variants**.\
-In Rust, you define an enumeration using the `enum` keyword:
+列挙型とは、**バリアント (variants / 列挙子)** と呼ばれる固定された値の集合をとることができる型です。\
+Rustでは、`enum` キーワードを使用して列挙型を定義します：
 
 ```rust
 enum Status {
@@ -44,4 +40,4 @@ enum Status {
 }
 ```
 
-`enum`, just like `struct`, defines **a new Rust type**.
+`enum` は、`struct` と同様に**新しいRustの型**を定義します。

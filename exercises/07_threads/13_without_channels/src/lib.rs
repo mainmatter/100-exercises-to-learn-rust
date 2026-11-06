@@ -1,7 +1,6 @@
-// TODO: You don't actually have to change anything in the library itself!
-//  We mostly had to **remove** code (the client type, the launch function, the command enum)
-//  that's no longer necessary.
-//  Fix the `todo!()` in the testing code and see how the new design can be used.
+// TODO: 実際にはライブラリ自体は何も変更する必要がありません！
+//  もはや不要になったコード（クライアント型、launch関数、コマンド列挙型）を主に**削除**しました。
+//  テストコード内の `todo!()` を修正し、新しい設計がどのように使われるかを確認してください。
 
 pub mod data;
 pub mod store;

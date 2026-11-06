@@ -1,6 +1,6 @@
-// TODO: Add `anyhow` as a dependency of this project.
-//  Don't touch this import!
+// TODO: このプロジェクトの依存関係として `anyhow` を追加してください。
+//  このインポートには触れないでください！
 
-// When you import a type (`Error`) from a dependency, the import path must start
-// with the crate name (`anyhow`, in this case).
+// 依存関係から型 (`Error`) をインポートする場合、インポートパスは
+// クレート名（この場合は `anyhow`）で始まる必要があります。
 use anyhow::Error;

@@ -1,4 +1,4 @@
-// TODO: Implement `IndexMut<&TicketId>` and `IndexMut<TicketId>` for `TicketStore`.
+// TODO: `TicketStore` に対して `IndexMut<&TicketId>` と `IndexMut<TicketId>` を実装してください。
 
 use std::ops::Index;
 use ticket_fields::{TicketDescription, TicketTitle};

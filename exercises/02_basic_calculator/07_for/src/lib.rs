@@ -1,4 +1,4 @@
-// Rewrite the factorial function using a `for` loop.
+// `for` ループを使って `factorial` 関数を書き直してください。
 pub fn factorial(n: u32) -> u32 {
     todo!()
 }

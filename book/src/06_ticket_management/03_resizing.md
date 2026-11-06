@@ -1,25 +1,24 @@
-# Resizing
+# リサイズ (Resizing)
 
-We said that `Vec` is a "growable" vector type, but what does that mean?
-What happens if you try to insert an element into a `Vec` that's already at maximum capacity?
+`Vec` は「可変長（伸長可能）」のベクタ型であると述べましたが、それはどういう意味でしょうか？
+すでに最大容量に達している `Vec` に要素を挿入しようとするとどうなるのでしょうか？
 
 ```rust
 let mut numbers = Vec::with_capacity(3);
 numbers.push(1);
 numbers.push(2);
-numbers.push(3); // Max capacity reached
-numbers.push(4); // What happens here?
+numbers.push(3); // 最大容量に到達
+numbers.push(4); // ここで何が起こるでしょうか？
 ```
 
-The `Vec` will **resize** itself.\
-It will ask the allocator for a new (larger) chunk of heap memory, copy the elements over, and deallocate the old memory.
+`Vec` は自身を**リサイズ (resize / サイズ変更)** します。\
+アロケータに新しい（より大きな）ヒープメモリの塊を要求し、要素をそこにコピーし、古いメモリを解放します。
 
-This operation can be expensive, as it involves a new memory allocation and copying all existing elements.
+この操作は、新しいメモリ割り当てと既存のすべての要素のコピーを伴うため、コストが高くなる可能性があります。
 
 ## `Vec::with_capacity`
 
-If you have a rough idea of how many elements you'll store in a `Vec`, you can use the `Vec::with_capacity`
-method to pre-allocate enough memory upfront.\
-This can avoid a new allocation when the `Vec` grows, but it may waste memory if you overestimate actual usage.
+`Vec` に保存する要素のおおよその数が事前にわかっている場合は、`Vec::with_capacity` メソッドを使用して、最初から十分なメモリを事前割り当てしておくことができます。\
+これにより、`Vec` が大きくなる際の新たなメモリ割り当てを回避できますが、実際の使用量を過大に見積もるとメモリを無駄にする可能性があります。
 
-Evaluate on a case-by-case basis.
+ケースバイケースで判断しましょう。

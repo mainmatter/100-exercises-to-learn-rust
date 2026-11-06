@@ -7,17 +7,16 @@ pub enum Command {
     Insert(todo!()),
 }
 
-// Start the system by spawning the server thread.
-// It returns a `Sender` instance which can then be used
-// by one or more clients to interact with the server.
+// サーバースレッドをスポーンしてシステムを起動します。
+// 1つ以上のクライアントがサーバーとやり取りするために使用できる
+// `Sender` インスタンスを返します。
 pub fn launch() -> Sender<Command> {
     let (sender, receiver) = std::sync::mpsc::channel();
     std::thread::spawn(move || server(receiver));
     sender
 }
 
-// TODO: The server task should **never** stop.
-//  Enter a loop: wait for a command to show up in
-//  the channel, then execute it, then start waiting
-//  for the next command.
+// TODO: サーバータスクは**決して**停止してはいけません。
+//  ループに入り、チャネルにコマンドが現れるのを待ち、
+//  それを実行し、そして次のコマンドを待ち始めるようにしてください。
 pub fn server(receiver: Receiver<Command>) {}

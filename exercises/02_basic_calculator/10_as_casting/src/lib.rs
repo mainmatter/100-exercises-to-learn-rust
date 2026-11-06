@@ -1,5 +1,5 @@
-// TODO: based on what you learned in this section, replace `todo!()` with
-//  the correct value after the conversion.
+// TODO: このセクションで学んだことに基づいて、`todo!()` を
+//  変換後の正しい値に置き換えてください。
 
 #[cfg(test)]
 mod tests {
@@ -12,18 +12,17 @@ mod tests {
 
     #[test]
     fn u8_to_i8() {
-        // The compiler is smart enough to know that the value 255 cannot fit
-        // inside an i8, so it'll emit a hard error. We intentionally disable
-        // this guardrail to make this (bad) conversion possible.
-        // The compiler is only able to pick on this because the value is a
-        // literal. If we were to use a variable, the compiler wouldn't be able to
-        // catch this at compile time.
+        // コンパイラは 255 という値が i8 に収まらないことを知るのに十分賢いため、
+        // ハードエラーを出力します。この（良くない）変換を可能にするため、
+        // ここでは意図的にこのガードレールを無効化しています。
+        // コンパイラがこれに気づけるのは、値がリテラルだからです。
+        // もし変数を使っていた場合、コンパイラはコンパイル時にこれを捕捉できません。
         #[allow(overflowing_literals)]
         let x = { 255 as i8 };
 
-        // You could solve this by using exactly the same expression as above,
-        // but that would defeat the purpose of the exercise. Instead, use a genuine
-        // `i8` value that is equivalent to `255` when converted to `u8`.
+        // 上記とまったく同じ式を使えばこれを解くこともできますが、
+        // それではこの演習の目的が失われてしまいます。代わりに、`u8` に変換したときに
+        // `255` と等価になる純粋な `i8` の値（リテラル）を使用してください。
         let y: i8 = todo!();
 
         assert_eq!(x, y);

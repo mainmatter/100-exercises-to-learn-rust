@@ -33,8 +33,8 @@ impl TicketStore {
         id
     }
 
-    // The `get` method should return a handle to the ticket
-    // which allows the caller to either read or modify the ticket.
+    // `get` メソッドは、呼び出し元がチケットの読み取りまたは変更を行えるようにする
+    // チケットへのハンドルを返す必要があります。
     pub fn get(&self, id: TicketId) -> Option<Arc<Mutex<Ticket>>> {
         self.tickets.get(&id).cloned()
     }

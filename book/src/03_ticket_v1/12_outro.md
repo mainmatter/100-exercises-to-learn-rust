@@ -1,5 +1,5 @@
-# Wrapping up
+# まとめ
 
-We've covered a lot of foundational Rust concepts in this chapter.\
-Before moving on, let's go through one last exercise to consolidate what we've learned.
-You'll have minimal guidance this time—just the exercise description and the tests to guide you.
+この章では、Rustの基礎となる多くの概念を扱いました。\
+次に進む前に、学んだことを定着させるための最後の演習に取り組みましょう。
+今回はガイダンスを最小限にしています。演習の説明とテストだけを頼りに進めてみてください。

@@ -1,38 +1,31 @@
-# Error trait
+# `Error` トレイト
 
-## Error reporting
+## エラー報告 (Error reporting)
 
-In the previous exercise you had to destructure the `TitleError` variant to extract the error message and
-pass it to the `panic!` macro.\
-This is a (rudimentary) example of **error reporting**: transforming an error type into a representation that can be
-shown to a user, a service operator, or a developer.
+前回の演習では、エラーメッセージを抽出して `panic!` マクロに渡すために、`TitleError` バリアントを分割代入する必要がありました。\
+これは**エラー報告 (error reporting)**（エラー型をユーザー、サービス運用者、または開発者に表示できる表現に変換すること）の（初歩的な）一例です。
 
-It's not practical for each Rust developer to come up with their own error reporting strategy: it'd be a waste of time
-and it wouldn't compose well across projects.
-That's why Rust provides the `std::error::Error` trait.
+Rustの開発者が各自で独自のエラー報告戦略を考案するのは現実的ではありません。時間の無駄ですし、プロジェクト間でうまく組み合わせることができなくなってしまいます。
+そのため、Rustは `std::error::Error` トレイトを提供しています。
 
-## The `Error` trait
+## `Error` トレイト
 
-There are no constraints on the type of the `Err` variant in a `Result`, but it's a good practice to use a type
-that implements the `Error` trait.
-`Error` is the cornerstone of Rust's error handling story:
+`Result` の `Err` バリアントの型には何の制約もありませんが、`Error` トレイトを実装した型を使用するのが良いプラクティスとされています。
+`Error` はRustのエラー処理の中核（コーナーストーン）です：
 
 ```rust
-// Slightly simplified definition of the `Error` trait
+// 少し簡略化した `Error` トレイトの定義
 pub trait Error: Debug + Display {}
 ```
 
-You might recall the `:` syntax from [the `From` trait](../04_traits/09_from.md#supertrait--subtrait)—it's used to specify **supertraits**.
-For `Error`, there are two supertraits: `Debug` and `Display`. If a type wants to implement `Error`, it must also
-implement `Debug` and `Display`.
+[`From` トレイト](../04_traits/09_from.md#スーパートレイトとサブトレイト)で登場した `:` 構文を覚えているかもしれません。これは**スーパートレイト**を指定するために使用されます。
+`Error` には `Debug` と `Display` という2つのスーパートレイトがあります。ある型が `Error` を実装したい場合、`Debug` と `Display` も実装しなければなりません。
 
-## `Display` and `Debug`
+## `Display` と `Debug`
 
-We've already encountered the `Debug` trait in [a previous exercise](../04_traits/04_derive.md)—it's the trait used by
-`assert_eq!` to display the values of the variables it's comparing when the assertion fails.
+`Debug` トレイトには[以前の演習](../04_traits/04_derive.md)ですでに出会っています。アサーションが失敗したときに、比較している変数の値を表示するために `assert_eq!` が使用するトレイトです。
 
-From a "mechanical" perspective, `Display` and `Debug` are identical—they encode how a type should be converted
-into a string-like representation:
+「機械的な」観点から見ると、`Display` と `Debug` はまったく同じです。どちらも、型を文字列のような表現にどのように変換すべきかを定義しています：
 
 ```rust
 // `Debug`
@@ -46,7 +39,5 @@ pub trait Display {
 }
 ```
 
-The difference is in their _purpose_: `Display` returns a representation that's meant for "end-users",
-while `Debug` provides a low-level representation that's more suitable to developers and service operators.\
-That's why `Debug` can be automatically implemented using the `#[derive(Debug)]` attribute, while `Display`
-**requires** a manual implementation.
+違いはその*目的*にあります。`Display` は「エンドユーザー」向けの表現を返すのに対し、`Debug` は開発者やサービス運用者に適した低レベルの表現を提供します。\
+`Debug` が `#[derive(Debug)]` アトリビュートを使用して自動的に実装できるのに対し、`Display` が手動での実装を**必要とする**理由はそこにあります。

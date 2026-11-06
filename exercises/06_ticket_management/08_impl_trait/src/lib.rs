@@ -1,5 +1,5 @@
-// TODO: Implement the `in_progress` method. It must return an iterator over the tickets in
-//  `TicketStore` with status set to `Status::InProgress`.
+// TODO: `in_progress` メソッドを実装してください。これは `TicketStore` 内のステータスが
+//  `Status::InProgress` に設定されているチケットに対するイテレータを返す必要があります。
 use ticket_fields::{TicketDescription, TicketTitle};
 
 #[derive(Clone)]

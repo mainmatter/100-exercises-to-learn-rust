@@ -1,15 +1,14 @@
 # `thiserror`
 
-That was a bit of detour, wasn't it? But a necessary one!\
-Let's get back on track now: custom error types and `thiserror`.
+少し回り道をしましたが、必要な寄り道でした！\
+それでは本題に戻りましょう。カスタムエラー型と `thiserror` についてです。
 
-## Custom error types
+## カスタムエラー型
 
-We've seen how to implement the `Error` trait "manually" for a custom error type.\
-Imagine that you have to do this for most error types in your codebase. That's a lot of boilerplate, isn't it?
+カスタムエラー型に対して「手動で」`Error` トレイトを実装する方法はすでに見ました。\
+コードベース内のほとんどのエラー型に対してこれを行わなければならないと想像してみてください。かなりの量のボイラープレート（定型コード）になりますよね？
 
-We can remove some of the boilerplate by using [`thiserror`](https://docs.rs/thiserror/latest/thiserror/),
-a Rust crate that provides a **procedural macro** to simplify the creation of custom error types.
+カスタムエラー型の作成を簡素化する**手続き型マクロ (procedural macro)** を提供するRustクレートである [`thiserror`](https://docs.rs/thiserror/latest/thiserror/) を使用すれば、このボイラープレートの一部を取り除くことができます。
 
 ```rust
 #[derive(thiserror::Error, Debug)]
@@ -21,21 +20,19 @@ enum TicketNewError {
 }
 ```
 
-## You can write your own macros
+## 独自のマクロを書くこともできる
 
-All the `derive` macros we've seen so far were provided by the Rust standard library.\
-`thiserror::Error` is the first example of a **third-party** `derive` macro.
+これまでに見てきたすべての `derive` マクロは、Rustの標準ライブラリによって提供されているものでした。\
+`thiserror::Error` は、**サードパーティ製**の `derive` マクロの最初の例です。
 
-`derive` macros are a subset of **procedural macros**, a way to generate Rust code at compile time.
-We won't get into the details of how to write a procedural macro in this course, but it's important
-to know that you can write your own!\
-A topic to approach in a more advanced Rust course.
+`derive` マクロは、コンパイル時にRustコードを生成する方法である**手続き型マクロ (procedural macros)** の一種です。
+このコースでは手続き型マクロの書き方の詳細には立ち入りませんが、自分で書くこともできると知っておくことは重要です！\
+より上級向けのRustコースで取り組むべきトピックです。
 
-## Custom syntax
+## カスタム構文
 
-Each procedural macro can define its own syntax, which is usually explained in the crate's documentation.
-In the case of `thiserror`, we have:
+各手続き型マクロは独自の構文を定義でき、通常はそのクレートのドキュメントで説明されています。
+`thiserror` の場合は以下のようになります：
 
-- `#[derive(thiserror::Error)]`: this is the syntax to derive the `Error` trait for a custom error type, helped by `thiserror`.
-- `#[error("{0}")]`: this is the syntax to define a `Display` implementation for each variant of the custom error type.
-  `{0}` is replaced by the zero-th field of the variant (`String`, in this case) when the error is displayed.
+- `#[derive(thiserror::Error)]`：`thiserror` の助けを借りて、カスタムエラー型に対して `Error` トレイトを導出（derive）するための構文です。
+- `#[error("{0}")]`：カスタムエラー型の各バリアントに対して `Display` 実装を定義するための構文です。エラーが表示される際、`{0}` はバリアントの0番目のフィールド（この場合は `String`）に置き換えられます。

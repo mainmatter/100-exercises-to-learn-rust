@@ -1,44 +1,46 @@
-# Learn Rust, one exercise at a time
+# 1問ずつ学ぶRust（100 Exercises To Learn Rust 日本語版）
 
-You've heard about Rust, but you never had the chance to try it out?\
-This course is for you!
+> [!IMPORTANT]
+> 本リポジトリは、Mainmatter GmbH（原著者: Luca Palmieri）による Rust 学習教材「[100 Exercises To Learn Rust](https://github.com/mainmatter/100-exercises-to-learn-rust)」の**非公式AI翻訳版**です。
+> - **原著者**: [Luca Palmieri](https://www.lpalmieri.com/) / [Mainmatter GmbH](https://mainmatter.com/rust-consulting/)
+> - **原本リポジトリ**: [https://github.com/mainmatter/100-exercises-to-learn-rust](https://github.com/mainmatter/100-exercises-to-learn-rust)
+> - **日本語版リポジトリ**: [https://github.com/norei3510/100-exercises-to-learn-rust](https://github.com/norei3510/100-exercises-to-learn-rust)
+> - **ライセンス**: [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0)（非商用利用のみ許可）
 
-You'll learn Rust by solving 100 exercises.\
-You'll go from knowing nothing about Rust to being able to start
-writing your own programs, one exercise at a time.
+Rustのことは聞いたことがあるけれど、まだ試す機会がなかったという方へ。\
+このコースはあなたのためのものです！
+
+100個の演習問題を解くことでRustを学びます。\
+Rustについて何も知らない状態から始めて、1問ずつ進めるうちに自分自身でプログラムを書き始められるようになります。
 
 > [!NOTE]
-> This course has been written by [Mainmatter](https://mainmatter.com/rust-consulting/).\
-> It's one of the trainings in [our portfolio of Rust workshops](https://mainmatter.com/services/workshops/rust/).\
-> Check out our [landing page](https://mainmatter.com/rust-consulting/) if you're looking for Rust consulting or
-> training!
+> このコースは [Mainmatter](https://mainmatter.com/rust-consulting/) によって執筆されました。\
+> これは[私たちのRustワークショップのポートフォリオ](https://mainmatter.com/services/workshops/rust/)にあるトレーニングの1つです。\
+> Rustのコンサルティングやトレーニングをお探しの場合は、[ランディングページ](https://mainmatter.com/rust-consulting/)をご覧ください！
 
-## Getting started
+## はじめに
 
-Go to [rust-exercises.com](https://rust-exercises.com) and follow the instructions there
-to get started with the course.
+コースを始めるには、[rust-exercises.com](https://rust-exercises.com) にアクセスし、そこに記載されている手順に従ってください（日本語の教材本文は `book/src/` ディレクトリにあります）。
 
-## Requirements
+## 必要条件
 
-- **Rust** (follow instructions [here](https://www.rust-lang.org/tools/install)).\
-  If `rustup` is already installed on your system, run `rustup update` (or another appropriate command depending on how
-  you installed Rust on your system)
-  to make sure you're running on the latest stable version.
-- _(Optional but recommended)_ An IDE with Rust autocompletion support.
-  We recommend one of the following:
-  - [RustRover](https://www.jetbrains.com/rust/);
-  - [Visual Studio Code](https://code.visualstudio.com) with
-    the [`rust-analyzer`](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer) extension.
+- **Rust**（[こちら](https://www.rust-lang.org/tools/install)の手順に従ってインストールしてください）。\
+  すでにシステムに `rustup` がインストールされている場合は、`rustup update`（またはシステムへのRustのインストール方法に応じた適切なコマンド）を実行して、最新の安定版（stable）で動作していることを確認してください。
+- _（任意ですが推奨）_ Rustの自動補完をサポートするIDE。
+  以下のいずれかを推奨します：
+  - [RustRover](https://www.jetbrains.com/rust/)
+  - [Visual Studio Code](https://code.visualstudio.com) と [`rust-analyzer`](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer) 拡張機能の組み合わせ
 
-## Solutions
+## 解答
 
-You can find the solutions to the exercises in
-the [`solutions` branch](https://github.com/mainmatter/100-exercises-to-learn-rust/tree/solutions) of this repository.
+演習問題の解答は、原本リポジトリの [`solutions` ブランチ](https://github.com/mainmatter/100-exercises-to-learn-rust/tree/solutions) にあります。
 
-# License
+# ライセンス (License)
 
 Copyright © 2024- Mainmatter GmbH (https://mainmatter.com), released under the
 [PolyForm-Noncommercial-1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0).
 
-If you're planning to use this course internally at your company, please [reach out](mailto:training@mainmatter.com) for a license.
-We also offer this course as an [instructor-led workshop](https://mainmatter.com/training/learn-rust-starting-from-scratch/).
+本コースは [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0) の下で公開されています。
+
+社内でこのコースを使用することを検討されている場合は、ライセンスについて[お問い合わせ](mailto:training@mainmatter.com)ください。
+また、このコースは[講師主導のワークショップ](https://mainmatter.com/training/learn-rust-starting-from-scratch/)としても提供しています。

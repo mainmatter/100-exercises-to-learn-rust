@@ -1,15 +1,13 @@
-# `TryFrom` and `TryInto`
+# `TryFrom` と `TryInto`
 
-In the previous chapter we looked at the [`From` and `Into` traits](../04_traits/09_from.md),
-Rust's idiomatic interfaces for **infallible** type conversions.\
-But what if the conversion is not guaranteed to succeed?
+前の章では、**失敗しない (infallible)** 型変換のためのRustのイディオマティックなインターフェースである [`From` トレイトと `Into` トレイト](../04_traits/09_from.md)を見ました。\
+では、変換が成功する保証がない場合はどうすればよいでしょうか？
 
-We now know enough about errors to discuss the **fallible** counterparts of `From` and `Into`:
-`TryFrom` and `TryInto`.
+エラーについて十分な知識が得られたので、`From` と `Into` の**失敗する可能性のある (fallible)** 対応物である `TryFrom` と `TryInto` について説明しましょう。
 
-## `TryFrom` and `TryInto`
+## `TryFrom` と `TryInto`
 
-Both `TryFrom` and `TryInto` are defined in the `std::convert` module, just like `From` and `Into`.
+`TryFrom` と `TryInto` はどちらも、`From` や `Into` と同様に `std::convert` モジュールで定義されています。
 
 ```rust
 pub trait TryFrom<T>: Sized {
@@ -23,18 +21,17 @@ pub trait TryInto<T>: Sized {
 }
 ```
 
-The main difference between `From`/`Into` and `TryFrom`/`TryInto` is that the latter return a `Result` type.\
-This allows the conversion to fail, returning an error instead of panicking.
+`From`/`Into` と `TryFrom`/`TryInto` の主な違いは、後者が `Result` 型を返す点です。\
+これにより、変換が失敗する可能性を許容し、パニックする代わりにエラーを返すことができます。
 
 ## `Self::Error`
 
-Both `TryFrom` and `TryInto` have an associated `Error` type.
-This allows each implementation to specify its own error type, ideally the most appropriate for the conversion
-being attempted.
+`TryFrom` と `TryInto` はどちらも関連型 `Error` を持っています。
+これにより、各実装は独自のエラー型（理想的には、試みている変換に最も適したエラー型）を指定できます。
 
-`Self::Error` is a way to refer to the `Error` associated type defined in the trait itself.
+`Self::Error` は、トレイト自身で定義されている関連型 `Error` を参照するための書き方です。
 
-## Duality
+## 双対性 (Duality)
 
-Just like `From` and `Into`, `TryFrom` and `TryInto` are dual traits.\
-If you implement `TryFrom` for a type, you get `TryInto` for free.
+`From` と `Into` とまったく同じように、`TryFrom` と `TryInto` も双対のトレイトです。\
+ある型に対して `TryFrom` を実装すれば、自動的に `TryInto` も手に入ります。

@@ -1,7 +1,7 @@
-// TODO: Replace `todo!()`s with the correct implementation.
-//  Implement `IntoIterator` for `&TicketStore`. The iterator should yield immutable
-//  references to the tickets, ordered by their `TicketId`.
-//  Implement additional traits on `TicketId` if needed.
+// TODO: `todo!()` を正しい実装に置き換えてください。
+//  `&TicketStore` に対して `IntoIterator` を実装してください。イテレータは、`TicketId` 順に並べられた
+//  チケットへの不変参照を生成する必要があります。
+//  必要に応じて `TicketId` に追加のトレイトを実装してください。
 
 use std::collections::BTreeMap;
 use std::ops::{Index, IndexMut};

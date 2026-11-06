@@ -1,10 +1,10 @@
 use ticket_fields::{TicketDescription, TicketTitle};
 
-// TODO: Provide an `iter` method that returns an iterator over `&Ticket` items.
+// TODO: `&Ticket` アイテムに対するイテレータを返す `iter` メソッドを提供してください。
 //
-// Hint: just like in the previous exercise, you want to delegate the iteration to
-//   the `Vec<Ticket>` field in `TicketStore`. Look at the standard library documentation
-//   for `Vec` to find the right type to return from `iter`.
+// ヒント：前回の演習と同様に、反復処理を `TicketStore` 内の `Vec<Ticket>` フィールドに
+//   委譲しましょう。`iter` から返すべき正しい型を見つけるには、`Vec` の標準ライブラリドキュメントを
+//   確認してください。
 #[derive(Clone)]
 pub struct TicketStore {
     tickets: Vec<Ticket>,

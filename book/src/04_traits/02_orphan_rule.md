@@ -1,7 +1,6 @@
-# Implementing traits
+# トレイトの実装とオーファンルール
 
-When a type is defined in another crate (e.g. `u32`, from Rust's standard library), you
-can't directly define new methods for it. If you try:
+別のクレートで定義されている型（例えば、Rustの標準ライブラリの `u32`）に対して、直接新しいメソッドを定義することはできません。もし次のように試みると：
 
 ```rust
 impl u32 {
@@ -11,7 +10,7 @@ impl u32 {
 }
 ```
 
-the compiler will complain:
+コンパイラはエラーを出します：
 
 ```text
 error[E0390]: cannot define inherent `impl` for primitive types
@@ -22,33 +21,29 @@ error[E0390]: cannot define inherent `impl` for primitive types
   = help: consider using an extension trait instead
 ```
 
-## Extension trait
+## 拡張トレイト (Extension trait)
 
-An **extension trait** is a trait whose primary purpose is to attach new methods
-to foreign types, such as `u32`.
-That's exactly the pattern you deployed in the previous exercise, by defining
-the `IsEven` trait and then implementing it for `i32` and `u32`. You are then
-free to call `is_even` on those types as long as `IsEven` is in scope.
+**拡張トレイト (extension trait)** とは、`u32` のような外部の型（他のクレートで定義された型）に新しいメソッドを追加することを主な目的とするトレイトです。
+前回の演習で `IsEven` トレイトを定義し、それを `i32` と `u32` に実装したのが、まさにそのパターンです。`IsEven` がスコープ内にある限り、それらの型に対して自由に `is_even` を呼び出すことができます。
 
 ```rust
-// Bring the trait in scope
+// トレイトをスコープに持ち込む
 use my_library::IsEven;
 
 fn main() {
-    // Invoke its method on a type that implements it
+    // トレイトを実装している型に対してそのメソッドを呼び出す
     if 4.is_even() {
         // [...]
     }
 }
 ```
 
-## One implementation
+## 実装は1つだけ
 
-There are limitations to the trait implementations you can write.\
-The simplest and most straight-forward one: you can't implement the same trait twice,
-in a crate, for the same type.
+記述できるトレイト実装にはいくつかの制限があります。\
+最も単純でわかりやすい制限は、1つのクレート内で、同じ型に対して同じトレイトを2回実装することはできないというものです。
 
-For example:
+例えば：
 
 ```rust
 trait IsEven {
@@ -68,7 +63,7 @@ impl IsEven for u32 {
 }
 ```
 
-The compiler will reject it:
+コンパイラはこれを拒否します：
 
 ```text
 error[E0119]: conflicting implementations of trait `IsEven` for type `u32`
@@ -80,33 +75,30 @@ error[E0119]: conflicting implementations of trait `IsEven` for type `u32`
    | ^^^^^^^^^^^^^^^^^^^ conflicting implementation for `u32`
 ```
 
-There can be no ambiguity as to what trait implementation should be used when `IsEven::is_even`
-is invoked on a `u32` value, therefore there can only be one.
+`u32` の値に対して `IsEven::is_even` が呼び出されたとき、どのトレイト実装を使用すべきかについて曖昧さがあってはならないため、実装はただ1つしか存在できません。
 
-## Orphan rule
+## オーファンルール (Orphan rule)
 
-Things get more nuanced when multiple crates are involved.
-In particular, at least one of the following must be true:
+複数のクレートが関与する場合、事態はもう少し複雑になります。
+具体的には、少なくとも以下のいずれか一方が真でなければなりません：
 
-- The trait is defined in the current crate
-- The implementor type is defined in the current crate
+- トレイトが現在のクレートで定義されている
+- トレイトを実装する対象の型が現在のクレートで定義されている
 
-This is known as Rust's **orphan rule**. Its goal is to make the method resolution
-process unambiguous.
+これはRustの**オーファンルール (orphan rule / 孤児規則)** と呼ばれます。その目的は、メソッド解決のプロセスから曖昧さをなくすことです。
 
-Imagine the following situation:
+次のような状況を想像してみてください：
 
-- Crate `A` defines the `IsEven` trait
-- Crate `B` implements `IsEven` for `u32`
-- Crate `C` provides a (different) implementation of the `IsEven` trait for `u32`
-- Crate `D` depends on both `B` and `C` and calls `1.is_even()`
+- クレート `A` が `IsEven` トレイトを定義する
+- クレート `B` が `u32` に対して `IsEven` を実装する
+- クレート `C` が `u32` に対して `IsEven` トレイトの（異なる）実装を提供する
+- クレート `D` が `B` と `C` の両方に依存し、`1.is_even()` を呼び出す
 
-Which implementation should be used? The one defined in `B`? Or the one defined in `C`?\
-There's no good answer, therefore the orphan rule was defined to prevent this scenario.
-Thanks to the orphan rule, neither crate `B` nor crate `C` would compile.
+どの実装を使用すべきでしょうか？`B` で定義されたものでしょうか、それとも `C` で定義されたものでしょうか？\
+良い答えがないため、このシナリオを防ぐためにオーファンルールが定義されました。
+オーファンルールのおかげで、クレート `B` もクレート `C` もコンパイルできません。
 
-## Further reading
+## さらに詳しく知りたい方へ
 
-- There are some caveats and exceptions to the orphan rule as stated above.
-  Check out [the reference](https://doc.rust-lang.org/reference/items/implementations.html#trait-implementation-coherence)
-  if you want to get familiar with its nuances.
+- 上記で述べたオーファンルールには、いくつかの注意点や例外があります。
+  細かいニュアンスについて詳しく知りたい場合は、[リファレンス](https://doc.rust-lang.org/reference/items/implementations.html#trait-implementation-coherence)をチェックしてください。

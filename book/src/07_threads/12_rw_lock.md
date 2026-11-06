@@ -1,45 +1,40 @@
-# Readers and writers
+# リーダーとライター (`RwLock`)
 
-Our new `TicketStore` works, but its read performance is not great: there can only be one client at a time
-reading a specific ticket, because `Mutex<T>` doesn't distinguish between readers and writers.
+新しい `TicketStore` は機能しますが、読み取りのパフォーマンスはあまり良くありません。`Mutex<T>` はリーダー（読み取り側）とライター（書き込み側）を区別しないため、特定のチケットを読み取れるクライアントが一度に1つしか存在できないからです。
 
-We can solve the issue by using a different locking primitive: `RwLock<T>`.\
-`RwLock<T>` stands for **read-write lock**. It allows **multiple readers** to access the data simultaneously,
-but only one writer at a time.
+別のロックプリミティブである `RwLock<T>` を使用することで、この問題を解決できます。\
+`RwLock<T>` は **read-write lock（読み書きロック）** の略です。これは、**複数のリーダー**が同時にデータにアクセスすることを許可しますが、ライターは一度に1つしか許可しません。
 
-`RwLock<T>` has two methods to acquire a lock: `read` and `write`.\
-`read` returns a guard that allows you to read the data, while `write` returns a guard that allows you to modify it.
+`RwLock<T>` には、ロックを取得するための2つのメソッド、`read` と `write` があります。\
+`read` はデータの読み取りを許可するガードを返し、`write` はデータの変更を許可するガードを返します。
 
 ```rust
 use std::sync::RwLock;
 
-// An integer protected by a read-write lock
+// 読み書きロックによって保護された整数
 let lock = RwLock::new(0);
 
-// Acquire a read lock on the RwLock
+// RwLock の読み取りロックを取得する
 let guard1 = lock.read().unwrap();
 
-// Acquire a **second** read lock
-// while the first one is still active
+// 最初のロックがまだ有効な間に、
+// **2つ目の**読み取りロックを取得する
 let guard2 = lock.read().unwrap();
 ```
 
-## Trade-offs
+## トレードオフ
 
-On the surface, `RwLock<T>` seems like a no-brainer: it provides a superset of the functionality of `Mutex<T>`.
-Why would you ever use `Mutex<T>` if you can use `RwLock<T>` instead?
+表面上、`RwLock<T>` は迷う余地のない選択のように思えます。`Mutex<T>` の機能の上位互換（スーパーセット）を提供しているからです。
+もし代わりに `RwLock<T>` を使えるなら、なぜわざわざ `Mutex<T>` を使うことがあるのでしょうか？
 
-There are two key reasons:
+それには2つの重要な理由があります：
 
-- Locking a `RwLock<T>` is more expensive than locking a `Mutex<T>`.\
-  This is because `RwLock<T>` has to keep track of the number of active readers and writers, while `Mutex<T>`
-  only has to keep track of whether the lock is held or not.
-  This performance overhead is not an issue if there are more readers than writers, but if the workload
-  is write-heavy `Mutex<T>` might be a better choice.
-- `RwLock<T>` can cause **writer starvation**.\
-  If there are always readers waiting to acquire the lock, writers might never get a chance to run.\
-  `RwLock<T>` doesn't provide any guarantees about the order in which readers and writers are granted access to the lock.
-  It depends on the policy implemented by the underlying OS, which might not be fair to writers.
+- `RwLock<T>` のロック処理は、`Mutex<T>` のロック処理よりもコストが高い。\
+  これは、`Mutex<T>` がロックが保持されているかどうかだけを追跡すればよいのに対し、`RwLock<T>` はアクティブなリーダーとライターの数を追跡しなければならないためです。
+  ライターよりもリーダーの方が多い場合はこのパフォーマンスのオーバーヘッドは問題になりませんが、書き込み中心のワークロードである場合は `Mutex<T>` の方が適した選択になる可能性があります。
+- `RwLock<T>` は**ライターの飢餓状態 (writer starvation)** を引き起こす可能性がある。\
+  ロックの取得を待っているリーダーが常に存在する場合、ライターはいつまで経っても実行の機会を得られない可能性があります。\
+  `RwLock<T>` は、リーダーとライターにロックへのアクセス権が与えられる順序についていかなる保証も提供しません。
+  それは基盤となるOSが実装しているポリシーに依存しており、ライターに対して公平でない場合があるのです。
 
-In our case, we can expect the workload to be read-heavy (since most clients will be reading tickets, not modifying them),
-so `RwLock<T>` is a good choice.
+今回の私たちのケースでは、ワークロードは読み取り中心になると予想できるため（ほとんどのクライアントはチケットを変更するのではなく読み取るため）、`RwLock<T>` は良い選択です。

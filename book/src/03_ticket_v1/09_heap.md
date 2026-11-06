@@ -1,142 +1,122 @@
-# Heap
+# ヒープ (Heap)
 
-The stack is great, but it can't solve all our problems. What about data whose size is not known at compile time?
-Collections, strings, and other dynamically-sized data cannot be (entirely) stack-allocated.
-That's where the **heap** comes in.
+スタックは素晴らしいものですが、すべての問題を解決できるわけではありません。コンパイル時にサイズがわからないデータはどうすればよいでしょうか？
+コレクション、文字列、その他の動的なサイズを持つデータは、（完全には）スタックに割り当てることができません。
+そこで登場するのが**ヒープ (heap)** です。
 
-## Heap allocations
+## ヒープアロケーション (Heap allocations)
 
-You can visualize the heap as a big chunk of memory—a huge array, if you will.\
-Whenever you need to store data on the heap, you ask a special program, the **allocator**, to reserve for you
-a subset of the heap. We call this interaction (and the memory you reserved) a **heap allocation**.
-If the allocation succeeds, the allocator will give you a **pointer** to the start of the reserved block.
+ヒープは、大きなメモリの塊（言うなれば巨大な配列）としてイメージできます。\
+ヒープ上にデータを保存する必要があるときはいつでも、**アロケータ (allocator)** と呼ばれる特別なプログラムに頼んで、ヒープの一部を予約してもらいます。このやり取り（および予約したメモリ）を**ヒープアロケーション (heap allocation / ヒープ割り当て)** と呼びます。
+割り当てが成功すると、アロケータは予約されたブロックの先頭への**ポインタ (pointer)** を返してくれます。
 
-## No automatic de-allocation
+## 自動的なメモリ解放は行われない
 
-The heap is structured quite differently from the stack.\
-Heap allocations are not contiguous, they can be located anywhere inside the heap.
+ヒープの構造はスタックとはかなり異なります。\
+ヒープアロケーションは連続しておらず、ヒープ内のどこにでも配置される可能性があります。
 
-```
+```text
 +---+---+---+---+---+---+-...-+-...-+---+---+---+---+---+---+---+
-|  Allocation 1 | Free  | ... | ... |  Allocation N |    Free   |
+| アロケーション1 | 空き  | ... | ... | アロケーションN |   空き   |
 +---+---+---+---+---+---+ ... + ... +---+---+---+---+---+---+---+
 ```
 
-It's the allocator's job to keep track of which parts of the heap are in use and which are free.
-The allocator won't automatically free the memory you allocated, though: you need to be deliberate about it,
-calling the allocator again to **free** the memory you no longer need.
+ヒープのどの部分が使用中でどの部分が空いているかを追跡するのはアロケータの仕事です。
+ただし、アロケータが割り当てたメモリを自動的に解放してくれるわけではありません。意識的に、不要になったメモリを**解放 (free)** するために再度アロケータを呼び出す必要があります。
 
-## Performance
+## パフォーマンス
 
-The heap's flexibility comes at a cost: heap allocations are **slower** than stack allocations.
-There's a lot more bookkeeping involved!\
-If you read articles about performance optimization you'll often be advised to minimize heap allocations
-and prefer stack-allocated data whenever possible.
+ヒープの柔軟性には代償が伴います。ヒープアロケーションはスタックアロケーションよりも**低速**です。
+はるかに多くの管理処理（ブックキーピング）が伴うからです！\
+パフォーマンス最適化に関する記事を読むと、ヒープアロケーションを最小限に抑え、可能な限りスタックに割り当てられたデータを優先するようアドバイスされることがよくあります。
 
-## `String`'s memory layout
+## `String` のメモリレイアウト
 
-When you create a local variable of type `String`,
-Rust is forced to allocate on the heap[^empty]: it doesn't know in advance how much text you're going to put in it,
-so it can't reserve the right amount of space on the stack.\
-But a `String` is not _entirely_ heap-allocated, it also keeps some data on the stack. In particular:
+`String` 型のローカル変数を作成すると、Rustはヒープにメモリを割り当てざるを得ません[^empty]。どれだけのテキストを入れることになるか事前にはわからないため、スタック上に適切な量のスペースを予約できないからです。\
+しかし、`String` は*完全に*ヒープ上に割り当てられているわけではなく、一部のデータはスタック上にも保持しています。具体的には以下の3つです：
 
-- The **pointer** to the heap region you reserved.
-- The **length** of the string, i.e. how many bytes are in the string.
-- The **capacity** of the string, i.e. how many bytes have been reserved on the heap.
+- 予約したヒープ領域への**ポインタ (pointer)**。
+- 文字列の**長さ (length)**、つまり文字列内に何バイトあるか。
+- 文字列の**容量 (capacity)**、つまりヒープ上に何バイト予約されているか。
 
-Let's look at an example to understand this better:
+これをより良く理解するために、例を見てみましょう：
 
 ```rust
 let mut s = String::with_capacity(5);
 ```
 
-If you run this code, memory will be laid out like this:
+このコードを実行すると、メモリは次のように配置されます：
 
+```text
+         +---------+--------+----------+
+スタック | pointer | length | capacity | 
+         |  |      |   0    |    5     |
+         +--|------+--------+----------+
+            |
+            |
+            v
+         +---+---+---+---+---+
+ヒープ:  | ? | ? | ? | ? | ? |
+         +---+---+---+---+---+
 ```
-      +---------+--------+----------+
-Stack | pointer | length | capacity | 
-      |  |      |   0    |    5     |
-      +--|------+--------+----------+
-         |
-         |
-         v
-       +---+---+---+---+---+
-Heap:  | ? | ? | ? | ? | ? |
-       +---+---+---+---+---+
-```
 
-We asked for a `String` that can hold up to 5 bytes of text.\
-`String::with_capacity` goes to the allocator and asks for 5 bytes of heap memory. The allocator returns
-a pointer to the start of that memory block.\
-The `String` is empty, though. On the stack, we keep track of this information by distinguishing between
-the length and the capacity: this `String` can hold up to 5 bytes, but it currently holds 0 bytes of
-actual text.
+ここでは、最大5バイトのテキストを保持できる `String` を要求しました。\
+`String::with_capacity` はアロケータに行き、5バイトのヒープメモリを要求します。アロケータはそのメモリブロックの先頭へのポインタを返します。\
+ただし、`String` 自体は空です。スタック上では、長さと容量を区別することでこの情報を追跡します。この `String` は最大5バイトまで保持できますが、現在は実際のテキストを0バイト保持しています。
 
-If you push some text into the `String`, the situation will change:
+`String` にテキストを少し追加すると、状況が変わります：
 
 ```rust
 s.push_str("Hey");
 ```
 
-```
-      +---------+--------+----------+
-Stack | pointer | length | capacity |
-      |  |      |   3    |    5     |
-      +--|  ----+--------+----------+
-         |
-         |
-         v
-       +---+---+---+---+---+
-Heap:  | H | e | y | ? | ? |
-       +---+---+---+---+---+
+```text
+         +---------+--------+----------+
+スタック | pointer | length | capacity |
+         |  |      |   3    |    5     |
+         +--|  ----+--------+----------+
+            |
+            |
+            v
+         +---+---+---+---+---+
+ヒープ:  | H | e | y | ? | ? |
+         +---+---+---+---+---+
 ```
 
-`s` now holds 3 bytes of text. Its length is updated to 3, but capacity remains 5.
-Three of the five bytes on the heap are used to store the characters `H`, `e`, and `y`.
+`s` は現在3バイトのテキストを保持しています。その長さ (`length`) は 3 に更新されますが、容量 (`capacity`) は 5 のままです。
+ヒープ上の5バイトのうち3バイトが、文字 `H`、`e`、`y` を保存するために使用されています。
 
 ### `usize`
 
-How much space do we need to store pointer, length and capacity on the stack?\
-It depends on the **architecture** of the machine you're running on.
+ポインタ、長さ、容量をスタック上に保存するには、どれだけのスペースが必要でしょうか？\
+それは、プログラムを実行しているマシンの**アーキテクチャ**に依存します。
 
-Every memory location on your machine has an [**address**](https://en.wikipedia.org/wiki/Memory_address), commonly
-represented as an unsigned integer.
-Depending on the maximum size of the address space (i.e. how much memory your machine can address),
-this integer can have a different size. Most modern machines use either a 32-bit or a 64-bit address space.
+マシン上のすべてのメモリ位置には[**アドレス (address)**](https://en.wikipedia.org/wiki/Memory_address) があり、一般的に符号なし整数として表現されます。
+アドレス空間の最大サイズ（つまり、マシンがアドレス指定できるメモリの量）に応じて、この整数のサイズは異なります。現代のほとんどのマシンは、32ビットまたは64ビットのアドレス空間を使用しています。
 
-Rust abstracts away these architecture-specific details by providing the `usize` type:
-an unsigned integer that's as big as the number of bytes needed to address memory on your machine.
-On a 32-bit machine, `usize` is equivalent to `u32`. On a 64-bit machine, it matches `u64`.
+Rustは、`usize` 型を提供することで、これらのアーキテクチャ固有の詳細を抽象化しています。`usize` は、マシン上でメモリをアドレス指定するために必要なバイト数と同じ大きさの符号なし整数です。
+32ビットマシンでは、`usize` は `u32` と等価です。64ビットマシンでは、`u64` と一致します。
 
-Capacity, length and pointers are all represented as `usize`s in Rust[^equivalence].
+Rustでは、容量、長さ、ポインタはすべて `usize` として表現されます[^equivalence]。
 
-### No `std::mem::size_of` for the heap
+### ヒープに対する `std::mem::size_of` は存在しない
 
-`std::mem::size_of` returns the amount of space a type would take on the stack,
-which is also known as the **size of the type**.
+`std::mem::size_of` は、ある型がスタック上で占めるスペースの量を返します。これは**型のサイズ (size of the type)** とも呼ばれます。
 
-> What about the memory buffer that `String` is managing on the heap? Isn't that
-> part of the size of `String`?
+> `String` がヒープ上で管理しているメモリバッファはどうなるのでしょうか？それは `String` のサイズの一部ではないのですか？
 
-No!\
-That heap allocation is a **resource** that `String` is managing.
-It's not considered to be part of the `String` type by the compiler.
+違います！\
+そのヒープアロケーションは、`String` が管理している**リソース**です。
+コンパイラはそれを `String` 型の一部とはみなしません。
 
-`std::mem::size_of` doesn't know (or care) about additional heap-allocated data
-that a type might manage or refer to via pointers, as is the case with `String`,
-therefore it doesn't track its size.
+`std::mem::size_of` は、`String` のように型がポインタを介して管理または参照している可能性のある追加のヒープ割り当てデータについては関知しないため、そのサイズを追跡しません。
 
-Unfortunately there is no equivalent of `std::mem::size_of` to measure the amount of
-heap memory that a certain value is allocating at runtime. Some types might
-provide methods to inspect their heap usage (e.g. `String`'s `capacity` method),
-but there is no general-purpose "API" to retrieve runtime heap usage in Rust.\
-You can, however, use a memory profiler tool (e.g. [DHAT](https://valgrind.org/docs/manual/dh-manual.html)
-or [a custom allocator](https://docs.rs/dhat/latest/dhat/)) to inspect the heap usage of your program.
+残念ながら、特定の値が実行時に割り当てているヒープメモリの量を測定するための `std::mem::size_of` に相当するものは存在しません。一部の型はヒープ使用量を検査するためのメソッド（例：`String` の `capacity` メソッド）を提供している場合がありますが、Rustには実行時のヒープ使用量を取得する汎用的な「API」はありません。\
+ただし、メモリプロファイラツール（例：[DHAT](https://valgrind.org/docs/manual/dh-manual.html) や[カスタムアロケータ](https://docs.rs/dhat/latest/dhat/)）を使用して、プログラムのヒープ使用量を検査することは可能です。
 
-[^empty]: `std` doesn't allocate if you create an **empty** `String` (i.e. `String::new()`).
-Heap memory will be reserved when you push data into it for the first time.
+[^empty]: **空の** `String`（つまり `String::new()`）を作成した場合、`std` はヒープ割り当てを行いません。
+初めてデータをプッシュしたときにヒープメモリが予約されます。
 
-[^equivalence]: The size of a pointer depends on the operating system too.
-In certain environments, a pointer is **larger** than a memory address (e.g. [CHERI](https://web.archive.org/web/20240517051950/https://blog.acolyer.org/2019/05/28/cheri-abi/)).
-Rust makes the simplifying assumption that pointers are the same size as memory addresses,
-which is true for most modern systems you're likely to encounter.
+[^equivalence]: ポインタのサイズはオペレーティングシステムにも依存します。
+特定の環境では、ポインタはメモリアドレスよりも**大きく**なります（例：[CHERI](https://web.archive.org/web/20240517051950/https://blog.acolyer.org/2019/05/28/cheri-abi/)）。
+Rustは、ポインタがメモリアドレスと同じサイズであるという単純化の仮定を置いています。これは、私たちが遭遇する可能性の高い現代のほとんどのシステムにおいて成り立ちます。
