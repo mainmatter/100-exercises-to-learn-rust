@@ -85,7 +85,7 @@ numbers.push(2);
 
 ```text
          +---------+--------+----------+
-スタック | pointer | length | capacity | 
+スタック | pointer | length | capacity |
          |  |      |   2    |    3     |
          +--|------+--------+----------+
             |

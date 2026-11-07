@@ -53,8 +53,8 @@ note: an implementation of `PartialEq` might be missing for `Ticket`
 トレイト定義の構文は次のようになります：
 
 ```rust
-trait <トレイト名> {
-    fn <メソッド名>(<パラメータ>) -> <戻り値の型>;
+trait <TraitName> {
+    fn <method_name>(<parameters>) -> <return_type>;
 }
 ```
 
@@ -71,8 +71,8 @@ trait MaybeZero {
 型に対してトレイトを実装するには、通常の[^inherent]メソッドと同様に `impl` キーワードを使用しますが、構文が少し異なります：
 
 ```rust
-impl <トレイト名> for <型名> {
-    fn <メソッド名>(<パラメータ>) -> <戻り値の型> {
+impl <TraitName> for <TypeName> {
+    fn <method_name>(<parameters>) -> <return_type> {
         // メソッド本体
     }
 }

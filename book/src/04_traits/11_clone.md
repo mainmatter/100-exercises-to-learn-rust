@@ -59,7 +59,7 @@ fn example() {
 ```text
                       s
          +---------+--------+----------+
-スタック | pointer | length | capacity | 
+スタック | pointer | length | capacity |
          |  |      |   5    |    5     |
          +--|------+--------+----------+
             |

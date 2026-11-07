@@ -10,7 +10,7 @@
 一般的な構文は以下の通りです：
 
 ```rust
-for <要素> in <イテレータ> {
+for <element> in <iterator> {
     // 実行するコード
 }
 ```
